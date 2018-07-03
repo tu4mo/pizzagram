@@ -1,2 +1,1 @@
-# pizzagram
-pizzagram.cc
+# Pizzagram
