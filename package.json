@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "feather-icons": "^4.7.3",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
@@ -24,6 +25,7 @@
     "babel-jest": "^23.0.1",
     "lint-staged": "^6.0.0",
     "node-sass": "^4.9.0",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"
   },

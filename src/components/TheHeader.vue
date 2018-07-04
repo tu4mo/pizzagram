@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $color-light;
   display: flex;
   height: 4rem;
   justify-content: center;

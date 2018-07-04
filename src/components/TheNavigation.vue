@@ -1,19 +1,41 @@
 <template>
   <nav class="navigation">
-    <div>Home</div>
-    <div>Upload</div>
-    <div>Profile</div>
+    <NavItem
+      :to="{ name: 'home' }"
+      exact
+      icon="home"
+    >
+      Home
+    </NavItem>
+    <NavItem
+      :to="{ name: 'upload' }"
+      icon="camera"
+    >
+      Upload
+    </NavItem>
+    <NavItem
+      :to="{ name: 'profile' }"
+      icon="user"
+    >
+      Profile
+    </NavItem>
   </nav>
 </template>
 
 <script>
-export default {};
+import NavItem from "./NavItem";
+
+export default {
+  components: {
+    NavItem
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .navigation {
   align-items: center;
-  border-top: 1px solid #eee;
+  border-top: 1px solid $color-light;
   display: flex;
   height: 3.5rem;
   justify-content: space-around;
