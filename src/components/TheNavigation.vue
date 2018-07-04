@@ -35,6 +35,7 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   align-items: center;
+  background-color: #fff;
   border-top: 1px solid $color-light;
   display: flex;
   height: 3.5rem;

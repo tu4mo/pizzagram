@@ -22,6 +22,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
+  background-color: #fff;
   border-bottom: 1px solid $color-light;
   display: flex;
   height: 4rem;

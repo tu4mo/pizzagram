@@ -6,7 +6,7 @@
     <main class="default-layout__main">
       <slot />
     </main>
-    <div class="default-layout__footer">
+    <div class="default-layout__navigation">
       <TheNavigation />
     </div>
   </div>
@@ -26,28 +26,29 @@ export default {
 
 <style lang="scss" scoped>
 .default-layout {
+  background-color: #fff;
+
   &__header {
     left: 0;
     position: fixed;
     right: 0;
     top: 0;
+    z-index: $z-header;
   }
 
   &__main {
-    bottom: 3.5rem;
-    left: 0;
-    overflow: auto;
-    position: fixed;
-    right: 0;
-    top: 4rem;
-    -webkit-overflow-scrolling: touch;
+    margin-bottom: 3.5rem;
+    margin-top: 4rem;
+    min-height: calc(100vh - 7.5rem);
+    position: relative;
   }
 
-  &__footer {
+  &__navigation {
     bottom: 0;
     left: 0;
     position: fixed;
     right: 0;
+    z-index: $z-navigation;
   }
 }
 </style>
