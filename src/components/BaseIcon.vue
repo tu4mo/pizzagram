@@ -1,6 +1,6 @@
 <template>
   <div
-    class="base-icon"
+    class="icon"
     v-html="$data[name]"
   />
 </template>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-icon {
+.icon {
   /deep/ svg {
     display: block;
   }

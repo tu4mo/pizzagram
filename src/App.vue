@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <keep-alive>
+    <router-view />
+  </keep-alive>
 </template>
 
 <style lang="scss">
@@ -7,6 +9,10 @@ html {
   font-family: "Comfortaa", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-size: 0.75rem;
 }
 
 *,
