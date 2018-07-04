@@ -1,25 +1,25 @@
 <template>
   <div class="default-layout">
     <div class="default-layout__header">
-      <Header />
+      <TheHeader />
     </div>
     <main class="default-layout__main">
       <slot />
     </main>
     <div class="default-layout__footer">
-      <Navigation />
+      <TheNavigation />
     </div>
   </div>
 </template>
 
 <script>
-import Header from "@/components/Header";
-import Navigation from "@/components/Navigation";
+import TheHeader from "@/components/TheHeader";
+import TheNavigation from "@/components/TheNavigation";
 
 export default {
   components: {
-    Header,
-    Navigation
+    TheHeader,
+    TheNavigation
   }
 };
 </script>
