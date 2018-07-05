@@ -7,12 +7,7 @@
     >
       Home
     </NavItem>
-    <NavItem
-      :to="{ name: 'upload' }"
-      icon="camera"
-    >
-      Upload
-    </NavItem>
+    <TheCamera />
     <NavItem
       :to="{ name: 'profile' }"
       icon="user"
@@ -24,10 +19,12 @@
 
 <script>
 import NavItem from "./NavItem";
+import TheCamera from "./TheCamera";
 
 export default {
   components: {
-    NavItem
+    NavItem,
+    TheCamera
   }
 };
 </script>

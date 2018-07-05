@@ -33,7 +33,7 @@ export default new Router({
       component: SignUp
     },
     {
-      path: "/upload",
+      path: "/upload/:id",
       name: "upload",
       component: Upload
     }

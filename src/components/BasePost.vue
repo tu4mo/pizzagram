@@ -14,23 +14,21 @@
         {{ createdDate }}
       </div>
     </header>
-    <figure class="post__content">
-      <img
-        :src="imageUrl"
-        class="post__image"
-      >
-      <figcaption
-        v-if="caption"
-        class="post__caption"
-      >
-        {{ caption }}
-      </figcaption>
-    </figure>
+    <PostImage
+      :caption="caption"
+      :image-url="imageUrl"
+      class="post__image"
+    />
   </article>
 </template>
 
 <script>
+import PostImage from "./PostImage";
+
 export default {
+  components: {
+    PostImage
+  },
   props: {
     caption: {
       default: "",
@@ -86,19 +84,7 @@ export default {
     color: $color-purple-light;
   }
 
-  &__content {
-    margin-top: 0.5rem;
-  }
-
   &__image {
-    border-radius: 1rem;
-    display: block;
-    height: auto;
-    width: 100%;
-  }
-
-  &__caption {
-    color: $color-purple-light;
     margin-top: 0.5rem;
   }
 }
