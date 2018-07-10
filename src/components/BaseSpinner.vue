@@ -1,11 +1,22 @@
 <template>
-  <div class="spinner">
+  <div :class="['spinner', { 'spinner--cover': cover }]">
     <div class="spinner__rotate">
       <div class="spinner__pepperoni-1" />
       <div class="spinner__pepperoni-2" />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    cover: {
+      default: false,
+      type: Boolean
+    }
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .spinner {
@@ -17,6 +28,10 @@
   position: absolute;
   right: 0;
   top: 0;
+
+  &--cover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 
   &__rotate {
     animation: sk-rotate 1s infinite linear;

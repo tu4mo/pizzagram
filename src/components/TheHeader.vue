@@ -1,20 +1,15 @@
 <template>
   <header class="header">
-    <img
-      :src="pizzagram"
-      class="header__logo"
-    >
+    <TheLogo class="header__logo" />
   </header>
 </template>
 
 <script>
-import pizzagram from "@/assets/pizzagram.png";
+import TheLogo from "./TheLogo";
 
 export default {
-  data() {
-    return {
-      pizzagram
-    };
+  components: {
+    TheLogo
   }
 };
 </script>
