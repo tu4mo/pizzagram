@@ -9,12 +9,13 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.7.0",
     "firebase-admin": "~5.12.1",
-    "firebase-functions": "^1.0.3"
+    "firebase-functions": "^1.0.3",
+    "sharp": "^0.20.5"
   },
   "devDependencies": {
-    "eslint": "^4.12.0",
-    "eslint-plugin-promise": "^3.6.0"
+    "firebase-tools": "^3.19.3"
   },
   "private": true
 }
