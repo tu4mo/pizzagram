@@ -1,0 +1,15 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/icon-64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    }
+  ],
+  "name": "Pizzagram",
+  "orientation": "portrait",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}
