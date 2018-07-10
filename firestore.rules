@@ -1,8 +1,9 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /posts/{postId} {
-      allow read, create;
-      allow update, delete: if request.auth.uid == resource.data.user.uid;
+      allow create;
+      allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;
+      allow update, delete: if request.auth.uid == resource.data.userId;
     }
     match /users/{userId} {
       allow read;

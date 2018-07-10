@@ -7,7 +7,34 @@ import LogIn from "./views/LogIn.vue";
 import SignUp from "./views/SignUp.vue";
 import Upload from "./views/Upload.vue";
 
+import { initializeAuth } from "./firebase";
+import store from "./store";
+
 Vue.use(Router);
+
+let firstCheck = true;
+
+const checkAutentication = async (to, from, next) => {
+  if (firstCheck) {
+    firstCheck = false;
+
+    const user = await initializeAuth;
+
+    if (user) {
+      next();
+    } else {
+      next({ name: "login" });
+    }
+
+    return;
+  }
+
+  if (!store.state.isAuthenticated) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
+};
 
 export default new Router({
   mode: "history",
@@ -15,12 +42,14 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      beforeEnter: checkAutentication
     },
     {
       path: "/profile",
       name: "profile",
-      component: Profile
+      component: Profile,
+      beforeEnter: checkAutentication
     },
     {
       path: "/login",
@@ -35,7 +64,8 @@ export default new Router({
     {
       path: "/upload/:id",
       name: "upload",
-      component: Upload
+      component: Upload,
+      beforeEnter: checkAutentication
     }
   ]
 });

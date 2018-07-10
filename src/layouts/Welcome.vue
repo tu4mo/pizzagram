@@ -1,13 +1,11 @@
 <template>
-  <div>
-    Welcome
+  <div class="welcome-layout">
     <slot />
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss" scoped>
+.welcome-layout {
+  margin: 2rem;
+}
 </style>

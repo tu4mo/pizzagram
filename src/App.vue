@@ -4,6 +4,7 @@
 
 <style lang="scss">
 html {
+  box-sizing: border-box;
   font-family: "Comfortaa", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,6 +18,8 @@ body {
 *::before,
 *::after {
   box-sizing: inherit;
+  font-family: inherit;
+  font-size: inherit;
   margin: 0;
   padding: 0;
 }

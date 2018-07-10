@@ -49,7 +49,6 @@ export default {
 <style lang="scss" scoped>
 .home {
   margin: 0 auto;
-  max-width: 640px;
   padding: 2rem;
   position: relative;
 

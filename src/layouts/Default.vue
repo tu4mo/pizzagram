@@ -37,8 +37,10 @@ export default {
   }
 
   &__main {
+    margin: 0 auto;
     margin-bottom: 3.5rem;
     margin-top: 4rem;
+    max-width: 640px;
     min-height: calc(100vh - 7.5rem);
     position: relative;
   }
