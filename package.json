@@ -12,6 +12,7 @@
   "dependencies": {
     "feather-icons": "^4.7.3",
     "firebase": "^5.2.0",
+    "md5": "^2.2.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

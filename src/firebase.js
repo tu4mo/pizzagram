@@ -74,9 +74,7 @@ export const getUser = async id => {
 
   const data = docRef.data();
 
-  return {
-    username: data.username
-  };
+  return data;
 };
 
 export const createPost = async file => {
