@@ -1,9 +1,11 @@
 <template>
   <figure class="post-image">
-    <img
-      :src="imageUrl"
-      class="post-image__image"
-    >
+    <div class="post-image__container">
+      <div
+        :style="{ backgroundImage: `url(${imageUrl})` }"
+        class="post-image__image"
+      />
+    </div>
     <figcaption
       v-if="caption"
       class="post-image__caption"
@@ -30,11 +32,28 @@ export default {
 
 <style lang="scss" scoped>
 .post-image {
+  &__container {
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+  }
+
   &__image {
+    background-position: 50% 50%;
+    background-size: cover;
     border-radius: 1rem;
+    bottom: 0;
     display: block;
     height: auto;
-    width: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   &__caption {
