@@ -4,7 +4,10 @@
       v-if="isLoading"
       cover
     />
-    <form @submit.prevent="submit">
+    <form
+      class="login"
+      @submit.prevent="submit"
+    >
       <BaseSpacer mb1>
         <BaseInput
           v-model="email"
@@ -61,3 +64,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.login {
+  margin: 0 auto;
+  max-width: 640px;
+  width: 100%;
+}
+</style>
