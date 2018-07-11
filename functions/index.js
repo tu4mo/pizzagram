@@ -9,11 +9,6 @@ const sharp = require("sharp");
 
 const SIZES = [128, 1024];
 
-const isResizedImage = filename =>
-  SIZES.map(size => filename.endsWith(`_${size}.jpg`)).some(
-    endsWith => endsWith
-  );
-
 const resizeImage = (object, size) => {
   const fileBucket = object.bucket;
   const filePath = object.name;
@@ -24,8 +19,7 @@ const resizeImage = (object, size) => {
     return null;
   }
 
-  const { base, name } = path.parse(filePath);
-  if (isResizedImage(base)) {
+  if (object.metadata && object.metadata.resized) {
     console.log("Already resized.");
     return null;
   }
@@ -33,10 +27,13 @@ const resizeImage = (object, size) => {
   const bucket = gcs.bucket(fileBucket);
 
   const metadata = {
-    contentType: contentType
+    contentType: contentType,
+    metadata: { resized: true }
   };
 
-  const resizedFileName = `${name}_${size}.jpg`;
+  const { name } = path.parse(filePath);
+  const resizedFileName = size === 128 ? `${name}_${size}.jpg` : `${name}.jpg`;
+
   const resizedFilePath = path.join(path.dirname(filePath), resizedFileName);
 
   const resizedUploadStream = bucket
@@ -66,16 +63,8 @@ const resizeImage = (object, size) => {
   });
 };
 
-exports.generateResizedImages = functions.storage.object().onFinalize(object =>
-  Promise.all(SIZES.map(size => resizeImage(object, size))).then(() => {
-    if (!isResizedImage(object.name)) {
-      return gcs
-        .bucket(object.bucket)
-        .file(object.name)
-        .delete()
-        .then(() => {
-          console.log("Original image deleted.");
-        });
-    }
-  })
-);
+exports.generateResizedImages = functions.storage
+  .object()
+  .onFinalize(object =>
+    Promise.all(SIZES.map(size => resizeImage(object, size)))
+  );
