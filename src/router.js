@@ -62,7 +62,7 @@ export default new Router({
       component: SignUp
     },
     {
-      path: "/upload/:id",
+      path: "/upload/:id?",
       name: "upload",
       component: Upload,
       beforeEnter: checkAutentication

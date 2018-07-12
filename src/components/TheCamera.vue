@@ -1,11 +1,12 @@
 <template>
-  <div class="camera">
+  <div :class="['camera', { 'camera--active': $route.name === 'upload' }]">
     <label>
       <input
         accept="image/*; capture=camera"
         class="camera__input"
         type="file"
         @change="onChange"
+        @click="$router.push({ name: 'upload' })"
       >
       <BaseIcon name="camera" />
     </label>
@@ -24,6 +25,7 @@ export default {
   methods: {
     async onChange(event) {
       if (event.target.files[0]) {
+        this.$router.push({ name: "upload", query: { uploading: null } });
         const id = await createPost(event.target.files[0]);
         this.$router.push({ name: "upload", params: { id } });
       }
@@ -35,6 +37,10 @@ export default {
 <style lang="scss" scoped>
 .camera {
   position: relative;
+
+  &--active {
+    color: $color-pink;
+  }
 
   &__input {
     width: 0.1px;

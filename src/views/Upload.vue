@@ -1,22 +1,30 @@
 <template>
   <DefaultLayout>
-    <BaseSpinner v-if="isLoading" />
-    <div
-      v-else
-      class="upload"
-    >
-      <BaseSpacer mb1>
-        <PostImage
-          :image-url="post.imageUrl"
-        />
-      </BaseSpacer>
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model="caption"
-          placeholder="Caption"
-        />
-      </BaseSpacer>
-      <BaseButton @click="onShareClick">Share</BaseButton>
+    <div class="upload">
+      <BaseSpinner v-if="isLoading || 'uploading' in $route.query" />
+      <div
+        v-else-if="!$route.params.id"
+        class="upload__info"
+      >
+        Use the Camera icon to upload a photo
+      </div>
+      <div
+        v-else
+        class="upload__form"
+      >
+        <BaseSpacer mb1>
+          <PostImage
+            :image-url="post.imageUrl"
+          />
+        </BaseSpacer>
+        <BaseSpacer mb1>
+          <BaseInput
+            v-model="caption"
+            placeholder="Caption"
+          />
+        </BaseSpacer>
+        <BaseButton @click="onShareClick">Share</BaseButton>
+      </div>
     </div>
   </DefaultLayout>
 </template>
@@ -44,15 +52,24 @@ export default {
   data() {
     return {
       caption: "",
-      isLoading: true,
+      isLoading: false,
       post: null
     };
   },
   created() {
-    this.fetchPost(this.$route.params.id);
+    const { id } = this.$route.params;
+
+    if (id) {
+      this.fetchPost(id);
+    }
   },
   beforeRouteUpdate(to, from, next) {
-    this.fetchPost(to.params.id);
+    const { id } = to.params;
+
+    if (id) {
+      this.fetchPost(id);
+    }
+
     next();
   },
   methods: {
@@ -74,5 +91,18 @@ export default {
 <style lang="scss" scoped>
 .upload {
   padding: 2rem;
+
+  &__info {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    padding: 2rem;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+  }
 }
 </style>
