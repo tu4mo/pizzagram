@@ -1,8 +1,11 @@
 service firebase.storage {
   match /b/{bucket}/o {
     match /user/{userId}/{allPaths=**} {
+      // Everyone can read (get, list)
       allow read;
-      allow write: if request.auth.uid == userId && request.resource.contentType.matches('image/.*');
+
+      // Images can only be created
+      allow create: if request.auth.uid == userId && request.resource.contentType.matches('image/.*');
     }
   }
 }
