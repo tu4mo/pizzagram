@@ -38,5 +38,6 @@ export default {
   text-align: center;
   text-decoration: none;
   width: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 </style>

@@ -36,6 +36,7 @@ export default {
 <style lang="scss" scoped>
 .nav-item {
   color: $color-purple;
+  -webkit-tap-highlight-color: transparent;
 
   &--active {
     color: $color-pink;
