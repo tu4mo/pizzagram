@@ -5,6 +5,7 @@
     </div>
     <main class="default-layout__main">
       <slot />
+      <div class="default-layout__spacer" />
     </main>
     <div class="default-layout__navigation">
       <TheNavigation />
@@ -43,6 +44,10 @@ export default {
     max-width: 640px;
     min-height: calc(100vh - 7.5rem);
     position: relative;
+  }
+
+  &__spacer {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   &__navigation {
