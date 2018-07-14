@@ -1,9 +1,14 @@
 <template>
-  <img
-    :src="pizzagram"
-    alt="Pizzagram"
+  <router-link
+    :to="{ name: 'home' }"
     class="logo"
   >
+    <img
+      :src="pizzagram"
+      alt="Pizzagram"
+      class="logo__image"
+    >
+  </router-link>
 </template>
 
 <script>
@@ -21,6 +26,12 @@ export default {
 <style lang="scss" scoped>
 .logo {
   display: block;
-  max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+
+  &__image {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+  }
 }
 </style>

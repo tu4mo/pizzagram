@@ -1,16 +1,18 @@
 <template>
   <div class="welcome-layout">
-    <TheLogo class="welcome-layout__logo" />
+    <div class="welcome-layout__header">
+      <TheHeader />
+    </div>
     <slot />
   </div>
 </template>
 
 <script>
-import TheLogo from "@/components/TheLogo";
+import TheHeader from "@/components/TheHeader";
 
 export default {
   components: {
-    TheLogo
+    TheHeader
   }
 };
 </script>
@@ -27,10 +29,12 @@ export default {
   right: 0;
   top: 0;
 
-  &__logo {
-    height: 2.5rem;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+  &__header {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: $z-header;
   }
 }
 </style>
