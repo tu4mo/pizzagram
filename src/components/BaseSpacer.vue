@@ -10,6 +10,10 @@ export default {
     mb1: {
       default: false,
       type: Boolean
+    },
+    my1: {
+      default: false,
+      type: Boolean
     }
   },
   computed: {
@@ -17,7 +21,8 @@ export default {
       return [
         "spacer",
         {
-          "spacer--mb1": this.mb1
+          "spacer--mb1": this.mb1,
+          "spacer--my1": this.my1
         }
       ];
     }
@@ -29,6 +34,11 @@ export default {
 .spacer {
   &--mb1 {
     margin-bottom: 1rem;
+  }
+
+  &--my1 {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 }
 </style>

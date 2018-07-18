@@ -3,12 +3,12 @@ service cloud.firestore {
     match /posts/{postId} {
       allow create;
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;
-      allow update, delete: if request.auth.uid == resource.data.userId;
+      allow update: if resource.data.published == false && request.auth.uid == resource.data.userId;
     }
-    match /users/{userId} {
+    match /users/{user} {
       allow read;
-      allow update, delete: if request.auth.uid == userId;
-      allow create: if request.auth.uid != null;
+      allow update: if resource.data.uid == null;
+      allow create: if request.auth == null;
     }
   }
 }

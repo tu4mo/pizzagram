@@ -18,7 +18,7 @@ const checkAutentication = async (to, from, next) => {
   if (firstCheck) {
     firstCheck = false;
 
-    const user = await initializeAuth;
+    const user = await initializeAuth();
 
     if (user) {
       next();

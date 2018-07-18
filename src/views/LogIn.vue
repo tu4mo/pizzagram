@@ -10,8 +10,9 @@
     >
       <BaseSpacer mb1>
         <BaseInput
-          v-model="email"
+          v-model.trim="email"
           placeholder="E-mail"
+          type="email"
         />
       </BaseSpacer>
       <BaseSpacer mb1>
@@ -25,6 +26,15 @@
         type="submit"
       >
         Log In
+      </BaseButton>
+      <BaseSpacer my1>
+        <p>Don't have an account?</p>
+      </BaseSpacer>
+      <BaseButton
+        :to="{ name: 'signup' }"
+        component="router-link"
+      >
+        Sign Up
       </BaseButton>
     </form>
   </WelcomeLayout>
@@ -69,6 +79,7 @@ export default {
 .login {
   margin: 0 auto;
   max-width: 640px;
+  text-align: center;
   width: 100%;
 }
 </style>

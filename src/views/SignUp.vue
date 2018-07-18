@@ -1,18 +1,92 @@
 <template>
   <WelcomeLayout>
-    Sign Up
+    <BaseSpinner
+      v-if="isLoading"
+      cover
+    />
+    <form
+      class="signup"
+      @submit.prevent="submit"
+    >
+      <BaseSpacer mb1>
+        <BaseInput
+          v-model.trim="username"
+          placeholder="Username"
+        />
+      </BaseSpacer>
+      <BaseSpacer mb1>
+        <BaseInput
+          v-model.trim="email"
+          placeholder="E-mail"
+          type="email"
+        />
+      </BaseSpacer>
+      <BaseSpacer mb1>
+        <BaseInput
+          v-model="password"
+          placeholder="Password"
+          type="password"
+        />
+      </BaseSpacer>
+      <BaseButton
+        type="submit"
+      >
+        Sign Up
+      </BaseButton>
+      <BaseSpacer my1>
+        <p>Already have an account?</p>
+      </BaseSpacer>
+      <BaseButton
+        :to="{ name: 'login' }"
+        component="router-link"
+      >
+        Log In
+      </BaseButton>
+    </form>
   </WelcomeLayout>
 </template>
 
 <script>
 import WelcomeLayout from "@/layouts/Welcome";
 
+import BaseButton from "@/components/BaseButton";
+import BaseInput from "@/components/BaseInput";
+import BaseSpacer from "@/components/BaseSpacer";
+import BaseSpinner from "@/components/BaseSpinner";
+
+import { signUp } from "@/firebase";
+
 export default {
   components: {
+    BaseButton,
+    BaseInput,
+    BaseSpacer,
+    BaseSpinner,
     WelcomeLayout
+  },
+  data() {
+    return {
+      email: "",
+      isLoading: false,
+      password: "",
+      username: ""
+    };
+  },
+  methods: {
+    async submit() {
+      this.isLoading = true;
+      await signUp(this.username, this.email, this.password);
+      this.$router.push({ name: "home" });
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.signup {
+  margin: 0 auto;
+  max-width: 640px;
+  text-align: center;
+  width: 100%;
+}
 </style>

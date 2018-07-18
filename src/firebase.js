@@ -3,6 +3,8 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 
+import md5 from "md5";
+
 export default firebase.initializeApp({
   apiKey: "AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg",
   authDomain: "pizzagram-cc.firebaseapp.com",
@@ -18,11 +20,12 @@ firestore.settings({ timestampsInSnapshots: true });
 const storage = firebase.storage();
 const storageRef = storage.ref().child("user");
 
-export const initializeAuth = new Promise(resolve => {
-  firebase.auth().onAuthStateChanged(user => {
-    resolve(user);
+export const initializeAuth = () =>
+  new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(user => {
+      resolve(user);
+    });
   });
-});
 
 export const getPosts = async () => {
   const posts = [];
@@ -113,7 +116,21 @@ export const sharePost = async (id, caption) => {
 };
 
 export const signUp = async (username, email, password) => {
+  const userDoc = firestore.collection("users").doc(username);
+
+  await userDoc.set({
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    uid: null
+  });
+
   await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+  const gravatar = md5(email.toLowerCase());
+
+  await userDoc.update({
+    gravatar,
+    uid: firebase.auth().currentUser.uid
+  });
 };
 
 export const signIn = async (email, password) => {

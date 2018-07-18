@@ -12,7 +12,7 @@
         :image-url="post.imageUrl"
         :key="post.id"
         :username="post.user.username"
-        :profile-url="profileUrl(post.user.email)"
+        :profile-url="`https://www.gravatar.com/avatar/${post.user.gravatar}?d=identicon`"
         class="home__base-post"
       />
     </div>
@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import md5 from "md5";
-
 import DefaultLayout from "@/layouts/Default";
 
 import BasePost from "@/components/BasePost";
@@ -44,13 +42,6 @@ export default {
   async created() {
     this.posts = await getPosts();
     this.isLoading = false;
-  },
-  methods: {
-    profileUrl(email) {
-      return `https://www.gravatar.com/avatar/${md5(
-        email.toLowerCase()
-      )}?d=identicon`;
-    }
   }
 };
 </script>
