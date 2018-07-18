@@ -7,7 +7,7 @@ service cloud.firestore {
     }
     match /users/{user} {
       allow read;
-      allow update: if resource.data.uid == null;
+      allow update: if resource.data.id == null;
       allow create: if request.auth == null;
     }
   }

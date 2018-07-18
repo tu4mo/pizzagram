@@ -70,14 +70,22 @@ export const getPost = async id => {
 };
 
 export const getUser = async id => {
-  const docRef = await firestore
+  const querySnapshot = await firestore
     .collection("users")
-    .doc(id)
+    .where("id", "==", id)
+    .limit(1)
     .get();
 
-  const data = docRef.data();
+  let user;
 
-  return data;
+  querySnapshot.forEach(async doc => {
+    user = {
+      ...doc.data(),
+      username: doc.id
+    };
+  });
+
+  return user;
 };
 
 export const createPost = async file => {
@@ -119,7 +127,7 @@ export const signUp = async (username, email, password) => {
 
   await userDoc.set({
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    uid: null
+    id: null
   });
 
   await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -128,7 +136,7 @@ export const signUp = async (username, email, password) => {
 
   await userDoc.update({
     gravatar,
-    uid: firebase.auth().currentUser.uid
+    id: firebase.auth().currentUser.uid
   });
 };
 
