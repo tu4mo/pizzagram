@@ -29,6 +29,7 @@
         />
       </BaseSpacer>
       <BaseButton
+        :disabled="!username || !email || !password"
         type="submit"
       >
         Sign Up
@@ -67,6 +68,7 @@ export default {
   data() {
     return {
       email: "",
+      error: "",
       isLoading: false,
       password: "",
       username: ""
@@ -74,9 +76,17 @@ export default {
   },
   methods: {
     async submit() {
+      this.error = "";
       this.isLoading = true;
-      await signUp(this.username, this.email, this.password);
-      this.$router.push({ name: "home" });
+
+      try {
+        await signUp(this.username, this.email, this.password);
+        this.$router.push({ name: "home" });
+      } catch (error) {
+        this.error = "Unable to sign up.";
+      }
+
+      this.isLoading = false;
     }
   }
 };

@@ -39,5 +39,9 @@ export default {
   text-decoration: none;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 </style>

@@ -23,6 +23,7 @@
         />
       </BaseSpacer>
       <BaseButton
+        :disabled="!email || !password"
         type="submit"
       >
         Log In
@@ -61,15 +62,24 @@ export default {
   data() {
     return {
       email: "",
+      error: "",
       isLoading: false,
       password: ""
     };
   },
   methods: {
     async submit() {
+      this.error = "";
       this.isLoading = true;
-      await signIn(this.email, this.password);
-      this.$router.push({ name: "home" });
+
+      try {
+        await signIn(this.email, this.password);
+        this.$router.push({ name: "home" });
+      } catch (error) {
+        this.error = "Unable to sign in.";
+      }
+
+      this.isLoading = false;
     }
   }
 };
