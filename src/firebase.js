@@ -18,7 +18,7 @@ const firestore = firebase.firestore();
 firestore.settings({ timestampsInSnapshots: true });
 
 const storage = firebase.storage();
-const storageRef = storage.ref().child("user");
+const storageRef = storage.ref();
 
 export const initializeAuth = () =>
   new Promise(resolve => {
@@ -98,7 +98,6 @@ export const createPost = async file => {
 
 export const uploadFile = async (file, id) => {
   const uploadTask = storageRef
-    .child(firebase.auth().currentUser.uid)
     .child("posts")
     .child(`${id}.jpg`)
     .put(file);
