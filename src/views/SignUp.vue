@@ -35,14 +35,11 @@
         Sign Up
       </BaseButton>
       <BaseSpacer my1>
-        <p>Already have an account?</p>
+        <p>
+          Already have an account?
+          <BaseLink :to="{ name: 'login' }">Log In</BaseLink>
+        </p>
       </BaseSpacer>
-      <BaseButton
-        :to="{ name: 'login' }"
-        component="router-link"
-      >
-        Log In
-      </BaseButton>
     </form>
   </WelcomeLayout>
 </template>
@@ -52,6 +49,7 @@ import WelcomeLayout from "@/layouts/Welcome";
 
 import BaseButton from "@/components/BaseButton";
 import BaseInput from "@/components/BaseInput";
+import BaseLink from "@/components/BaseLink";
 import BaseSpacer from "@/components/BaseSpacer";
 import BaseSpinner from "@/components/BaseSpinner";
 
@@ -61,6 +59,7 @@ export default {
   components: {
     BaseButton,
     BaseInput,
+    BaseLink,
     BaseSpacer,
     BaseSpinner,
     WelcomeLayout
