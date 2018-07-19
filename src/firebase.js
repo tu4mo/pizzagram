@@ -20,6 +20,8 @@ firestore.settings({ timestampsInSnapshots: true });
 const storage = firebase.storage();
 const storageRef = storage.ref();
 
+const usersCache = {};
+
 export const initializeAuth = () =>
   new Promise(resolve => {
     firebase.auth().onAuthStateChanged(user => {
@@ -27,17 +29,21 @@ export const initializeAuth = () =>
     });
   });
 
-export const getPosts = async () => {
+export const getPosts = async userId => {
   const posts = [];
-  const usersCache = {};
 
-  const querySnapshot = await firestore
+  let query = firestore
     .collection("posts")
     .orderBy("createdAt", "desc")
-    .where("published", "==", true)
-    .get();
+    .where("published", "==", true);
 
-  querySnapshot.forEach(async doc => {
+  if (userId) {
+    query = query.where("userId", "==", userId);
+  }
+
+  const querySnapshot = await query.get();
+
+  for (const doc of querySnapshot.docs) {
     const docData = doc.data();
 
     if (!usersCache[docData.userId]) {
@@ -51,7 +57,7 @@ export const getPosts = async () => {
       createdAt: docData.createdAt.toDate(),
       user: usersCache[docData.userId]
     });
-  });
+  }
 
   return posts;
 };
@@ -86,6 +92,17 @@ export const getUser = async id => {
   });
 
   return user;
+};
+
+export const getMe = async () => getUser(firebase.auth().currentUser.uid);
+
+export const getUserByUsername = async username => {
+  const docRef = await firestore
+    .collection("users")
+    .doc(username)
+    .get();
+
+  return { ...docRef.data(), username: docRef.id };
 };
 
 export const createPost = async file => {

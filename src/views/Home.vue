@@ -9,10 +9,10 @@
         v-for="post in posts"
         :caption="post.caption"
         :created-at="post.createdAt"
+        :gravatar="post.user.gravatar"
         :image-url="post.imageUrl"
         :key="post.id"
         :username="post.user.username"
-        :profile-url="`https://www.gravatar.com/avatar/${post.user.gravatar}?d=identicon`"
         class="home__base-post"
       />
     </div>
@@ -48,7 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  margin: 0 auto;
   padding: 2rem;
   position: relative;
 

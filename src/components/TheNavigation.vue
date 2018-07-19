@@ -10,7 +10,7 @@
       </NavItem>
       <TheCamera />
       <NavItem
-        :to="{ name: 'profile' }"
+        :to="{ name: 'profile', params: { username: username || null } }"
         icon="user"
       >
         Profile
@@ -27,6 +27,11 @@ export default {
   components: {
     NavItem,
     TheCamera
+  },
+  computed: {
+    username() {
+      return this.$store.state.auth.username;
+    }
   }
 };
 </script>

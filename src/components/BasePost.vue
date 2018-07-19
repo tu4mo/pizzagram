@@ -1,15 +1,17 @@
 <template>
   <article class="post">
     <header class="post__header">
-      <div class="post__user">
-        <img
-          :src="profileUrl"
-          class="post__profile"
-        >
+      <router-link
+        :to="{ name: 'profile', params: { username } }"
+        class="post__user"
+      >
+        <div class="post__profile">
+          <ProfilePhoto :gravatar="gravatar" />
+        </div>
         <div class="post__username">
           {{ username }}
         </div>
-      </div>
+      </router-link>
       <div class="post__created-date">
         {{ createdDate }}
       </div>
@@ -24,10 +26,12 @@
 
 <script>
 import PostImage from "./PostImage";
+import ProfilePhoto from "./ProfilePhoto";
 
 export default {
   components: {
-    PostImage
+    PostImage,
+    ProfilePhoto
   },
   props: {
     caption: {
@@ -38,11 +42,11 @@ export default {
       required: true,
       type: Date
     },
-    imageUrl: {
+    gravatar: {
       required: true,
       type: String
     },
-    profileUrl: {
+    imageUrl: {
       required: true,
       type: String
     },
@@ -69,15 +73,14 @@ export default {
 
   &__user {
     align-items: center;
+    color: inherit;
     display: flex;
     font-weight: bold;
+    text-decoration: none;
   }
 
   &__profile {
-    border-radius: 1rem;
-    height: 2rem;
     margin-right: 0.5rem;
-    width: 2rem;
   }
 
   &__created-date {

@@ -29,7 +29,7 @@ const checkAutentication = async (to, from, next) => {
     return;
   }
 
-  if (!store.state.isAuthenticated) {
+  if (!store.state.auth.isAuthenticated) {
     next({ name: "login" });
   } else {
     next();
@@ -46,7 +46,7 @@ export default new Router({
       beforeEnter: checkAutentication
     },
     {
-      path: "/profile",
+      path: "/profile/:username?",
       name: "profile",
       component: Profile,
       beforeEnter: checkAutentication
