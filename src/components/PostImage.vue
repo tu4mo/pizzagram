@@ -43,6 +43,7 @@ export default {
   }
 
   &__image {
+    background-color: $color-light;
     background-position: 50% 50%;
     background-size: cover;
     border-radius: 1rem;
