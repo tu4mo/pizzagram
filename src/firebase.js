@@ -46,16 +46,13 @@ export const getPosts = async userId => {
   for (const doc of querySnapshot.docs) {
     const docData = doc.data();
 
-    if (!usersCache[docData.userId]) {
-      const user = await getUser(docData.userId);
-      usersCache[docData.userId] = user;
-    }
+    const user = await getUser(docData.userId);
 
     posts.push({
-      id: doc.id,
       ...docData,
+      id: doc.id,
       createdAt: docData.createdAt.toDate(),
-      user: usersCache[docData.userId]
+      user
     });
   }
 
@@ -68,14 +65,22 @@ export const getPost = async id => {
     .doc(id)
     .get();
 
-  const data = docRef.data();
+  const docData = docRef.data();
+  const user = await getUser(docData.userId);
 
   return {
-    imageUrl: data.imageUrl
+    ...docData,
+    id: docRef.id,
+    createdAt: docData.createdAt.toDate(),
+    user
   };
 };
 
 export const getUser = async id => {
+  if (usersCache[id]) {
+    return usersCache[id];
+  }
+
   const querySnapshot = await firestore
     .collection("users")
     .where("id", "==", id)
@@ -90,6 +95,8 @@ export const getUser = async id => {
       username: doc.id
     };
   });
+
+  usersCache[id] = user;
 
   return user;
 };

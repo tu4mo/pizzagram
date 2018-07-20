@@ -1,0 +1,57 @@
+<template>
+  <DefaultLayout>
+    <div class="post-view">
+      <BasePost
+        v-if="Object.keys(singlePost).length"
+        :caption="singlePost.caption"
+        :created-at="singlePost.createdAt"
+        :gravatar="singlePost.user.gravatar"
+        :image-url="singlePost.imageUrl"
+        :key="singlePost.id"
+        :username="singlePost.user.username"
+      />
+    </div>
+  </DefaultLayout>
+</template>
+
+<script>
+import DefaultLayout from "@/layouts/Default";
+
+import BasePost from "@/components/BasePost";
+
+export default {
+  components: {
+    BasePost,
+    DefaultLayout
+  },
+  computed: {
+    postId() {
+      return this.$route.params.postId;
+    },
+    singlePost() {
+      return this.$store.getters.getPostById(this.postId);
+    }
+  },
+  created() {
+    const { postId } = this.$route.params;
+    this.fetchPost(postId);
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (to.params.postId !== from.params.postId) {
+      this.fetchPost(to.params.postId);
+    }
+    next();
+  },
+  methods: {
+    async fetchPost(postId) {
+      await this.$store.dispatch("getPostById", postId);
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.post-view {
+  padding: 2rem;
+}
+</style>

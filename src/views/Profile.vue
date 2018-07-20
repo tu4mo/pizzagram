@@ -1,33 +1,31 @@
 <template>
   <DefaultLayout>
-    <BaseSpinner v-if="isLoading" />
-    <template v-else>
-      <div class="profile">
-        <div class="profile__header">
-          <div class="profile__photo">
-            <ProfilePhoto
-              :gravatar="user.gravatar"
-              size="medium"
-            />
-          </div>
-          <div class="profile__username">
-            {{ user.username }}
-          </div>
+    <div class="profile">
+      <div class="profile__header">
+        <div class="profile__photo">
+          <ProfilePhoto
+            :gravatar="user.gravatar"
+            size="medium"
+          />
         </div>
-        <div class="profile__posts">
-          <div
-            v-for="(post, index) in $store.getters.getPosts(user.username)"
-            :key="index"
-            class="profile__post"
-          >
-            <PostImage :image-url="post.imageUrl" />
-          </div>
-        </div>
-        <div class="profile__footer">
-          <BaseButton @click="onLogOutClick">Log Out</BaseButton>
+        <div class="profile__username">
+          {{ user.username }}
         </div>
       </div>
-    </template>
+      <div class="profile__posts">
+        <router-link
+          v-for="(post, index) in $store.getters.getPostsByFeed(user.username)"
+          :key="index"
+          :to="{ name: 'post', params: { postId: post.id } }"
+          class="profile__post"
+        >
+          <PostImage :image-url="post.imageUrl" />
+        </router-link>
+      </div>
+      <div class="profile__footer">
+        <BaseButton @click="onLogOutClick">Log Out</BaseButton>
+      </div>
+    </div>
   </DefaultLayout>
 </template>
 
@@ -35,7 +33,6 @@
 import DefaultLayout from "@/layouts/Default";
 
 import BaseButton from "@/components/BaseButton";
-import BaseSpinner from "@/components/BaseSpinner";
 import PostImage from "@/components/PostImage";
 import ProfilePhoto from "@/components/ProfilePhoto";
 
@@ -44,15 +41,9 @@ import { signOut } from "@/firebase";
 export default {
   components: {
     BaseButton,
-    BaseSpinner,
     DefaultLayout,
     PostImage,
     ProfilePhoto
-  },
-  data() {
-    return {
-      isLoading: false
-    };
   },
   computed: {
     user() {

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Home from "./views/Home.vue";
+import Post from "./views/Post.vue";
 import Profile from "./views/Profile.vue";
 import LogIn from "./views/LogIn.vue";
 import SignUp from "./views/SignUp.vue";
@@ -55,6 +56,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: LogIn
+    },
+    {
+      path: "/post/:postId",
+      name: "post",
+      component: Post
     },
     {
       path: "/signup",

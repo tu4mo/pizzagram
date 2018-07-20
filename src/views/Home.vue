@@ -1,12 +1,12 @@
 <template>
   <DefaultLayout>
-    <BaseSpinner v-if="isLoading" />
+    <BaseSpinner v-if="$store.state.isLoading" />
     <div
       v-else
       class="home"
     >
       <BasePost
-        v-for="post in posts"
+        v-for="post in $store.getters.getPostsByFeed('home')"
         :caption="post.caption"
         :created-at="post.createdAt"
         :gravatar="post.user.gravatar"
@@ -25,23 +25,14 @@ import DefaultLayout from "@/layouts/Default";
 import BasePost from "@/components/BasePost";
 import BaseSpinner from "@/components/BaseSpinner";
 
-import { getPosts } from "@/firebase";
-
 export default {
   components: {
     BasePost,
     BaseSpinner,
     DefaultLayout
   },
-  data() {
-    return {
-      isLoading: true,
-      posts: []
-    };
-  },
   async created() {
-    this.posts = await getPosts();
-    this.isLoading = false;
+    this.$store.dispatch("getPostsForHome");
   }
 };
 </script>
