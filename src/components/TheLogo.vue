@@ -4,24 +4,12 @@
     class="logo"
   >
     <img
-      :src="pizzagram"
       alt="Pizzagram"
       class="logo__image"
+      src="@/assets/pizzagram.png"
     >
   </router-link>
 </template>
-
-<script>
-import pizzagram from "@/assets/pizzagram.png";
-
-export default {
-  data() {
-    return {
-      pizzagram
-    };
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 .logo {
