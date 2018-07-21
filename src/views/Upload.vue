@@ -38,7 +38,7 @@ import BaseSpinner from "@/components/BaseSpinner";
 import BaseInput from "@/components/BaseInput";
 import PostImage from "@/components/PostImage";
 
-import { getPost, sharePost } from "@/firebase";
+import Firebase from "@/firebase";
 
 export default {
   components: {
@@ -75,12 +75,12 @@ export default {
   methods: {
     async fetchPost(id) {
       this.isLoading = true;
-      this.post = await getPost(id);
+      this.post = await Firebase.getPost(id);
       this.isLoading = false;
     },
     async onShareClick() {
       this.isLoading = true;
-      await sharePost(this.$route.params.id, this.caption);
+      await Firebase.sharePost(this.$route.params.id, this.caption);
       this.isLoading = false;
       this.$router.push({ name: "home" });
     }

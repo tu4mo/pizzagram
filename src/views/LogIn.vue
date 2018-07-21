@@ -47,7 +47,7 @@ import BaseLink from "@/components/BaseLink";
 import BaseSpacer from "@/components/BaseSpacer";
 import BaseSpinner from "@/components/BaseSpinner";
 
-import { signIn } from "@/firebase";
+import Firebase from "@/firebase";
 
 export default {
   components: {
@@ -72,7 +72,7 @@ export default {
       this.isLoading = true;
 
       try {
-        await signIn(this.email, this.password);
+        await Firebase.signIn(this.email, this.password);
         this.$router.push({ name: "home" });
       } catch (error) {
         this.error = "Unable to sign in.";

@@ -36,7 +36,7 @@ import BaseButton from "@/components/BaseButton";
 import PostImage from "@/components/PostImage";
 import ProfilePhoto from "@/components/ProfilePhoto";
 
-import { signOut } from "@/firebase";
+import Firebase from "@/firebase";
 
 export default {
   components: {
@@ -68,7 +68,7 @@ export default {
       await this.$store.dispatch("getPostsByUser", username);
     },
     async onLogOutClick() {
-      await signOut();
+      await Firebase.signOut();
       this.$router.push({ name: "login" });
     }
   }

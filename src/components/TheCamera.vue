@@ -16,7 +16,7 @@
 <script>
 import BaseIcon from "./BaseIcon";
 
-import { createPost } from "@/firebase";
+import Firebase from "@/firebase";
 
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
     async onChange(event) {
       if (event.target.files[0]) {
         this.$router.push({ name: "upload", query: { uploading: null } });
-        const id = await createPost(event.target.files[0]);
+        const id = await Firebase.createPost(event.target.files[0]);
         this.$router.push({ name: "upload", params: { id } });
       }
     }

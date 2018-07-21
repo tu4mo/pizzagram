@@ -5,169 +5,195 @@ import "firebase/storage";
 
 import md5 from "md5";
 
-export default firebase.initializeApp({
-  apiKey: "AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg",
-  authDomain: "pizzagram-cc.firebaseapp.com",
-  databaseURL: "https://pizzagram-cc.firebaseio.com",
-  projectId: "pizzagram-cc",
-  storageBucket: "pizzagram-cc.appspot.com",
-  messagingSenderId: "393669371775"
-});
-
-const firestore = firebase.firestore();
-firestore.settings({ timestampsInSnapshots: true });
-
-const storage = firebase.storage();
-const storageRef = storage.ref();
-
-const usersCache = {};
-
-export const initializeAuth = () =>
-  new Promise(resolve => {
-    firebase.auth().onAuthStateChanged(user => {
-      resolve(user);
+class Firebase {
+  constructor() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg",
+      authDomain: "pizzagram-cc.firebaseapp.com",
+      databaseURL: "https://pizzagram-cc.firebaseio.com",
+      projectId: "pizzagram-cc",
+      storageBucket: "pizzagram-cc.appspot.com",
+      messagingSenderId: "393669371775"
     });
-  });
 
-export const getPosts = async userId => {
-  const posts = [];
+    this.firestore = firebase.firestore();
+    this.firestore.settings({ timestampsInSnapshots: true });
 
-  let query = firestore
-    .collection("posts")
-    .orderBy("createdAt", "desc")
-    .where("published", "==", true);
+    this.storage = firebase.storage();
+    this.storageRef = this.storage.ref();
 
-  if (userId) {
-    query = query.where("userId", "==", userId);
+    this.usersCache = {};
+
+    this.isSigningUp = false;
+
+    this.onAuthStateChangedCallback = null;
+
+    firebase.auth().onAuthStateChanged(async user => {
+      if (!this.isSigningUp) {
+        this.onAuthStateChangedCallback(user);
+      }
+    });
   }
 
-  const querySnapshot = await query.get();
+  initializeAuth() {
+    return new Promise(resolve => {
+      firebase.auth().onAuthStateChanged(user => {
+        resolve(user);
+      });
+    });
+  }
 
-  for (const doc of querySnapshot.docs) {
-    const docData = doc.data();
+  setOnAuthStateChangedCallback(callback) {
+    this.onAuthStateChangedCallback = callback;
+  }
 
-    const user = await getUser(docData.userId);
+  async getPosts(userId) {
+    const posts = [];
 
-    posts.push({
+    let query = this.firestore
+      .collection("posts")
+      .orderBy("createdAt", "desc")
+      .where("published", "==", true);
+
+    if (userId) {
+      query = query.where("userId", "==", userId);
+    }
+
+    const querySnapshot = await query.get();
+
+    for (const doc of querySnapshot.docs) {
+      const docData = doc.data();
+
+      const user = await this.getUser(docData.userId);
+
+      posts.push({
+        ...docData,
+        id: doc.id,
+        createdAt: docData.createdAt.toDate(),
+        user
+      });
+    }
+
+    return posts;
+  }
+
+  async getPost(id) {
+    const docRef = await this.firestore
+      .collection("posts")
+      .doc(id)
+      .get();
+
+    const docData = docRef.data();
+    const user = await this.getUser(docData.userId);
+
+    return {
       ...docData,
-      id: doc.id,
+      id: docRef.id,
       createdAt: docData.createdAt.toDate(),
       user
+    };
+  }
+
+  async getUser(id) {
+    if (this.usersCache[id]) {
+      return this.usersCache[id];
+    }
+
+    const querySnapshot = await this.firestore
+      .collection("users")
+      .where("id", "==", id)
+      .limit(1)
+      .get();
+
+    let user;
+
+    for (const doc of querySnapshot.docs) {
+      user = { ...doc.data(), username: doc.id };
+    }
+
+    this.usersCache[id] = user;
+
+    return user;
+  }
+
+  async getUserByUsername(username) {
+    const docRef = await this.firestore
+      .collection("users")
+      .doc(username)
+      .get();
+
+    return { ...docRef.data(), username: docRef.id };
+  }
+
+  async createPost(file) {
+    const docRef = await this.firestore.collection("posts").add({
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      published: false,
+      userId: firebase.auth().currentUser.uid
+    });
+    const uploadTask = await this.uploadFile(file, docRef.id);
+    const downloadUrl = await uploadTask.ref.getDownloadURL();
+
+    await docRef.update({
+      imageUrl: downloadUrl
+    });
+
+    return docRef.id;
+  }
+
+  async uploadFile(file, id) {
+    const uploadTask = this.storageRef
+      .child("posts")
+      .child(`${id}.jpg`)
+      .put(file);
+
+    return uploadTask;
+  }
+
+  async sharePost(id, caption) {
+    const postRef = await this.firestore.collection("posts").doc(id);
+
+    await postRef.update({
+      caption,
+      published: true
     });
   }
 
-  return posts;
-};
+  async signUp(username, email, password) {
+    this.isSigningUp = true;
 
-export const getPost = async id => {
-  const docRef = await firestore
-    .collection("posts")
-    .doc(id)
-    .get();
+    const userDoc = this.firestore.collection("users").doc(username);
 
-  const docData = docRef.data();
-  const user = await getUser(docData.userId);
+    await userDoc.set({
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      id: null
+    });
 
-  return {
-    ...docData,
-    id: docRef.id,
-    createdAt: docData.createdAt.toDate(),
-    user
-  };
-};
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-export const getUser = async id => {
-  if (usersCache[id]) {
-    return usersCache[id];
+    const gravatar = md5(email.toLowerCase());
+
+    await userDoc.update({
+      gravatar,
+      id: firebase.auth().currentUser.uid
+    });
+
+    this.onAuthStateChangedCallback(firebase.auth().currentUser);
+
+    this.isSigningUp = false;
   }
 
-  const querySnapshot = await firestore
-    .collection("users")
-    .where("id", "==", id)
-    .limit(1)
-    .get();
+  async signIn(email, password) {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+  }
 
-  let user;
+  async signOut() {
+    await firebase.auth().signOut();
+  }
 
-  querySnapshot.forEach(async doc => {
-    user = {
-      ...doc.data(),
-      username: doc.id
-    };
-  });
+  currentUser() {
+    return firebase.auth().currentUser;
+  }
+}
 
-  usersCache[id] = user;
-
-  return user;
-};
-
-export const getMe = async () => getUser(firebase.auth().currentUser.uid);
-
-export const getUserByUsername = async username => {
-  const docRef = await firestore
-    .collection("users")
-    .doc(username)
-    .get();
-
-  return { ...docRef.data(), username: docRef.id };
-};
-
-export const createPost = async file => {
-  const docRef = await firestore.collection("posts").add({
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    published: false,
-    userId: firebase.auth().currentUser.uid
-  });
-  const uploadTask = await uploadFile(file, docRef.id);
-  const downloadUrl = await uploadTask.ref.getDownloadURL();
-
-  await docRef.update({
-    imageUrl: downloadUrl
-  });
-
-  return docRef.id;
-};
-
-export const uploadFile = async (file, id) => {
-  const uploadTask = storageRef
-    .child("posts")
-    .child(`${id}.jpg`)
-    .put(file);
-
-  return uploadTask;
-};
-
-export const sharePost = async (id, caption) => {
-  const postRef = await firestore.collection("posts").doc(id);
-
-  await postRef.update({
-    caption,
-    published: true
-  });
-};
-
-export const signUp = async (username, email, password) => {
-  const userDoc = firestore.collection("users").doc(username);
-
-  await userDoc.set({
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    id: null
-  });
-
-  await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-  const gravatar = md5(email.toLowerCase());
-
-  await userDoc.update({
-    gravatar,
-    id: firebase.auth().currentUser.uid
-  });
-};
-
-export const signIn = async (email, password) => {
-  await firebase.auth().signInWithEmailAndPassword(email, password);
-};
-
-export const signOut = async () => {
-  await firebase.auth().signOut();
-};
+export default new Firebase();

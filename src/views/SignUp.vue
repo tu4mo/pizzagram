@@ -53,7 +53,7 @@ import BaseLink from "@/components/BaseLink";
 import BaseSpacer from "@/components/BaseSpacer";
 import BaseSpinner from "@/components/BaseSpinner";
 
-import { signUp } from "@/firebase";
+import Firebase from "@/firebase";
 
 export default {
   components: {
@@ -79,7 +79,7 @@ export default {
       this.isLoading = true;
 
       try {
-        await signUp(this.username, this.email, this.password);
+        await Firebase.signUp(this.username, this.email, this.password);
         this.$router.push({ name: "home" });
       } catch (error) {
         this.error = "Unable to sign up.";

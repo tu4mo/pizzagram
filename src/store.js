@@ -1,12 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import firebase, {
-  getMe,
-  getPosts,
-  getUserByUsername,
-  getPost
-} from "./firebase";
+import Firebase from "./firebase";
 
 Vue.use(Vuex);
 
@@ -65,7 +60,7 @@ const store = new Vuex.Store({
         return;
       }
 
-      const post = await getPost(postId);
+      const post = await Firebase.getPost(postId);
       commit("addToPosts", post);
     },
     async getPostsForHome({ commit }, setIsLoading) {
@@ -73,7 +68,7 @@ const store = new Vuex.Store({
         commit("setIsLoading", true);
       }
 
-      const posts = await getPosts();
+      const posts = await Firebase.getPosts();
       posts.forEach(post => {
         commit("addToPosts", post);
         commit("addToFeeds", { feed: "home", postId: post.id });
@@ -86,7 +81,7 @@ const store = new Vuex.Store({
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username);
       if (Object.keys(user).length) {
-        const posts = await getPosts(user.id);
+        const posts = await Firebase.getPosts(user.id);
         posts.forEach(post => {
           commit("addToPosts", post);
           commit("addToFeeds", { feed: username, postId: post.id });
@@ -98,18 +93,18 @@ const store = new Vuex.Store({
         return;
       }
 
-      const user = await getUserByUsername(username);
+      const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
     }
   }
 });
 
-firebase.auth().onAuthStateChanged(async user => {
+Firebase.setOnAuthStateChangedCallback(async user => {
   if (user) {
-    const user = await getMe();
+    const userData = await Firebase.getUser(user.uid);
     store.commit("setIsAuthenticated", {
       isAuthenticated: true,
-      username: user.username
+      username: userData.username
     });
     store.commit("addToUsers", user);
   } else {
