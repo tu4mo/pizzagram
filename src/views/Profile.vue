@@ -50,9 +50,11 @@ export default {
       return this.$store.getters.getUser(this.$route.params.username);
     }
   },
-  created() {
-    const { username } = this.$route.params;
-    this.fetchData(username);
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      const { username } = vm.$route.params;
+      vm.fetchData(username);
+    });
   },
   beforeRouteUpdate(to, from, next) {
     if (to.params.username !== from.params.username) {
