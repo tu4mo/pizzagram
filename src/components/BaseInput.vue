@@ -20,7 +20,7 @@ export default {
 <style lang="scss" scoped>
 .input {
   background-color: #fff;
-  border: 1px solid $color-light;
+  border: 1px solid var(--color-light);
   border-radius: 0.25rem;
   display: block;
   font-size: 1rem;

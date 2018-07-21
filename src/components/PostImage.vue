@@ -43,7 +43,7 @@ export default {
   }
 
   &__image {
-    background-color: $color-light;
+    background-color: var(--color-light);
     background-position: 50% 50%;
     background-size: cover;
     border-radius: 1rem;
@@ -58,7 +58,7 @@ export default {
   }
 
   &__caption {
-    color: $color-purple-light;
+    color: var(--color-gray);
     margin-top: 0.5rem;
   }
 }

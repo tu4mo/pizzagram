@@ -34,7 +34,7 @@ export default {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: $z-header;
+    z-index: var(--z-header);
   }
 
   &__main {
@@ -55,7 +55,7 @@ export default {
     left: 0;
     position: fixed;
     right: 0;
-    z-index: $z-navigation;
+    z-index: var(--z-navigation);
   }
 }
 </style>

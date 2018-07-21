@@ -44,8 +44,8 @@ export default {
   &__pepperoni-1,
   &__pepperoni-2 {
     animation: sk-bounce 2s infinite ease-in-out;
-    background-color: $color-pink;
-    border: 4px solid $color-purple;
+    background-color: var(--color-pink);
+    border: 4px solid var(--color-purple);
     border-radius: 100%;
     display: inline-block;
     height: 30%;

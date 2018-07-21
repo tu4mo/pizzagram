@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   background-color: #fff;
-  border-top: 1px solid $color-light;
+  border-top: 1px solid var(--color-light);
   padding-bottom: env(safe-area-inset-bottom);
 
   &__items {

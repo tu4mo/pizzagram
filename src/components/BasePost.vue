@@ -84,7 +84,7 @@ export default {
   }
 
   &__created-date {
-    color: $color-purple-light;
+    color: var(--color-gray);
   }
 
   &__image {

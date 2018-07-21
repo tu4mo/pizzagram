@@ -34,7 +34,7 @@ export default {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: $z-header;
+    z-index: var(--z-header);
   }
 }
 </style>

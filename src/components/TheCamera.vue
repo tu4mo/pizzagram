@@ -39,7 +39,7 @@ export default {
   position: relative;
 
   &--active {
-    color: $color-pink;
+    color: var(--color-pink);
   }
 
   &__input {

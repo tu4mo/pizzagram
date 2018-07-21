@@ -5,6 +5,16 @@
 </template>
 
 <style lang="scss">
+:root {
+  --color-gray: #aaa;
+  --color-light: #eee;
+  --color-pink: #df0054;
+  --color-purple: #470032;
+
+  --z-header: 1;
+  --z-navigation: 2;
+}
+
 html {
   box-sizing: border-box;
   font-family: "Comfortaa", Helvetica, Arial, sans-serif;

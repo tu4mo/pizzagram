@@ -18,7 +18,7 @@ export default {
 .header {
   align-items: center;
   background-color: #fff;
-  border-bottom: 1px solid $color-light;
+  border-bottom: 1px solid var(--color-light);
   display: flex;
   height: 4rem;
   justify-content: center;

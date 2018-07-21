@@ -4,12 +4,5 @@ module.exports = {
     svgRule.uses.clear();
     svgRule.use("raw-loader").loader("raw-loader");
   },
-  css: {
-    loaderOptions: {
-      sass: {
-        data: `@import "@/variables.scss";`
-      }
-    }
-  },
   lintOnSave: false
 };
