@@ -68,8 +68,10 @@ const store = new Vuex.Store({
       const post = await getPost(postId);
       commit("addToPosts", post);
     },
-    async getPostsForHome({ commit }) {
-      commit("setIsLoading", true);
+    async getPostsForHome({ commit }, setIsLoading) {
+      if (setIsLoading) {
+        commit("setIsLoading", true);
+      }
 
       const posts = await getPosts();
       posts.forEach(post => {
@@ -77,7 +79,9 @@ const store = new Vuex.Store({
         commit("addToFeeds", { feed: "home", postId: post.id });
       });
 
-      commit("setIsLoading", false);
+      if (setIsLoading) {
+        commit("setIsLoading", false);
+      }
     },
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username);

@@ -32,7 +32,12 @@ export default {
     DefaultLayout
   },
   async created() {
-    this.$store.dispatch("getPostsForHome");
+    this.$store.dispatch("getPostsForHome", true);
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.dispatch("getPostsForHome");
+    });
   }
 };
 </script>
