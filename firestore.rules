@@ -1,14 +1,19 @@
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAllowedUsername(user) {
+      return user != 'home'
+    }
+
     match /posts/{postId} {
       allow create;
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;
       allow update: if resource.data.published == false && request.auth.uid == resource.data.userId;
     }
+
     match /users/{user} {
       allow read;
-      allow update: if resource.data.id == null;
-      allow create: if request.auth == null;
+      allow update: if resource.data.id == null && isAllowedUsername(user);
+      allow create: if request.auth == null && isAllowedUsername(user);
     }
   }
 }
