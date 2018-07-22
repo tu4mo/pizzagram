@@ -1,9 +1,8 @@
 <template>
   <DefaultLayout>
     <div class="upload">
-      <BaseSpinner v-if="isLoading || 'uploading' in $route.query" />
       <div
-        v-else-if="!$route.params.id"
+        v-if="!file"
         class="upload__info"
       >
         Use the Camera icon to upload a photo
@@ -13,9 +12,7 @@
         class="upload__form"
       >
         <BaseSpacer mb1>
-          <PostImage
-            :image-url="post.imageUrl"
-          />
+          <PostImage :image-url="imageUrl" />
         </BaseSpacer>
         <BaseSpacer mb1>
           <BaseInput
@@ -25,6 +22,10 @@
         </BaseSpacer>
         <BaseButton @click="onShareClick">Share</BaseButton>
       </div>
+      <BaseSpinner
+        v-if="isLoading"
+        cover
+      />
     </div>
   </DefaultLayout>
 </template>
@@ -52,35 +53,35 @@ export default {
   data() {
     return {
       caption: "",
-      isLoading: false,
-      post: null
+      imageUrl: "",
+      isLoading: false
     };
   },
-  created() {
-    const { id } = this.$route.params;
-
-    if (id) {
-      this.fetchPost(id);
+  computed: {
+    file() {
+      return this.$store.state.file;
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    const { id } = to.params;
+  watch: {
+    file(newFile) {
+      const reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        () => (this.imageUrl = reader.result),
+        false
+      );
 
-    if (id) {
-      this.fetchPost(id);
+      if (newFile) {
+        reader.readAsDataURL(newFile);
+      }
     }
-
-    next();
   },
   methods: {
-    async fetchPost(id) {
-      this.isLoading = true;
-      this.post = await Firebase.getPost(id);
-      this.isLoading = false;
-    },
     async onShareClick() {
       this.isLoading = true;
-      await Firebase.sharePost(this.$route.params.id, this.caption);
+      await Firebase.sharePost(this.file, this.caption);
+      this.$store.commit("setFile", null);
+      this.caption = "";
       this.isLoading = false;
       this.$router.push({ name: "home" });
     }

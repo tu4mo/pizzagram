@@ -125,9 +125,11 @@ class Firebase {
     return { ...docRef.data(), username: docRef.id };
   }
 
-  async createPost(file) {
+  async sharePost(file, caption) {
     const docRef = await this.firestore.collection("posts").add({
+      caption,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      imageUrl: null,
       published: false,
       userId: firebase.auth().currentUser.uid
     });
@@ -135,7 +137,8 @@ class Firebase {
     const downloadUrl = await uploadTask.ref.getDownloadURL();
 
     await docRef.update({
-      imageUrl: downloadUrl
+      imageUrl: downloadUrl,
+      published: true
     });
 
     return docRef.id;
@@ -148,15 +151,6 @@ class Firebase {
       .put(file);
 
     return uploadTask;
-  }
-
-  async sharePost(id, caption) {
-    const postRef = await this.firestore.collection("posts").doc(id);
-
-    await postRef.update({
-      caption,
-      published: true
-    });
   }
 
   async signUp(username, email, password) {

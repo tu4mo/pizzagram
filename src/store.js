@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     },
     isLoading: false,
     feeds: {},
+    file: null,
     users: {},
     posts: {}
   },
@@ -46,6 +47,9 @@ const store = new Vuex.Store({
         ...state.feeds,
         [feed]: { ...(state.feeds[feed] || {}), [postId]: true }
       };
+    },
+    setFile(state, file) {
+      state.file = file;
     },
     addToUsers(state, user) {
       state.users = { ...state.users, [user.username]: user };
