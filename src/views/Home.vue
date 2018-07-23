@@ -31,7 +31,7 @@ export default {
     BaseSpinner,
     DefaultLayout
   },
-  async created() {
+  created() {
     this.$store.dispatch("getPostsForHome", true);
   },
   beforeRouteEnter(to, from, next) {

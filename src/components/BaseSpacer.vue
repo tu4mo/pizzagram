@@ -18,13 +18,11 @@ export default {
   },
   computed: {
     classes() {
-      return [
-        "spacer",
-        {
-          "spacer--mb1": this.mb1,
-          "spacer--my1": this.my1
-        }
-      ];
+      return {
+        spacer: true,
+        "spacer--mb1": this.mb1,
+        "spacer--my1": this.my1
+      };
     }
   }
 };

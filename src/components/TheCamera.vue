@@ -21,10 +21,9 @@ export default {
     BaseIcon
   },
   methods: {
-    async onChange(event) {
+    onChange(event) {
       if (event.target.files[0]) {
         this.$store.commit("setFile", event.target.files[0]);
-        this.$router.push({ name: "upload" });
       }
     }
   }

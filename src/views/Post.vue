@@ -43,8 +43,8 @@ export default {
     next();
   },
   methods: {
-    async fetchPost(postId) {
-      await this.$store.dispatch("getPostById", postId);
+    fetchPost(postId) {
+      this.$store.dispatch("getPostById", postId);
     }
   }
 };
