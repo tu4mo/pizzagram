@@ -1,8 +1,8 @@
 <template>
-  <img
+  <div
     :class="['profile-photo', `profile-photo--${size}`]"
-    :src="profileUrl"
-  >
+    :style="{ backgroundImage: `url(${profileUrl})` }"
+  />
 </template>
 
 <script>
@@ -29,6 +29,9 @@ export default {
 
 <style lang="scss" scoped>
 .profile-photo {
+  background-color: var(--color-light);
+  background-position: 50% 50%;
+  background-size: cover;
   border-radius: 50%;
 
   &--small {
