@@ -19,7 +19,7 @@
           :to="{ name: 'post', params: { postId: post.id } }"
           class="profile__post"
         >
-          <PostImage :image-url="post.imageUrl" />
+          <PostImage :image-url="post.imageUrl.replace('.jpg', '_128.jpg')" />
         </router-link>
       </div>
       <div class="profile__footer">
