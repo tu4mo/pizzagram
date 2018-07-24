@@ -7,6 +7,7 @@
 
 <script>
 import camera from "feather-icons/dist/icons/camera.svg";
+import heart from "feather-icons/dist/icons/heart.svg";
 import home from "feather-icons/dist/icons/home.svg";
 import user from "feather-icons/dist/icons/user.svg";
 
@@ -19,6 +20,7 @@ export default {
   },
   icons: {
     camera,
+    heart,
     home,
     user
   }
@@ -27,6 +29,8 @@ export default {
 
 <style lang="scss" scoped>
 .icon {
+  cursor: inherit;
+
   /deep/ svg {
     display: block;
   }

@@ -30,6 +30,7 @@ export default {
   border: 0;
   border-radius: 0.5rem;
   color: var(--color-pink);
+  cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
   display: block;

@@ -2,7 +2,7 @@
   <DefaultLayout>
     <div class="upload">
       <div
-        v-if="!file"
+        v-if="!file || !imageUrl"
         class="upload__info"
       >
         Use the Camera icon to upload a photo
@@ -17,6 +17,7 @@
         <BaseSpacer mb1>
           <BaseInput
             v-model="caption"
+            maxlength="100"
             placeholder="Caption"
           />
         </BaseSpacer>

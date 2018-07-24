@@ -6,7 +6,7 @@
         class="camera__input"
         type="file"
         @change="onChange"
-        @click="$router.push({ name: 'upload' })"
+        @click="onClick"
       >
       <BaseIcon name="camera" />
     </label>
@@ -25,6 +25,10 @@ export default {
       if (event.target.files[0]) {
         this.$store.commit("setFile", event.target.files[0]);
       }
+    },
+    onClick() {
+      this.$store.commit("setFile", null);
+      this.$router.push({ name: "upload" });
     }
   }
 };
