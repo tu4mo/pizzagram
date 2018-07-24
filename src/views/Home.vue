@@ -7,12 +7,8 @@
     >
       <BasePost
         v-for="post in $store.getters.getPostsByFeed('home')"
-        :caption="post.caption"
-        :created-at="post.createdAt"
-        :gravatar="post.user.gravatar"
-        :image-url="post.imageUrl"
         :key="post.id"
-        :username="post.user.username"
+        :post="post"
         class="home__base-post"
       />
     </div>

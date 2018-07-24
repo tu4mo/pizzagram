@@ -6,22 +6,12 @@
         class="post-image__image"
       />
     </div>
-    <figcaption
-      v-if="caption"
-      class="post-image__caption"
-    >
-      {{ caption }}
-    </figcaption>
   </figure>
 </template>
 
 <script>
 export default {
   props: {
-    caption: {
-      default: "",
-      type: String
-    },
     imageUrl: {
       required: true,
       type: String
@@ -55,11 +45,6 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
-  }
-
-  &__caption {
-    color: var(--color-gray);
-    margin-top: 0.5rem;
   }
 }
 </style>

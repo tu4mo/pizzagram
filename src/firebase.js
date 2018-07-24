@@ -62,16 +62,7 @@ class Firebase {
     const querySnapshot = await query.get();
 
     for (const doc of querySnapshot.docs) {
-      const docData = doc.data();
-
-      const user = await this.getUser(docData.userId);
-
-      posts.push({
-        ...docData,
-        id: doc.id,
-        createdAt: docData.createdAt.toDate(),
-        user
-      });
+      posts.push(await this.createPostObject(doc));
     }
 
     return posts;
@@ -83,13 +74,23 @@ class Firebase {
       .doc(id)
       .get();
 
-    const docData = docRef.data();
-    const user = await this.getUser(docData.userId);
+    return await this.createPostObject(docRef);
+  }
+
+  async createPostObject(doc) {
+    const data = doc.data();
+    const user = await this.getUser(data.userId);
+
+    const liked = await this.firestore
+      .collection("likes")
+      .doc(`${this.currentUser().uid}_${doc.id}`)
+      .get();
 
     return {
-      ...docData,
-      id: docRef.id,
-      createdAt: docData.createdAt.toDate(),
+      ...data,
+      createdAt: data.createdAt.toDate(),
+      id: doc.id,
+      liked: liked.exists,
       user
     };
   }
@@ -131,7 +132,7 @@ class Firebase {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       imageUrl: null,
       published: false,
-      userId: firebase.auth().currentUser.uid
+      userId: this.currentUser().uid
     });
     const uploadTask = await this.uploadFile(file, docRef.id);
     const downloadUrl = await uploadTask.ref.getDownloadURL();
@@ -169,10 +170,10 @@ class Firebase {
 
     await userDoc.update({
       gravatar,
-      id: firebase.auth().currentUser.uid
+      id: this.currentUser().uid
     });
 
-    this.onAuthStateChangedCallback(firebase.auth().currentUser);
+    this.onAuthStateChangedCallback(this.currentUser());
 
     this.isSigningUp = false;
   }
@@ -183,6 +184,22 @@ class Firebase {
 
   async signOut() {
     await firebase.auth().signOut();
+  }
+
+  async toggleLike(postId) {
+    const userId = this.currentUser().uid;
+
+    const doc = await this.firestore
+      .collection("likes")
+      .doc(`${userId}_${postId}`);
+
+    const snapshot = await doc.get();
+
+    if (snapshot.exists) {
+      await doc.delete();
+    } else {
+      await doc.set({ postId, userId });
+    }
   }
 
   currentUser() {

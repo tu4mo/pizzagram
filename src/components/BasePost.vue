@@ -2,14 +2,14 @@
   <article class="post">
     <header class="post__header">
       <router-link
-        :to="{ name: 'profile', params: { username } }"
+        :to="{ name: 'profile', params: { username: post.user.username } }"
         class="post__user"
       >
         <div class="post__profile">
-          <ProfilePhoto :gravatar="gravatar" />
+          <ProfilePhoto :gravatar="post.user.gravatar" />
         </div>
         <div class="post__username">
-          {{ username }}
+          {{ post.user.username }}
         </div>
       </router-link>
       <div class="post__created-date">
@@ -17,47 +17,53 @@
       </div>
     </header>
     <PostImage
-      :caption="caption"
-      :image-url="imageUrl"
+      :caption="post.caption"
+      :image-url="post.imageUrl"
       class="post__image"
     />
+    <footer class="post__footer">
+      <div class="post__caption">
+        {{ post.caption }}
+      </div>
+      <div class="post__like">
+        <BaseButton
+          :class="['post__like-button', { 'post__like-button--liked': post.liked }]"
+          @click="onLikeClick"
+        >
+          <BaseIcon name="heart" />
+        </BaseButton>
+      </div>
+    </footer>
   </article>
 </template>
 
 <script>
+import BaseButton from "./BaseButton";
+import BaseIcon from "./BaseIcon";
 import PostImage from "./PostImage";
 import ProfilePhoto from "./ProfilePhoto";
 
 export default {
   components: {
+    BaseButton,
+    BaseIcon,
     PostImage,
     ProfilePhoto
   },
   props: {
-    caption: {
-      default: "",
-      type: String
-    },
-    createdAt: {
+    post: {
       required: true,
-      type: Date
-    },
-    gravatar: {
-      required: true,
-      type: String
-    },
-    imageUrl: {
-      required: true,
-      type: String
-    },
-    username: {
-      required: true,
-      type: String
+      type: Object
     }
   },
   computed: {
     createdDate() {
-      return this.createdAt.toLocaleDateString();
+      return this.post.createdAt.toLocaleDateString();
+    }
+  },
+  methods: {
+    onLikeClick() {
+      this.$store.dispatch("toggleLike", this.post.id);
     }
   }
 };
@@ -73,7 +79,7 @@ export default {
 
   &__user {
     align-items: center;
-    color: inherit;
+    color: var(--color-purple);
     display: flex;
     font-weight: bold;
     text-decoration: none;
@@ -89,6 +95,34 @@ export default {
 
   &__image {
     margin-top: 0.5rem;
+  }
+
+  &__footer {
+    align-items: flex-start;
+    display: flex;
+    margin-top: 0.5rem;
+  }
+
+  &__caption {
+    color: var(--color-gray);
+    flex: 1 1 auto;
+    margin-right: 1rem;
+  }
+
+  &__like {
+    flex: 0 0 auto;
+  }
+
+  &__like-button {
+    color: var(--color-purple);
+
+    &--liked {
+      color: var(--color-pink);
+
+      & /deep/ svg {
+        fill: var(--color-pink);
+      }
+    }
   }
 }
 </style>

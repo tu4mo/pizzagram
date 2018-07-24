@@ -3,12 +3,8 @@
     <div class="post-view">
       <BasePost
         v-if="Object.keys(singlePost).length"
-        :caption="singlePost.caption"
-        :created-at="singlePost.createdAt"
-        :gravatar="singlePost.user.gravatar"
-        :image-url="singlePost.imageUrl"
         :key="singlePost.id"
-        :username="singlePost.user.username"
+        :post="singlePost"
       />
     </div>
   </DefaultLayout>

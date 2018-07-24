@@ -4,6 +4,12 @@ service cloud.firestore {
       return user != 'home'
     }
 
+    match /likes/{likeId} {
+      allow read;
+      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId;
+      allow delete: if request.auth.uid == resource.data.userId;
+    }
+
     match /posts/{postId} {
       allow create;
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;

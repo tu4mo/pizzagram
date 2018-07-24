@@ -44,6 +44,7 @@ export default {
 
   &__items {
     align-items: center;
+    color: var(--color-purple);
     display: flex;
     height: 3.5rem;
     justify-content: space-around;

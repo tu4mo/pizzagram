@@ -56,6 +56,9 @@ const store = new Vuex.Store({
     },
     addToPosts(state, post) {
       state.posts = { ...state.posts, [post.id]: post };
+    },
+    toggleLike(state, postId) {
+      state.posts[postId].liked = !state.posts[postId].liked;
     }
   },
   actions: {
@@ -99,6 +102,10 @@ const store = new Vuex.Store({
 
       const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
+    },
+    async toggleLike({ commit }, postId) {
+      commit("toggleLike", postId);
+      await Firebase.toggleLike(postId);
     }
   }
 });
@@ -110,7 +117,7 @@ Firebase.setOnAuthStateChangedCallback(async user => {
       isAuthenticated: true,
       username: userData.username
     });
-    store.commit("addToUsers", user);
+    store.commit("addToUsers", userData);
   } else {
     store.commit("setIsAuthenticated", {
       isAuthenticated: false,
