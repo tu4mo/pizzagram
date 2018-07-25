@@ -3,14 +3,16 @@
     <div class="navigation__items">
       <NavItem
         :to="{ name: 'home' }"
+        class="navigation__item"
         exact
         icon="home"
       >
         Home
       </NavItem>
-      <TheCamera />
+      <TheCamera class="navigation__item" />
       <NavItem
         :to="{ name: 'profile', params: { username: username || null } }"
+        class="navigation__item"
         icon="user"
       >
         Profile
@@ -38,9 +40,12 @@ export default {
 
 <style lang="scss" scoped>
 .navigation {
-  background-color: #fff;
-  border-top: 1px solid var(--color-light);
   padding-bottom: env(safe-area-inset-bottom);
+  width: 100%;
+
+  @media (min-width: 640px) {
+    padding-bottom: 0;
+  }
 
   &__items {
     align-items: center;
@@ -48,6 +53,12 @@ export default {
     display: flex;
     height: 3.5rem;
     justify-content: space-around;
+  }
+
+  &__item:not(:last-child) {
+    @media (min-width: 640px) {
+      margin-right: 2rem;
+    }
   }
 }
 </style>

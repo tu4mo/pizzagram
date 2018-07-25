@@ -1,15 +1,17 @@
 <template>
   <div class="default-layout">
-    <div class="default-layout__header">
-      <TheHeader />
+    <div class="default-layout__top">
+      <div class="default-layout__header">
+        <TheHeader />
+      </div>
+      <div class="default-layout__navigation">
+        <TheNavigation />
+      </div>
     </div>
     <main class="default-layout__main">
       <slot />
       <div class="default-layout__spacer" />
     </main>
-    <div class="default-layout__navigation">
-      <TheNavigation />
-    </div>
   </div>
 </template>
 
@@ -29,12 +31,21 @@ export default {
 .default-layout {
   background-color: #fff;
 
-  &__header {
+  &__top {
+    background-color: #fff;
+    border-bottom: 1px solid var(--color-light);
+    display: flex;
+    justify-content: center;
     left: 0;
+    padding: 0 2rem;
     position: fixed;
     right: 0;
     top: 0;
     z-index: var(--z-header);
+
+    @media (min-width: 640px) {
+      justify-content: space-between;
+    }
   }
 
   &__main {
@@ -51,11 +62,20 @@ export default {
   }
 
   &__navigation {
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid var(--color-light);
     bottom: 0;
+    display: flex;
     left: 0;
     position: fixed;
     right: 0;
     z-index: var(--z-navigation);
+
+    @media (min-width: 640px) {
+      border-top: 0;
+      position: relative;
+    }
   }
 }
 </style>

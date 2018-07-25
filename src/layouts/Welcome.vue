@@ -30,6 +30,7 @@ export default {
   top: 0;
 
   &__header {
+    border-bottom: 1px solid var(--color-light);
     left: 0;
     position: fixed;
     right: 0;

@@ -1,6 +1,6 @@
 <template>
   <div :class="['camera', { 'camera--active': $route.name === 'upload' }]">
-    <label>
+    <label class="camera__label">
       <input
         accept="image/*; capture=camera"
         class="camera__input"
@@ -40,6 +40,10 @@ export default {
 
   &--active {
     color: var(--color-pink);
+  }
+
+  &__label {
+    cursor: pointer;
   }
 
   &__input {
