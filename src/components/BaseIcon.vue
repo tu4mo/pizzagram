@@ -1,7 +1,7 @@
 <template>
   <div
     class="icon"
-    v-html="$options.icons[name]"
+    v-html="icons[name]"
   />
 </template>
 
@@ -18,11 +18,13 @@ export default {
       type: String
     }
   },
-  icons: {
-    camera,
-    heart,
-    home,
-    user
+  created() {
+    this.icons = {
+      camera,
+      heart,
+      home,
+      user
+    };
   }
 };
 </script>
