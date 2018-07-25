@@ -1,20 +1,22 @@
 <template>
-  <router-link
+  <BaseLink
     :exact="exact"
     :to="to"
     active-class="nav-item--active"
     class="nav-item"
   >
     <BaseIcon :name="icon" />
-  </router-link>
+  </BaseLink>
 </template>
 
 <script>
 import BaseIcon from "./BaseIcon";
+import BaseLink from "./BaseLink";
 
 export default {
   components: {
-    BaseIcon
+    BaseIcon,
+    BaseLink
   },
   props: {
     exact: {
