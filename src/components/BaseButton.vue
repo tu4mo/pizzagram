@@ -1,7 +1,7 @@
 <template>
   <component
     :is="component"
-    :to="to"
+    v-bind="$attrs"
     class="button"
     v-on="$listeners"
   >
@@ -15,10 +15,6 @@ export default {
     component: {
       default: "button",
       type: String
-    },
-    to: {
-      default: null,
-      type: Object
     }
   }
 };
