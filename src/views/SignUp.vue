@@ -93,9 +93,6 @@ export default {
 
 <style lang="scss" scoped>
 .signup {
-  margin: 0 auto;
-  max-width: 640px;
   text-align: center;
-  width: 100%;
 }
 </style>

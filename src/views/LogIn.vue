@@ -86,9 +86,6 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-  margin: 0 auto;
-  max-width: 640px;
   text-align: center;
-  width: 100%;
 }
 </style>

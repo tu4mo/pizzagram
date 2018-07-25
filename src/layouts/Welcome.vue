@@ -3,7 +3,9 @@
     <div class="welcome-layout__header">
       <TheHeader />
     </div>
-    <slot />
+    <main class="welcome-layout__main">
+      <slot />
+    </main>
   </div>
 </template>
 
@@ -36,6 +38,12 @@ export default {
     right: 0;
     top: 0;
     z-index: var(--z-header);
+  }
+
+  &__main {
+    margin: 0 auto;
+    max-width: 640px;
+    width: 100%;
   }
 }
 </style>
