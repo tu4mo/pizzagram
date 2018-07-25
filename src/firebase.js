@@ -78,21 +78,27 @@ class Firebase {
   }
 
   async createPostObject(doc) {
-    const data = doc.data();
-    const user = await this.getUser(data.userId);
+    try {
+      const data = doc.data();
+      const user = await this.getUser(data.userId);
 
-    const liked = await this.firestore
-      .collection("likes")
-      .doc(`${this.currentUser().uid}_${doc.id}`)
-      .get();
+      const liked = this.currentUser()
+        ? await this.firestore
+            .collection("likes")
+            .doc(`${this.currentUser().uid}_${doc.id}`)
+            .get().exists
+        : false;
 
-    return {
-      ...data,
-      createdAt: data.createdAt.toDate(),
-      id: doc.id,
-      liked: liked.exists,
-      user
-    };
+      return {
+        ...data,
+        createdAt: data.createdAt.toDate(),
+        id: doc.id,
+        liked,
+        user
+      };
+    } catch (error) {
+      //
+    }
   }
 
   async getUser(id) {

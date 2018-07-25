@@ -25,7 +25,10 @@
       <div class="post__caption">
         {{ post.caption }}
       </div>
-      <div class="post__like">
+      <div
+        v-if="$store.state.auth.isAuthenticated"
+        class="post__like"
+      >
         <BaseButton
           :class="['post__like-button', { 'post__like-button--liked': post.liked }]"
           @click="onLikeClick"
