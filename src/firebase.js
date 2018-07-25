@@ -83,10 +83,10 @@ class Firebase {
       const user = await this.getUser(data.userId);
 
       const liked = this.currentUser()
-        ? await this.firestore
+        ? (await this.firestore
             .collection("likes")
             .doc(`${this.currentUser().uid}_${doc.id}`)
-            .get().exists
+            .get()).exists
         : false;
 
       return {
