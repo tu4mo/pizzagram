@@ -29,6 +29,8 @@
     "firebase-tools": "^4.0.0",
     "lint-staged": "^7.2.0",
     "node-sass": "^4.9.2",
+    "prettier": "^1.14.0",
+    "pretty-quick": "^1.6.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"
@@ -44,10 +46,12 @@
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
+      "pretty-quick --staged",
       "git add"
     ],
     "*.vue": [
       "vue-cli-service lint",
+      "pretty-quick --staged",
       "git add"
     ]
   }
