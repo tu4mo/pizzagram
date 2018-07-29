@@ -82,18 +82,23 @@ class Firebase {
       const data = doc.data();
       const user = await this.getUser(data.userId);
 
-      const liked = this.currentUser()
-        ? (await this.firestore
-            .collection("likes")
-            .doc(`${this.currentUser().uid}_${doc.id}`)
-            .get()).exists
-        : false;
+      const querySnapshot = await this.firestore
+        .collection("likes")
+        .where("postId", "==", doc.id)
+        .get();
+
+      const likes = [];
+
+      for (const doc of querySnapshot.docs) {
+        likes.push(doc.data().userId);
+      }
 
       return {
         ...data,
         createdAt: data.createdAt.toDate(),
         id: doc.id,
-        liked,
+        liked: likes.includes(this.currentUser().uid),
+        likes,
         user
       };
     } catch (error) {
@@ -112,11 +117,9 @@ class Firebase {
       .limit(1)
       .get();
 
-    let user;
+    const doc = querySnapshot.docs[0] || {};
 
-    for (const doc of querySnapshot.docs) {
-      user = { ...doc.data(), username: doc.id };
-    }
+    const user = { ...doc.data(), username: doc.id };
 
     this.usersCache[id] = user;
 

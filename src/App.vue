@@ -26,6 +26,10 @@ html {
 
 body {
   font-size: 0.75rem;
+
+  @media (min-width: 640px) {
+    font-size: 1rem;
+  }
 }
 
 *,

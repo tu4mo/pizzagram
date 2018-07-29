@@ -22,8 +22,13 @@
       class="post__image"
     />
     <footer class="post__footer">
-      <div class="post__caption">
-        {{ post.caption }}
+      <div class="post__info">
+        <div class="post__likes">
+          {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
+        </div>
+        <div class="post__caption">
+          {{ post.caption }}
+        </div>
       </div>
       <div
         v-if="$store.state.auth.isAuthenticated"
@@ -106,10 +111,18 @@ export default {
     margin-top: 0.5rem;
   }
 
-  &__caption {
-    color: var(--color-gray);
+  &__info {
     flex: 1 1 auto;
     margin-right: 1rem;
+  }
+
+  &__likes {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  &__caption {
+    color: var(--color-gray);
   }
 
   &__like {
