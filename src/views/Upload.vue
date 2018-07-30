@@ -16,7 +16,7 @@
         </BaseSpacer>
         <BaseSpacer mb1>
           <BaseInput
-            v-model="caption"
+            v-model.trim="caption"
             maxlength="100"
             placeholder="Caption"
           />
