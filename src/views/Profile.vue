@@ -89,15 +89,27 @@ export default {
     margin-right: 1rem;
   }
 
+  &__username {
+    font-weight: bold;
+  }
+
   &__posts {
     display: flex;
     flex-wrap: wrap;
     margin: -0.25rem;
+
+    @media (min-width: 640px) {
+      margin: -0.5rem;
+    }
   }
 
   &__post {
     padding: 0.25rem;
     width: 33.33%;
+
+    @media (min-width: 640px) {
+      padding: 0.5rem;
+    }
   }
 
   &__footer {

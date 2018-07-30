@@ -8,6 +8,7 @@
       <BasePost
         v-for="post in $store.getters.getPostsByFeed('home')"
         :key="post.id"
+        :image-to="{ name: 'post', params: { postId: post.id } }"
         :post="post"
         class="home__base-post"
       />

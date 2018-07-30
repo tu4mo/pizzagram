@@ -16,11 +16,22 @@
         {{ createdDate }}
       </div>
     </header>
-    <PostImage
-      :caption="post.caption"
-      :image-url="post.imageUrl"
-      class="post__image"
-    />
+    <template v-if="imageTo">
+      <router-link :to="imageTo">
+        <PostImage
+          :caption="post.caption"
+          :image-url="post.imageUrl"
+          class="post__image"
+        />
+      </router-link>
+    </template>
+    <template v-else>
+      <PostImage
+        :caption="post.caption"
+        :image-url="post.imageUrl"
+        class="post__image"
+      />
+    </template>
     <footer class="post__footer">
       <div class="post__info">
         <div class="post__likes">
@@ -59,6 +70,10 @@ export default {
     ProfilePhoto
   },
   props: {
+    imageTo: {
+      default: null,
+      type: Object
+    },
     post: {
       required: true,
       type: Object
