@@ -2,7 +2,7 @@
   <figure class="post-image">
     <div class="post-image__container">
       <div
-        :style="{ backgroundImage: `url(${imageUrl})` }"
+        v-lazy:background-image="imageUrl"
         class="post-image__image"
       />
     </div>
