@@ -1,7 +1,7 @@
-<template>
+<template functional>
   <div
     class="icon"
-    v-html="icons[name]"
+    v-html="$options.ICONS[props.name]"
   />
 </template>
 
@@ -12,19 +12,17 @@ import home from "feather-icons/dist/icons/home.svg";
 import user from "feather-icons/dist/icons/user.svg";
 
 export default {
+  ICONS: {
+    camera,
+    heart,
+    home,
+    user
+  },
   props: {
     name: {
       required: true,
       type: String
     }
-  },
-  created() {
-    this.icons = {
-      camera,
-      heart,
-      home,
-      user
-    };
   }
 };
 </script>
