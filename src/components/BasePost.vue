@@ -16,22 +16,35 @@
         {{ createdDate }}
       </div>
     </header>
-    <template v-if="imageTo">
-      <router-link :to="imageTo">
+    <div class="post__image">
+      <template v-if="imageTo">
+        <router-link :to="imageTo">
+          <PostImage
+            :caption="post.caption"
+            :image-url="post.imageUrl"
+          />
+        </router-link>
+      </template>
+      <template v-else>
         <PostImage
           :caption="post.caption"
           :image-url="post.imageUrl"
-          class="post__image"
         />
-      </router-link>
-    </template>
-    <template v-else>
-      <PostImage
-        :caption="post.caption"
-        :image-url="post.imageUrl"
-        class="post__image"
-      />
-    </template>
+      </template>
+      <transition name="fade">
+        <div
+          v-if="isSharing"
+          class="post__share"
+        >
+          <div
+            ref="postPath"
+            class="post__path"
+          >
+            {{ postPath }}
+          </div>
+        </div>
+      </transition>
+    </div>
     <footer class="post__footer">
       <div class="post__info">
         <div class="post__likes">
@@ -43,8 +56,14 @@
       </div>
       <div
         v-if="$store.state.auth.isAuthenticated"
-        class="post__like"
+        class="post__buttons"
       >
+        <BaseButton
+          :class="['post__share-button', { 'post__share-button--active': isSharing }]"
+          @click="onShareClick"
+        >
+          <BaseIcon name="share" />
+        </BaseButton>
         <BaseButton
           :class="['post__like-button', { 'post__like-button--liked': post.liked }]"
           @click="onLikeClick"
@@ -59,6 +78,7 @@
 <script>
 import BaseButton from "./BaseButton";
 import BaseIcon from "./BaseIcon";
+import BaseInput from "./BaseInput";
 import PostImage from "./PostImage";
 import ProfilePhoto from "./ProfilePhoto";
 
@@ -66,6 +86,7 @@ export default {
   components: {
     BaseButton,
     BaseIcon,
+    BaseInput,
     PostImage,
     ProfilePhoto
   },
@@ -79,14 +100,43 @@ export default {
       type: Object
     }
   },
+  data() {
+    return {
+      isSharing: false
+    };
+  },
   computed: {
     createdDate() {
       return this.post.createdAt.toLocaleDateString();
+    },
+    postPath() {
+      return `${window.location.origin}/post/${this.post.id}`;
     }
   },
   methods: {
     onLikeClick() {
       this.$store.dispatch("toggleLike", this.post.id);
+    },
+    onShareClick() {
+      if (this.isSharing) {
+        this.isSharing = false;
+      } else {
+        this.isSharing = true;
+        this.$nextTick(() => {
+          const { postPath } = this.$refs;
+
+          if (document.selection) {
+            const range = document.body.createTextRange();
+            range.moveToElementText(postPath);
+            range.select();
+          } else if (window.getSelection) {
+            const range = document.createRange();
+            range.selectNode(postPath);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+          }
+        });
+      }
     }
   }
 };
@@ -117,13 +167,14 @@ export default {
   }
 
   &__image {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    position: relative;
   }
 
   &__footer {
     align-items: flex-start;
     display: flex;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
 
   &__info {
@@ -140,8 +191,21 @@ export default {
     color: var(--color-gray);
   }
 
-  &__like {
+  &__buttons {
+    display: flex;
     flex: 0 0 auto;
+
+    & > *:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+
+  &__share-button {
+    color: var(--color-purple);
+
+    &--active {
+      color: var(--color-pink);
+    }
   }
 
   &__like-button {
@@ -155,5 +219,37 @@ export default {
       }
     }
   }
+
+  &__share {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    bottom: 0;
+    display: flex;
+    left: 0;
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__path {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    user-select: text;
+    word-wrap: break-word;
+    width: 100%;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
