@@ -22,7 +22,10 @@
           <PostImage :image-url="post.imageUrl.replace('.jpg', '_128.jpg')" />
         </router-link>
       </div>
-      <div class="profile__footer">
+      <div
+        v-if="isMe"
+        class="profile__footer"
+      >
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
       </div>
     </div>
@@ -46,6 +49,9 @@ export default {
     ProfilePhoto
   },
   computed: {
+    isMe() {
+      return this.$store.state.auth.username === this.user.username;
+    },
     user() {
       return this.$store.getters.getUser(this.$route.params.username);
     }
