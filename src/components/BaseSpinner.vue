@@ -1,5 +1,5 @@
 <template>
-  <div :class="['spinner', { 'spinner--cover': cover }]">
+  <div :class="classes">
     <div class="spinner__rotate">
       <div class="spinner__pepperoni-1" />
       <div class="spinner__pepperoni-2" />
@@ -13,6 +13,18 @@ export default {
     cover: {
       default: false,
       type: Boolean
+    },
+    inline: {
+      default: false,
+      type: Boolean
+    }
+  },
+  computed: {
+    classes() {
+      return [
+        "spinner",
+        { "spinner--cover": this.cover, "spinner--inline": this.inline }
+      ];
     }
   }
 };
@@ -25,12 +37,16 @@ export default {
   display: flex;
   justify-content: center;
   left: 0;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
 
   &--cover {
     background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  &--inline {
+    position: relative;
   }
 
   &__rotate {

@@ -70,12 +70,19 @@ const store = new Vuex.Store({
       const post = await Firebase.getPost(postId);
       commit("addToPosts", post);
     },
-    async getPostsForHome({ commit }, setIsLoading) {
+    async getPostsForHome({ commit, getters }, setIsLoading) {
       if (setIsLoading) {
         commit("setIsLoading", true);
       }
 
-      const posts = await Firebase.getPosts();
+      const postsInHome = getters.getPostsByFeed("home");
+      const lastPost =
+        postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null;
+
+      const posts = await Firebase.getPosts({
+        startAt: lastPost
+      });
+
       posts.forEach(post => {
         commit("addToPosts", post);
         commit("addToFeeds", { feed: "home", postId: post.id });
@@ -88,7 +95,7 @@ const store = new Vuex.Store({
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username);
       if (Object.keys(user).length) {
-        const posts = await Firebase.getPosts(user.id);
+        const posts = await Firebase.getPosts({ userId: user.id });
         posts.forEach(post => {
           commit("addToPosts", post);
           commit("addToFeeds", { feed: username, postId: post.id });

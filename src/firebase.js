@@ -47,17 +47,22 @@ class Firebase {
     this.onAuthStateChangedCallback = callback;
   }
 
-  async getPosts(userId) {
+  async getPosts({ userId, startAt } = {}) {
     const posts = [];
 
     let query = this.firestore
       .collection("posts")
       .orderBy("createdAt", "desc")
-      .limit(10)
       .where("published", "==", true);
 
     if (userId) {
       query = query.where("userId", "==", userId);
+    } else {
+      query = query.limit(10);
+    }
+
+    if (startAt) {
+      query = query.startAt(startAt);
     }
 
     const querySnapshot = await query.get();
@@ -95,6 +100,7 @@ class Firebase {
       }
 
       return {
+        doc,
         ...data,
         createdAt: data.createdAt.toDate(),
         id: doc.id,
