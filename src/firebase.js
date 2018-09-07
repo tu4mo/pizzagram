@@ -53,6 +53,7 @@ class Firebase {
     let query = this.firestore
       .collection("posts")
       .orderBy("createdAt", "desc")
+      .limit(10)
       .where("published", "==", true);
 
     if (userId) {
@@ -119,7 +120,7 @@ class Firebase {
 
     const doc = querySnapshot.docs[0] || {};
 
-    const user = { ...doc.data(), username: doc.id };
+    const user = this.createUserObject(doc);
 
     this.usersCache[id] = user;
 
@@ -132,7 +133,13 @@ class Firebase {
       .doc(username)
       .get();
 
-    return { ...docRef.data(), username: docRef.id };
+    return this.createUserObject(docRef);
+  }
+
+  async createUserObject(doc) {
+    const data = doc.data();
+
+    return { ...data, createdAt: data.createdAt.toDate(), username: doc.id };
   }
 
   async sharePost(file, caption) {
