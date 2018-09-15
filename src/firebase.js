@@ -67,11 +67,11 @@ class Firebase {
 
     const querySnapshot = await query.get();
 
-    for (const doc of querySnapshot.docs) {
-      posts.push(await this.createPostObject(doc));
-    }
+    querySnapshot.docs.forEach(async doc =>
+      posts.push(this.createPostObject(doc))
+    );
 
-    return posts;
+    return Promise.all(posts);
   }
 
   async getPost(id) {
