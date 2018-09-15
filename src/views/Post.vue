@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     fetchPost(postId) {
-      this.$store.dispatch("getPostById", postId);
+      this.$store.dispatch("getPostById", { postId });
     }
   }
 };

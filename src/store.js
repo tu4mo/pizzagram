@@ -62,8 +62,8 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    async getPostById({ commit, state }, postId) {
-      if (state.posts[postId]) {
+    async getPostById({ commit, state }, { postId, force }) {
+      if (state.posts[postId] && !force) {
         return;
       }
 
@@ -110,9 +110,10 @@ const store = new Vuex.Store({
       const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
     },
-    async toggleLike({ commit }, postId) {
+    async toggleLike({ commit, dispatch }, postId) {
       commit("toggleLike", postId);
       await Firebase.toggleLike(postId);
+      dispatch("getPostById", { postId, force: true });
     }
   }
 });
