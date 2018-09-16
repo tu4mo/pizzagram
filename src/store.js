@@ -48,6 +48,9 @@ const store = new Vuex.Store({
         [feed]: { ...(state.feeds[feed] || {}), [postId]: true }
       };
     },
+    clearFeed(state, feed) {
+      delete state.feeds[feed];
+    },
     setFile(state, file) {
       state.file = file;
     },
