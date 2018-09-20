@@ -2,7 +2,9 @@
 
 "use strict";
 
-const gcs = require("@google-cloud/storage")();
+const { Storage } = require("@google-cloud/storage");
+const storage = new Storage();
+
 const path = require("path");
 const sharp = require("sharp");
 
@@ -21,7 +23,7 @@ module.exports = (object, size) => {
     return null;
   }
 
-  const bucket = gcs.bucket(fileBucket);
+  const bucket = storage.bucket(fileBucket);
 
   const { name } = path.parse(filePath);
   const resizedFileName = size === 128 ? `${name}_${size}.jpg` : `${name}.jpg`;
