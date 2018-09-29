@@ -20,7 +20,7 @@ export default {
   computed: {
     profileUrl() {
       return this.gravatar
-        ? `https://www.gravatar.com/avatar/${this.gravatar}?d=identicon`
+        ? `https://www.gravatar.com/avatar/${this.gravatar}?d=identicon&s=128`
         : null;
     }
   }
@@ -37,11 +37,21 @@ export default {
   &--small {
     height: 2rem;
     width: 2rem;
+
+    @media (min-width: 640px) {
+      height: 4rem;
+      width: 4rem;
+    }
   }
 
   &--medium {
     height: 4rem;
     width: 4rem;
+
+    @media (min-width: 640px) {
+      height: 8rem;
+      width: 8rem;
+    }
   }
 }
 </style>
