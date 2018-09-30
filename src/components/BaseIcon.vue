@@ -7,6 +7,7 @@
 
 <script>
 import camera from "feather-icons/dist/icons/camera.svg";
+import chevronLeft from "feather-icons/dist/icons/chevron-left.svg";
 import heart from "feather-icons/dist/icons/heart.svg";
 import home from "feather-icons/dist/icons/home.svg";
 import share from "feather-icons/dist/icons/share.svg";
@@ -15,6 +16,7 @@ import user from "feather-icons/dist/icons/user.svg";
 export default {
   ICONS: {
     camera,
+    chevronLeft,
     heart,
     home,
     share,
