@@ -15,7 +15,7 @@
     "sharp": "^0.21.0"
   },
   "devDependencies": {
-    "firebase-tools": "^4.2.1"
+    "firebase-tools": "^5.0.1"
   },
   "engines": {
     "node": "8"
