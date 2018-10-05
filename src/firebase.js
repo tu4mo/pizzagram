@@ -28,6 +28,8 @@ class Firebase {
 
     this.onAuthStateChangedCallback = null;
 
+    this.queryLimit = 10;
+
     firebase.auth().onAuthStateChanged(async user => {
       if (!this.isSigningUp) {
         this.onAuthStateChangedCallback(user);
@@ -58,7 +60,7 @@ class Firebase {
     if (userId) {
       query = query.where("userId", "==", userId);
     } else {
-      query = query.limit(10);
+      query = query.limit(this.queryLimit);
     }
 
     if (startAt) {
