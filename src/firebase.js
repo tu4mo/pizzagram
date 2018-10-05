@@ -49,7 +49,7 @@ class Firebase {
     this.onAuthStateChangedCallback = callback;
   }
 
-  async getPosts({ userId, startAt } = {}) {
+  async getPosts({ userId, startAfter } = {}) {
     const posts = [];
 
     let query = this.firestore
@@ -63,8 +63,8 @@ class Firebase {
       query = query.limit(this.queryLimit);
     }
 
-    if (startAt) {
-      query = query.startAt(startAt);
+    if (startAfter) {
+      query = query.startAfter(startAfter);
     }
 
     const querySnapshot = await query.get();

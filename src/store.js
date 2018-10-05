@@ -87,7 +87,7 @@ const store = new Vuex.Store({
         postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null;
 
       const posts = await Firebase.getPosts({
-        startAt: lastPost
+        startAfter: lastPost
       });
 
       posts.forEach(post => {
