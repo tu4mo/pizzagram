@@ -99,7 +99,7 @@ const store = new Vuex.Store({
         commit("setIsLoading", false);
       }
 
-      if (posts.length === 1) {
+      if (posts.length < 10) {
         commit("setIsLastPostReached", true);
       }
     },
