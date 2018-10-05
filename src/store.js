@@ -12,7 +12,7 @@ const store = new Vuex.Store({
       username: ""
     },
     isLoading: false,
-    lastPostReached: false,
+    isLastPostReached: false,
     feeds: {},
     file: null,
     users: {},
@@ -64,8 +64,8 @@ const store = new Vuex.Store({
     toggleLike(state, postId) {
       state.posts[postId].liked = !state.posts[postId].liked;
     },
-    setLastPostReached(state, lastPostReached) {
-      state.lastPostReached = lastPostReached;
+    setIsLastPostReached(state, isLastPostReached) {
+      state.isLastPostReached = isLastPostReached;
     }
   },
   actions: {
@@ -100,7 +100,7 @@ const store = new Vuex.Store({
       }
 
       if (posts.length === 1) {
-        commit("setLastPostReached", true);
+        commit("setIsLastPostReached", true);
       }
     },
     async getPostsByUser({ commit, getters }, username) {

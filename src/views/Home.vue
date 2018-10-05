@@ -13,7 +13,7 @@
         :inline="$store.getters.getPostsByFeed('home').length > 0"
       />
       <BaseButton
-        v-else-if="!$store.state.lastPostReached"
+        v-else-if="!$store.state.isLastPostReached"
         @click="fetchPosts"
       >
         Load More
