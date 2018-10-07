@@ -1,11 +1,15 @@
 <template>
   <DefaultLayout>
     <div class="post-view">
-      <BasePost
-        v-if="Object.keys(singlePost).length"
-        :key="singlePost.id"
-        :post="singlePost"
-      />
+      <template v-if="Object.keys(singlePost).length">
+        <BasePost :post="singlePost" />
+        <div
+          v-if="$store.getters.getIsMe(singlePost.user.username)"
+          class="post-view__footer"
+        >
+          <BaseButton @click="onRemoveClick">Remove</BaseButton>
+        </div>
+      </template>
     </div>
   </DefaultLayout>
 </template>
@@ -13,10 +17,12 @@
 <script>
 import DefaultLayout from "@/layouts/Default";
 
+import BaseButton from "@/components/BaseButton";
 import BasePost from "@/components/BasePost";
 
 export default {
   components: {
+    BaseButton,
     BasePost,
     DefaultLayout
   },
@@ -41,6 +47,12 @@ export default {
   methods: {
     fetchPost(postId) {
       this.$store.dispatch("getPostById", { postId });
+    },
+    onRemoveClick() {
+      if (confirm("Are you sure you want to remove this photo?")) {
+        this.$store.dispatch("removePost", this.postId);
+        this.$router.go(-1);
+      }
     }
   }
 };

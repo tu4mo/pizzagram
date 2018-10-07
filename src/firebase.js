@@ -178,6 +178,13 @@ class Firebase {
     return uploadTask;
   }
 
+  async removePost(id) {
+    await this.firestore
+      .collection("posts")
+      .doc(id)
+      .delete();
+  }
+
   async signUp(username, email, password) {
     this.isSigningUp = true;
 

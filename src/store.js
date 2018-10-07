@@ -62,6 +62,12 @@ const store = new Vuex.Store({
     addToPosts(state, post) {
       state.posts = { ...state.posts, [post.id]: post };
     },
+    removePost(state, postId) {
+      delete state.posts[postId];
+      Object.keys(state.feeds).forEach(feed => {
+        delete state.feeds[feed][postId];
+      });
+    },
     toggleLike(state, postId) {
       state.posts[postId].liked = !state.posts[postId].liked;
     },
@@ -113,6 +119,10 @@ const store = new Vuex.Store({
           commit("addToFeeds", { feed: username, postId: post.id });
         });
       }
+    },
+    removePost({ commit }, postId) {
+      Firebase.removePost(postId);
+      commit("removePost", postId);
     },
     async getUser({ commit, state }, username) {
       if (state.users[username]) {

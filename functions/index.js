@@ -1,6 +1,11 @@
 const functions = require("firebase-functions");
 
 const resizeImage = require("./resize-image");
+const removePost = require("./remove-post");
+
+exports.removePost = functions.firestore
+  .document("posts/{postId}")
+  .onDelete(removePost);
 
 exports.generateResizedImages = functions.storage
   .object()
