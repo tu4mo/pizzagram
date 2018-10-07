@@ -20,6 +20,7 @@ const store = new Vuex.Store({
   },
   getters: {
     getUser: state => username => state.users[username] || {},
+    getIsMe: state => username => state.auth.username === username,
     getPostById: state => id => {
       return state.posts[id] ? state.posts[id] : {};
     },

@@ -23,7 +23,7 @@
         </router-link>
       </div>
       <div
-        v-if="isMe"
+        v-if="$store.getters.getIsMe(user.username)"
         class="profile__footer"
       >
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
@@ -49,9 +49,6 @@ export default {
     ProfilePhoto
   },
   computed: {
-    isMe() {
-      return this.$store.state.auth.username === this.user.username;
-    },
     user() {
       return this.$store.getters.getUser(this.$route.params.username);
     }
