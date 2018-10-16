@@ -14,8 +14,8 @@
       </div>
       <div class="profile__posts">
         <router-link
-          v-for="(post, index) in $store.getters.getPostsByFeed(user.username)"
-          :key="index"
+          v-for="post in $store.getters.getPostsByFeed(user.username)"
+          :key="post.id"
           :to="{ name: 'post', params: { postId: post.id } }"
           class="profile__post"
         >
