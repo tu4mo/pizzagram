@@ -106,7 +106,7 @@ const store = new Vuex.Store({
         commit("setIsLoading", false);
       }
 
-      if (posts.length < Firebase.queryLimit) {
+      if (posts.length < Firebase.QUERY_LIMIT) {
         commit("setIsLastPostReached", true);
       }
     },
