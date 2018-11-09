@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@sentry/browser": "^4.3.0",
     "feather-icons": "^4.7.3",
     "firebase": "^5.5.4",
     "md5": "^2.2.1",
