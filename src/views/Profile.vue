@@ -3,14 +3,9 @@
     <div class="profile">
       <div class="profile__header">
         <div class="profile__photo">
-          <ProfilePhoto
-            :gravatar="user.gravatar"
-            size="medium"
-          />
+          <ProfilePhoto :gravatar="user.gravatar" size="medium" />
         </div>
-        <div class="profile__username">
-          {{ user.username }}
-        </div>
+        <div class="profile__username">{{ user.username }}</div>
       </div>
       <div class="profile__posts">
         <router-link
@@ -22,10 +17,7 @@
           <PostImage :image-url="post.imageUrl.replace('.jpg', '_128.jpg')" />
         </router-link>
       </div>
-      <div
-        v-if="$store.getters.getIsMe(user.username)"
-        class="profile__footer"
-      >
+      <div v-if="$store.getters.getIsMe(user.username)" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
       </div>
     </div>

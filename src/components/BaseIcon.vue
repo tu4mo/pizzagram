@@ -1,8 +1,5 @@
 <template functional>
-  <div
-    class="icon"
-    v-html="$options.ICONS[props.name]"
-  />
+  <div class="icon" v-html="$options.ICONS[props.name]" />
 </template>
 
 <script>

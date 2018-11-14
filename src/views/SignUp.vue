@@ -1,37 +1,17 @@
 <template>
   <WelcomeLayout>
-    <BaseSpinner
-      v-if="isLoading"
-      cover
-    />
-    <form
-      class="signup"
-      @submit.prevent="submit"
-    >
+    <BaseSpinner v-if="isLoading" cover />
+    <form class="signup" @submit.prevent="submit">
       <BaseSpacer mb1>
-        <BaseInput
-          v-model.trim="username"
-          placeholder="Username"
-        />
+        <BaseInput v-model.trim="username" placeholder="Username" />
       </BaseSpacer>
       <BaseSpacer mb1>
-        <BaseInput
-          v-model.trim="email"
-          placeholder="E-mail"
-          type="email"
-        />
+        <BaseInput v-model.trim="email" placeholder="E-mail" type="email" />
       </BaseSpacer>
       <BaseSpacer mb1>
-        <BaseInput
-          v-model="password"
-          placeholder="Password"
-          type="password"
-        />
+        <BaseInput v-model="password" placeholder="Password" type="password" />
       </BaseSpacer>
-      <BaseButton
-        :disabled="!username || !email || !password"
-        type="submit"
-      >
+      <BaseButton :disabled="!username || !email || !password" type="submit">
         Sign Up
       </BaseButton>
       <BaseSpacer my1>

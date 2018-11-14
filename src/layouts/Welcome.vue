@@ -1,11 +1,7 @@
 <template>
   <div class="welcome-layout">
-    <div class="welcome-layout__header">
-      <TheHeader />
-    </div>
-    <main class="welcome-layout__main">
-      <slot />
-    </main>
+    <div class="welcome-layout__header"><TheHeader /></div>
+    <main class="welcome-layout__main"><slot /></main>
   </div>
 </template>
 

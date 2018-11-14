@@ -1,8 +1,5 @@
 <template>
-  <nav
-    v-if="$store.state.auth.isAuthenticated"
-    class="navigation"
-  >
+  <nav v-if="$store.state.auth.isAuthenticated" class="navigation">
     <div class="navigation__items">
       <NavItem
         :to="{ name: 'home' }"

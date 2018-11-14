@@ -8,64 +8,47 @@
         <div class="post__profile">
           <ProfilePhoto :gravatar="post.user.gravatar" />
         </div>
-        <div class="post__username">
-          {{ post.user.username }}
-        </div>
+        <div class="post__username">{{ post.user.username }}</div>
       </router-link>
-      <div class="post__created-date">
-        {{ createdDate }}
-      </div>
+      <div class="post__created-date">{{ createdDate }}</div>
     </header>
     <div class="post__image">
       <template v-if="imageTo">
         <router-link :to="imageTo">
-          <PostImage
-            :caption="post.caption"
-            :image-url="post.imageUrl"
-          />
+          <PostImage :caption="post.caption" :image-url="post.imageUrl" />
         </router-link>
       </template>
       <template v-else>
-        <PostImage
-          :caption="post.caption"
-          :image-url="post.imageUrl"
-        />
+        <PostImage :caption="post.caption" :image-url="post.imageUrl" />
       </template>
       <transition name="fade">
-        <div
-          v-if="isSharing"
-          class="post__share"
-        >
-          <div
-            ref="postPath"
-            class="post__path"
-          >
-            {{ postPath }}
-          </div>
+        <div v-if="isSharing" class="post__share">
+          <div ref="postPath" class="post__path">{{ postPath }}</div>
         </div>
       </transition>
     </div>
     <footer class="post__footer">
       <div class="post__info">
         <div class="post__likes">
-          {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
+          {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
         </div>
-        <div class="post__caption">
-          {{ post.caption }}
-        </div>
+        <div class="post__caption">{{ post.caption }}</div>
       </div>
-      <div
-        v-if="$store.state.auth.isAuthenticated"
-        class="post__buttons"
-      >
+      <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
         <BaseButton
-          :class="['post__share-button', { 'post__share-button--active': isSharing }]"
+          :class="[
+            'post__share-button',
+            { 'post__share-button--active': isSharing }
+          ]"
           @click="onShareClick"
         >
           <BaseIcon name="share" />
         </BaseButton>
         <BaseButton
-          :class="['post__like-button', { 'post__like-button--liked': post.liked }]"
+          :class="[
+            'post__like-button',
+            { 'post__like-button--liked': post.liked }
+          ]"
           @click="onLikeClick"
         >
           <BaseIcon name="heart" />

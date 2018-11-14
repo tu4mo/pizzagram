@@ -1,13 +1,6 @@
 <template>
-  <router-link
-    :to="{ name: 'home' }"
-    class="logo"
-  >
-    <img
-      alt="Pizzagram"
-      class="logo__image"
-      src="@/assets/pizzagram.png"
-    >
+  <router-link :to="{ name: 'home' }" class="logo">
+    <img alt="Pizzagram" class="logo__image" src="@/assets/pizzagram.png" />
   </router-link>
 </template>
 

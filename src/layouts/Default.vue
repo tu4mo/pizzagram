@@ -5,17 +5,13 @@
         <BaseButton
           v-if="canGoBack"
           class="default-layout__back-link"
-          @click="$router.go(-1)"
+          @click="$router.go(-1);"
         >
           <BaseIcon name="chevronLeft" />
         </BaseButton>
       </div>
-      <div class="default-layout__header">
-        <TheHeader />
-      </div>
-      <div class="default-layout__navigation">
-        <TheNavigation />
-      </div>
+      <div class="default-layout__header"><TheHeader /></div>
+      <div class="default-layout__navigation"><TheNavigation /></div>
     </div>
     <main class="default-layout__main">
       <slot />

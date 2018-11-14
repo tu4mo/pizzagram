@@ -1,7 +1,5 @@
 <template>
-  <header class="header">
-    <TheLogo class="header__logo" />
-  </header>
+  <header class="header"><TheLogo class="header__logo" /></header>
 </template>
 
 <script>

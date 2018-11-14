@@ -1,10 +1,5 @@
 <template>
-  <router-link
-    :active-class="activeClass"
-    :exact="exact"
-    :to="to"
-    class="link"
-  >
+  <router-link :active-class="activeClass" :exact="exact" :to="to" class="link">
     <slot />
   </router-link>
 </template>

@@ -1,19 +1,11 @@
 <template>
   <DefaultLayout>
     <div class="upload">
-      <div
-        v-if="!file || !imageUrl"
-        class="upload__info"
-      >
+      <div v-if="!file || !imageUrl" class="upload__info">
         Use the Camera icon to upload a photo
       </div>
-      <div
-        v-else
-        class="upload__form"
-      >
-        <BaseSpacer mb1>
-          <PostImage :image-url="imageUrl" />
-        </BaseSpacer>
+      <div v-else class="upload__form">
+        <BaseSpacer mb1> <PostImage :image-url="imageUrl" /> </BaseSpacer>
         <BaseSpacer mb1>
           <BaseInput
             v-model.trim="caption"
@@ -23,10 +15,7 @@
         </BaseSpacer>
         <BaseButton @click="onShareClick">Share</BaseButton>
       </div>
-      <BaseSpinner
-        v-if="isLoading"
-        cover
-      />
+      <BaseSpinner v-if="isLoading" cover />
     </div>
   </DefaultLayout>
 </template>

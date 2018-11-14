@@ -7,7 +7,7 @@
         type="file"
         @change="onChange"
         @click="onClick"
-      >
+      />
       <BaseIcon name="camera" />
     </label>
   </div>
