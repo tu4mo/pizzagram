@@ -1,10 +1,7 @@
 <template>
   <figure class="post-image">
     <div class="post-image__container">
-      <div
-        v-lazy:background-image="imageUrl"
-        class="post-image__image"
-      />
+      <div v-lazy:background-image="imageUrl" class="post-image__image" />
     </div>
   </figure>
 </template>
