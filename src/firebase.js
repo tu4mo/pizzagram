@@ -22,8 +22,6 @@ class Firebase {
     this.storage = firebase.storage();
     this.storageRef = this.storage.ref();
 
-    this.usersCache = {};
-
     this.isSigningUp = false;
 
     this.onAuthStateChangedCallback = null;
@@ -114,10 +112,6 @@ class Firebase {
   }
 
   async getUser(id) {
-    if (this.usersCache[id]) {
-      return this.usersCache[id];
-    }
-
     const querySnapshot = await this.firestore
       .collection("users")
       .where("id", "==", id)
@@ -125,10 +119,7 @@ class Firebase {
       .get();
 
     const doc = querySnapshot.docs[0] || {};
-
     const user = this.createUserObject(doc);
-
-    this.usersCache[id] = user;
 
     return user;
   }
