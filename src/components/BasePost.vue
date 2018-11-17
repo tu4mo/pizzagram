@@ -1,60 +1,55 @@
 <template>
   <article class="post">
-    <header class="post__header">
-      <router-link
-        :to="{ name: 'profile', params: { username: post.user.username } }"
-        class="post__user"
-      >
-        <div class="post__profile">
-          <ProfilePhoto :gravatar="post.user.gravatar" />
-        </div>
-        <div class="post__username">{{ post.user.username }}</div>
-      </router-link>
-      <div class="post__created-date">{{ createdDate }}</div>
-    </header>
-    <div class="post__image">
-      <template v-if="imageTo">
-        <router-link :to="imageTo">
+    <lazy-component @show="onLazyLoad">
+      <PostHeader :created-at="post.createdAt" :user="user" />
+      <div class="post__image">
+        <template v-if="imageTo">
+          <router-link :to="imageTo">
+            <PostImage :caption="post.caption" :image-url="post.imageUrl" />
+          </router-link>
+        </template>
+        <template v-else>
           <PostImage :caption="post.caption" :image-url="post.imageUrl" />
-        </router-link>
-      </template>
-      <template v-else>
-        <PostImage :caption="post.caption" :image-url="post.imageUrl" />
-      </template>
-      <transition name="fade">
-        <div v-if="isSharing" class="post__share">
-          <div ref="postPath" class="post__path">{{ postPath }}</div>
-        </div>
-      </transition>
-    </div>
-    <footer class="post__footer">
-      <div class="post__info">
-        <div class="post__likes">
-          {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
-        </div>
-        <div class="post__caption">{{ post.caption }}</div>
+        </template>
+        <transition name="fade">
+          <div v-if="isSharing" class="post__share">
+            <div ref="postPath" class="post__path">{{ postPath }}</div>
+          </div>
+        </transition>
       </div>
-      <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
-        <BaseButton
-          :class="[
-            'post__share-button',
-            { 'post__share-button--active': isSharing }
-          ]"
-          @click="onShareClick"
-        >
-          <BaseIcon name="share" />
-        </BaseButton>
-        <BaseButton
-          :class="[
-            'post__like-button',
-            { 'post__like-button--liked': post.liked }
-          ]"
-          @click="onLikeClick"
-        >
-          <BaseIcon name="heart" />
-        </BaseButton>
-      </div>
-    </footer>
+      <footer class="post__footer">
+        <div class="post__info">
+          <div class="post__likes">
+            {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
+          </div>
+          <div class="post__caption">{{ post.caption }}</div>
+        </div>
+        <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
+          <BaseButton
+            :class="[
+              'post__share-button',
+              { 'post__share-button--active': isSharing }
+            ]"
+            @click="onShareClick"
+          >
+            <BaseIcon name="share" />
+          </BaseButton>
+          <BaseButton
+            :class="[
+              'post__like-button',
+              { 'post__like-button--liked': post.liked }
+            ]"
+            @click="onLikeClick"
+          >
+            <BaseIcon name="heart" />
+          </BaseButton>
+        </div>
+      </footer>
+    </lazy-component>
+    <template v-if="isPlaceholder">
+      <PostHeader :created-at="post.createdAt" />
+      <div class="post__image"><PostImage /></div>
+    </template>
   </article>
 </template>
 
@@ -62,16 +57,16 @@
 import BaseButton from "./BaseButton";
 import BaseIcon from "./BaseIcon";
 import BaseInput from "./BaseInput";
+import PostHeader from "./PostHeader";
 import PostImage from "./PostImage";
-import ProfilePhoto from "./ProfilePhoto";
 
 export default {
   components: {
     BaseButton,
     BaseIcon,
     BaseInput,
-    PostImage,
-    ProfilePhoto
+    PostHeader,
+    PostImage
   },
   props: {
     imageTo: {
@@ -85,18 +80,23 @@ export default {
   },
   data() {
     return {
-      isSharing: false
+      isSharing: false,
+      isPlaceholder: true
     };
   },
   computed: {
-    createdDate() {
-      return this.post.createdAt.toLocaleDateString();
-    },
     postPath() {
       return `${window.location.origin}/post/${this.post.id}`;
+    },
+    user() {
+      return this.$store.getters.getUserById(this.post.userId);
     }
   },
   methods: {
+    async onLazyLoad() {
+      this.isPlaceholder = false;
+      await this.$store.dispatch("getUserById", this.post.userId);
+    },
     onLikeClick() {
       this.$store.dispatch("toggleLike", this.post.id);
     },
@@ -127,28 +127,6 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  &__header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__user {
-    align-items: center;
-    color: var(--color-purple);
-    display: flex;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  &__profile {
-    margin-right: 0.5rem;
-  }
-
-  &__created-date {
-    color: var(--color-gray);
-  }
-
   &__image {
     margin-top: 1rem;
     position: relative;

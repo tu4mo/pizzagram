@@ -9,7 +9,8 @@ const store = new Vuex.Store({
   state: {
     auth: {
       isAuthenticated: false,
-      username: ""
+      username: "",
+      userId: ""
     },
     isLoading: false,
     isLastPostReached: false,
@@ -20,7 +21,9 @@ const store = new Vuex.Store({
   },
   getters: {
     getUser: state => username => state.users[username] || {},
-    getIsMe: state => username => state.auth.username === username,
+    getUserById: state => userId =>
+      Object.values(state.users).find(user => user.id === userId) || {},
+    getIsMe: state => userId => state.auth.userId === userId,
     getPostById: state => id => {
       return state.posts[id] ? state.posts[id] : {};
     },
@@ -34,9 +37,10 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    setIsAuthenticated(state, { isAuthenticated, username }) {
+    setIsAuthenticated(state, { isAuthenticated, username, userId }) {
       state.auth.isAuthenticated = isAuthenticated;
       state.auth.username = username;
+      state.auth.userId = userId;
     },
     setIsLoading(state, isLoading) {
       state.isLoading = isLoading;
@@ -132,6 +136,14 @@ const store = new Vuex.Store({
       const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
     },
+    async getUserById({ commit, state }, userId) {
+      if (Object.values(state.users).some(user => user.id === userId)) {
+        return;
+      }
+
+      const user = await Firebase.getUser(userId);
+      commit("addToUsers", user);
+    },
     async toggleLike({ commit, dispatch }, postId) {
       commit("toggleLike", postId);
       await Firebase.toggleLike(postId);
@@ -145,7 +157,8 @@ Firebase.setOnAuthStateChangedCallback(async user => {
     const userData = await Firebase.getUser(user.uid);
     store.commit("setIsAuthenticated", {
       isAuthenticated: true,
-      username: userData.username
+      username: userData.username,
+      userId: user.uid
     });
     store.commit("addToUsers", userData);
   } else {

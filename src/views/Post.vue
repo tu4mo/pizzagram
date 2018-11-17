@@ -4,7 +4,7 @@
       <template v-if="Object.keys(singlePost).length">
         <BasePost :post="singlePost" />
         <div
-          v-if="$store.getters.getIsMe(singlePost.user.username)"
+          v-if="$store.getters.getIsMe(singlePost.userId)"
           class="post-view__footer"
         >
           <BaseButton @click="onRemoveClick">Remove</BaseButton>

@@ -17,7 +17,7 @@
           <PostImage :image-url="post.imageUrl.replace('.jpg', '_128.jpg')" />
         </router-link>
       </div>
-      <div v-if="$store.getters.getIsMe(user.username)" class="profile__footer">
+      <div v-if="$store.getters.getIsMe(user.id)" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
       </div>
     </div>

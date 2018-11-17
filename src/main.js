@@ -14,6 +14,7 @@ Sentry.init({
 Vue.config.productionTip = false;
 
 Vue.use(VueLazyload, {
+  lazyComponent: true,
   observer: true
 });
 

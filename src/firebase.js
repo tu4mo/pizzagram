@@ -88,7 +88,6 @@ class Firebase {
   async createPostObject(doc) {
     try {
       const data = doc.data();
-      const user = await this.getUser(data.userId);
 
       const querySnapshot = await this.firestore
         .collection("likes")
@@ -107,8 +106,7 @@ class Firebase {
         createdAt: data.createdAt.toDate(),
         id: doc.id,
         liked: likes.includes(this.currentUser().uid),
-        likes,
-        user
+        likes
       };
     } catch (error) {
       //
