@@ -93,9 +93,9 @@ export default {
     }
   },
   methods: {
-    async onLazyLoad() {
+    onLazyLoad() {
       this.isPlaceholder = false;
-      await this.$store.dispatch("getUserById", this.post.userId);
+      this.$store.dispatch("getUserById", this.post.userId);
     },
     onLikeClick() {
       this.$store.dispatch("toggleLike", this.post.id);
