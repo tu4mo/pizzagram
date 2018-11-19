@@ -19,14 +19,23 @@ const store = new Vuex.Store({
     users: {},
     posts: {}
   },
+
   getters: {
     getUser: state => username => state.users[username] || {},
+
     getUserById: state => userId =>
       Object.values(state.users).find(user => user.id === userId) || {},
+
     getIsMe: state => userId => state.auth.userId === userId,
+
+    getHasLiked: state => postId =>
+      state.posts[postId].likes &&
+      state.posts[postId].likes.includes(state.auth.userId),
+
     getPostById: state => id => {
       return state.posts[id] ? state.posts[id] : {};
     },
+
     getPostsByFeed: state => feed => {
       const postIds = Object.keys(state.feeds[feed] || {});
       return postIds.length > 0
@@ -36,49 +45,78 @@ const store = new Vuex.Store({
         : [];
     }
   },
+
   mutations: {
     setIsAuthenticated(state, { isAuthenticated, username, userId }) {
       state.auth.isAuthenticated = isAuthenticated;
       state.auth.username = username;
       state.auth.userId = userId;
     },
+
     setIsLoading(state, isLoading) {
       state.isLoading = isLoading;
     },
+
     setUser(state, user) {
       state.user = user;
     },
+
     addToFeeds(state, { feed, postId }) {
       state.feeds = {
         ...state.feeds,
         [feed]: { ...(state.feeds[feed] || {}), [postId]: true }
       };
     },
+
     clearFeed(state, feed) {
       delete state.feeds[feed];
     },
+
     setFile(state, file) {
       state.file = file;
     },
+
     addToUsers(state, user) {
       state.users = { ...state.users, [user.username]: user };
     },
+
     addToPosts(state, post) {
-      state.posts = { ...state.posts, [post.id]: post };
+      state.posts = { ...state.posts, [post.id]: { ...post, likes: null } };
     },
+
     removePost(state, postId) {
       delete state.posts[postId];
       Object.keys(state.feeds).forEach(feed => {
         delete state.feeds[feed][postId];
       });
     },
-    toggleLike(state, postId) {
-      state.posts[postId].liked = !state.posts[postId].liked;
+
+    addLikes(state, { postId, likes }) {
+      state.posts = {
+        ...state.posts,
+        [postId]: {
+          ...state.posts[postId],
+          likes
+        }
+      };
     },
+
+    toggleLike(state, postId) {
+      const likes = state.posts[postId].likes || [];
+      const { userId } = state.auth;
+
+      if (likes.includes(userId)) {
+        state.posts[postId].likes = likes.filter(userId => userId !== userId);
+      } else {
+        state.posts[postId].likes = [...likes, userId];
+      }
+    },
+
     setIsLastPostReached(state, isLastPostReached) {
       state.isLastPostReached = isLastPostReached;
     }
   },
+
   actions: {
     async getPostById({ commit, state }, { postId, force }) {
       if (state.posts[postId] && !force) {
@@ -88,6 +126,7 @@ const store = new Vuex.Store({
       const post = await Firebase.getPost(postId);
       commit("addToPosts", post);
     },
+
     async getPostsForHome({ commit, getters }, setIsLoading) {
       if (setIsLoading) {
         commit("setIsLoading", true);
@@ -114,6 +153,7 @@ const store = new Vuex.Store({
         commit("setIsLastPostReached", true);
       }
     },
+
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username);
       if (Object.keys(user).length) {
@@ -124,10 +164,12 @@ const store = new Vuex.Store({
         });
       }
     },
+
     removePost({ commit }, postId) {
       Firebase.removePost(postId);
       commit("removePost", postId);
     },
+
     async getUser({ commit, state }, username) {
       if (state.users[username]) {
         return;
@@ -136,6 +178,7 @@ const store = new Vuex.Store({
       const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
     },
+
     async getUserById({ commit, state }, userId) {
       if (Object.values(state.users).some(user => user.id === userId)) {
         return;
@@ -144,10 +187,20 @@ const store = new Vuex.Store({
       const user = await Firebase.getUser(userId);
       commit("addToUsers", user);
     },
+
     async toggleLike({ commit, dispatch }, postId) {
       commit("toggleLike", postId);
       await Firebase.toggleLike(postId);
-      dispatch("getPostById", { postId, force: true });
+      dispatch("getLikes", { postId, force: true });
+    },
+
+    async getLikes({ commit, state }, { postId, force = false }) {
+      if (state.posts[postId].likes && !force) {
+        return;
+      }
+
+      const likes = await Firebase.getLikes(postId);
+      commit("addLikes", { postId, likes });
     }
   }
 });

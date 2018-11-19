@@ -90,27 +90,13 @@ class Firebase {
 
   async createPostObject(doc) {
     try {
-      const currentUser = this.currentUser();
       const data = doc.data();
-
-      const querySnapshot = await this.firestore
-        .collection("likes")
-        .where("postId", "==", doc.id)
-        .get();
-
-      const likes = [];
-
-      for (const doc of querySnapshot.docs) {
-        likes.push(doc.data().userId);
-      }
 
       return {
         doc,
         ...data,
         createdAt: data.createdAt.toDate(),
-        id: doc.id,
-        liked: currentUser ? likes.includes(currentUser.uid) : false,
-        likes
+        id: doc.id
       };
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -211,6 +197,26 @@ class Firebase {
 
   async signOut() {
     await firebase.auth().signOut();
+  }
+
+  async getLikes(postId) {
+    try {
+      const querySnapshot = await this.firestore
+        .collection("likes")
+        .where("postId", "==", postId)
+        .get();
+
+      const likes = [];
+
+      for (const doc of querySnapshot.docs) {
+        likes.push(doc.data().userId);
+      }
+
+      return likes;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
   }
 
   async toggleLike(postId) {

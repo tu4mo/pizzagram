@@ -19,7 +19,7 @@
       </div>
       <footer class="post__footer">
         <div class="post__info">
-          <div class="post__likes">
+          <div v-if="Array.isArray(post.likes)" class="post__likes">
             {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
           </div>
           <div class="post__caption">{{ post.caption }}</div>
@@ -37,7 +37,9 @@
           <BaseButton
             :class="[
               'post__like-button',
-              { 'post__like-button--liked': post.liked }
+              {
+                'post__like-button--liked': $store.getters.getHasLiked(post.id)
+              }
             ]"
             @click="onLikeClick"
           >
@@ -96,6 +98,7 @@ export default {
     onLazyLoad() {
       this.isPlaceholder = false;
       this.$store.dispatch("getUserById", this.post.userId);
+      this.$store.dispatch("getLikes", { postId: this.post.id });
     },
     onLikeClick() {
       this.$store.dispatch("toggleLike", this.post.id);
