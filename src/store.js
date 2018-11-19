@@ -85,9 +85,9 @@ const store = new Vuex.Store({
     },
 
     removePost(state, postId) {
-      delete state.posts[postId];
+      Vue.delete(state.posts, postId);
       Object.keys(state.feeds).forEach(feed => {
-        delete state.feeds[feed][postId];
+        Vue.delete(state.feeds[feed], postId);
       });
     },
 
