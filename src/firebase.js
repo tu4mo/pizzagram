@@ -75,16 +75,22 @@ class Firebase {
   }
 
   async getPost(id) {
-    const docRef = await this.firestore
-      .collection("posts")
-      .doc(id)
-      .get();
+    try {
+      const docRef = await this.firestore
+        .collection("posts")
+        .doc(id)
+        .get();
 
-    return await this.createPostObject(docRef);
+      return await this.createPostObject(docRef);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
   }
 
   async createPostObject(doc) {
     try {
+      const currentUser = this.currentUser();
       const data = doc.data();
 
       const querySnapshot = await this.firestore
@@ -103,11 +109,12 @@ class Firebase {
         ...data,
         createdAt: data.createdAt.toDate(),
         id: doc.id,
-        liked: likes.includes(this.currentUser().uid),
+        liked: currentUser ? likes.includes(currentUser.uid) : false,
         likes
       };
     } catch (error) {
-      //
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   }
 
