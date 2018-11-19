@@ -69,11 +69,16 @@ export default {
   methods: {
     async onShareClick() {
       this.isLoading = true;
+
       await Firebase.sharePost(this.file, this.caption);
       this.$store.commit("setFile", null);
+
       this.$store.commit("clearFeed", "home");
+      this.$store.dispatch("getPostsForHome", true);
+
       this.caption = "";
       this.isLoading = false;
+
       this.$router.push({ name: "home" });
     }
   }

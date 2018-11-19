@@ -39,11 +39,6 @@ export default {
   created() {
     this.fetchPosts();
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.$store.dispatch("getPostsForHome");
-    });
-  },
   methods: {
     fetchPosts() {
       this.$store.dispatch("getPostsForHome", true);
