@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     createdDate() {
-      return this.post ? this.post.createdAt.toLocaleDateString() : null;
+      return this.createdAt.toLocaleDateString();
     },
     isUserLoaded() {
       return this.user && Object.keys(this.user).length > 0;
