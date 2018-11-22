@@ -93,7 +93,6 @@ class Firebase {
       const data = doc.data();
 
       return {
-        doc,
         ...data,
         createdAt: data.createdAt.toDate(),
         id: doc.id
