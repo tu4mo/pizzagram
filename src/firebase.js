@@ -88,19 +88,14 @@ class Firebase {
     }
   }
 
-  async createPostObject(doc) {
-    try {
-      const data = doc.data();
+  createPostObject(doc) {
+    const data = doc.data();
 
-      return {
-        ...data,
-        createdAt: data.createdAt.toDate(),
-        id: doc.id
-      };
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
+    return {
+      ...data,
+      createdAt: data.createdAt.toDate(),
+      id: doc.id
+    };
   }
 
   async getUser(id) {
