@@ -71,7 +71,7 @@ class Firebase {
       posts.push(this.createPostObject(doc))
     );
 
-    return Promise.all(posts);
+    return posts;
   }
 
   async getPost(id) {
@@ -81,7 +81,7 @@ class Firebase {
         .doc(id)
         .get();
 
-      return await this.createPostObject(docRef);
+      return this.createPostObject(docRef);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
