@@ -33,6 +33,7 @@ export default {
 <style lang="scss" scoped>
 .spinner {
   align-items: center;
+  animation: animation-show 0.5s;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -50,7 +51,7 @@ export default {
   }
 
   &__rotate {
-    animation: sk-rotate 1s infinite linear;
+    animation: animation-rotate 1s infinite linear;
     width: 40px;
     height: 40px;
     position: relative;
@@ -59,7 +60,7 @@ export default {
 
   &__pepperoni-1,
   &__pepperoni-2 {
-    animation: sk-bounce 2s infinite ease-in-out;
+    animation: animation-bounce 2s infinite ease-in-out;
     background-color: var(--color-pink);
     border: 4px solid var(--color-purple);
     border-radius: 100%;
@@ -77,13 +78,23 @@ export default {
   }
 }
 
-@keyframes sk-rotate {
+@keyframes animation-show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animation-rotate {
   100% {
     transform: rotate(360deg);
   }
 }
 
-@keyframes sk-bounce {
+@keyframes animation-bounce {
   0%,
   100% {
     transform: scale(0.5);
