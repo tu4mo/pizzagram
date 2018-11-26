@@ -1,7 +1,7 @@
 <template>
-  <router-link :active-class="activeClass" :exact="exact" :to="to" class="link">
+  <RouterLink :active-class="activeClass" :exact="exact" :to="to" class="link">
     <slot />
-  </router-link>
+  </RouterLink>
 </template>
 
 <script>

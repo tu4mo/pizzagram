@@ -1,5 +1,5 @@
 <template>
-  <keep-alive><router-view /></keep-alive>
+  <keep-alive><RouterView /></keep-alive>
 </template>
 
 <style lang="scss">

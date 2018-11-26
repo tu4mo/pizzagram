@@ -8,14 +8,14 @@
         <div class="profile__username">{{ user.username }}</div>
       </div>
       <div class="profile__posts">
-        <router-link
+        <RouterLink
           v-for="post in $store.getters.getPostsByFeed(user.username)"
           :key="post.id"
           :to="{ name: 'post', params: { postId: post.id } }"
           class="profile__post"
         >
           <PostImage :image-url="post.imageUrl.replace('.jpg', '_128.jpg')" />
-        </router-link>
+        </RouterLink>
       </div>
       <div v-if="$store.getters.getIsMe(user.id)" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>

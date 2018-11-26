@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="{ name: 'home' }" class="logo">
+  <RouterLink :to="{ name: 'home' }" class="logo">
     <img alt="Pizzagram" class="logo__image" src="@/assets/pizzagram.png" />
-  </router-link>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>

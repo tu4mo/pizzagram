@@ -4,9 +4,9 @@
       <PostHeader :created-at="post.createdAt" :user="user" />
       <div class="post__image">
         <template v-if="imageTo">
-          <router-link :to="imageTo">
+          <RouterLink :to="imageTo">
             <PostImage :caption="post.caption" :image-url="post.imageUrl" />
-          </router-link>
+          </RouterLink>
         </template>
         <template v-else>
           <PostImage :caption="post.caption" :image-url="post.imageUrl" />

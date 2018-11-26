@@ -1,7 +1,7 @@
 <template>
   <header class="post-header">
     <component
-      :is="isUserLoaded ? 'router-link' : 'div'"
+      :is="isUserLoaded ? 'RouterLink' : 'div'"
       :to="
         isUserLoaded
           ? { name: 'profile', params: { username: user.username } }
