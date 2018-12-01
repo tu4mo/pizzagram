@@ -31,7 +31,7 @@
     "babel-jest": "^23.6.0",
     "firebase-tools": "^6.1.1",
     "node-sass": "^4.10.0",
-    "prettier": "^1.15.2",
+    "prettier": "^1.15.3",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.17"

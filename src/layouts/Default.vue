@@ -5,7 +5,7 @@
         <BaseButton
           v-if="canGoBack"
           class="default-layout__back-link"
-          @click="$router.go(-1);"
+          @click="$router.go(-1)"
         >
           <BaseIcon name="chevronLeft" />
         </BaseButton>

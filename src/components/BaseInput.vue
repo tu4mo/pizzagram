@@ -2,7 +2,7 @@
   <input
     :value="value"
     class="input"
-    @input="$emit('input', $event.target.value);"
+    @input="$emit('input', $event.target.value)"
   />
 </template>
 
