@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const functions = require("firebase-functions");
 
-const addPostsCount = require("./add-posts-count");
+// const addPostsCount = require("./utils/add-posts-count");
 const resizeImage = require("./resize-image");
 const removePost = require("./remove-post");
 const updatePost = require("./update-post");
