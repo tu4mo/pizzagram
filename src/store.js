@@ -140,9 +140,6 @@ const store = new Vuex.Store({
         startAfter: lastPost
       });
 
-      console.log(lastPost);
-      console.log(posts);
-
       posts.forEach(post => {
         commit("addToPosts", post);
         commit("addToFeeds", { feed: "home", postId: post.id });
