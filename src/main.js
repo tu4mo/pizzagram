@@ -6,10 +6,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-Sentry.init({
-  dsn: "https://7f76df6d0d9e4d4a84a7f3676a5d4e46@sentry.io/1319696",
-  integrations: [new Sentry.Integrations.Vue({ Vue })]
-});
+if (process.env.NODE_ENV !== "development") {
+  Sentry.init({
+    dsn: "https://7f76df6d0d9e4d4a84a7f3676a5d4e46@sentry.io/1319696",
+    integrations: [new Sentry.Integrations.Vue({ Vue })]
+  });
+}
 
 Vue.config.productionTip = false;
 
