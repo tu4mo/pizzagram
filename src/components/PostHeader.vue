@@ -28,7 +28,7 @@ export default {
   props: {
     createdAt: {
       required: true,
-      type: Date
+      type: String
     },
     user: {
       default: () => {},
@@ -37,7 +37,8 @@ export default {
   },
   computed: {
     createdDate() {
-      return this.createdAt.toLocaleDateString();
+      const date = new Date(this.createdAt);
+      return date.toLocaleDateString();
     },
     isUserLoaded() {
       return this.user && Object.keys(this.user).length > 0;

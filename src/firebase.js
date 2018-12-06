@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/functions";
 import "firebase/storage";
 
 import md5 from "md5";
@@ -28,6 +29,8 @@ class Firebase {
 
     this.QUERY_LIMIT = 9;
 
+    this.getPosts = firebase.functions().httpsCallable("getPosts");
+
     firebase.auth().onAuthStateChanged(async user => {
       if (!this.isSigningUp) {
         this.onAuthStateChangedCallback(user);
@@ -45,33 +48,6 @@ class Firebase {
 
   setOnAuthStateChangedCallback(callback) {
     this.onAuthStateChangedCallback = callback;
-  }
-
-  async getPosts({ userId, startAfter } = {}) {
-    const posts = [];
-
-    let query = this.firestore
-      .collection("posts")
-      .orderBy("createdAt", "desc")
-      .where("published", "==", true);
-
-    if (userId) {
-      query = query.where("userId", "==", userId);
-    } else {
-      query = query.limit(this.QUERY_LIMIT);
-    }
-
-    if (startAfter) {
-      query = query.startAfter(startAfter);
-    }
-
-    const querySnapshot = await query.get();
-
-    querySnapshot.docs.forEach(async doc =>
-      posts.push(this.createPostObject(doc))
-    );
-
-    return posts;
   }
 
   async getPost(id) {

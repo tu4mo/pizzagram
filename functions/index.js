@@ -2,6 +2,7 @@ const admin = require("firebase-admin");
 const functions = require("firebase-functions");
 
 // const addPostsCount = require("./utils/add-posts-count");
+const getPosts = require("./get-posts");
 const resizeImage = require("./resize-image");
 const removePost = require("./remove-post");
 const updatePost = require("./update-post");
@@ -24,5 +25,7 @@ exports.generateResizedImages = functions.storage
   .onFinalize(object =>
     Promise.all([128, 1024].map(size => resizeImage(object, size)))
   );
+
+exports.getPosts = functions.https.onCall(getPosts(db));
 
 // exports.addPostsCount = functions.https.onRequest(addPostsCount(db));

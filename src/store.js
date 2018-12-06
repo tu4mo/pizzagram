@@ -134,11 +134,14 @@ const store = new Vuex.Store({
 
       const postsInHome = getters.getPostsByFeed("home");
       const lastPost =
-        postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null;
+        postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].id : null;
 
-      const posts = await Firebase.getPosts({
+      const { data: posts } = await Firebase.getPosts({
         startAfter: lastPost
       });
+
+      console.log(lastPost);
+      console.log(posts);
 
       posts.forEach(post => {
         commit("addToPosts", post);
