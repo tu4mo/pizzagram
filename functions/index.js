@@ -25,4 +25,4 @@ exports.generateResizedImages = functions.storage
     Promise.all([128, 1024].map(size => resizeImage(object, size)))
   );
 
-exports.addPostsCount = functions.https.onRequest(addPostsCount(db));
+// exports.addPostsCount = functions.https.onRequest(addPostsCount(db));
