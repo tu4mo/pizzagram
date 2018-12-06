@@ -48,8 +48,6 @@ class Firebase {
   }
 
   async getPosts({ userId, startAfter } = {}) {
-    const posts = [];
-
     let query = this.firestore
       .collection("posts")
       .orderBy("createdAt", "desc")
@@ -67,9 +65,9 @@ class Firebase {
 
     const querySnapshot = await query.get();
 
-    querySnapshot.docs.forEach(async doc =>
-      posts.push(this.createPostObject(doc))
-    );
+    const posts = [];
+
+    querySnapshot.docs.forEach(doc => posts.push(this.createPostObject(doc)));
 
     return posts;
   }
