@@ -25,6 +25,9 @@
           <div class="post__caption">{{ post.caption }}</div>
         </div>
         <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
+          <BaseButton v-if="isRemovable" @click="onRemoveClick">
+            <BaseIcon name="trash2" />
+          </BaseButton>
           <BaseButton
             :class="[
               'post__share-button',
@@ -75,6 +78,10 @@ export default {
       default: null,
       type: Object
     },
+    isRemovable: {
+      default: false,
+      type: Boolean
+    },
     post: {
       required: true,
       type: Object
@@ -102,6 +109,11 @@ export default {
     },
     onLikeClick() {
       this.$store.dispatch("toggleLike", this.post.id);
+    },
+    onRemoveClick() {
+      if (confirm("Are you sure you want to remove this post?")) {
+        this.$emit("remove-click");
+      }
     },
     onShareClick() {
       if (this.isSharing) {

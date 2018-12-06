@@ -2,13 +2,11 @@
   <DefaultLayout>
     <div class="post-view">
       <template v-if="Object.keys(singlePost).length">
-        <BasePost :post="singlePost" />
-        <div
-          v-if="$store.getters.getIsMe(singlePost.userId)"
-          class="post-view__footer"
-        >
-          <BaseButton @click="onRemoveClick">Remove</BaseButton>
-        </div>
+        <BasePost
+          :is-removable="$store.getters.getIsMe(singlePost.userId)"
+          :post="singlePost"
+          @remove-click="onRemoveClick"
+        />
       </template>
     </div>
   </DefaultLayout>
@@ -49,10 +47,8 @@ export default {
       this.$store.dispatch("getPostById", { postId });
     },
     onRemoveClick() {
-      if (confirm("Are you sure you want to remove this photo?")) {
-        this.$store.dispatch("removePost", this.postId);
-        this.$router.go(-1);
-      }
+      this.$store.dispatch("removePost", this.postId);
+      this.$router.go(-1);
     }
   }
 };
