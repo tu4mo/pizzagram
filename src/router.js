@@ -6,6 +6,7 @@ import Post from "./views/Post.vue";
 import Profile from "./views/Profile.vue";
 import LogIn from "./views/LogIn.vue";
 import SignUp from "./views/SignUp.vue";
+import Top from "./views/Top.vue";
 import Upload from "./views/Upload.vue";
 
 import Firebase from "./firebase";
@@ -65,6 +66,11 @@ export default new Router({
       path: "/signup",
       name: "signup",
       component: SignUp
+    },
+    {
+      path: "/top",
+      name: "top",
+      component: Top
     },
     {
       path: "/upload/:id?",

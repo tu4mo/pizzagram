@@ -10,7 +10,7 @@
           <BaseIcon name="chevronLeft" />
         </BaseButton>
       </div>
-      <div class="default-layout__header"><TheHeader /></div>
+      <div class="default-layout__header"><TheHeader :title="title" /></div>
       <div class="default-layout__navigation"><TheNavigation /></div>
     </div>
     <main class="default-layout__main">
@@ -32,6 +32,12 @@ export default {
     BaseIcon,
     TheHeader,
     TheNavigation
+  },
+  props: {
+    title: {
+      default: null,
+      type: String
+    }
   },
   computed: {
     canGoBack() {
@@ -101,6 +107,10 @@ export default {
 
   &__spacer {
     padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  &__header {
+    flex: 1 1 auto;
   }
 
   &__navigation {
