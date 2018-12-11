@@ -92,6 +92,7 @@ class Firebase {
     return {
       ...data,
       createdAt: data.createdAt.toDate(),
+      doc,
       id: doc.id
     };
   }
