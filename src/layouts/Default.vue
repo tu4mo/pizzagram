@@ -82,18 +82,7 @@ export default {
   }
 
   &__back-link {
-    animation: fade-in 0.5s ease-in-out;
     padding: 1rem;
-  }
-
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 100%;
-    }
   }
 
   &__main {

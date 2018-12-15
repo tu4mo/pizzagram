@@ -119,7 +119,7 @@ class Firebase {
     return this.createUserObject(docRef);
   }
 
-  async createUserObject(doc) {
+  createUserObject(doc) {
     const data = doc.data();
 
     return { ...data, createdAt: data.createdAt.toDate(), username: doc.id };
@@ -230,6 +230,27 @@ class Firebase {
 
   currentUser() {
     return firebase.auth().currentUser;
+  }
+
+  async fetchTopPosters() {
+    try {
+      const querySnapshot = await this.firestore
+        .collection("users")
+        .orderBy("posts", "desc")
+        .limit(10)
+        .get();
+
+      const users = [];
+
+      for (const doc of querySnapshot.docs) {
+        users.push(this.createUserObject(doc));
+      }
+
+      return users;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
   }
 }
 

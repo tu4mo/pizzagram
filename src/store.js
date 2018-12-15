@@ -43,7 +43,12 @@ const store = new Vuex.Store({
             .map(postId => state.posts[postId])
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         : [];
-    }
+    },
+
+    getTopPosters: ({ users }) =>
+      Object.keys(users)
+        .sort((a, b) => users[a].posts + users[b].posts)
+        .slice(0, 10)
   },
 
   mutations: {
@@ -201,6 +206,11 @@ const store = new Vuex.Store({
 
       const likes = await Firebase.getLikes(postId);
       commit("addLikes", { postId, likes });
+    },
+
+    async getTopPosters({ commit }) {
+      const topPosters = await Firebase.fetchTopPosters();
+      topPosters.forEach(user => commit("addToUsers", user));
     }
   }
 });
