@@ -9,10 +9,10 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@google-cloud/storage": "^2.3.1",
-    "firebase-admin": "^6.3.0",
+    "@google-cloud/storage": "^2.3.3",
+    "firebase-admin": "^6.4.0",
     "firebase-functions": "^2.1.0",
-    "sharp": "^0.21.0"
+    "sharp": "^0.21.1"
   },
   "devDependencies": {
     "firebase-tools": "^6.1.2"
