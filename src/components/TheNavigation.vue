@@ -10,9 +10,9 @@
         Home
       </NavItem>
       <TheCamera class="navigation__item" />
-      <NavItem :to="{ name: 'top' }" class="navigation__item" icon="star">
+      <!-- <NavItem :to="{ name: 'top' }" class="navigation__item" icon="star">
         Top Posts
-      </NavItem>
+      </NavItem> -->
       <NavItem
         :to="{ name: 'profile', params: { username: username || null } }"
         class="navigation__item"
