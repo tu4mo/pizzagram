@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@sentry/browser": "^4.4.2",
+    "@tensorflow-models/coco-ssd": "^0.1.1",
+    "@tensorflow/tfjs": "^0.14.1",
     "feather-icons": "^4.9.0",
     "firebase": "^5.7.0",
     "md5": "^2.2.1",

@@ -4,6 +4,7 @@
       <div class="spinner__pepperoni-1" />
       <div class="spinner__pepperoni-2" />
     </div>
+    <div v-if="!!$slots.default" class="spinner__slot"><slot /></div>
   </div>
 </template>
 
@@ -36,6 +37,7 @@ export default {
   animation: animation-show 0.5s;
   bottom: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   left: 0;
   position: fixed;
@@ -75,6 +77,10 @@ export default {
     animation-delay: -1s;
     bottom: 0;
     top: auto;
+  }
+
+  &__slot {
+    margin-top: 2rem;
   }
 }
 

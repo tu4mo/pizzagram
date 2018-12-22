@@ -5,7 +5,9 @@
         Use the Camera icon to upload a photo
       </div>
       <div v-else class="upload__form">
-        <BaseSpacer mb1> <PostImage :image-url="imageUrl" /> </BaseSpacer>
+        <BaseSpacer mb1>
+          <PostImage ref="image" :image-url="imageUrl" />
+        </BaseSpacer>
         <BaseSpacer mb1>
           <BaseInput
             v-model.trim="caption"
@@ -44,6 +46,7 @@ export default {
     return {
       caption: "",
       imageUrl: "",
+      isDetectingPizza: false,
       isLoading: false
     };
   },
@@ -54,19 +57,49 @@ export default {
   },
   watch: {
     file(newFile) {
-      const reader = new FileReader();
-      reader.addEventListener(
-        "load",
-        () => (this.imageUrl = reader.result),
-        false
-      );
-
       if (newFile) {
-        reader.readAsDataURL(newFile);
+        this.reader.readAsDataURL(newFile);
       }
     }
   },
+  created() {
+    this.reader = new FileReader();
+    this.reader.addEventListener("load", this.onFileLoad);
+  },
+  destroyed() {
+    this.reader.removeEventListener("load", this.onFileLoad);
+  },
   methods: {
+    async onFileLoad(e) {
+      this.isLoading = true;
+
+      try {
+        const cocoSsd = await import("@tensorflow-models/coco-ssd");
+
+        const { target } = e;
+        this.imageUrl = target.result;
+
+        const image = new Image();
+        image.src = target.result;
+
+        const model = await cocoSsd.load();
+        const predictions = await model.detect(image);
+
+        const isPizza = predictions.some(
+          prediction => prediction.class === "pizza"
+        );
+
+        if (!isPizza) {
+          alert("Image does not look like a pizza.");
+          this.imageUrl = "";
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      }
+
+      this.isLoading = false;
+    },
     async onShareClick() {
       this.isLoading = true;
 
