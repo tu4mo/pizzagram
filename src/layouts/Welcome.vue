@@ -29,6 +29,8 @@ export default {
 
   &__header {
     border-bottom: 1px solid var(--color-light);
+    display: flex;
+    justify-content: center;
     left: 0;
     position: fixed;
     right: 0;
