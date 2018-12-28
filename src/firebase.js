@@ -125,12 +125,13 @@ class Firebase {
     return { ...data, createdAt: data.createdAt.toDate(), username: doc.id };
   }
 
-  async sharePost(file, caption) {
+  async sharePost({ caption, file, rating }) {
     const docRef = await this.firestore.collection("posts").add({
       caption,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       imageUrl: null,
       published: false,
+      rating,
       userId: this.currentUser().uid
     });
     const uploadTask = await this.uploadFile(file, docRef.id);

@@ -7,11 +7,17 @@
       <div v-else class="upload__form">
         <BaseSpacer mb1> <PostImage :image-url="imageUrl" /> </BaseSpacer>
         <BaseSpacer mb1>
-          <BaseInput
-            v-model.trim="caption"
-            maxlength="100"
-            placeholder="Caption"
-          />
+          <BaseField label="Caption">
+            <BaseInput v-model.trim="form.caption" maxlength="100" />
+          </BaseField>
+        </BaseSpacer>
+        <BaseSpacer mb1>
+          <BaseField label="Rating">
+            <BaseRating
+              :value="form.rating"
+              @change="rating => (form.rating = rating)"
+            />
+          </BaseField>
         </BaseSpacer>
         <BaseButton @click="onShareClick">Share</BaseButton>
       </div>
@@ -25,6 +31,8 @@
 import DefaultLayout from "@/layouts/Default";
 
 import BaseButton from "@/components/BaseButton";
+import BaseField from "@/components/BaseField";
+import BaseRating from "@/components/BaseRating";
 import BaseSpacer from "@/components/BaseSpacer";
 import BaseSpinner from "@/components/BaseSpinner";
 import BaseInput from "@/components/BaseInput";
@@ -35,6 +43,8 @@ import Firebase from "@/firebase";
 export default {
   components: {
     BaseButton,
+    BaseField,
+    BaseRating,
     BaseSpacer,
     BaseSpinner,
     BaseInput,
@@ -43,7 +53,10 @@ export default {
   },
   data() {
     return {
-      caption: "",
+      form: {
+        caption: "",
+        rating: 0
+      },
       imageUrl: "",
       isDetectingPizza: false,
       isLoading: false
@@ -125,13 +138,14 @@ export default {
     async onShareClick() {
       this.isLoading = true;
 
-      await Firebase.sharePost(this.file, this.caption);
+      await Firebase.sharePost({ file: this.file, ...this.form });
       this.$store.commit("setFile", null);
 
       this.$store.commit("clearFeed", "home");
       this.$store.dispatch("getPostsForHome", true);
 
-      this.caption = "";
+      this.form.caption = "";
+      this.form.rating = 0;
       this.isLoading = false;
 
       this.$router.push({ name: "home" });
