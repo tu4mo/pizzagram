@@ -22,7 +22,12 @@
           <div v-if="Array.isArray(post.likes)" class="post__likes">
             {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
           </div>
-          <div class="post__caption">{{ post.caption }}</div>
+          <div v-if="post.caption" class="post__caption">
+            {{ post.caption }}
+          </div>
+          <div v-if="post.location" class="post__location">
+            {{ post.location }}
+          </div>
         </div>
         <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
           <BaseButton v-if="isRemovable" @click="onRemoveClick">
@@ -164,6 +169,10 @@ export default {
   }
 
   &__caption {
+    color: var(--color-gray);
+  }
+
+  &__location {
     color: var(--color-gray);
   }
 

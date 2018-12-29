@@ -10,6 +10,11 @@ service cloud.firestore {
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
+    match /locations/{locationId} {
+      allow read: if request.auth.uid != null;
+      allow create: if request.auth.uid != null;
+    }
+
     match /posts/{postId} {
       allow create;
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;

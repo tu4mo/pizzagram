@@ -18,8 +18,11 @@ export default {
 <style lang="scss" scoped>
 .field {
   &__label {
+    color: var(--color-pink);
     display: block;
+    font-weight: bold;
     margin-bottom: 0.25rem;
+    text-transform: uppercase;
   }
 }
 </style>

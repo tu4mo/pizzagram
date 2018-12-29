@@ -5,17 +5,27 @@
         Use the Camera icon to upload a photo
       </div>
       <div v-else class="upload__form">
-        <BaseSpacer mb1> <PostImage :image-url="imageUrl" /> </BaseSpacer>
-        <BaseSpacer mb1>
+        <BaseSpacer mb2> <PostImage :image-url="imageUrl" /> </BaseSpacer>
+        <BaseSpacer mb2>
           <BaseField label="Caption">
             <BaseInput v-model.trim="form.caption" maxlength="100" />
           </BaseField>
         </BaseSpacer>
-        <BaseSpacer mb1>
+        <BaseSpacer mb2>
           <BaseField label="Rating">
             <BaseRating
               :value="form.rating"
               @change="rating => (form.rating = rating)"
+            />
+          </BaseField>
+        </BaseSpacer>
+        <BaseSpacer v-if="canAddLocation" mb2>
+          <BaseField label="Location">
+            <BaseSelect
+              :options="locations"
+              :value="form.location"
+              name="location"
+              @change="location => (form.location = location)"
             />
           </BaseField>
         </BaseSpacer>
@@ -33,6 +43,7 @@ import DefaultLayout from "@/layouts/Default";
 import BaseButton from "@/components/BaseButton";
 import BaseField from "@/components/BaseField";
 import BaseRating from "@/components/BaseRating";
+import BaseSelect from "@/components/BaseSelect";
 import BaseSpacer from "@/components/BaseSpacer";
 import BaseSpinner from "@/components/BaseSpinner";
 import BaseInput from "@/components/BaseInput";
@@ -45,6 +56,7 @@ export default {
     BaseButton,
     BaseField,
     BaseRating,
+    BaseSelect,
     BaseSpacer,
     BaseSpinner,
     BaseInput,
@@ -53,13 +65,18 @@ export default {
   },
   data() {
     return {
+      canAddLocation: false,
       form: {
         caption: "",
+        latitude: null,
+        longitude: null,
+        location: "",
         rating: 0
       },
       imageUrl: "",
       isDetectingPizza: false,
-      isLoading: false
+      isLoading: false,
+      locations: []
     };
   },
   computed: {
@@ -83,8 +100,37 @@ export default {
     this.reader.removeEventListener("load", this.onFileLoad);
   },
   methods: {
+    getNearbyLocations() {
+      if ("geolocation" in navigator) {
+        this.canAddLocation = true;
+
+        navigator.geolocation.getCurrentPosition(
+          async ({ coords }) => {
+            this.form.latitude = coords.latitude;
+            this.form.longitude = coords.longitude;
+
+            const locations = await Firebase.getNearbyLocations(
+              this.form.latitude,
+              this.form.longitude
+            );
+
+            this.locations = locations.map(location => ({
+              label: location.name,
+              value: location.name
+            }));
+          },
+          () => {
+            this.canAddLocation = false;
+          }
+        );
+      } else {
+        this.canAddLocation = false;
+      }
+    },
     async onFileLoad() {
       this.isLoading = true;
+
+      this.getNearbyLocations();
 
       this.imageUrl = this.reader.result;
 
@@ -141,14 +187,32 @@ export default {
       await Firebase.sharePost({ file: this.file, ...this.form });
       this.$store.commit("setFile", null);
 
+      if (
+        this.form.location &&
+        !this.locations.some(location => location.label === this.form.location)
+      ) {
+        await Firebase.addLocation({
+          name: this.form.location,
+          latitude: this.form.latitude,
+          longitude: this.form.longitude
+        });
+      }
+
       this.$store.commit("clearFeed", "home");
       this.$store.dispatch("getPostsForHome", true);
 
-      this.form.caption = "";
-      this.form.rating = 0;
+      this.resetForm();
+
       this.isLoading = false;
 
       this.$router.push({ name: "home" });
+    },
+    resetForm() {
+      this.form.caption = "";
+      this.form.location = "";
+      this.form.rating = 0;
+      this.form.latitude = null;
+      this.form.longitude = null;
     }
   },
   metaInfo: {

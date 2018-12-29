@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import { GeoFirestore } from "geofirestore";
 
 import md5 from "md5";
 
@@ -23,6 +24,9 @@ class Firebase {
 
     this.storage = firebase.storage();
     this.storageRef = this.storage.ref();
+
+    const geofirestore = new GeoFirestore(this.firestore);
+    this.locations = geofirestore.collection("locations");
 
     this.isSigningUp = false;
 
@@ -127,13 +131,16 @@ class Firebase {
     return { ...data, createdAt: data.createdAt.toDate(), username: doc.id };
   }
 
-  async sharePost({ caption, file, rating }) {
+  async sharePost({ caption, file, rating, latitude, longitude, location }) {
     const docRef = await this.firestore.collection("posts").add({
       caption,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       imageUrl: null,
       published: false,
       rating,
+      latitude,
+      longitude,
+      location,
       userId: this.currentUser().uid
     });
     const uploadTask = await this.uploadFile(file, docRef.id);
@@ -254,6 +261,33 @@ class Firebase {
       // eslint-disable-next-line no-console
       console.error(error);
     }
+  }
+
+  async getNearbyLocations(latitude, longitude) {
+    const query = this.locations.near({
+      center: new firebase.firestore.GeoPoint(latitude, longitude),
+      radius: 1
+    });
+
+    const querySnapshot = await query.get();
+
+    const locations = [];
+
+    for (const doc of querySnapshot.docs) {
+      locations.push({
+        id: doc.id,
+        name: doc.data().name
+      });
+    }
+
+    return locations;
+  }
+
+  async addLocation({ name, latitude, longitude }) {
+    await this.locations.add({
+      coordinates: new firebase.firestore.GeoPoint(latitude, longitude),
+      name
+    });
   }
 }
 
