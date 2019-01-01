@@ -66,6 +66,11 @@ export default {
       await Firebase.signOut();
       this.$router.push({ name: "login" });
     }
+  },
+  metaInfo() {
+    return {
+      title: this.user.username
+    };
   }
 };
 </script>

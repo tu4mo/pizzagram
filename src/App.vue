@@ -2,6 +2,16 @@
   <keep-alive><RouterView /></keep-alive>
 </template>
 
+<script>
+export default {
+  metaInfo: {
+    titleTemplate: titleChunk => {
+      return titleChunk ? `${titleChunk} - Pizzagram` : "Pizzagram";
+    }
+  }
+};
+</script>
+
 <style lang="scss">
 :root {
   --color-gray: #aaa;

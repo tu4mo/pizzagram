@@ -56,6 +56,9 @@ export default {
     getUser(username) {
       return this.$store.getters.getUser(username);
     }
+  },
+  metaInfo: {
+    title: "Top 10"
   }
 };
 </script>

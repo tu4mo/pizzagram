@@ -57,6 +57,9 @@ export default {
       this.isLoading = false;
       this.hasSentMail = true;
     }
+  },
+  metaInfo: {
+    title: "Reset Password"
   }
 };
 </script>

@@ -67,6 +67,9 @@ export default {
 
       this.isLoading = false;
     }
+  },
+  metaInfo: {
+    title: "Sign Up"
   }
 };
 </script>

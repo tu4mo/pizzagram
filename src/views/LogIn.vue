@@ -70,6 +70,9 @@ export default {
 
       this.isLoading = false;
     }
+  },
+  metaInfo: {
+    title: "Log In"
   }
 };
 </script>

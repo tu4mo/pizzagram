@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueLazyload from "vue-lazyload";
 import * as Sentry from "@sentry/browser";
+import Meta from "vue-meta";
 
 import App from "./App.vue";
 import router from "./router";
@@ -19,6 +20,8 @@ Vue.use(VueLazyload, {
   lazyComponent: true,
   observer: true
 });
+
+Vue.use(Meta);
 
 new Vue({
   router,

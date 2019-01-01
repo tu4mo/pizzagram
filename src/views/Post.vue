@@ -50,6 +50,11 @@ export default {
       this.$store.dispatch("removePost", this.postId);
       this.$router.go(-1);
     }
+  },
+  metaInfo() {
+    return {
+      title: this.$store.getters.getUserById(this.singlePost.userId).username
+    };
   }
 };
 </script>

@@ -150,6 +150,9 @@ export default {
 
       this.$router.push({ name: "home" });
     }
+  },
+  metaInfo: {
+    title: "Upload"
   }
 };
 </script>
