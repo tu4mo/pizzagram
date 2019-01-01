@@ -17,6 +17,12 @@
           <BaseLink :to="{ name: 'signup' }">Sign Up</BaseLink>
         </p>
       </BaseSpacer>
+      <!-- <BaseSpacer my1>
+        <p>
+          Forgot your password?
+          <BaseLink :to="{ name: 'reset-password' }">Reset Password</BaseLink>
+        </p>
+      </BaseSpacer> -->
     </form>
   </WelcomeLayout>
 </template>
@@ -50,6 +56,7 @@ export default {
     };
   },
   methods: {
+    onResetPasswordClick() {},
     async submit() {
       this.error = "";
       this.isLoading = true;

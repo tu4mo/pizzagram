@@ -4,6 +4,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Post from "./views/Post.vue";
 import Profile from "./views/Profile.vue";
+import ResetPassword from "./views/ResetPassword.vue";
 import LogIn from "./views/LogIn.vue";
 import SignUp from "./views/SignUp.vue";
 import Top from "./views/Top.vue";
@@ -61,6 +62,11 @@ export default new Router({
       path: "/post/:postId",
       name: "post",
       component: Post
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: ResetPassword
     },
     {
       path: "/signup",

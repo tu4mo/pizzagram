@@ -16,6 +16,8 @@ class Firebase {
       messagingSenderId: "393669371775"
     });
 
+    this.auth = firebase.auth();
+
     this.firestore = firebase.firestore();
     this.firestore.settings({ timestampsInSnapshots: true });
 
@@ -28,7 +30,7 @@ class Firebase {
 
     this.QUERY_LIMIT = 9;
 
-    firebase.auth().onAuthStateChanged(async user => {
+    this.auth.onAuthStateChanged(async user => {
       if (!this.isSigningUp) {
         this.onAuthStateChangedCallback(user);
       }
@@ -37,7 +39,7 @@ class Firebase {
 
   initializeAuth() {
     return new Promise(resolve => {
-      firebase.auth().onAuthStateChanged(user => {
+      this.auth.onAuthStateChanged(user => {
         resolve(user);
       });
     });
@@ -171,7 +173,7 @@ class Firebase {
       id: null
     });
 
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    await this.auth.createUserWithEmailAndPassword(email, password);
 
     const gravatar = md5(email.toLowerCase());
 
@@ -186,11 +188,11 @@ class Firebase {
   }
 
   async signIn(email, password) {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+    await this.auth.signInWithEmailAndPassword(email, password);
   }
 
   async signOut() {
-    await firebase.auth().signOut();
+    await this.auth.signOut();
   }
 
   async getLikes(postId) {
@@ -230,7 +232,7 @@ class Firebase {
   }
 
   currentUser() {
-    return firebase.auth().currentUser;
+    return this.auth.currentUser;
   }
 
   async fetchTopPosters() {

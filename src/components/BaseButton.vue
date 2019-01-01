@@ -1,5 +1,10 @@
 <template>
-  <component :is="component" v-bind="$attrs" class="button" v-on="$listeners">
+  <component
+    :is="component"
+    v-bind="$attrs"
+    :class="['button', { [`button--${variant}`]: variant }]"
+    v-on="$listeners"
+  >
     <slot />
   </component>
 </template>
@@ -9,6 +14,10 @@ export default {
   props: {
     component: {
       default: "button",
+      type: String
+    },
+    variant: {
+      default: null,
       type: String
     }
   }
@@ -34,6 +43,14 @@ export default {
 
   &:disabled {
     opacity: 0.5;
+  }
+
+  &--inline {
+    display: inline;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    width: auto;
   }
 }
 </style>
