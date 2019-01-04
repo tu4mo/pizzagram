@@ -266,7 +266,7 @@ class Firebase {
   async getNearbyLocations(latitude, longitude) {
     const query = this.locations.near({
       center: new firebase.firestore.GeoPoint(latitude, longitude),
-      radius: 1
+      radius: 0.5
     });
 
     const querySnapshot = await query.get();
