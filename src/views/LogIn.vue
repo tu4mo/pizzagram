@@ -17,12 +17,12 @@
           <BaseLink :to="{ name: 'signup' }">Sign Up</BaseLink>
         </p>
       </BaseSpacer>
-      <!-- <BaseSpacer my1>
+      <BaseSpacer my1>
         <p>
           Forgot your password?
           <BaseLink :to="{ name: 'reset-password' }">Reset Password</BaseLink>
         </p>
-      </BaseSpacer> -->
+      </BaseSpacer>
     </form>
   </WelcomeLayout>
 </template>
