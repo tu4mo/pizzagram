@@ -19,7 +19,7 @@
             />
           </BaseField>
         </BaseSpacer>
-        <BaseSpacer v-if="canAddLocation" mb2>
+        <BaseSpacer v-if="isLocationEnabled" mb2>
           <BaseField label="Location">
             <BaseSelect
               :options="locations"
@@ -65,7 +65,6 @@ export default {
   },
   data() {
     return {
-      canAddLocation: false,
       form: {
         caption: "",
         latitude: null,
@@ -76,6 +75,7 @@ export default {
       imageUrl: "",
       isDetectingPizza: false,
       isLoading: false,
+      isLocationEnabled: false,
       locations: []
     };
   },
@@ -101,30 +101,25 @@ export default {
   },
   methods: {
     getNearbyLocations() {
+      this.isLocationEnabled = false;
+
       if ("geolocation" in navigator) {
-        this.canAddLocation = true;
+        navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+          this.form.latitude = coords.latitude;
+          this.form.longitude = coords.longitude;
 
-        navigator.geolocation.getCurrentPosition(
-          async ({ coords }) => {
-            this.form.latitude = coords.latitude;
-            this.form.longitude = coords.longitude;
+          const locations = await Firebase.getNearbyLocations(
+            this.form.latitude,
+            this.form.longitude
+          );
 
-            const locations = await Firebase.getNearbyLocations(
-              this.form.latitude,
-              this.form.longitude
-            );
+          this.locations = locations.map(location => ({
+            label: location.name,
+            value: location.name
+          }));
 
-            this.locations = locations.map(location => ({
-              label: location.name,
-              value: location.name
-            }));
-          },
-          () => {
-            this.canAddLocation = false;
-          }
-        );
-      } else {
-        this.canAddLocation = false;
+          this.isLocationEnabled = true;
+        });
       }
     },
     async onFileLoad() {
