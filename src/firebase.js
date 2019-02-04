@@ -20,8 +20,6 @@ class Firebase {
     this.auth = firebase.auth();
 
     this.firestore = firebase.firestore();
-    this.firestore.settings({ timestampsInSnapshots: true });
-
     this.storage = firebase.storage();
     this.storageRef = this.storage.ref();
 

@@ -56,7 +56,6 @@ export default {
     };
   },
   methods: {
-    onResetPasswordClick() {},
     async submit() {
       this.error = "";
       this.isLoading = true;
