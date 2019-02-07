@@ -284,7 +284,7 @@ class Firebase {
   async addLocation({ name, latitude, longitude }) {
     await this.locations.add({
       coordinates: new firebase.firestore.GeoPoint(latitude, longitude),
-      name
+      name: name.trim()
     });
   }
 }
