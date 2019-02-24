@@ -82,7 +82,7 @@ export default {
   &__header {
     align-items: center;
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   &__photo {
