@@ -3,14 +3,11 @@
     <lazy-component @show="onLazyLoad">
       <PostHeader :created-at="post.createdAt" :user="user" />
       <div class="post__image">
-        <template v-if="imageTo">
-          <RouterLink :to="imageTo">
-            <PostImage :caption="post.caption" :image-url="post.imageUrl" />
-          </RouterLink>
-        </template>
-        <template v-else>
-          <PostImage :caption="post.caption" :image-url="post.imageUrl" />
-        </template>
+        <PostImage
+          :caption="post.caption"
+          :image-url="post.imageUrl"
+          :to="imageTo"
+        />
         <transition name="fade">
           <div v-if="isSharing" class="post__share">
             <div ref="postPath" class="post__path">{{ postPath }}</div>
@@ -147,6 +144,14 @@ export default {
 
 <style lang="scss" scoped>
 .post {
+  &__link {
+    border-radius: 1rem;
+
+    &:active {
+      background-color: #000;
+    }
+  }
+
   &__image {
     margin-top: 1rem;
     position: relative;
