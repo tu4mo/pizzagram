@@ -1,6 +1,11 @@
 <template>
   <div class="default-layout">
-    <div class="default-layout__top">
+    <div
+      :class="[
+        'default-layout__top',
+        { 'default-layout__top--border': hasScrolled }
+      ]"
+    >
       <div class="default-layout__back">
         <BaseButton
           v-if="canGoBack"
@@ -39,9 +44,25 @@ export default {
       type: String
     }
   },
+  data() {
+    return {
+      hasScrolled: false
+    };
+  },
   computed: {
     canGoBack() {
       return this.$route.name !== "home" && window.history.length > 1;
+    }
+  },
+  created() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
+  methods: {
+    onScroll() {
+      this.hasScrolled = window.scrollY > 0;
     }
   }
 };
@@ -53,7 +74,7 @@ export default {
 
   &__top {
     background-color: #fff;
-    border-bottom: 1px solid var(--color-light);
+    border-bottom: 1px solid transparent;
     display: flex;
     justify-content: center;
     left: 0;
@@ -65,6 +86,10 @@ export default {
 
     @media (min-width: 640px) {
       justify-content: space-between;
+    }
+
+    &--border {
+      border-color: var(--color-light);
     }
   }
 
