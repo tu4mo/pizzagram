@@ -50,7 +50,6 @@ export default {
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
-    width: auto;
   }
 }
 </style>
