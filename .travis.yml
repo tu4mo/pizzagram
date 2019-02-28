@@ -1,7 +1,10 @@
 language: node_js
 node_js:
   - 10
-script: npm run build
+script:
+  - npm run build
+  - cd functions
+  - npm ci
 deploy:
   provider: firebase
   skip_cleanup: true
