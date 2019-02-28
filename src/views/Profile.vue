@@ -8,16 +8,12 @@
         <div class="profile__username">{{ user.username }}</div>
       </div>
       <div class="profile__posts">
-        <div
+        <PostImage
           v-for="post in $store.getters.getPostsByFeed(user.username)"
+          :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
           :key="post.id"
-          class="profile__post"
-        >
-          <PostImage
-            :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
-            :to="{ name: 'post', params: { postId: post.id } }"
-          />
-        </div>
+          :to="{ name: 'post', params: { postId: post.id } }"
+        />
       </div>
       <div v-if="$store.getters.getIsMe(user.id)" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
@@ -96,21 +92,12 @@ export default {
   }
 
   &__posts {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -0.25rem;
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr 1fr;
 
     @media (min-width: 640px) {
-      margin: -0.5rem;
-    }
-  }
-
-  &__post {
-    padding: 0.25rem;
-    width: 33.33%;
-
-    @media (min-width: 640px) {
-      padding: 0.5rem;
+      grid-gap: 1rem;
     }
   }
 
