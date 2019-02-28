@@ -5,6 +5,7 @@ script:
   - npm run build
   - cd functions
   - npm ci
+  - cd ..
 deploy:
   provider: firebase
   skip_cleanup: true
