@@ -53,5 +53,15 @@ export default {
       width: 8rem;
     }
   }
+
+  &--large {
+    height: 8rem;
+    width: 8rem;
+
+    @media (min-width: 640px) {
+      height: 16rem;
+      width: 16rem;
+    }
+  }
 }
 </style>

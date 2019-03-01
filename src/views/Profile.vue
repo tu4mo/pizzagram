@@ -1,10 +1,18 @@
 <template>
   <DefaultLayout>
     <div class="profile">
-      <div class="profile__header">
-        <div class="profile__photo">
-          <ProfilePhoto :gravatar="user.gravatar" size="medium" />
-        </div>
+      <div
+        :style="{
+          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`
+        }"
+        class="profile__header"
+      />
+      <div class="profile__user">
+        <ProfilePhoto
+          :gravatar="user.gravatar"
+          class="profile__photo"
+          size="large"
+        />
         <div class="profile__username">{{ user.username }}</div>
       </div>
       <div class="profile__posts">
@@ -39,6 +47,9 @@ export default {
     ProfilePhoto
   },
   computed: {
+    posts() {
+      return this.$store.getters.getPostsByFeed(this.user.username);
+    },
     user() {
       return this.$store.getters.getUser(this.$route.params.username);
     }
@@ -75,16 +86,41 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
-  padding: 2rem;
+  margin-top: -4rem;
 
   &__header {
+    background-size: cover;
+    background-position: 50% 50%;
+    height: 10rem;
+    position: relative;
+
+    &::before {
+      background-image: linear-gradient(
+        to bottom,
+        rgba(255, 232, 221, 0.8),
+        rgb(255, 232, 221)
+      );
+      bottom: 0;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &__user {
     align-items: center;
     display: flex;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    margin-top: -4rem;
+    padding: 0 2rem;
+    position: relative;
   }
 
   &__photo {
-    margin-right: 1rem;
+    border: 0.25rem solid #fff;
+    margin-bottom: 0.5rem;
   }
 
   &__username {
@@ -95,6 +131,7 @@ export default {
     display: grid;
     grid-gap: 0.5rem;
     grid-template-columns: 1fr 1fr 1fr;
+    padding: 2rem;
 
     @media (min-width: 640px) {
       grid-gap: 1rem;
