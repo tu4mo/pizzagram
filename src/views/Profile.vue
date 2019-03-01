@@ -86,8 +86,6 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
-  margin-top: -4rem;
-
   &__header {
     background-size: cover;
     background-position: 50% 50%;

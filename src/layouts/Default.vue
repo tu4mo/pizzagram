@@ -73,6 +73,7 @@ export default {
   background-color: #fff;
 
   &__top {
+    background-color: #fff;
     border-bottom: 1px solid transparent;
     display: flex;
     justify-content: center;
@@ -81,7 +82,6 @@ export default {
     position: fixed;
     right: 0;
     top: 0;
-    transition: all 0.2s ease-in-out;
     z-index: var(--z-header);
 
     @media (min-width: 640px) {
@@ -89,7 +89,6 @@ export default {
     }
 
     &--border {
-      background-color: #fff;
       border-color: var(--color-light);
     }
   }
