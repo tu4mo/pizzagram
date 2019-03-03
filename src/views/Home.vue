@@ -1,13 +1,15 @@
 <template>
   <DefaultLayout>
     <div class="home">
-      <BasePost
-        v-for="post in $store.getters.getPostsByFeed('home')"
-        :key="post.id"
-        :image-to="{ name: 'post', params: { postId: post.id } }"
-        :post="post"
-        class="home__base-post"
-      />
+      <div class="home__posts">
+        <BasePost
+          v-for="post in $store.getters.getPostsByFeed('home')"
+          :key="post.id"
+          :image-to="{ name: 'post', params: { postId: post.id } }"
+          :post="post"
+          class="home__base-post"
+        />
+      </div>
       <BaseSpinner
         v-if="$store.state.isLoading"
         :inline="$store.getters.getPostsByFeed('home').length > 0"
@@ -51,6 +53,11 @@ export default {
 .home {
   padding: 2rem;
   position: relative;
+
+  &__posts {
+    margin: 0 auto;
+    max-width: var(--content-width);
+  }
 
   &__base-post:not(:last-child) {
     margin-bottom: 2rem;

@@ -218,6 +218,8 @@ export default {
 
 <style lang="scss" scoped>
 .upload {
+  margin: 0 auto;
+  max-width: var(--content-width);
   padding: 2rem;
 
   &__info {

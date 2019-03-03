@@ -18,6 +18,7 @@ export default {
   --color-light: #eee;
   --color-pink: #df0054;
   --color-purple: #470032;
+  --content-width: 640px;
 
   --z-header: 1;
   --z-navigation: 2;

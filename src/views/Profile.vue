@@ -89,8 +89,14 @@ export default {
   &__header {
     background-size: cover;
     background-position: 50% 50%;
-    height: 10rem;
     position: relative;
+    max-height: 16rem;
+
+    &::after {
+      content: "";
+      display: block;
+      padding-top: 50%;
+    }
 
     &::before {
       background-image: linear-gradient(
@@ -114,6 +120,10 @@ export default {
     margin-top: -4rem;
     padding: 0 2rem;
     position: relative;
+
+    @media (min-width: 640px) {
+      margin-top: -8rem;
+    }
   }
 
   &__photo {
@@ -129,6 +139,8 @@ export default {
     display: grid;
     grid-gap: 0.5rem;
     grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 auto;
+    max-width: var(--content-width);
     padding: 2rem;
 
     @media (min-width: 640px) {
