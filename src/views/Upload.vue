@@ -20,7 +20,7 @@
           </BaseField>
         </BaseSpacer>
         <BaseSpacer v-if="isLocationEnabled" mb2>
-          <BaseField label="Location">
+          <BaseField label="Restaurant">
             <BaseSelect
               :options="locations"
               :value="form.location"
