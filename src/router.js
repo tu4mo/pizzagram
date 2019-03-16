@@ -6,6 +6,7 @@ import Post from "./views/Post.vue";
 import Profile from "./views/Profile.vue";
 import ResetPassword from "./views/ResetPassword.vue";
 import LogIn from "./views/LogIn.vue";
+import Notifications from "./views/Notifications.vue";
 import SignUp from "./views/SignUp.vue";
 import Top from "./views/Top.vue";
 import Upload from "./views/Upload.vue";
@@ -57,6 +58,12 @@ export default new Router({
       path: "/login",
       name: "login",
       component: LogIn
+    },
+    {
+      path: "/notifications",
+      name: "notifications",
+      component: Notifications,
+      beforeEnter: checkAutentication
     },
     {
       path: "/post/:postId",

@@ -16,6 +16,7 @@ const store = new Vuex.Store({
     isLastPostReached: false,
     feeds: {},
     file: null,
+    notifications: {},
     users: {},
     posts: {}
   },
@@ -48,7 +49,9 @@ const store = new Vuex.Store({
     getTopPosters: ({ users }) =>
       Object.keys(users)
         .sort((a, b) => users[a].posts + users[b].posts)
-        .slice(0, 10)
+        .slice(0, 10),
+
+    getNotifications: state => state.notifications || []
   },
 
   mutations: {
@@ -119,6 +122,10 @@ const store = new Vuex.Store({
 
     setIsLastPostReached(state, isLastPostReached) {
       state.isLastPostReached = isLastPostReached;
+    },
+
+    addNotifications(state, notifications) {
+      state.notifications = notifications;
     }
   },
 
@@ -211,6 +218,11 @@ const store = new Vuex.Store({
     async getTopPosters({ commit }) {
       const topPosters = await Firebase.fetchTopPosters();
       topPosters.forEach(user => commit("addToUsers", user));
+    },
+
+    async fetchNotifications({ commit }) {
+      const notifications = await Firebase.fetchNotifications();
+      commit("addNotifications", notifications);
     }
   }
 });

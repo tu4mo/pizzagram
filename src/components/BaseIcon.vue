@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import bell from "feather-icons/dist/icons/bell.svg";
 import camera from "feather-icons/dist/icons/camera.svg";
 import chevronLeft from "feather-icons/dist/icons/chevron-left.svg";
 import heart from "feather-icons/dist/icons/heart.svg";
@@ -14,6 +15,7 @@ import user from "feather-icons/dist/icons/user.svg";
 
 export default {
   ICONS: {
+    bell,
     camera,
     chevronLeft,
     heart,

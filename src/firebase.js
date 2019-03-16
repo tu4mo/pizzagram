@@ -287,6 +287,27 @@ class Firebase {
       name: name.trim()
     });
   }
+
+  async fetchNotifications() {
+    try {
+      const querySnapshot = await this.firestore
+        .collection("notifications")
+        .orderBy("createdAt", "desc")
+        .where("userId", "==", this.currentUser().uid)
+        .get();
+
+      const notifications = [];
+
+      for (const doc of querySnapshot.docs) {
+        notifications.push(doc.data());
+      }
+
+      return notifications;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  }
 }
 
 export default new Firebase();

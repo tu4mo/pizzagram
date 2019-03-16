@@ -1,9 +1,9 @@
 <template>
   <DefaultLayout>
     <div class="upload">
-      <div v-if="!file || !imageUrl" class="upload__info">
+      <BaseEmpty v-if="!file || !imageUrl">
         Use the Camera icon to upload a photo
-      </div>
+      </BaseEmpty>
       <div v-else class="upload__form">
         <BaseSpacer mb2> <PostImage :image-url="imageUrl" /> </BaseSpacer>
         <BaseSpacer mb2>
@@ -41,6 +41,7 @@
 import DefaultLayout from "@/layouts/Default";
 
 import BaseButton from "@/components/BaseButton";
+import BaseEmpty from "@/components/BaseEmpty";
 import BaseField from "@/components/BaseField";
 import BaseRating from "@/components/BaseRating";
 import BaseSelect from "@/components/BaseSelect";
@@ -54,6 +55,7 @@ import Firebase from "@/firebase";
 export default {
   components: {
     BaseButton,
+    BaseEmpty,
     BaseField,
     BaseRating,
     BaseSelect,
@@ -221,19 +223,6 @@ export default {
   margin: 0 auto;
   max-width: var(--content-width);
   padding: 2rem;
-
-  &__info {
-    align-items: center;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    padding: 2rem;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-  }
 
   &__canvas {
     display: none;

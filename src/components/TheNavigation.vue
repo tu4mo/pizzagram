@@ -14,6 +14,13 @@
         Top Posts
       </NavItem> -->
       <NavItem
+        :to="{ name: 'notifications' }"
+        class="navigation__item"
+        icon="bell"
+      >
+        Notifications
+      </NavItem>
+      <NavItem
         :to="{ name: 'profile', params: { username: username || null } }"
         class="navigation__item"
         icon="user"
