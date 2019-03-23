@@ -11,14 +11,14 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@sentry/browser": "^4.6.4",
+    "@sentry/browser": "^4.6.5",
     "@tensorflow-models/coco-ssd": "^1.0.0",
-    "@tensorflow/tfjs": "^1.0.1",
+    "@tensorflow/tfjs": "^1.0.2",
     "feather-icons": "^4.19.0",
-    "firebase": "^5.9.0",
+    "firebase": "^5.9.1",
     "geofirestore": "^3.2.2",
     "md5": "^2.2.1",
-    "vue": "^2.6.9",
+    "vue": "^2.6.10",
     "vue-lazyload": "^1.2.6",
     "vue-meta": "^1.5.8",
     "vue-router": "^3.0.2",
@@ -35,9 +35,9 @@
     "firebase-tools": "^6.5.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.16.4",
-    "raw-loader": "^1.0.0",
+    "raw-loader": "^2.0.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.6.9"
+    "vue-template-compiler": "^2.6.10"
   },
   "gitHooks": {
     "pre-push": "npm run lint"
