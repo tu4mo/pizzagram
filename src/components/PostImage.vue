@@ -3,13 +3,13 @@
     <RouterLink v-if="to" :to="to" class="post-image__link">
       <figure class="post-image">
         <div class="post-image__container">
-          <div v-lazy:background-image="imageUrl" class="post-image__image" />
+          <img v-lazy="imageUrl" class="post-image__image" />
         </div>
       </figure>
     </RouterLink>
     <figure v-else class="post-image">
       <div class="post-image__container">
-        <div v-lazy:background-image="imageUrl" class="post-image__image" />
+        <img v-lazy="imageUrl" class="post-image__image" />
       </div>
     </figure>
   </div>
@@ -52,15 +52,12 @@ export default {
 
   &__image {
     background-color: var(--color-light);
-    background-position: 50% 50%;
-    background-size: cover;
-    bottom: 0;
-    display: block;
-    height: auto;
+    height: 100%;
     left: 0;
+    object-fit: cover;
     position: absolute;
-    right: 0;
     top: 0;
+    width: 100%;
 
     .post-image__link:active & {
       opacity: 0.8;
