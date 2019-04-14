@@ -62,5 +62,7 @@ export default {
 <style lang="scss" scoped>
 .post-view {
   padding: 2rem;
+  margin: 0 auto;
+  max-width: var(--content-width);
 }
 </style>
