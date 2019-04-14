@@ -41,10 +41,6 @@ export default {
 
   &--active {
     color: var(--color-pink);
-
-    /deep/ svg {
-      stroke-width: 2.5;
-    }
   }
 }
 </style>
