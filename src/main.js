@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueLazyload from "vue-lazyload";
 import * as Sentry from "@sentry/browser";
+import * as Integrations from "@sentry/integrations";
 import Meta from "vue-meta";
 
 import App from "./App.vue";
@@ -10,7 +11,10 @@ import store from "./store";
 if (process.env.NODE_ENV !== "development") {
   Sentry.init({
     dsn: "https://7f76df6d0d9e4d4a84a7f3676a5d4e46@sentry.io/1319696",
-    integrations: [new Sentry.Integrations.Vue({ Vue })]
+    integrations: new Integrations.Vue({
+      Vue,
+      attachProps: true
+    })
   });
 }
 
