@@ -5,7 +5,9 @@
         Use the Camera icon to upload a photo
       </BaseEmpty>
       <div v-else class="upload__form">
-        <BaseSpacer mb2> <PostImage :image-url="imageUrl" /> </BaseSpacer>
+        <BaseSpacer mb2>
+          <PostImage ref="image" :image-url="imageUrl" />
+        </BaseSpacer>
         <BaseSpacer mb2>
           <BaseField label="Caption">
             <BaseInput v-model.trim="form.caption" maxlength="100" />
@@ -32,7 +34,6 @@
         <BaseButton @click="onShareClick">Share</BaseButton>
       </div>
       <BaseSpinner v-if="isLoading" cover />
-      <canvas ref="canvas" class="upload__canvas" width="1024" height="1024" />
     </div>
   </DefaultLayout>
 </template>
@@ -124,41 +125,19 @@ export default {
         });
       }
     },
-    async onFileLoad() {
+    onFileLoad() {
       this.isLoading = true;
 
       this.getNearbyLocations();
 
       this.imageUrl = this.reader.result;
 
-      const { canvas } = this.$refs;
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      try {
-        const cocoSsd = await import("@tensorflow-models/coco-ssd");
-
-        const image = new Image();
-        image.src = this.reader.result;
-        image.onload = async () => {
-          const hRatio = canvas.width / image.width;
-          const vRatio = canvas.height / image.height;
-          const ratio = Math.min(hRatio, vRatio);
-
-          ctx.drawImage(
-            image,
-            0,
-            0,
-            image.width,
-            image.height,
-            0,
-            0,
-            image.width * ratio,
-            image.height * ratio
-          );
-
+      this.$nextTick(async () => {
+        try {
+          const cocoSsd = await import("@tensorflow-models/coco-ssd");
           const model = await cocoSsd.load();
-          const predictions = await model.detect(this.$refs.canvas, 1);
+          const image = this.$refs.image.$el.querySelector("img");
+          const predictions = await model.detect(image, 1);
 
           const isPizza = predictions.some(
             prediction => prediction.class === "pizza"
@@ -172,11 +151,11 @@ export default {
           }
 
           this.isLoading = false;
-        };
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      }
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
+      });
     },
     async onShareClick() {
       this.isLoading = true;
