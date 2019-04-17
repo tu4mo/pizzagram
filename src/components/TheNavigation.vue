@@ -10,10 +10,16 @@
         Home
       </NavItem>
       <TheCamera class="navigation__item" />
-      <!-- <NavItem :to="{ name: 'top' }" class="navigation__item" icon="star">
-        Top Posts
-      </NavItem> -->
       <NavItem
+        v-if="isDevelopment"
+        :to="{ name: 'top' }"
+        class="navigation__item"
+        icon="star"
+      >
+        Top Posts
+      </NavItem>
+      <NavItem
+        v-if="isDevelopment"
         :to="{ name: 'notifications' }"
         class="navigation__item"
         icon="bell"
@@ -41,6 +47,9 @@ export default {
     TheCamera
   },
   computed: {
+    isDevelopment() {
+      return process.env.NODE_ENV === "development";
+    },
     username() {
       return this.$store.state.auth.username;
     }
