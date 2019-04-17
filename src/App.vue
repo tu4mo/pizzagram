@@ -19,6 +19,7 @@ export default {
   --color-pink: #df0054;
   --color-purple: #470032;
   --content-width: 640px;
+  --content-width-lg: 1280px;
 
   --z-header: 1;
   --z-navigation: 2;

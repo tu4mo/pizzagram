@@ -138,13 +138,14 @@ export default {
   &__posts {
     display: grid;
     grid-gap: 0.5rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     margin: 0 auto;
-    max-width: var(--content-width);
     padding: 2rem;
 
     @media (min-width: 640px) {
       grid-gap: 1rem;
+      grid-template-columns: repeat(5, 1fr);
+      max-width: var(--content-width-lg);
     }
   }
 
