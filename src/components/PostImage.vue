@@ -32,8 +32,11 @@ export default {
 
 <style lang="scss" scoped>
 .post-image {
-  border-radius: 1rem;
   overflow: hidden;
+
+  @media (min-width: 640px) {
+    border-radius: 1rem;
+  }
 
   &__link:active {
     background-color: #000;

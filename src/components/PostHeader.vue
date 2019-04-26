@@ -51,6 +51,11 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  padding: 0 1rem;
+
+  @media (min-width: 640px) {
+    padding: 0;
+  }
 
   &__user {
     align-items: center;

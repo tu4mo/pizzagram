@@ -137,15 +137,16 @@ export default {
 
   &__posts {
     display: grid;
-    grid-gap: 0.5rem;
+    grid-gap: 1px;
     grid-template-columns: repeat(3, 1fr);
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 0;
 
     @media (min-width: 640px) {
       grid-gap: 1rem;
       grid-template-columns: repeat(5, 1fr);
       max-width: var(--content-width-lg);
+      padding: 2rem;
     }
   }
 

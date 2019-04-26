@@ -61,8 +61,12 @@ export default {
 
 <style lang="scss" scoped>
 .post-view {
-  padding: 2rem;
   margin: 0 auto;
   max-width: var(--content-width);
+  padding: 1rem 0;
+
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
 }
 </style>

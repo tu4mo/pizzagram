@@ -51,8 +51,12 @@ export default {
 .home {
   margin: 0 auto;
   max-width: var(--content-width);
-  padding: 2rem;
+  padding: 1rem 0;
   position: relative;
+
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
 
   &__base-post:not(:last-child) {
     margin-bottom: 2rem;

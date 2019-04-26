@@ -160,7 +160,14 @@ export default {
   &__footer {
     align-items: flex-start;
     display: flex;
-    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-right: 1rem;
+
+    @media (min-width: 640px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   &__info {
