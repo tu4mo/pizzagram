@@ -38,6 +38,7 @@ module.exports = (object, size) => {
 
   const pipeline = sharp();
   pipeline
+    .rotate()
     .resize(size, size, { fit: "inside", withoutEnlargement: true })
     .jpeg({ quality: 90, chromaSubsampling: "4:4:4" })
     .pipe(resizedUploadStream);
