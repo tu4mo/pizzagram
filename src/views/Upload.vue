@@ -4,34 +4,36 @@
       <BaseEmpty v-if="!file || !imageUrl">
         Use the Camera icon to upload a photo
       </BaseEmpty>
-      <div v-else class="upload__form">
-        <BaseSpacer mb2>
+      <div v-else>
+        <div class="upload__image">
           <PostImage ref="image" :image-url="imageUrl" />
-        </BaseSpacer>
-        <BaseSpacer mb2>
-          <BaseField label="Caption">
-            <BaseInput v-model.trim="form.caption" maxlength="100" />
-          </BaseField>
-        </BaseSpacer>
-        <BaseSpacer mb2>
-          <BaseField label="Rating">
-            <BaseRating
-              :value="form.rating"
-              @change="rating => (form.rating = rating)"
-            />
-          </BaseField>
-        </BaseSpacer>
-        <BaseSpacer v-if="isLocationEnabled" mb2>
-          <BaseField label="Restaurant">
-            <BaseSelect
-              :options="locations"
-              :value="form.location"
-              name="location"
-              @change="location => (form.location = location)"
-            />
-          </BaseField>
-        </BaseSpacer>
-        <BaseButton @click="onShareClick">Share</BaseButton>
+        </div>
+        <div class="upload__form">
+          <BaseSpacer mb2>
+            <BaseField label="Caption">
+              <BaseInput v-model.trim="form.caption" maxlength="100" />
+            </BaseField>
+          </BaseSpacer>
+          <BaseSpacer mb2>
+            <BaseField label="Rating">
+              <BaseRating
+                :value="form.rating"
+                @change="rating => (form.rating = rating)"
+              />
+            </BaseField>
+          </BaseSpacer>
+          <BaseSpacer v-if="isLocationEnabled" mb2>
+            <BaseField label="Restaurant">
+              <BaseSelect
+                :options="locations"
+                :value="form.location"
+                name="location"
+                @change="location => (form.location = location)"
+              />
+            </BaseField>
+          </BaseSpacer>
+          <BaseButton @click="onShareClick">Share</BaseButton>
+        </div>
       </div>
       <BaseSpinner v-if="isLoading" cover />
     </div>
@@ -201,11 +203,22 @@ export default {
 .upload {
   margin: 0 auto;
   max-width: var(--content-width);
-  padding: 2rem;
+
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
 
   &__canvas {
     display: none;
     width: 100%;
+  }
+
+  &__form {
+    padding: 2rem;
+
+    @media (min-width: 640px) {
+      padding: 2rem 0;
+    }
   }
 }
 </style>
