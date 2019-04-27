@@ -4,7 +4,7 @@
       <BaseEmpty v-if="!file || !imageUrl">
         Use the Camera icon to upload a photo
       </BaseEmpty>
-      <div v-else>
+      <template v-else>
         <div class="upload__image">
           <PostImage ref="image" :image-url="imageUrl" />
         </div>
@@ -34,7 +34,7 @@
           </BaseSpacer>
           <BaseButton @click="onShareClick">Share</BaseButton>
         </div>
-      </div>
+      </template>
       <BaseSpinner v-if="isLoading" cover />
     </div>
   </DefaultLayout>
