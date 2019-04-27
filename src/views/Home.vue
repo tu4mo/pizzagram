@@ -12,12 +12,6 @@
         v-if="$store.state.isLoading"
         :inline="$store.getters.getPostsByFeed('home').length > 0"
       />
-      <BaseButton
-        v-else-if="!$store.state.isLastPostReached"
-        @click="fetchPosts"
-      >
-        Load More
-      </BaseButton>
     </div>
   </DefaultLayout>
 </template>
@@ -25,23 +19,34 @@
 <script>
 import DefaultLayout from "@/layouts/Default";
 
-import BaseButton from "@/components/BaseButton";
 import BasePost from "@/components/BasePost";
 import BaseSpinner from "@/components/BaseSpinner";
 
 export default {
   components: {
-    BaseButton,
     BasePost,
     BaseSpinner,
     DefaultLayout
   },
   created() {
     this.fetchPosts();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     fetchPosts() {
       this.$store.dispatch("getPostsForHome", true);
+    },
+    handleScroll() {
+      if (
+        window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+        !this.$store.state.isLastPostReached &&
+        !this.$store.state.isLoading
+      ) {
+        this.fetchPosts();
+      }
     }
   }
 };
