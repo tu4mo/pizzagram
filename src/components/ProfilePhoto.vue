@@ -10,7 +10,7 @@
 export default {
   props: {
     alt: {
-      required: true,
+      default: "",
       type: String
     },
     gravatar: {
@@ -34,7 +34,6 @@ export default {
 
 <style lang="scss" scoped>
 .profile-photo {
-  background-color: var(--color-light);
   border-radius: 50%;
   object-fit: cover;
 
