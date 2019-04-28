@@ -1,17 +1,9 @@
 <template>
-  <div class="post-image">
-    <RouterLink v-if="to" :to="to" class="post-image__link">
-      <figure class="post-image">
-        <div class="post-image__container">
-          <img v-lazy="imageUrl" class="post-image__image" />
-        </div>
-      </figure>
-    </RouterLink>
-    <figure v-else class="post-image">
-      <div class="post-image__container">
-        <img v-lazy="imageUrl" class="post-image__image" />
-      </div>
-    </figure>
+  <RouterLink v-if="to" :to="to" class="post-image">
+    <img v-lazy="imageUrl" class="post-image__image" />
+  </RouterLink>
+  <div v-else class="post-image">
+    <img v-lazy="imageUrl" class="post-image__image" />
   </div>
 </template>
 
@@ -32,25 +24,13 @@ export default {
 
 <style lang="scss" scoped>
 .post-image {
-  overflow: hidden;
+  display: block;
+  position: relative;
 
-  @media (min-width: 640px) {
-    border-radius: 1rem;
-  }
-
-  &__link:active {
-    background-color: #000;
+  &::before {
+    content: "";
     display: block;
-  }
-
-  &__container {
-    position: relative;
-
-    &::before {
-      content: "";
-      display: block;
-      padding-top: 100%;
-    }
+    padding-top: 100%;
   }
 
   &__image {
@@ -61,6 +41,10 @@ export default {
     position: absolute;
     top: 0;
     width: 100%;
+
+    @media (min-width: 640px) {
+      border-radius: 1rem;
+    }
 
     .post-image__link:active & {
       opacity: 0.8;
