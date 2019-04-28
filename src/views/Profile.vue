@@ -9,6 +9,8 @@
       />
       <div class="profile__user">
         <ProfilePhoto
+          v-if="user && user.username"
+          :alt="user.username"
           :gravatar="user.gravatar"
           class="profile__photo"
           size="large"

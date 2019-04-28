@@ -13,7 +13,10 @@
           }"
           class="top__item"
         >
-          <ProfilePhoto :gravatar="getUser(user).gravatar" />
+          <ProfilePhoto
+            :alt="getUser(user).username"
+            :gravatar="getUser(user).gravatar"
+          />
           <div class="top__user">
             <div class="top__username">{{ getUser(user).username }}</div>
             <div class="top__posts">

@@ -1,13 +1,18 @@
 <template>
-  <div
+  <img
+    :alt="alt"
     :class="['profile-photo', `profile-photo--${size}`]"
-    :style="{ backgroundImage: `url(${profileUrl})` }"
+    :src="profileUrl"
   />
 </template>
 
 <script>
 export default {
   props: {
+    alt: {
+      required: true,
+      type: String
+    },
     gravatar: {
       default: "",
       type: String
@@ -30,9 +35,8 @@ export default {
 <style lang="scss" scoped>
 .profile-photo {
   background-color: var(--color-light);
-  background-position: 50% 50%;
-  background-size: cover;
   border-radius: 50%;
+  object-fit: cover;
 
   &--small {
     height: 2rem;
