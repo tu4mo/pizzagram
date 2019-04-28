@@ -16,7 +16,10 @@
       </div>
       <footer class="post__footer">
         <div class="post__info">
-          <div v-if="Array.isArray(post.likes)" class="post__likes">
+          <div
+            v-if="Array.isArray(post.likes) && post.likes.length > 0"
+            class="post__likes"
+          >
             {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
           </div>
           <div v-if="post.caption" class="post__caption">
