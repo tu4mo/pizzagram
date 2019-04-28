@@ -13,6 +13,10 @@ export default {
       default: false,
       type: Boolean
     },
+    mt1: {
+      default: false,
+      type: Boolean
+    },
     my1: {
       default: false,
       type: Boolean
@@ -24,6 +28,7 @@ export default {
         spacer: true,
         "spacer--mb1": this.mb1,
         "spacer--mb2": this.mb2,
+        "spacer--mt1": this.mt1,
         "spacer--my1": this.my1
       };
     }
@@ -39,6 +44,10 @@ export default {
 
   &--mb2 {
     margin-bottom: 2rem;
+  }
+
+  &--mt1 {
+    margin-top: 1rem;
   }
 
   &--my1 {

@@ -7,7 +7,7 @@
     "deploy": "npm run build && firebase deploy",
     "format": "prettier --write '**/*.{md,js,json,vue}'",
     "lint": "vue-cli-service lint",
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --https",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {

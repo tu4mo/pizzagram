@@ -2,14 +2,9 @@
   <article class="post">
     <lazy-component @show="onLazyLoad">
       <PostHeader :created-at="post.createdAt" :user="user" />
-      <div class="post__image">
+      <BaseSpacer mt1>
         <PostImage :image-url="post.imageUrl" :to="imageTo" />
-        <transition name="fade">
-          <div v-if="isSharing" class="post__share">
-            <div ref="postPath" class="post__path">{{ postPath }}</div>
-          </div>
-        </transition>
-      </div>
+      </BaseSpacer>
       <footer class="post__footer">
         <div class="post__info">
           <div
@@ -29,13 +24,7 @@
           <BaseButton v-if="isRemovable" @click="onRemoveClick">
             <BaseIcon name="trash2" />
           </BaseButton>
-          <BaseButton
-            :class="[
-              'post__share-button',
-              { 'post__share-button--active': isSharing }
-            ]"
-            @click="onShareClick"
-          >
+          <BaseButton class="post__share-button" @click="onShareClick">
             <BaseIcon name="share" />
           </BaseButton>
           <BaseButton
@@ -63,6 +52,7 @@
 import BaseButton from "./BaseButton";
 import BaseIcon from "./BaseIcon";
 import BaseInput from "./BaseInput";
+import BaseSpacer from "./BaseSpacer";
 import PostHeader from "./PostHeader";
 import PostImage from "./PostImage";
 
@@ -71,6 +61,7 @@ export default {
     BaseButton,
     BaseIcon,
     BaseInput,
+    BaseSpacer,
     PostHeader,
     PostImage
   },
@@ -90,7 +81,6 @@ export default {
   },
   data() {
     return {
-      isSharing: false,
       isPlaceholder: true
     };
   },
@@ -116,25 +106,17 @@ export default {
         this.$emit("remove-click");
       }
     },
-    onShareClick() {
-      if (this.isSharing) {
-        this.isSharing = false;
-      } else {
-        this.isSharing = true;
-        this.$nextTick(() => {
-          const { postPath } = this.$refs;
-
-          if (document.selection) {
-            const range = document.body.createTextRange();
-            range.moveToElementText(postPath);
-            range.select();
-          } else if (window.getSelection) {
-            const range = document.createRange();
-            range.selectNode(postPath);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
-          }
+    async onShareClick() {
+      if (navigator.share) {
+        await navigator.share({
+          title: "Pizzagram",
+          text: `${this.post.caption}${
+            this.post.caption && this.post.location ? " - " : ""
+          }${this.post.location}`,
+          url: this.postPath
         });
+      } else {
+        alert("Sorry, you're browser doesn't seem to support Web Share API.");
       }
     }
   }
@@ -149,11 +131,6 @@ export default {
     &:active {
       background-color: #000;
     }
-  }
-
-  &__image {
-    margin-top: 1rem;
-    position: relative;
   }
 
   &__footer {
@@ -215,37 +192,5 @@ export default {
       }
     }
   }
-
-  &__share {
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    bottom: 0;
-    display: flex;
-    left: 0;
-    padding: 1rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  &__path {
-    background-color: #fff;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    text-align: center;
-    user-select: text;
-    word-wrap: break-word;
-    width: 100%;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
