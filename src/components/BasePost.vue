@@ -3,11 +3,7 @@
     <lazy-component @show="onLazyLoad">
       <PostHeader :created-at="post.createdAt" :user="user" />
       <div class="post__image">
-        <PostImage
-          :caption="post.caption"
-          :image-url="post.imageUrl"
-          :to="imageTo"
-        />
+        <PostImage :image-url="post.imageUrl" :to="imageTo" />
         <transition name="fade">
           <div v-if="isSharing" class="post__share">
             <div ref="postPath" class="post__path">{{ postPath }}</div>
