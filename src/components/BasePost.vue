@@ -116,7 +116,7 @@ export default {
           url: this.postPath
         });
       } else {
-        alert("Sorry, you're browser doesn't seem to support Web Share API.");
+        alert("Sorry, you're browser doesn't seem to support Web Share.");
       }
     }
   }
