@@ -14,10 +14,11 @@ export default {
 
 <style lang="scss">
 :root {
+  --color-background: #fff;
   --color-gray: #aaa;
   --color-light: #eee;
-  --color-pink: #df0054;
-  --color-purple: #470032;
+  --color-primary: #df0054;
+  --color-secondary: #470032;
   --content-width: 640px;
   --content-width-lg: 1280px;
 
@@ -35,6 +36,7 @@ html {
 }
 
 body {
+  background-color: var(--color-background);
   font-size: 0.75rem;
 
   @media (min-width: 640px) {

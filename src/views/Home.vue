@@ -65,6 +65,10 @@ export default {
 
   &__base-post:not(:last-child) {
     margin-bottom: 2rem;
+
+    @media (min-width: 640px) {
+      margin-bottom: 4rem;
+    }
   }
 }
 </style>

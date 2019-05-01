@@ -29,7 +29,7 @@ export default {
   background-color: transparent;
   border: 0;
   border-radius: 0.5rem;
-  color: var(--color-pink);
+  color: var(--color-primary);
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;

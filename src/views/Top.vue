@@ -84,12 +84,12 @@ export default {
 
   &__item {
     align-items: center;
-    color: var(--color-purple);
+    color: var(--color-secondary);
     display: flex;
   }
 
   &__rank {
-    background-color: var(--color-pink);
+    background-color: var(--color-primary);
     border-radius: 0.25rem;
     color: #fff;
     font-weight: bold;

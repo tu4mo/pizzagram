@@ -39,7 +39,7 @@ export default {
   position: relative;
 
   &--active {
-    color: var(--color-pink);
+    color: var(--color-primary);
   }
 
   &__label {

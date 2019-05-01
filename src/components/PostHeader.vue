@@ -62,7 +62,7 @@ export default {
 
   &__user {
     align-items: center;
-    color: var(--color-purple);
+    color: var(--color-secondary);
     display: flex;
     font-weight: bold;
     text-decoration: none;

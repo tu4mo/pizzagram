@@ -37,10 +37,10 @@ export default {
 
 <style lang="scss" scoped>
 .nav-item {
-  color: var(--color-purple);
+  color: var(--color-secondary);
 
   &--active {
-    color: var(--color-pink);
+    color: var(--color-primary);
   }
 }
 </style>

@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 .field {
   &__label {
-    color: var(--color-pink);
+    color: var(--color-primary);
     display: block;
     font-weight: bold;
     margin-bottom: 0.25rem;

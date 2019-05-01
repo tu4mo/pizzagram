@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .link {
-  color: var(--color-pink);
+  color: var(--color-primary);
   text-decoration: none;
 }
 </style>

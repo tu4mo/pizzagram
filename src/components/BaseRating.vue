@@ -44,7 +44,7 @@ export default {
     }
 
     &--active {
-      color: var(--color-pink);
+      color: var(--color-primary);
     }
   }
 }

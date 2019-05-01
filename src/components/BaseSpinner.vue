@@ -63,8 +63,8 @@ export default {
   &__pepperoni-1,
   &__pepperoni-2 {
     animation: animation-bounce 2s infinite ease-in-out;
-    background-color: var(--color-pink);
-    border: 4px solid var(--color-purple);
+    background-color: var(--color-primary);
+    border: 4px solid var(--color-secondary);
     border-radius: 100%;
     display: inline-block;
     height: 30%;

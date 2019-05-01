@@ -70,10 +70,10 @@ export default {
 
 <style lang="scss" scoped>
 .default-layout {
-  background-color: #fff;
+  background-color: var(--color-background);
 
   &__top {
-    background-color: #fff;
+    background-color: var(--color-background);
     border-bottom: 1px solid transparent;
     display: flex;
     justify-content: center;
@@ -128,7 +128,7 @@ export default {
 
   &__navigation {
     align-items: center;
-    background-color: #fff;
+    background-color: var(--color-background);
     border-top: 1px solid var(--color-light);
     bottom: 0;
     display: flex;

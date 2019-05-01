@@ -68,7 +68,7 @@ export default {
 
   &__items {
     align-items: center;
-    color: var(--color-purple);
+    color: var(--color-secondary);
     display: flex;
     height: 3.5rem;
     justify-content: space-around;

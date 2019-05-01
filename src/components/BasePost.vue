@@ -174,21 +174,21 @@ export default {
   }
 
   &__share-button {
-    color: var(--color-purple);
+    color: var(--color-secondary);
 
     &--active {
-      color: var(--color-pink);
+      color: var(--color-primary);
     }
   }
 
   &__like-button {
-    color: var(--color-purple);
+    color: var(--color-secondary);
 
     &--liked {
-      color: var(--color-pink);
+      color: var(--color-primary);
 
       & /deep/ svg {
-        fill: var(--color-pink);
+        fill: var(--color-primary);
       }
     }
   }

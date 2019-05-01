@@ -128,7 +128,7 @@ export default {
   }
 
   &__photo {
-    border: 0.25rem solid #fff;
+    border: 0.25rem solid var(--color-background);
     margin-bottom: 0.5rem;
   }
 
