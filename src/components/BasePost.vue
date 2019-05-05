@@ -125,14 +125,6 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  &__link {
-    border-radius: 1rem;
-
-    &:active {
-      background-color: #000;
-    }
-  }
-
   &__footer {
     align-items: flex-start;
     display: flex;
