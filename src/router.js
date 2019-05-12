@@ -51,8 +51,7 @@ export default new Router({
     {
       path: "/profile/:username?",
       name: "profile",
-      component: Profile,
-      beforeEnter: checkAutentication
+      component: Profile
     },
     {
       path: "/login",

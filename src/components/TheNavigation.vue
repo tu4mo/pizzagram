@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="$store.state.auth.isAuthenticated" class="navigation">
+  <nav class="navigation">
     <div class="navigation__items">
       <NavItem
         :to="{ name: 'home' }"
@@ -9,7 +9,7 @@
       >
         Home
       </NavItem>
-      <TheCamera class="navigation__item" />
+      <TheCamera v-if="isAuthenticated" class="navigation__item" />
       <NavItem
         v-if="isDevelopment"
         :to="{ name: 'top' }"
@@ -27,6 +27,7 @@
         Notifications
       </NavItem>
       <NavItem
+        v-if="isAuthenticated"
         :to="{ name: 'profile', params: { username: username || null } }"
         class="navigation__item"
         icon="user"
@@ -47,6 +48,9 @@ export default {
     TheCamera
   },
   computed: {
+    isAuthenticated() {
+      return this.$store.state.auth.isAuthenticated;
+    },
     isDevelopment() {
       return process.env.NODE_ENV === "development";
     },
