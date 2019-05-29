@@ -16,7 +16,7 @@
     "@tensorflow-models/coco-ssd": "^1.0.2",
     "@tensorflow/tfjs": "^1.1.2",
     "feather-icons": "^4.21.0",
-    "firebase": "^6.0.4",
+    "firebase": "^6.1.0",
     "geofirestore": "^3.3.1",
     "md5": "^2.2.1",
     "vue": "^2.6.10",
