@@ -18,7 +18,7 @@
     "firebase-tools": "^6.10.0"
   },
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "private": true
 }
