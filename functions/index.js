@@ -3,6 +3,8 @@ const functions = require("firebase-functions");
 
 const addPostsCount = require("./utils/add-posts-count");
 const generateThumbnail = require("./utils/generate-thumbnail");
+
+const addNotification = require("./add-notification");
 const resizeImage = require("./resize-image");
 const removePost = require("./remove-post");
 const updatePost = require("./update-post");
@@ -19,6 +21,10 @@ exports.removePost = functions.firestore
 exports.updatePost = functions.firestore
   .document("posts/{postId}")
   .onUpdate(updatePost(db));
+
+exports.addLikeNotification = functions.firestore
+  .document("likes/{likeId}")
+  .onCreate(addNotification(db, "LIKE"));
 
 exports.generateResizedImages = functions.storage
   .object()
