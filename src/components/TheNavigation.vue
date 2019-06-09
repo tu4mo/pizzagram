@@ -20,6 +20,7 @@
       </NavItem>
       <NavItem
         v-if="isDevelopment"
+        :badge="notifications"
         :to="{ name: 'notifications' }"
         class="navigation__item"
         icon="bell"
@@ -48,6 +49,11 @@ export default {
     TheCamera
   },
   computed: {
+    notifications() {
+      return this.$store.getters.getNotifications.length > 0
+        ? this.$store.getters.getNotifications.length
+        : null;
+    },
     isAuthenticated() {
       return this.$store.state.auth.isAuthenticated;
     },
