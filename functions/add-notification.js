@@ -2,7 +2,7 @@ const NOTIFICATION_TYPE_LIKE = "LIKE";
 
 module.exports = (db, notificationType) => async snap => {
   if (notificationType === NOTIFICATION_TYPE_LIKE) {
-    const { postId } = snap.data();
+    const { postId, userId } = snap.data();
 
     const post = await db
       .collection("posts")
@@ -11,10 +11,11 @@ module.exports = (db, notificationType) => async snap => {
 
     await db.collection("notifications").add({
       createdAt: new Date(),
+      fromUserId: userId,
       postId,
       read: false,
-      type: NOTIFICATION_TYPE_LIKE,
-      userId: post.data().userId
+      userId: post.data().userId,
+      type: NOTIFICATION_TYPE_LIKE
     });
   }
 };
