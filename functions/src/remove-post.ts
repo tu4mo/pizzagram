@@ -1,11 +1,19 @@
-/* eslint no-console: "off" */
+import * as admin from "firebase-admin";
+import { Storage } from "@google-cloud/storage";
 
-const { Storage } = require("@google-cloud/storage");
 const storage = new Storage();
 
-module.exports = db => async snap => {
-  const id = snap.id;
-  const { userId } = snap.data();
+export default (db: admin.firestore.Firestore) => async (
+  snap: admin.firestore.DocumentSnapshot
+) => {
+  const { id } = snap;
+  const postData = snap.data();
+
+  if (!postData) {
+    return;
+  }
+
+  const { userId } = postData;
 
   const bucket = storage.bucket("pizzagram-cc.appspot.com");
   const photoFile = bucket.file(`posts/${id}.jpg`);
@@ -21,16 +29,15 @@ module.exports = db => async snap => {
 
     const likesCollection = db.collection("likes");
     const querySnapshot = await likesCollection.where("postId", "==", id).get();
-
-    let deletePostPromises = [];
+    const deleteLikesBatch = db.batch();
 
     querySnapshot.forEach(doc => {
-      deletePostPromises.push(likesCollection.doc(doc.id).delete());
+      deleteLikesBatch.delete(likesCollection.doc(doc.id));
     });
 
-    await Promise.all(deletePostPromises);
+    await deleteLikesBatch.commit();
 
-    console.log(`Removed ${deletePostPromises.length} likes.`);
+    console.log(`Removed ${querySnapshot.size} likes.`);
 
     const usersSnapshot = await usersCollection
       .where("id", "==", userId)

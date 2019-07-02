@@ -1,13 +1,13 @@
-const admin = require("firebase-admin");
-const functions = require("firebase-functions");
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 
-const addPostsCount = require("./utils/add-posts-count");
-const generateThumbnail = require("./utils/generate-thumbnail");
+import addPostsCount from "./utils/add-posts-count";
+import generateThumbnail from "./utils/generate-thumbnail";
 
-const addNotification = require("./add-notification");
-const resizeImage = require("./resize-image");
-const removePost = require("./remove-post");
-const updatePost = require("./update-post");
+import addNotification, { NotificationType } from "./add-notification";
+import resizeImage from "./resize-image";
+import removePost from "./remove-post";
+import updatePost from "./update-post";
 
 admin.initializeApp();
 
@@ -24,7 +24,7 @@ exports.updatePost = functions.firestore
 
 exports.addLikeNotification = functions.firestore
   .document("likes/{likeId}")
-  .onCreate(addNotification(db, "LIKE"));
+  .onCreate(addNotification(db, NotificationType.Like));
 
 exports.generateResizedImages = functions.storage
   .object()
@@ -35,5 +35,5 @@ exports.generateResizedImages = functions.storage
 exports.addPostsCount = functions.https.onRequest(addPostsCount(db));
 
 exports.generateThumbnail = functions.https.onRequest(() => {
-  return [128, 1024].map(generateThumbnail);
+  return [128, 1024].map(size => generateThumbnail(size));
 });

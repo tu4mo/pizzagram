@@ -1,27 +1,13 @@
-/* eslint no-console: "off" */
-
-"use strict";
-
-const { Storage } = require("@google-cloud/storage");
+import { Storage } from "@google-cloud/storage";
 const storage = new Storage();
 
-const path = require("path");
-const sharp = require("sharp");
+import * as path from "path";
+import * as sharp from "sharp";
 
-module.exports = (object, size) => {
-  const fileBucket = object.bucket;
-  const filePath = object.name;
-  const contentType = object.contentType;
-
-  if (!contentType.startsWith("image/")) {
-    console.log("This is not an image.");
-    return null;
-  }
-
-  if (object.metadata && object.metadata.resized) {
-    console.log("Already resized.");
-    return null;
-  }
+export default (size: number) => {
+  const fileBucket = "gs://pizzagram-cc.appspot.com";
+  const filePath = "posts/uQ5vp9zECuus72fbofnp.jpg";
+  const contentType = "image/jpeg";
 
   const bucket = storage.bucket(fileBucket);
 

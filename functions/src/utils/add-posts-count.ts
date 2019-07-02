@@ -1,6 +1,10 @@
-/* eslint no-console: "off" */
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 
-module.exports = db => async (req, res) => {
+export default (db: admin.firestore.Firestore) => async (
+  req: functions.Request,
+  res: functions.Response
+) => {
   const usersSnapshot = await db.collection("users").get();
 
   usersSnapshot.forEach(async userRef => {

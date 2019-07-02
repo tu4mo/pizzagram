@@ -1,5 +1,6 @@
 /.firebase
 /dist
+/functions/lib
 /functions/node_modules
 /node_modules
 firebase-debug.log

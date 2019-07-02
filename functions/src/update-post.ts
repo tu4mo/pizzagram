@@ -1,7 +1,16 @@
-/* eslint no-console: "off" */
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 
-module.exports = db => async change => {
-  const { userId } = change.after.data();
+export default (db: admin.firestore.Firestore) => async (
+  change: functions.Change<FirebaseFirestore.DocumentSnapshot>
+) => {
+  const postData = change.after.data();
+
+  if (!postData) {
+    return;
+  }
+
+  const { userId } = postData;
 
   const usersSnapshot = await db
     .collection("users")
