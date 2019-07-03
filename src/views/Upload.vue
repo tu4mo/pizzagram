@@ -147,7 +147,7 @@ export default {
 
           if (!isPizza) {
             alert(
-              "Sorry, couldn't find a pizza in the photo. Try another one."
+              "Sorry, that's no good. Make sure there's a pizza and only a pizza in the photo. Please, try another one."
             );
             this.imageUrl = "";
           }
