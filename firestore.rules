@@ -6,7 +6,10 @@ service cloud.firestore {
 
     match /likes/{likeId} {
       allow read;
-      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId;
+      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId 
+        && request.resource.data.size() == 2
+        && request.resource.data.postId is string
+        && request.resource.data.userId is string;
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
