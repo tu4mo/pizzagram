@@ -139,7 +139,7 @@ export default {
           const cocoSsd = await import("@tensorflow-models/coco-ssd");
           const model = await cocoSsd.load();
           const image = this.$refs.image.$el.querySelector("img");
-          const predictions = await model.detect(image, 1);
+          const predictions = await model.detect(image);
 
           const isPizza = predictions.some(
             prediction => prediction.class === "pizza"
