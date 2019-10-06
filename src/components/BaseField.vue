@@ -1,7 +1,9 @@
 <template>
   <div class="field">
-    <label class="field__label">{{ label }}</label>
-    <slot />
+    <label>
+      <div class="field__label">{{ label }}</div>
+      <slot />
+    </label>
   </div>
 </template>
 
