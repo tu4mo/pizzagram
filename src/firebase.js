@@ -51,6 +51,19 @@ class Firebase {
     this.onAuthStateChangedCallback = callback;
   }
 
+  async subscribe(callback) {
+    this.firestore
+      .collection("posts")
+      .orderBy("createdAt", "desc")
+      .where("published", "==", true)
+      .limit(this.QUERY_LIMIT)
+      .onSnapshot(querySnapshot => {
+        const posts = [];
+        querySnapshot.forEach(doc => posts.push(this.createPostObject(doc)));
+        callback(posts);
+      });
+  }
+
   async getPosts({ userId, startAfter } = {}) {
     let query = this.firestore
       .collection("posts")

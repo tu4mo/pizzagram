@@ -240,4 +240,11 @@ Firebase.setOnAuthStateChangedCallback(async user => {
   }
 });
 
+Firebase.subscribe(posts => {
+  posts.forEach(post => {
+    store.commit("addToPosts", post);
+    store.commit("addToFeeds", { feed: "home", postId: post.id });
+  });
+});
+
 export default store;
