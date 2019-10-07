@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     fetchPosts() {
-      this.$store.dispatch("getPostsForHome", true);
+      this.$store.dispatch("getPostsForHome");
     },
     handleScroll() {
       if (

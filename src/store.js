@@ -139,10 +139,8 @@ const store = new Vuex.Store({
       commit("addToPosts", post);
     },
 
-    async getPostsForHome({ commit, getters }, setIsLoading) {
-      if (setIsLoading) {
-        commit("setIsLoading", true);
-      }
+    async getPostsForHome({ commit, getters }) {
+      commit("setIsLoading", true);
 
       const postsInHome = getters.getPostsByFeed("home");
       const lastPost =
@@ -157,9 +155,7 @@ const store = new Vuex.Store({
         commit("addToFeeds", { feed: "home", postId: post.id });
       });
 
-      if (setIsLoading) {
-        commit("setIsLoading", false);
-      }
+      commit("setIsLoading", false);
 
       if (posts.length < Firebase.QUERY_LIMIT) {
         commit("setIsLastPostReached", true);

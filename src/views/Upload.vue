@@ -177,7 +177,7 @@ export default {
       }
 
       this.$store.commit("clearFeed", "home");
-      this.$store.dispatch("getPostsForHome", true);
+      this.$store.dispatch("getPostsForHome");
 
       this.resetForm();
 
