@@ -19,8 +19,8 @@
       <div class="profile__posts">
         <PostImage
           v-for="post in $store.getters.getPostsByFeed(user.username)"
-          :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
           :key="post.id"
+          :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
           :to="{ name: 'post', params: { postId: post.id } }"
         />
       </div>

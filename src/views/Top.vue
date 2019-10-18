@@ -34,18 +34,12 @@
 <script>
 import DefaultLayout from "@/layouts/Default";
 
-import BaseButton from "@/components/BaseButton";
 import BaseLink from "@/components/BaseLink";
-import BasePost from "@/components/BasePost";
-import BaseSpinner from "@/components/BaseSpinner";
 import ProfilePhoto from "@/components/ProfilePhoto";
 
 export default {
   components: {
-    BaseButton,
     BaseLink,
-    BasePost,
-    BaseSpinner,
     DefaultLayout,
     ProfilePhoto
   },

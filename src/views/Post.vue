@@ -15,12 +15,10 @@
 <script>
 import DefaultLayout from "@/layouts/Default";
 
-import BaseButton from "@/components/BaseButton";
 import BasePost from "@/components/BasePost";
 
 export default {
   components: {
-    BaseButton,
     BasePost,
     DefaultLayout
   },

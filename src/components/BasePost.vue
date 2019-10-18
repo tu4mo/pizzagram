@@ -51,7 +51,6 @@
 <script>
 import BaseButton from "./BaseButton";
 import BaseIcon from "./BaseIcon";
-import BaseInput from "./BaseInput";
 import BaseSpacer from "./BaseSpacer";
 import PostHeader from "./PostHeader";
 import PostImage from "./PostImage";
@@ -60,7 +59,6 @@ export default {
   components: {
     BaseButton,
     BaseIcon,
-    BaseInput,
     BaseSpacer,
     PostHeader,
     PostImage
