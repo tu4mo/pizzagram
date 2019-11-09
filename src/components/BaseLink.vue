@@ -5,27 +5,27 @@
 </template>
 
 <script>
-export default {
-  props: {
-    activeClass: {
-      default: null,
-      type: String
-    },
-    exact: {
-      default: false,
-      type: Boolean
-    },
-    to: {
-      required: true,
-      type: Object
+  export default {
+    props: {
+      activeClass: {
+        default: null,
+        type: String
+      },
+      exact: {
+        default: false,
+        type: Boolean
+      },
+      to: {
+        required: true,
+        type: Object
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.link {
-  color: var(--color-primary);
-  text-decoration: none;
-}
+  .link {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
 </style>

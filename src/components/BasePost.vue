@@ -49,138 +49,138 @@
 </template>
 
 <script>
-import BaseButton from "./BaseButton";
-import BaseIcon from "./BaseIcon";
-import BaseSpacer from "./BaseSpacer";
-import PostHeader from "./PostHeader";
-import PostImage from "./PostImage";
+  import BaseButton from "./BaseButton";
+  import BaseIcon from "./BaseIcon";
+  import BaseSpacer from "./BaseSpacer";
+  import PostHeader from "./PostHeader";
+  import PostImage from "./PostImage";
 
-export default {
-  components: {
-    BaseButton,
-    BaseIcon,
-    BaseSpacer,
-    PostHeader,
-    PostImage
-  },
-  props: {
-    imageTo: {
-      default: null,
-      type: Object
+  export default {
+    components: {
+      BaseButton,
+      BaseIcon,
+      BaseSpacer,
+      PostHeader,
+      PostImage
     },
-    isRemovable: {
-      default: false,
-      type: Boolean
-    },
-    post: {
-      required: true,
-      type: Object
-    }
-  },
-  data() {
-    return {
-      isPlaceholder: true
-    };
-  },
-  computed: {
-    postPath() {
-      return `${window.location.origin}/post/${this.post.id}`;
-    },
-    user() {
-      return this.$store.getters.getUserById(this.post.userId);
-    }
-  },
-  methods: {
-    onLazyLoad() {
-      this.isPlaceholder = false;
-      this.$store.dispatch("getUserById", this.post.userId);
-      this.$store.dispatch("getLikes", { postId: this.post.id });
-    },
-    onLikeClick() {
-      this.$store.dispatch("toggleLike", this.post.id);
-    },
-    onRemoveClick() {
-      if (confirm("Are you sure you want to remove this post?")) {
-        this.$emit("remove-click");
+    props: {
+      imageTo: {
+        default: null,
+        type: Object
+      },
+      isRemovable: {
+        default: false,
+        type: Boolean
+      },
+      post: {
+        required: true,
+        type: Object
       }
     },
-    async onShareClick() {
-      if (navigator.share) {
-        await navigator.share({
-          title: "Pizzagram",
-          text: `${this.post.caption}${
-            this.post.caption && this.post.location ? " - " : ""
-          }${this.post.location}`,
-          url: this.postPath
-        });
-      } else {
-        alert("Sorry, you're browser doesn't seem to support Web Share.");
+    data() {
+      return {
+        isPlaceholder: true
+      };
+    },
+    computed: {
+      postPath() {
+        return `${window.location.origin}/post/${this.post.id}`;
+      },
+      user() {
+        return this.$store.getters.getUserById(this.post.userId);
+      }
+    },
+    methods: {
+      onLazyLoad() {
+        this.isPlaceholder = false;
+        this.$store.dispatch("getUserById", this.post.userId);
+        this.$store.dispatch("getLikes", { postId: this.post.id });
+      },
+      onLikeClick() {
+        this.$store.dispatch("toggleLike", this.post.id);
+      },
+      onRemoveClick() {
+        if (confirm("Are you sure you want to remove this post?")) {
+          this.$emit("remove-click");
+        }
+      },
+      async onShareClick() {
+        if (navigator.share) {
+          await navigator.share({
+            title: "Pizzagram",
+            text: `${this.post.caption}${
+              this.post.caption && this.post.location ? " - " : ""
+            }${this.post.location}`,
+            url: this.postPath
+          });
+        } else {
+          alert("Sorry, you're browser doesn't seem to support Web Share.");
+        }
       }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.post {
-  &__footer {
-    align-items: flex-start;
-    display: flex;
-    padding-left: 1rem;
-    padding-top: 1rem;
-    padding-right: 1rem;
+  .post {
+    &__footer {
+      align-items: flex-start;
+      display: flex;
+      padding-left: 1rem;
+      padding-top: 1rem;
+      padding-right: 1rem;
 
-    @media (min-width: 640px) {
-      padding-left: 0;
-      padding-right: 0;
+      @media (min-width: 640px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
-  }
 
-  &__info {
-    flex: 1 1 auto;
-    margin-right: 1rem;
-  }
-
-  &__likes {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-
-  &__caption {
-    color: var(--color-gray);
-  }
-
-  &__location {
-    color: var(--color-gray);
-  }
-
-  &__buttons {
-    display: flex;
-    flex: 0 0 auto;
-
-    & > *:not(:last-child) {
+    &__info {
+      flex: 1 1 auto;
       margin-right: 1rem;
     }
-  }
 
-  &__share-button {
-    color: var(--color-secondary);
-
-    &--active {
-      color: var(--color-primary);
+    &__likes {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
     }
-  }
 
-  &__like-button {
-    color: var(--color-secondary);
+    &__caption {
+      color: var(--color-gray);
+    }
 
-    &--liked {
-      color: var(--color-primary);
+    &__location {
+      color: var(--color-gray);
+    }
 
-      & /deep/ svg {
-        fill: var(--color-primary);
+    &__buttons {
+      display: flex;
+      flex: 0 0 auto;
+
+      & > *:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    &__share-button {
+      color: var(--color-secondary);
+
+      &--active {
+        color: var(--color-primary);
+      }
+    }
+
+    &__like-button {
+      color: var(--color-secondary);
+
+      &--liked {
+        color: var(--color-primary);
+
+        & /deep/ svg {
+          fill: var(--color-primary);
+        }
       }
     }
   }
-}
 </style>

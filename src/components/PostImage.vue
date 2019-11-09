@@ -8,47 +8,47 @@
 </template>
 
 <script>
-export default {
-  props: {
-    imageUrl: {
-      default: null,
-      type: String
-    },
-    to: {
-      default: null,
-      type: [String, Object]
+  export default {
+    props: {
+      imageUrl: {
+        default: null,
+        type: String
+      },
+      to: {
+        default: null,
+        type: [String, Object]
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.post-image {
-  display: block;
-  position: relative;
-
-  &::before {
-    content: "";
+  .post-image {
     display: block;
-    padding-top: 100%;
-  }
+    position: relative;
 
-  &__image {
-    background-color: var(--color-light);
-    height: 100%;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 100%;
-
-    @media (min-width: 640px) {
-      border-radius: 1rem;
+    &::before {
+      content: "";
+      display: block;
+      padding-top: 100%;
     }
 
-    .post-image__link:active & {
-      opacity: 0.8;
+    &__image {
+      background-color: var(--color-light);
+      height: 100%;
+      left: 0;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      @media (min-width: 640px) {
+        border-radius: 1rem;
+      }
+
+      .post-image__link:active & {
+        opacity: 0.8;
+      }
     }
   }
-}
 </style>

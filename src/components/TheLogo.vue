@@ -5,14 +5,14 @@
 </template>
 
 <style lang="scss" scoped>
-.logo {
-  display: block;
-  -webkit-tap-highlight-color: transparent;
-
-  &__image {
+  .logo {
     display: block;
-    max-height: 100%;
-    max-width: 100%;
+    -webkit-tap-highlight-color: transparent;
+
+    &__image {
+      display: block;
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
-}
 </style>

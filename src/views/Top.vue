@@ -32,78 +32,78 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from "@/layouts/Default";
 
-import BaseLink from "@/components/BaseLink";
-import ProfilePhoto from "@/components/ProfilePhoto";
+  import BaseLink from "@/components/BaseLink";
+  import ProfilePhoto from "@/components/ProfilePhoto";
 
-export default {
-  components: {
-    BaseLink,
-    DefaultLayout,
-    ProfilePhoto
-  },
-  created() {
-    this.getTopPosters();
-  },
-  methods: {
-    getTopPosters() {
-      this.$store.dispatch("getTopPosters");
+  export default {
+    components: {
+      BaseLink,
+      DefaultLayout,
+      ProfilePhoto
     },
-    getUser(username) {
-      return this.$store.getters.getUser(username);
+    created() {
+      this.getTopPosters();
+    },
+    methods: {
+      getTopPosters() {
+        this.$store.dispatch("getTopPosters");
+      },
+      getUser(username) {
+        return this.$store.getters.getUser(username);
+      }
+    },
+    metaInfo: {
+      title: "Top 10"
     }
-  },
-  metaInfo: {
-    title: "Top 10"
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.top {
-  list-style-type: none;
-  padding: 2rem;
-  position: relative;
+  .top {
+    list-style-type: none;
+    padding: 2rem;
+    position: relative;
 
-  &__row {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    &__row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
 
-    &:not(:last-child) {
-      margin-bottom: 2rem;
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__item {
+      align-items: center;
+      color: var(--color-secondary);
+      display: flex;
+    }
+
+    &__rank {
+      background-color: var(--color-primary);
+      border-radius: 0.25rem;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 1rem;
+      padding: 0.5rem 0;
+      text-align: center;
+      width: 2rem;
+    }
+
+    &__user {
+      margin-left: 1rem;
+    }
+
+    &__username {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    &__posts {
+      color: var(--color-gray);
     }
   }
-
-  &__item {
-    align-items: center;
-    color: var(--color-secondary);
-    display: flex;
-  }
-
-  &__rank {
-    background-color: var(--color-primary);
-    border-radius: 0.25rem;
-    color: #fff;
-    font-weight: bold;
-    margin-left: 1rem;
-    padding: 0.5rem 0;
-    text-align: center;
-    width: 2rem;
-  }
-
-  &__user {
-    margin-left: 1rem;
-  }
-
-  &__username {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-
-  &__posts {
-    color: var(--color-gray);
-  }
-}
 </style>

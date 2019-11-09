@@ -40,54 +40,54 @@
 </template>
 
 <script>
-import NavItem from "./NavItem";
-import TheCamera from "./TheCamera";
+  import NavItem from "./NavItem";
+  import TheCamera from "./TheCamera";
 
-export default {
-  components: {
-    NavItem,
-    TheCamera
-  },
-  computed: {
-    notifications() {
-      return this.$store.getters.getNotifications.length > 0
-        ? this.$store.getters.getNotifications.length
-        : null;
+  export default {
+    components: {
+      NavItem,
+      TheCamera
     },
-    isAuthenticated() {
-      return this.$store.state.auth.isAuthenticated;
-    },
-    isDevelopment() {
-      return process.env.NODE_ENV === "development";
-    },
-    username() {
-      return this.$store.state.auth.username;
+    computed: {
+      notifications() {
+        return this.$store.getters.getNotifications.length > 0
+          ? this.$store.getters.getNotifications.length
+          : null;
+      },
+      isAuthenticated() {
+        return this.$store.state.auth.isAuthenticated;
+      },
+      isDevelopment() {
+        return process.env.NODE_ENV === "development";
+      },
+      username() {
+        return this.$store.state.auth.username;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-  padding-bottom: env(safe-area-inset-bottom);
-  width: 100%;
+  .navigation {
+    padding-bottom: env(safe-area-inset-bottom);
+    width: 100%;
 
-  @media (min-width: 640px) {
-    padding-bottom: 0;
-  }
-
-  &__items {
-    align-items: center;
-    color: var(--color-secondary);
-    display: flex;
-    height: 3.5rem;
-    justify-content: space-around;
-  }
-
-  &__item:not(:last-child) {
     @media (min-width: 640px) {
-      margin-right: 2rem;
+      padding-bottom: 0;
+    }
+
+    &__items {
+      align-items: center;
+      color: var(--color-secondary);
+      display: flex;
+      height: 3.5rem;
+      justify-content: space-around;
+    }
+
+    &__item:not(:last-child) {
+      @media (min-width: 640px) {
+        margin-right: 2rem;
+      }
     }
   }
-}
 </style>

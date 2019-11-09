@@ -25,57 +25,57 @@
 </template>
 
 <script>
-import WelcomeLayout from "@/layouts/Welcome";
+  import WelcomeLayout from "@/layouts/Welcome";
 
-import BaseButton from "@/components/BaseButton";
-import BaseInput from "@/components/BaseInput";
-import BaseLink from "@/components/BaseLink";
-import BaseSpacer from "@/components/BaseSpacer";
-import BaseSpinner from "@/components/BaseSpinner";
+  import BaseButton from "@/components/BaseButton";
+  import BaseInput from "@/components/BaseInput";
+  import BaseLink from "@/components/BaseLink";
+  import BaseSpacer from "@/components/BaseSpacer";
+  import BaseSpinner from "@/components/BaseSpinner";
 
-import Firebase from "@/firebase";
+  import Firebase from "@/firebase";
 
-export default {
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseLink,
-    BaseSpacer,
-    BaseSpinner,
-    WelcomeLayout
-  },
-  data() {
-    return {
-      email: "",
-      error: "",
-      isLoading: false,
-      password: "",
-      username: ""
-    };
-  },
-  methods: {
-    async submit() {
-      this.error = "";
-      this.isLoading = true;
+  export default {
+    components: {
+      BaseButton,
+      BaseInput,
+      BaseLink,
+      BaseSpacer,
+      BaseSpinner,
+      WelcomeLayout
+    },
+    data() {
+      return {
+        email: "",
+        error: "",
+        isLoading: false,
+        password: "",
+        username: ""
+      };
+    },
+    methods: {
+      async submit() {
+        this.error = "";
+        this.isLoading = true;
 
-      try {
-        await Firebase.signUp(this.username, this.email, this.password);
-        this.$router.push({ name: "home" });
-      } catch (error) {
-        this.error = "Unable to sign up.";
+        try {
+          await Firebase.signUp(this.username, this.email, this.password);
+          this.$router.push({ name: "home" });
+        } catch (error) {
+          this.error = "Unable to sign up.";
+        }
+
+        this.isLoading = false;
       }
-
-      this.isLoading = false;
+    },
+    metaInfo: {
+      title: "Sign Up"
     }
-  },
-  metaInfo: {
-    title: "Sign Up"
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.signup {
-  text-align: center;
-}
+  .signup {
+    text-align: center;
+  }
 </style>

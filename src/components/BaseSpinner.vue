@@ -9,104 +9,104 @@
 </template>
 
 <script>
-export default {
-  props: {
-    cover: {
-      default: false,
-      type: Boolean
+  export default {
+    props: {
+      cover: {
+        default: false,
+        type: Boolean
+      },
+      inline: {
+        default: false,
+        type: Boolean
+      }
     },
-    inline: {
-      default: false,
-      type: Boolean
+    computed: {
+      classes() {
+        return [
+          "spinner",
+          { "spinner--cover": this.cover, "spinner--inline": this.inline }
+        ];
+      }
     }
-  },
-  computed: {
-    classes() {
-      return [
-        "spinner",
-        { "spinner--cover": this.cover, "spinner--inline": this.inline }
-      ];
-    }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.spinner {
-  align-items: center;
-  animation: animation-show 0.5s;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-
-  &--cover {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  &--inline {
-    position: relative;
-  }
-
-  &__rotate {
-    animation: animation-rotate 1s infinite linear;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    text-align: center;
-  }
-
-  &__pepperoni-1,
-  &__pepperoni-2 {
-    animation: animation-bounce 2s infinite ease-in-out;
-    background-color: var(--color-primary);
-    border: 4px solid var(--color-secondary);
-    border-radius: 100%;
-    display: inline-block;
-    height: 30%;
-    position: absolute;
-    top: 0;
-    width: 30%;
-  }
-
-  &__pepperoni-2 {
-    animation-delay: -1s;
+  .spinner {
+    align-items: center;
+    animation: animation-show 0.5s;
     bottom: 0;
-    top: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    &--cover {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    &--inline {
+      position: relative;
+    }
+
+    &__rotate {
+      animation: animation-rotate 1s infinite linear;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      text-align: center;
+    }
+
+    &__pepperoni-1,
+    &__pepperoni-2 {
+      animation: animation-bounce 2s infinite ease-in-out;
+      background-color: var(--color-primary);
+      border: 4px solid var(--color-secondary);
+      border-radius: 100%;
+      display: inline-block;
+      height: 30%;
+      position: absolute;
+      top: 0;
+      width: 30%;
+    }
+
+    &__pepperoni-2 {
+      animation-delay: -1s;
+      bottom: 0;
+      top: auto;
+    }
+
+    &__slot {
+      margin-top: 2rem;
+    }
   }
 
-  &__slot {
-    margin-top: 2rem;
-  }
-}
+  @keyframes animation-show {
+    0% {
+      opacity: 0;
+    }
 
-@keyframes animation-show {
-  0% {
-    opacity: 0;
+    100% {
+      opacity: 1;
+    }
   }
 
-  100% {
-    opacity: 1;
+  @keyframes animation-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
   }
-}
 
-@keyframes animation-rotate {
-  100% {
-    transform: rotate(360deg);
+  @keyframes animation-bounce {
+    0%,
+    100% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
   }
-}
-
-@keyframes animation-bounce {
-  0%,
-  100% {
-    transform: scale(0.5);
-  }
-  50% {
-    transform: scale(1);
-  }
-}
 </style>

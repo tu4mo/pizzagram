@@ -35,64 +35,64 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput";
+  import BaseInput from "./BaseInput";
 
-export default {
-  components: {
-    BaseInput
-  },
-  props: {
-    name: {
-      required: true,
-      type: String
+  export default {
+    components: {
+      BaseInput
     },
-    options: {
-      type: Array,
-      default: () => []
+    props: {
+      name: {
+        required: true,
+        type: String
+      },
+      options: {
+        type: Array,
+        default: () => []
+      },
+      value: {
+        required: true,
+        type: String
+      }
     },
-    value: {
-      required: true,
-      type: String
+    data() {
+      return {
+        customItem: ""
+      };
+    },
+    methods: {
+      onCustomItemInput(value) {
+        this.customItem = value;
+        this.$emit("change", value);
+      }
     }
-  },
-  data() {
-    return {
-      customItem: ""
-    };
-  },
-  methods: {
-    onCustomItemInput(value) {
-      this.customItem = value;
-      this.$emit("change", value);
-    }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.select {
-  background-color: var(--color-background);
-  border: 1px solid var(--color-light);
-  border-radius: 0.25rem;
-  display: block;
-  font-size: 1rem;
-  list-style-type: none;
+  .select {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-light);
+    border-radius: 0.25rem;
+    display: block;
+    font-size: 1rem;
+    list-style-type: none;
 
-  &__item {
-    padding: 1rem;
+    &__item {
+      padding: 1rem;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--color-light);
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--color-light);
+      }
+    }
+
+    &__label {
+      align-items: center;
+      display: flex;
+    }
+
+    &__input {
+      margin-right: 0.5rem;
     }
   }
-
-  &__label {
-    align-items: center;
-    display: flex;
-  }
-
-  &__input {
-    margin-right: 0.5rem;
-  }
-}
 </style>

@@ -1,3 +1,4 @@
 module.exports = {
-  htmlWhitespaceSensitivity: "ignore"
+  htmlWhitespaceSensitivity: "ignore",
+  vueIndentScriptAndStyle: true
 };

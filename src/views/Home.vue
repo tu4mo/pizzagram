@@ -17,58 +17,59 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from "@/layouts/Default";
 
-import BasePost from "@/components/BasePost";
-import BaseSpinner from "@/components/BaseSpinner";
+  import BasePost from "@/components/BasePost";
+  import BaseSpinner from "@/components/BaseSpinner";
 
-export default {
-  components: {
-    BasePost,
-    BaseSpinner,
-    DefaultLayout
-  },
-  created() {
-    this.fetchPosts();
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
-  },
-  methods: {
-    fetchPosts() {
-      this.$store.dispatch("getPostsForHome");
+  export default {
+    components: {
+      BasePost,
+      BaseSpinner,
+      DefaultLayout
     },
-    handleScroll() {
-      if (
-        window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
-        !this.$store.state.isLastPostReached &&
-        !this.$store.state.isLoading
-      ) {
-        this.fetchPosts();
+    created() {
+      this.fetchPosts();
+      window.addEventListener("scroll", this.handleScroll);
+    },
+    destroyed() {
+      window.removeEventListener("scroll", this.handleScroll);
+    },
+    methods: {
+      fetchPosts() {
+        this.$store.dispatch("getPostsForHome");
+      },
+      handleScroll() {
+        if (
+          window.innerHeight + window.pageYOffset >=
+            document.body.offsetHeight &&
+          !this.$store.state.isLastPostReached &&
+          !this.$store.state.isLoading
+        ) {
+          this.fetchPosts();
+        }
       }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.home {
-  margin: 0 auto;
-  max-width: var(--content-width);
-  padding: 1rem 0;
-  position: relative;
-
-  @media (min-width: 640px) {
-    padding: 2rem;
-  }
-
-  &__base-post:not(:last-child) {
-    margin-bottom: 2rem;
+  .home {
+    margin: 0 auto;
+    max-width: var(--content-width);
+    padding: 1rem 0;
+    position: relative;
 
     @media (min-width: 640px) {
-      margin-bottom: 4rem;
+      padding: 2rem;
+    }
+
+    &__base-post:not(:last-child) {
+      margin-bottom: 2rem;
+
+      @media (min-width: 640px) {
+        margin-bottom: 4rem;
+      }
     }
   }
-}
 </style>

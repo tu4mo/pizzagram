@@ -32,127 +32,127 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from "@/layouts/Default";
 
-import BaseButton from "@/components/BaseButton";
-import PostImage from "@/components/PostImage";
-import ProfilePhoto from "@/components/ProfilePhoto";
+  import BaseButton from "@/components/BaseButton";
+  import PostImage from "@/components/PostImage";
+  import ProfilePhoto from "@/components/ProfilePhoto";
 
-import Firebase from "@/firebase";
+  import Firebase from "@/firebase";
 
-export default {
-  components: {
-    BaseButton,
-    DefaultLayout,
-    PostImage,
-    ProfilePhoto
-  },
-  computed: {
-    posts() {
-      return this.$store.getters.getPostsByFeed(this.user.username);
+  export default {
+    components: {
+      BaseButton,
+      DefaultLayout,
+      PostImage,
+      ProfilePhoto
     },
-    user() {
-      return this.$store.getters.getUser(this.$route.params.username);
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      const { username } = vm.$route.params;
-      vm.fetchData(username);
-    });
-  },
-  beforeRouteUpdate(to, from, next) {
-    if (to.params.username !== from.params.username) {
-      this.fetchData(to.params.username);
-    }
-    next();
-  },
-  methods: {
-    async fetchData(username) {
-      await this.$store.dispatch("getUser", username);
-      await this.$store.dispatch("getPostsByUser", username);
+    computed: {
+      posts() {
+        return this.$store.getters.getPostsByFeed(this.user.username);
+      },
+      user() {
+        return this.$store.getters.getUser(this.$route.params.username);
+      }
     },
-    async onLogOutClick() {
-      await Firebase.signOut();
-      this.$router.push({ name: "login" });
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        const { username } = vm.$route.params;
+        vm.fetchData(username);
+      });
+    },
+    beforeRouteUpdate(to, from, next) {
+      if (to.params.username !== from.params.username) {
+        this.fetchData(to.params.username);
+      }
+      next();
+    },
+    methods: {
+      async fetchData(username) {
+        await this.$store.dispatch("getUser", username);
+        await this.$store.dispatch("getPostsByUser", username);
+      },
+      async onLogOutClick() {
+        await Firebase.signOut();
+        this.$router.push({ name: "login" });
+      }
+    },
+    metaInfo() {
+      return {
+        title: this.user.username
+      };
     }
-  },
-  metaInfo() {
-    return {
-      title: this.user.username
-    };
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.profile {
-  &__header {
-    background-size: cover;
-    background-position: 50% 50%;
-    position: relative;
-    max-height: 16rem;
+  .profile {
+    &__header {
+      background-size: cover;
+      background-position: 50% 50%;
+      position: relative;
+      max-height: 16rem;
 
-    &::after {
-      content: "";
-      display: block;
-      padding-top: 50%;
+      &::after {
+        content: "";
+        display: block;
+        padding-top: 50%;
+      }
+
+      &::before {
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 232, 221, 0.8),
+          rgb(255, 232, 221)
+        );
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
 
-    &::before {
-      background-image: linear-gradient(
-        to bottom,
-        rgba(255, 232, 221, 0.8),
-        rgb(255, 232, 221)
-      );
-      bottom: 0;
-      content: "";
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
+    &__user {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      margin-top: -4rem;
+      padding: 0 2rem;
+      position: relative;
+
+      @media (min-width: 640px) {
+        margin-top: -8rem;
+      }
+    }
+
+    &__photo {
+      border: 0.25rem solid var(--color-background);
+      margin-bottom: 0.5rem;
+    }
+
+    &__username {
+      font-weight: bold;
+    }
+
+    &__posts {
+      display: grid;
+      grid-gap: 1px;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 auto;
+      padding: 2rem 0;
+
+      @media (min-width: 640px) {
+        grid-gap: 1rem;
+        grid-template-columns: repeat(5, 1fr);
+        max-width: var(--content-width-lg);
+        padding: 2rem;
+      }
+    }
+
+    &__footer {
+      margin-top: 1rem;
     }
   }
-
-  &__user {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: -4rem;
-    padding: 0 2rem;
-    position: relative;
-
-    @media (min-width: 640px) {
-      margin-top: -8rem;
-    }
-  }
-
-  &__photo {
-    border: 0.25rem solid var(--color-background);
-    margin-bottom: 0.5rem;
-  }
-
-  &__username {
-    font-weight: bold;
-  }
-
-  &__posts {
-    display: grid;
-    grid-gap: 1px;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 0 auto;
-    padding: 2rem 0;
-
-    @media (min-width: 640px) {
-      grid-gap: 1rem;
-      grid-template-columns: repeat(5, 1fr);
-      max-width: var(--content-width-lg);
-      padding: 2rem;
-    }
-  }
-
-  &__footer {
-    margin-top: 1rem;
-  }
-}
 </style>

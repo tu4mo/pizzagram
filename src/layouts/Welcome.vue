@@ -6,42 +6,42 @@
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader";
+  import TheHeader from "@/components/TheHeader";
 
-export default {
-  components: {
-    TheHeader
-  }
-};
+  export default {
+    components: {
+      TheHeader
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.welcome-layout {
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  padding: 2rem;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  &__header {
-    border-bottom: 1px solid var(--color-light);
+  .welcome-layout {
+    bottom: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     left: 0;
-    position: fixed;
+    padding: 2rem;
+    position: absolute;
     right: 0;
     top: 0;
-    z-index: var(--z-header);
-  }
 
-  &__main {
-    margin: 0 auto;
-    max-width: 640px;
-    width: 100%;
+    &__header {
+      border-bottom: 1px solid var(--color-light);
+      display: flex;
+      justify-content: center;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: var(--z-header);
+    }
+
+    &__main {
+      margin: 0 auto;
+      max-width: 640px;
+      width: 100%;
+    }
   }
-}
 </style>

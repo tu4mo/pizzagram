@@ -11,24 +11,24 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from "@/layouts/Default";
 
-import BaseEmpty from "@/components/BaseEmpty";
+  import BaseEmpty from "@/components/BaseEmpty";
 
-export default {
-  components: {
-    BaseEmpty,
-    DefaultLayout
-  },
-  created() {
-    this.fetchNotifications();
-  },
-  methods: {
-    fetchNotifications() {
-      this.$store.dispatch("fetchNotifications");
+  export default {
+    components: {
+      BaseEmpty,
+      DefaultLayout
+    },
+    created() {
+      this.fetchNotifications();
+    },
+    methods: {
+      fetchNotifications() {
+        this.$store.dispatch("fetchNotifications");
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped></style>

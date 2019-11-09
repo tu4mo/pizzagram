@@ -6,44 +6,44 @@
 </template>
 
 <script>
-import TheLogo from "./TheLogo";
+  import TheLogo from "./TheLogo";
 
-export default {
-  components: {
-    TheLogo
-  },
-  props: {
-    title: {
-      default: null,
-      type: String
+  export default {
+    components: {
+      TheLogo
+    },
+    props: {
+      title: {
+        default: null,
+        type: String
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.header {
-  align-items: center;
-  display: flex;
-  font-weight: bold;
-  height: 4rem;
-  justify-content: center;
+  .header {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    height: 4rem;
+    justify-content: center;
 
-  @media (min-width: 640px) {
-    justify-content: flex-start;
-  }
+    @media (min-width: 640px) {
+      justify-content: flex-start;
+    }
 
-  &__logo {
-    height: 2.5rem;
+    &__logo {
+      height: 2.5rem;
 
-    .header--has-title & {
-      display: none;
+      .header--has-title & {
+        display: none;
 
-      @media (min-width: 640px) {
-        display: block;
-        margin-right: 1rem;
+        @media (min-width: 640px) {
+          display: block;
+          margin-right: 1rem;
+        }
       }
     }
   }
-}
 </style>

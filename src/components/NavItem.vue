@@ -11,53 +11,53 @@
 </template>
 
 <script>
-import BaseIcon from "./BaseIcon";
-import BaseLink from "./BaseLink";
+  import BaseIcon from "./BaseIcon";
+  import BaseLink from "./BaseLink";
 
-export default {
-  components: {
-    BaseIcon,
-    BaseLink
-  },
-  props: {
-    badge: {
-      default: null,
-      type: [Number, String]
+  export default {
+    components: {
+      BaseIcon,
+      BaseLink
     },
-    exact: {
-      default: false,
-      type: Boolean
-    },
-    icon: {
-      required: true,
-      type: String
-    },
-    to: {
-      required: true,
-      type: Object
+    props: {
+      badge: {
+        default: null,
+        type: [Number, String]
+      },
+      exact: {
+        default: false,
+        type: Boolean
+      },
+      icon: {
+        required: true,
+        type: String
+      },
+      to: {
+        required: true,
+        type: Object
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.nav-item {
-  color: var(--color-secondary);
-  position: relative;
+  .nav-item {
+    color: var(--color-secondary);
+    position: relative;
 
-  &--active {
-    color: var(--color-primary);
-  }
+    &--active {
+      color: var(--color-primary);
+    }
 
-  &__badge {
-    background-color: var(--color-primary);
-    border-radius: 0.75rem;
-    color: #fff;
-    line-height: 1;
-    padding: 0.1rem 0.25rem;
-    position: absolute;
-    top: -0.3125rem;
-    right: -0.3125rem;
+    &__badge {
+      background-color: var(--color-primary);
+      border-radius: 0.75rem;
+      color: #fff;
+      line-height: 1;
+      padding: 0.1rem 0.25rem;
+      position: absolute;
+      top: -0.3125rem;
+      right: -0.3125rem;
+    }
   }
-}
 </style>

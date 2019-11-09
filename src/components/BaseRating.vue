@@ -16,43 +16,43 @@
 </template>
 
 <script>
-import BaseButton from "./BaseButton";
-import BaseIcon from "./BaseIcon";
+  import BaseButton from "./BaseButton";
+  import BaseIcon from "./BaseIcon";
 
-export default {
-  components: {
-    BaseButton,
-    BaseIcon
-  },
-  props: {
-    value: {
-      required: true,
-      type: Number
+  export default {
+    components: {
+      BaseButton,
+      BaseIcon
+    },
+    props: {
+      value: {
+        required: true,
+        type: Number
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.rating {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0.5rem 0;
+  .rating {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0.5rem 0;
 
-  &__item {
-    &:not(:last-child) {
-      margin-right: 1rem;
+    &__item {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    &__button {
+      color: var(--color-gray);
+      width: auto;
+
+      &--active {
+        color: var(--color-primary);
+      }
     }
   }
-
-  &__button {
-    color: var(--color-gray);
-    width: auto;
-
-    &--active {
-      color: var(--color-primary);
-    }
-  }
-}
 </style>

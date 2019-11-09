@@ -14,45 +14,45 @@
 </template>
 
 <script>
-import BaseIcon from "./BaseIcon";
+  import BaseIcon from "./BaseIcon";
 
-export default {
-  components: {
-    BaseIcon
-  },
-  methods: {
-    onChange(event) {
-      if (event.target.files[0]) {
-        this.$store.commit("setFile", event.target.files[0]);
-      }
+  export default {
+    components: {
+      BaseIcon
     },
-    onClick() {
-      this.$store.commit("setFile", null);
-      this.$router.push({ name: "upload" });
+    methods: {
+      onChange(event) {
+        if (event.target.files[0]) {
+          this.$store.commit("setFile", event.target.files[0]);
+        }
+      },
+      onClick() {
+        this.$store.commit("setFile", null);
+        this.$router.push({ name: "upload" });
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.camera {
-  position: relative;
+  .camera {
+    position: relative;
 
-  &--active {
-    color: var(--color-primary);
-  }
+    &--active {
+      color: var(--color-primary);
+    }
 
-  &__label {
-    cursor: pointer;
-  }
+    &__label {
+      cursor: pointer;
+    }
 
-  &__input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+    &__input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
   }
-}
 </style>

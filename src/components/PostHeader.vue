@@ -22,58 +22,58 @@
 </template>
 
 <script>
-import ProfilePhoto from "./ProfilePhoto";
+  import ProfilePhoto from "./ProfilePhoto";
 
-export default {
-  components: {
-    ProfilePhoto
-  },
-  props: {
-    createdAt: {
-      required: true,
-      type: Date
+  export default {
+    components: {
+      ProfilePhoto
     },
-    user: {
-      default: () => {},
-      type: Object
-    }
-  },
-  computed: {
-    createdDate() {
-      return this.createdAt.toLocaleDateString();
+    props: {
+      createdAt: {
+        required: true,
+        type: Date
+      },
+      user: {
+        default: () => {},
+        type: Object
+      }
     },
-    isUserLoaded() {
-      return this.user && Object.keys(this.user).length > 0;
+    computed: {
+      createdDate() {
+        return this.createdAt.toLocaleDateString();
+      },
+      isUserLoaded() {
+        return this.user && Object.keys(this.user).length > 0;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.post-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1rem;
-
-  @media (min-width: 640px) {
-    padding: 0;
-  }
-
-  &__user {
+  .post-header {
     align-items: center;
-    color: var(--color-secondary);
     display: flex;
-    font-weight: bold;
-    text-decoration: none;
-  }
+    justify-content: space-between;
+    padding: 0 1rem;
 
-  &__profile {
-    margin-right: 0.5rem;
-  }
+    @media (min-width: 640px) {
+      padding: 0;
+    }
 
-  &__created-date {
-    color: var(--color-gray);
+    &__user {
+      align-items: center;
+      color: var(--color-secondary);
+      display: flex;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    &__profile {
+      margin-right: 0.5rem;
+    }
+
+    &__created-date {
+      color: var(--color-gray);
+    }
   }
-}
 </style>

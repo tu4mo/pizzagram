@@ -24,48 +24,48 @@
 </template>
 
 <script>
-import WelcomeLayout from "@/layouts/Welcome";
+  import WelcomeLayout from "@/layouts/Welcome";
 
-import BaseButton from "@/components/BaseButton";
-import BaseInput from "@/components/BaseInput";
-import BaseLink from "@/components/BaseLink";
-import BaseSpacer from "@/components/BaseSpacer";
-import BaseSpinner from "@/components/BaseSpinner";
+  import BaseButton from "@/components/BaseButton";
+  import BaseInput from "@/components/BaseInput";
+  import BaseLink from "@/components/BaseLink";
+  import BaseSpacer from "@/components/BaseSpacer";
+  import BaseSpinner from "@/components/BaseSpinner";
 
-import Firebase from "@/firebase";
+  import Firebase from "@/firebase";
 
-export default {
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseLink,
-    BaseSpacer,
-    BaseSpinner,
-    WelcomeLayout
-  },
-  data() {
-    return {
-      email: "",
-      hasSentMail: false,
-      isLoading: false
-    };
-  },
-  methods: {
-    async submit() {
-      this.isLoading = true;
-      await Firebase.auth.sendPasswordResetEmail(this.email);
-      this.isLoading = false;
-      this.hasSentMail = true;
+  export default {
+    components: {
+      BaseButton,
+      BaseInput,
+      BaseLink,
+      BaseSpacer,
+      BaseSpinner,
+      WelcomeLayout
+    },
+    data() {
+      return {
+        email: "",
+        hasSentMail: false,
+        isLoading: false
+      };
+    },
+    methods: {
+      async submit() {
+        this.isLoading = true;
+        await Firebase.auth.sendPasswordResetEmail(this.email);
+        this.isLoading = false;
+        this.hasSentMail = true;
+      }
+    },
+    metaInfo: {
+      title: "Reset Password"
     }
-  },
-  metaInfo: {
-    title: "Reset Password"
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.reset {
-  text-align: center;
-}
+  .reset {
+    text-align: center;
+  }
 </style>
