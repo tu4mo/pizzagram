@@ -9,8 +9,10 @@
   </component>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import Vue from "vue";
+
+  export default Vue.extend({
     props: {
       component: {
         default: "button",
@@ -21,7 +23,7 @@
         type: String
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -11,10 +11,12 @@ import store from "./store";
 if (process.env.NODE_ENV !== "development") {
   Sentry.init({
     dsn: "https://7f76df6d0d9e4d4a84a7f3676a5d4e46@sentry.io/1319696",
-    integrations: new Integrations.Vue({
-      Vue,
-      attachProps: true
-    })
+    integrations: [
+      new Integrations.Vue({
+        Vue,
+        attachProps: true
+      })
+    ]
   });
 }
 
