@@ -30,6 +30,8 @@ class Firebase {
 
     this.onAuthStateChangedCallback = null;
 
+    this.userCache = {};
+
     this.QUERY_LIMIT = 9;
 
     this.auth.onAuthStateChanged(async user => {
@@ -115,25 +117,35 @@ class Firebase {
   }
 
   async getUser(id) {
-    const querySnapshot = await this.firestore
-      .collection("users")
-      .where("id", "==", id)
-      .limit(1)
-      .get();
+    if (!Object.values(this.userCache).find(user => user.id === id)) {
+      const querySnapshot = await this.firestore
+        .collection("users")
+        .where("id", "==", id)
+        .limit(1)
+        .get();
 
-    const doc = querySnapshot.docs[0] || {};
-    const user = this.createUserObject(doc);
+      const doc = querySnapshot.docs[0] || {};
+      const user = this.createUserObject(doc);
 
-    return user;
+      this.userCache[user.username] = user;
+    }
+
+    return Object.values(this.userCache).find(user => user.id === id);
   }
 
   async getUserByUsername(username) {
-    const docRef = await this.firestore
-      .collection("users")
-      .doc(username)
-      .get();
+    if (!this.userCache[username]) {
+      const docRef = await this.firestore
+        .collection("users")
+        .doc(username)
+        .get();
 
-    return this.createUserObject(docRef);
+      const user = this.createUserObject(docRef);
+
+      this.userCache[user.username] = user;
+    }
+
+    return this.userCache[username];
   }
 
   createUserObject(doc) {
