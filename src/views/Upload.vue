@@ -16,10 +16,7 @@
           </BaseSpacer>
           <BaseSpacer mb2>
             <BaseField label="Rating">
-              <BaseRating
-                :value="form.rating"
-                @change="rating => (form.rating = rating)"
-              />
+              <BaseRating v-model="form.rating" />
             </BaseField>
           </BaseSpacer>
           <BaseSpacer v-if="isLocationEnabled" mb2>
