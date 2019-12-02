@@ -28,7 +28,10 @@
       },
       onClick() {
         this.$store.commit("setFile", null);
-        this.$router.push({ name: "upload" });
+
+        if (this.$route.name !== "upload") {
+          this.$router.push({ name: "upload" });
+        }
       }
     }
   };
