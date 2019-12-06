@@ -7,7 +7,7 @@
           'rating__button',
           { 'rating__button--active': rating <= value }
         ]"
-        @click="$emit('input', rating)"
+        @click.prevent="$emit('input', rating)"
       >
         <BaseIcon name="star" />
       </BaseButton>
