@@ -31,6 +31,7 @@
   html {
     box-sizing: border-box;
     font-family: "Comfortaa", Helvetica, Arial, sans-serif;
+    touch-action: manipulation;
     user-select: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
