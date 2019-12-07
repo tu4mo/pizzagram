@@ -53,7 +53,7 @@ class Firebase {
     this.onAuthStateChangedCallback = callback;
   }
 
-  async subscribe(callback) {
+  async subscribeToPosts(callback) {
     this.firestore
       .collection("posts")
       .orderBy("createdAt", "desc")
@@ -63,6 +63,27 @@ class Firebase {
         const posts = [];
         querySnapshot.forEach(doc => posts.push(this.createPostObject(doc)));
         callback(posts);
+      });
+  }
+
+  async subscribeToNotifications(callback) {
+    this.firestore
+      .collection("notifications")
+      .orderBy("createdAt", "desc")
+      .where("userId", "==", this.currentUser().uid)
+      .where("read", "==", false)
+      .onSnapshot(async querySnapshot => {
+        const notifications = [];
+        for await (const doc of querySnapshot.docs) {
+          const data = doc.data();
+          const from = await this.getUser(data.fromUserId);
+          notifications.push({
+            ...data,
+            createdAt: data.createdAt.toDate(),
+            from
+          });
+        }
+        callback(notifications);
       });
   }
 
@@ -313,25 +334,24 @@ class Firebase {
     });
   }
 
-  async fetchNotifications() {
-    try {
-      const querySnapshot = await this.firestore
+  async markNotificationsAsRead() {
+    const notifications = await this.firestore
+      .collection("notifications")
+      .where("userId", "==", this.currentUser().uid)
+      .where("read", "==", false)
+      .get();
+
+    const batch = this.firestore.batch();
+
+    notifications.docs.forEach(async doc => {
+      const notification = this.firestore
         .collection("notifications")
-        .orderBy("createdAt", "desc")
-        .where("userId", "==", this.currentUser().uid)
-        .get();
+        .doc(doc.id);
 
-      const notifications = [];
+      batch.update(notification, { read: true });
+    });
 
-      for (const doc of querySnapshot.docs) {
-        notifications.push(doc.data());
-      }
-
-      return notifications;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
+    await batch.commit();
   }
 }
 

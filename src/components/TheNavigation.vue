@@ -19,7 +19,6 @@
         Top Posts
       </NavItem>
       <NavItem
-        v-if="isDevelopment"
         :badge="notifications"
         :to="{ name: 'notifications' }"
         class="navigation__item"

@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     isLastPostReached: false,
     feeds: {},
     file: null,
-    notifications: {},
+    notifications: [],
     users: {},
     posts: {}
   },
@@ -124,7 +124,7 @@ const store = new Vuex.Store({
       state.isLastPostReached = isLastPostReached;
     },
 
-    addNotifications(state, notifications) {
+    setNotifications(state, notifications) {
       state.notifications = notifications;
     }
   },
@@ -206,11 +206,6 @@ const store = new Vuex.Store({
     async getTopPosters({ commit }) {
       const topPosters = await Firebase.fetchTopPosters();
       topPosters.forEach(user => commit("addToUsers", user));
-    },
-
-    async fetchNotifications({ commit }) {
-      const notifications = await Firebase.fetchNotifications();
-      commit("addNotifications", notifications);
     }
   }
 });
@@ -224,19 +219,23 @@ Firebase.setOnAuthStateChangedCallback(async user => {
       userId: user.uid
     });
     store.commit("addToUsers", userData);
+
+    Firebase.subscribeToPosts(posts => {
+      posts.forEach(post => {
+        store.commit("addToPosts", post);
+        store.commit("addToFeeds", { feed: "home", postId: post.id });
+      });
+    });
+
+    Firebase.subscribeToNotifications(notifications => {
+      store.commit("setNotifications", notifications);
+    });
   } else {
     store.commit("setIsAuthenticated", {
       isAuthenticated: false,
       username: ""
     });
   }
-});
-
-Firebase.subscribe(posts => {
-  posts.forEach(post => {
-    store.commit("addToPosts", post);
-    store.commit("addToFeeds", { feed: "home", postId: post.id });
-  });
 });
 
 export default store;

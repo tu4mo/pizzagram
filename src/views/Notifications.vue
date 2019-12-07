@@ -1,34 +1,80 @@
 <template>
   <DefaultLayout title="Notifications">
-    <!-- <div
-      v-for="(notification, index) in $store.getters.getNotifications"
-      :key="index"
-    >
-      {{ notification }}
-    </div> -->
-    <BaseEmpty>No notifications.</BaseEmpty>
+    <BaseEmpty v-if="notifications.length === 0">No notifications.</BaseEmpty>
+    <template v-else>
+      <ul v-for="(notification, index) in notifications" :key="index">
+        <li v-if="notification.type === 'LIKE'" class="notification">
+          <ProfilePhoto
+            class="notification__profile"
+            :gravatar="notification.from.gravatar"
+          />
+          <div>
+            <div class="notification__date">
+              {{ notification.createdAt.toLocaleDateString() }}
+            </div>
+            {{ notification.from.username }} liked your
+            <BaseLink
+              :to="{ name: 'post', params: { postId: notification.postId } }"
+            >
+              photo
+            </BaseLink>
+          </div>
+        </li>
+      </ul>
+      <BaseButton @click="onMarkAllAsReadClick">Mark All as Read</BaseButton>
+    </template>
   </DefaultLayout>
 </template>
 
 <script>
   import DefaultLayout from "@/layouts/Default";
 
+  import BaseButton from "@/components/BaseButton";
   import BaseEmpty from "@/components/BaseEmpty";
+  import BaseLink from "@/components/BaseLink";
+  import ProfilePhoto from "@/components/ProfilePhoto";
+
+  import Firebase from "@/firebase";
 
   export default {
     components: {
+      BaseButton,
       BaseEmpty,
-      DefaultLayout
+      BaseLink,
+      DefaultLayout,
+      ProfilePhoto
     },
-    created() {
-      this.fetchNotifications();
+    computed: {
+      notifications() {
+        return this.$store.getters.getNotifications;
+      }
     },
     methods: {
-      fetchNotifications() {
-        this.$store.dispatch("fetchNotifications");
+      async onMarkAllAsReadClick() {
+        await Firebase.markNotificationsAsRead();
       }
     }
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .notification {
+    align-items: center;
+    display: flex;
+    margin: 1rem;
+    margin-top: 0;
+
+    @media (min-width: 640px) {
+      margin: 2rem;
+      margin-top: 0;
+    }
+
+    &__profile {
+      margin-right: 1rem;
+    }
+
+    &__date {
+      color: var(--color-gray);
+    }
+  }
+</style>
