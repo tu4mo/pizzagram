@@ -40,7 +40,7 @@
 
     &__main {
       margin: 0 auto;
-      max-width: 640px;
+      max-width: var(--content-width);
       width: 100%;
     }
   }

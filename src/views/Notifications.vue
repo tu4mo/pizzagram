@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout title="Notifications">
+  <DefaultLayout max-width>
     <BaseEmpty v-if="notifications.length === 0">No notifications.</BaseEmpty>
     <template v-else>
       <ul v-for="(notification, index) in notifications" :key="index">
@@ -61,12 +61,10 @@
   .notification {
     align-items: center;
     display: flex;
-    margin: 1rem;
-    margin-top: 0;
+    padding: 1rem;
 
     @media (min-width: 640px) {
-      margin: 2rem;
-      margin-top: 0;
+      padding: 2rem;
     }
 
     &__profile {

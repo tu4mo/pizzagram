@@ -20,7 +20,12 @@
         <TheNavigation />
       </div>
     </div>
-    <main class="default-layout__main">
+    <main
+      :class="[
+        'default-layout__main',
+        { 'default-layout__main--max-width': maxWidth }
+      ]"
+    >
       <slot />
       <div class="default-layout__spacer" />
     </main>
@@ -41,6 +46,10 @@
       TheNavigation
     },
     props: {
+      maxWidth: {
+        default: false,
+        type: Boolean
+      },
       title: {
         default: null,
         type: String
@@ -121,6 +130,10 @@
       margin-top: 4rem;
       min-height: calc(100vh - 7.5rem);
       position: relative;
+
+      &--max-width {
+        max-width: var(--content-width);
+      }
     }
 
     &__spacer {

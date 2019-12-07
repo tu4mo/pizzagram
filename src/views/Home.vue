@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout max-width>
     <div class="home">
       <BasePost
         v-for="post in $store.getters.getPostsByFeed('home')"
@@ -56,7 +56,6 @@
 <style lang="scss" scoped>
   .home {
     margin: 0 auto;
-    max-width: var(--content-width);
     padding: 1rem 0;
     position: relative;
 

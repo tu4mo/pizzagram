@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout max-width>
     <div class="upload">
       <BaseEmpty v-if="!file || !imageUrl">
         Use the Camera icon to upload a photo
@@ -201,7 +201,6 @@
 <style lang="scss" scoped>
   .upload {
     margin: 0 auto;
-    max-width: var(--content-width);
 
     @media (min-width: 640px) {
       padding: 2rem;
@@ -213,7 +212,7 @@
     }
 
     &__form {
-      padding: 2rem;
+      padding: 1rem;
 
       @media (min-width: 640px) {
         padding: 2rem 0;
