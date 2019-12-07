@@ -24,7 +24,7 @@ export default (
 
     const postData = post.data();
 
-    if (!postData) {
+    if (!postData || postData.userId === userId) {
       return;
     }
 
