@@ -15,7 +15,7 @@
             </BaseField>
           </BaseSpacer>
           <BaseSpacer mb2>
-            <BaseField label="Rating">
+            <BaseField as="div" label="Rating">
               <BaseRating v-model="form.rating" />
             </BaseField>
           </BaseSpacer>

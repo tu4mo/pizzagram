@@ -31,7 +31,6 @@
     display: block;
     font-size: 1rem;
     line-height: 1;
-    outline: none;
     padding: 1rem;
     width: 100%;
     -webkit-appearance: none;

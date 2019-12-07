@@ -1,15 +1,19 @@
 <template>
   <div class="field">
-    <label>
+    <component :is="as">
       <div class="field__label">{{ label }}</div>
       <slot />
-    </label>
+    </component>
   </div>
 </template>
 
 <script>
   export default {
     props: {
+      as: {
+        default: "label",
+        type: String
+      },
       label: {
         required: true,
         type: String

@@ -37,7 +37,6 @@
     font-weight: bold;
     display: block;
     line-height: 3rem;
-    outline: none;
     text-align: center;
     text-decoration: none;
     width: 100%;
