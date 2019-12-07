@@ -178,12 +178,12 @@ const store = new Vuex.Store({
       commit("removePost", postId);
     },
 
-    async getUser({ commit, state }, username) {
+    async getUser({ commit }, username) {
       const user = await Firebase.getUserByUsername(username);
       commit("addToUsers", user);
     },
 
-    async getUserById({ commit, state }, userId) {
+    async getUserById({ commit }, userId) {
       const user = await Firebase.getUser(userId);
       commit("addToUsers", user);
     },
