@@ -38,6 +38,7 @@
   body {
     background-color: var(--color-background);
     font-size: 0.75rem;
+    line-height: 1.5;
 
     @media (min-width: 640px) {
       font-size: 1rem;

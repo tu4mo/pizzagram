@@ -35,6 +35,7 @@
 <style lang="scss" scoped>
   .profile-photo {
     border-radius: 50%;
+    display: block;
     object-fit: cover;
 
     &--small {
