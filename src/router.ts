@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Router from "vue-router";
+import Router, { NavigationGuard } from "vue-router";
 
 import Home from "./views/Home.vue";
 import Post from "./views/Post.vue";
@@ -17,7 +17,7 @@ Vue.use(Router);
 
 let firstCheck = true;
 
-const checkAutentication = async (to, from, next) => {
+const checkAutentication: NavigationGuard = async (to, from, next) => {
   if (firstCheck) {
     firstCheck = false;
 

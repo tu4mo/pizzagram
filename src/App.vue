@@ -2,14 +2,16 @@
   <keep-alive><RouterView /></keep-alive>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import Vue from "vue";
+
+  export default Vue.extend({
     metaInfo: {
       titleTemplate: titleChunk => {
         return titleChunk ? `${titleChunk} - Pizzagram` : "Pizzagram";
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss">
