@@ -14,6 +14,11 @@
       <BaseButton :disabled="!username || !email || !password" type="submit">
         Sign Up
       </BaseButton>
+      <BaseSpacer v-if="error" my1>
+        <p>
+          {{ error }}
+        </p>
+      </BaseSpacer>
       <BaseSpacer my1>
         <p>
           Already have an account?
@@ -33,7 +38,7 @@
   import BaseSpacer from "@/components/BaseSpacer";
   import BaseSpinner from "@/components/BaseSpinner";
 
-  import Firebase from "@/firebase";
+  import { signUp } from "@/api";
 
   export default {
     components: {
@@ -59,7 +64,7 @@
         this.isLoading = true;
 
         try {
-          await Firebase.signUp(this.username, this.email, this.password);
+          await signUp(this.username, this.email, this.password);
           this.$router.push({ name: "home" });
         } catch (error) {
           this.error = "Unable to sign up.";

@@ -11,7 +11,7 @@ import SignUp from "./views/SignUp.vue";
 import Top from "./views/Top.vue";
 import Upload from "./views/Upload.vue";
 
-import Firebase from "./firebase";
+import { currentUser, initializeAuth } from "./api";
 
 Vue.use(Router);
 
@@ -21,7 +21,7 @@ const checkAutentication = async (to, from, next) => {
   if (firstCheck) {
     firstCheck = false;
 
-    const user = await Firebase.initializeAuth();
+    const user = await initializeAuth();
 
     if (user) {
       next();
@@ -32,7 +32,7 @@ const checkAutentication = async (to, from, next) => {
     return;
   }
 
-  if (Firebase.currentUser()) {
+  if (currentUser()) {
     next();
   } else {
     next({ name: "login" });

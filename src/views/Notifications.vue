@@ -34,7 +34,7 @@
   import BaseLink from "@/components/BaseLink";
   import ProfilePhoto from "@/components/ProfilePhoto";
 
-  import Firebase from "@/firebase";
+  import { markNotificationsAsRead } from "@/api";
 
   export default {
     components: {
@@ -51,7 +51,7 @@
     },
     methods: {
       async onMarkAllAsReadClick() {
-        await Firebase.markNotificationsAsRead();
+        await markNotificationsAsRead();
       }
     }
   };

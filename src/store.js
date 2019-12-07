@@ -1,7 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Firebase from "./firebase";
+import {
+  fetchTopPosters,
+  getLikes,
+  getPost,
+  getPosts,
+  getUser,
+  getUserByUsername,
+  QUERY_LIMIT,
+  removePost,
+  setOnAuthStateChangedCallback,
+  subscribeToNotifications,
+  subscribeToPosts,
+  toggleLike
+} from "./api";
 
 Vue.use(Vuex);
 
@@ -135,7 +148,7 @@ const store = new Vuex.Store({
         return;
       }
 
-      const post = await Firebase.getPost(postId);
+      const post = await getPost(postId);
       commit("addToPosts", post);
     },
 
@@ -146,7 +159,7 @@ const store = new Vuex.Store({
       const lastPost =
         postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null;
 
-      const posts = await Firebase.getPosts({
+      const posts = await getPosts({
         startAfter: lastPost
       });
 
@@ -157,7 +170,7 @@ const store = new Vuex.Store({
 
       commit("setIsLoading", false);
 
-      if (posts.length < Firebase.QUERY_LIMIT) {
+      if (posts.length < QUERY_LIMIT) {
         commit("setIsLastPostReached", true);
       }
     },
@@ -165,7 +178,7 @@ const store = new Vuex.Store({
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username);
       if (Object.keys(user).length) {
-        const posts = await Firebase.getPosts({ userId: user.id });
+        const posts = await getPosts({ userId: user.id });
         posts.forEach(post => {
           commit("addToPosts", post);
           commit("addToFeeds", { feed: username, postId: post.id });
@@ -174,23 +187,23 @@ const store = new Vuex.Store({
     },
 
     removePost({ commit }, postId) {
-      Firebase.removePost(postId);
+      removePost(postId);
       commit("removePost", postId);
     },
 
     async getUser({ commit }, username) {
-      const user = await Firebase.getUserByUsername(username);
+      const user = await getUserByUsername(username);
       commit("addToUsers", user);
     },
 
     async getUserById({ commit }, userId) {
-      const user = await Firebase.getUser(userId);
+      const user = await getUser(userId);
       commit("addToUsers", user);
     },
 
     async toggleLike({ commit, dispatch }, postId) {
       commit("toggleLike", postId);
-      await Firebase.toggleLike(postId);
+      await toggleLike(postId);
       dispatch("getLikes", { postId, force: true });
     },
 
@@ -199,20 +212,23 @@ const store = new Vuex.Store({
         return;
       }
 
-      const likes = await Firebase.getLikes(postId);
+      const likes = await getLikes(postId);
       commit("addLikes", { postId, likes });
     },
 
     async getTopPosters({ commit }) {
-      const topPosters = await Firebase.fetchTopPosters();
+      const topPosters = await fetchTopPosters();
       topPosters.forEach(user => commit("addToUsers", user));
     }
   }
 });
 
-Firebase.setOnAuthStateChangedCallback(async user => {
+let unsubscribeToPosts = () => {};
+let unsubscribeToNotifications = () => {};
+
+setOnAuthStateChangedCallback(async user => {
   if (user) {
-    const userData = await Firebase.getUser(user.uid);
+    const userData = await getUser(user.uid);
     store.commit("setIsAuthenticated", {
       isAuthenticated: true,
       username: userData.username,
@@ -220,17 +236,20 @@ Firebase.setOnAuthStateChangedCallback(async user => {
     });
     store.commit("addToUsers", userData);
 
-    Firebase.subscribeToPosts(posts => {
+    unsubscribeToPosts = subscribeToPosts(posts => {
       posts.forEach(post => {
         store.commit("addToPosts", post);
         store.commit("addToFeeds", { feed: "home", postId: post.id });
       });
     });
 
-    Firebase.subscribeToNotifications(notifications => {
+    unsubscribeToNotifications = subscribeToNotifications(notifications => {
       store.commit("setNotifications", notifications);
     });
   } else {
+    unsubscribeToPosts();
+    unsubscribeToNotifications();
+
     store.commit("setIsAuthenticated", {
       isAuthenticated: false,
       username: ""

@@ -50,7 +50,7 @@
   import BaseInput from "@/components/BaseInput";
   import PostImage from "@/components/PostImage";
 
-  import Firebase from "@/firebase";
+  import { addLocation, getNearbyLocations, sharePost } from "@/api";
 
   export default {
     components: {
@@ -110,7 +110,7 @@
             this.form.latitude = coords.latitude;
             this.form.longitude = coords.longitude;
 
-            const locations = await Firebase.getNearbyLocations(
+            const locations = await getNearbyLocations(
               this.form.latitude,
               this.form.longitude
             );
@@ -159,7 +159,7 @@
       async onShareClick() {
         this.isLoading = true;
 
-        await Firebase.sharePost({ file: this.file, ...this.form });
+        await sharePost({ file: this.file, ...this.form });
         this.$store.commit("setFile", null);
 
         if (
@@ -168,7 +168,7 @@
             location => location.label === this.form.location
           )
         ) {
-          await Firebase.addLocation({
+          await addLocation({
             name: this.form.location,
             latitude: this.form.latitude,
             longitude: this.form.longitude

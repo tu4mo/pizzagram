@@ -32,7 +32,7 @@
   import BaseSpacer from "@/components/BaseSpacer";
   import BaseSpinner from "@/components/BaseSpinner";
 
-  import Firebase from "@/firebase";
+  import { auth } from "@/api";
 
   export default {
     components: {
@@ -53,7 +53,7 @@
     methods: {
       async submit() {
         this.isLoading = true;
-        await Firebase.auth.sendPasswordResetEmail(this.email);
+        await auth.sendPasswordResetEmail(this.email);
         this.isLoading = false;
         this.hasSentMail = true;
       }

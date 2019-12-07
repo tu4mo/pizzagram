@@ -36,7 +36,7 @@
   import BaseSpacer from "@/components/BaseSpacer";
   import BaseSpinner from "@/components/BaseSpinner";
 
-  import Firebase from "@/firebase";
+  import { signIn } from "@/api";
 
   export default {
     components: {
@@ -61,7 +61,7 @@
         this.isLoading = true;
 
         try {
-          await Firebase.signIn(this.email, this.password);
+          await signIn(this.email, this.password);
           this.$router.push({ name: "home" });
         } catch (error) {
           this.error = "Unable to sign in.";
