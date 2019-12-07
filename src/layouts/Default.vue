@@ -16,7 +16,9 @@
         </BaseButton>
       </div>
       <div class="default-layout__header"><TheHeader :title="title" /></div>
-      <div class="default-layout__navigation"><TheNavigation /></div>
+      <div v-if="isAuthenticated" class="default-layout__navigation">
+        <TheNavigation />
+      </div>
     </div>
     <main class="default-layout__main">
       <slot />
@@ -52,6 +54,9 @@
     computed: {
       canGoBack() {
         return this.$route.name !== "home" && window.history.length > 1;
+      },
+      isAuthenticated() {
+        return this.$store.state.auth.isAuthenticated;
       }
     },
     created() {

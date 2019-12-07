@@ -9,7 +9,7 @@
       >
         Home
       </NavItem>
-      <TheCamera v-if="isAuthenticated" class="navigation__item" />
+      <TheCamera class="navigation__item" />
       <NavItem
         v-if="isDevelopment"
         :to="{ name: 'top' }"
@@ -28,7 +28,6 @@
         Notifications
       </NavItem>
       <NavItem
-        v-if="isAuthenticated"
         :to="{ name: 'profile', params: { username: username || null } }"
         class="navigation__item"
         icon="user"
@@ -53,9 +52,6 @@
         return this.$store.getters.getNotifications.length > 0
           ? this.$store.getters.getNotifications.length
           : null;
-      },
-      isAuthenticated() {
-        return this.$store.state.auth.isAuthenticated;
       },
       isDevelopment() {
         return process.env.NODE_ENV === "development";
