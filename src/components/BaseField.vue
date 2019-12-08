@@ -7,8 +7,10 @@
   </div>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import Vue from "vue";
+
+  export default Vue.extend({
     props: {
       as: {
         default: "label",
@@ -19,7 +21,7 @@
         type: String
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
