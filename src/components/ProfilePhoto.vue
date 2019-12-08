@@ -1,32 +1,39 @@
 <template>
-  <img
-    :alt="alt"
-    :class="['profile-photo', `profile-photo--${size}`]"
-    :src="profileUrl"
-  />
+  <RouterLink
+    v-if="asLink"
+    :to="{ name: 'profile', params: { username: username } }"
+  >
+    <img :alt="username" :class="classes" :src="profileUrl" />
+  </RouterLink>
+  <img v-else :alt="username" :class="classes" :src="profileUrl" />
 </template>
 
 <script>
   export default {
     props: {
-      alt: {
-        default: "",
-        type: String
-      },
-      gravatar: {
-        default: "",
-        type: String
+      asLink: {
+        type: Boolean
       },
       size: {
         default: "small",
         type: String
+      },
+      user: {
+        default: undefined,
+        type: Object
       }
     },
     computed: {
+      classes() {
+        return ["profile-photo", `profile-photo--${this.size}`];
+      },
+      username() {
+        return this.user ? this.user.username : "";
+      },
       profileUrl() {
-        return this.gravatar
-          ? `https://www.gravatar.com/avatar/${this.gravatar}?d=identicon&s=128`
-          : null;
+        return this.user && this.user.gravatar
+          ? `https://www.gravatar.com/avatar/${this.user.gravatar}?d=identicon&s=128`
+          : undefined;
       }
     }
   };

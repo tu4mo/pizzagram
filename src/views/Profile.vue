@@ -8,12 +8,7 @@
         class="profile__header"
       />
       <div class="profile__user">
-        <ProfilePhoto
-          :alt="user.username"
-          :gravatar="user.gravatar"
-          class="profile__photo"
-          size="large"
-        />
+        <ProfilePhoto :user="user" class="profile__photo" size="large" />
         <div class="profile__username">{{ user.username }}</div>
       </div>
       <div class="profile__posts">

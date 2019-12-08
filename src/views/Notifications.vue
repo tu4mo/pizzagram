@@ -5,8 +5,9 @@
       <ul v-for="(notification, index) in notifications" :key="index">
         <li v-if="notification.type === 'LIKE'" class="notification">
           <ProfilePhoto
+            as-link
             class="notification__profile"
-            :gravatar="notification.from.gravatar"
+            :user="notification.from"
           />
           <div>
             <div class="notification__date">

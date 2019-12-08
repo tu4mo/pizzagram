@@ -10,10 +10,7 @@
       class="post-header__user"
     >
       <div class="post-header__profile">
-        <ProfilePhoto
-          :alt="user ? user.username : ''"
-          :gravatar="user ? user.gravatar : null"
-        />
+        <ProfilePhoto :user="user" />
       </div>
       <div class="post-header__username">{{ user ? user.username : null }}</div>
     </component>
