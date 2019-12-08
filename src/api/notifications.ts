@@ -1,5 +1,7 @@
 import { currentUser, firestore, getUser } from ".";
 
+const collection = firestore.collection("notifications");
+
 export const subscribeToNotifications = (
   callback: (notifications: any[]) => void
 ) => {
@@ -9,13 +11,13 @@ export const subscribeToNotifications = (
     return;
   }
 
-  return firestore
-    .collection("notifications")
+  return collection
     .orderBy("createdAt", "desc")
     .where("userId", "==", user.uid)
     .where("read", "==", false)
     .onSnapshot(async querySnapshot => {
       const notifications = [];
+
       for await (const doc of querySnapshot.docs) {
         const data = doc.data();
         const from = await getUser(data.fromUserId);
@@ -25,6 +27,7 @@ export const subscribeToNotifications = (
           from
         });
       }
+
       callback(notifications);
     });
 };
@@ -36,8 +39,7 @@ export const markNotificationsAsRead = async () => {
     return;
   }
 
-  const notifications = await firestore
-    .collection("notifications")
+  const notifications = await collection
     .where("userId", "==", user.uid)
     .where("read", "==", false)
     .get();
@@ -45,7 +47,7 @@ export const markNotificationsAsRead = async () => {
   const batch = firestore.batch();
 
   notifications.docs.forEach(async doc => {
-    const notification = firestore.collection("notifications").doc(doc.id);
+    const notification = collection.doc(doc.id);
     batch.update(notification, { read: true });
   });
 
