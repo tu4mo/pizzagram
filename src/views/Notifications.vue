@@ -34,7 +34,7 @@
   import BaseLink from "@/components/BaseLink";
   import ProfilePhoto from "@/components/ProfilePhoto";
 
-  import { markNotificationsAsRead } from "@/api";
+  import { markNotificationsAsRead } from "@/api/notifications";
 
   export default {
     components: {

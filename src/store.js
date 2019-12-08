@@ -11,10 +11,11 @@ import {
   QUERY_LIMIT,
   removePost,
   setOnAuthStateChangedCallback,
-  subscribeToNotifications,
   subscribeToPosts,
   toggleLike
 } from "./api";
+
+import { subscribeToNotifications } from "./api/notifications";
 
 Vue.use(Vuex);
 
