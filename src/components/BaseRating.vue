@@ -7,7 +7,7 @@
       :aria-checked="rating === value"
       :class="['rating__button', { 'rating__button--active': rating <= value }]"
       role="radio"
-      @click.prevent="$emit('input', rating)"
+      @click.prevent="$emit('input', rating === value ? 0 : rating)"
     >
       <BaseIcon name="star" />
     </BaseButton>
