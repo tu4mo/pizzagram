@@ -14,6 +14,8 @@ export default (db: admin.firestore.Firestore) => async (
   }
 
   const { userId } = postData;
+  const likes = db.collection("likes");
+  const notifications = db.collection("notifications");
 
   const bucket = storage.bucket("pizzagram-cc.appspot.com");
   const photoFile = bucket.file(`posts/${id}.jpg`);
@@ -27,17 +29,23 @@ export default (db: admin.firestore.Firestore) => async (
 
     console.log(`${photoFile.name} and ${thumbnailFile.name} removed.`);
 
-    const likesCollection = db.collection("likes");
-    const querySnapshot = await likesCollection.where("postId", "==", id).get();
-    const deleteLikesBatch = db.batch();
+    const deleteBatch = db.batch();
 
-    querySnapshot.forEach(doc => {
-      deleteLikesBatch.delete(likesCollection.doc(doc.id));
+    const likesSnapshot = await likes.where("postId", "==", id).get();
+    likesSnapshot.forEach(doc => {
+      deleteBatch.delete(likes.doc(doc.id));
     });
 
-    await deleteLikesBatch.commit();
+    const notificationsSnapshot = await likes.where("postId", "==", id).get();
+    notificationsSnapshot.forEach(doc => {
+      deleteBatch.delete(notifications.doc(doc.id));
+    });
 
-    console.log(`Removed ${querySnapshot.size} likes.`);
+    await deleteBatch.commit();
+
+    console.log(
+      `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`
+    );
 
     const usersSnapshot = await usersCollection
       .where("id", "==", userId)
