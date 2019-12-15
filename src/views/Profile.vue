@@ -140,7 +140,7 @@
 
       @media (min-width: 640px) {
         grid-gap: 1rem;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         max-width: var(--content-width-lg);
         padding: 2rem;
       }

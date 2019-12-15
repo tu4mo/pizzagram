@@ -22,7 +22,7 @@
     --color-primary: #df0054;
     --color-secondary: #470032;
     --content-width: 640px;
-    --content-width-lg: 1280px;
+    --content-width-lg: 960px;
 
     --z-header: 1;
     --z-navigation: 2;
