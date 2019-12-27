@@ -8,6 +8,8 @@ export default (
   db: admin.firestore.Firestore,
   notificationType: NotificationType
 ) => async (snap: admin.firestore.DocumentSnapshot) => {
+  const notifications = db.collection("notifications");
+
   if (notificationType === NotificationType.Like) {
     const data = snap.data();
 
@@ -28,7 +30,18 @@ export default (
       return;
     }
 
-    await db.collection("notifications").add({
+    const notification = await notifications
+      .where("fromUserId", "==", userId)
+      .where("postId", "==", postId)
+      .where("type", "==", NotificationType.Like)
+      .where("userId", "==", postData.userId)
+      .get();
+
+    if (!notification.empty) {
+      return;
+    }
+
+    await notifications.add({
       createdAt: new Date(),
       fromUserId: userId,
       postId,
