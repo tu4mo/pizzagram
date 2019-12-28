@@ -117,17 +117,21 @@ const createPostObject = (doc: firebase.firestore.DocumentSnapshot) => {
 
 export const getUser = async (id: string) => {
   if (!Object.values(userCache.getAll()).find(user => user.id === id)) {
-    const querySnapshot = await firestore
-      .collection("users")
-      .where("id", "==", id)
-      .limit(1)
-      .get();
+    try {
+      const querySnapshot = await firestore
+        .collection("users")
+        .where("id", "==", id)
+        .limit(1)
+        .get();
 
-    const doc = querySnapshot.docs[0];
-    const user = createUserObject(doc);
+      const doc = querySnapshot.docs[0];
+      const user = createUserObject(doc);
 
-    if (user) {
-      userCache.set(user.username, user);
+      if (user) {
+        userCache.set(user.username, user);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
