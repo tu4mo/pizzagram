@@ -14,7 +14,7 @@
     "@sentry/browser": "^5.11.0",
     "@sentry/integrations": "^5.11.0",
     "@tensorflow-models/coco-ssd": "^2.0.1",
-    "@tensorflow/tfjs": "^1.5.1",
+    "@tensorflow/tfjs": "^1.5.2",
     "core-js": "^3.6.3",
     "feather-icons": "^4.25.0",
     "firebase": "^7.6.2",
@@ -48,7 +48,7 @@
     "prettier": "^1.19.1",
     "raw-loader": "^4.0.0",
     "sass-loader": "^8.0.1",
-    "typescript": "~3.7.5",
+    "typescript": "3.5.3",
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {
