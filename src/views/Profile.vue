@@ -98,7 +98,7 @@
         background-image: linear-gradient(
           to bottom,
           rgba(255, 232, 221, 0.8),
-          rgb(255, 232, 221)
+          var(--color-background)
         );
         bottom: 0;
         content: "";
