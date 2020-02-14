@@ -16,14 +16,17 @@
         </BaseButton>
       </div>
       <div class="default-layout__header"><TheHeader :title="title" /></div>
-      <div v-if="isAuthenticated" class="default-layout__navigation">
-        <TheNavigation />
-      </div>
+    </div>
+    <div v-if="isAuthenticated" class="default-layout__navigation">
+      <TheNavigation />
     </div>
     <main
       :class="[
         'default-layout__main',
-        { 'default-layout__main--max-width': maxWidth }
+        {
+          'default-layout__main--from-top': fromTop,
+          'default-layout__main--max-width': maxWidth
+        }
       ]"
     >
       <slot />
@@ -53,6 +56,10 @@
       title: {
         default: null,
         type: String
+      },
+      fromTop: {
+        default: false,
+        type: Boolean
       }
     },
     data() {
@@ -87,7 +94,6 @@
     background-color: var(--color-background);
 
     &__top {
-      background-color: var(--color-background);
       border-bottom: 1px solid transparent;
       display: flex;
       justify-content: center;
@@ -95,6 +101,7 @@
       padding: 0 2rem;
       position: fixed;
       right: 0;
+      transition: background-color 0.4s;
       top: 0;
       z-index: var(--z-header);
 
@@ -103,6 +110,8 @@
       }
 
       &--border {
+        background-color: rgba(var(--color-background-rgb), 0.8);
+        backdrop-filter: blur(24px);
         border-color: var(--color-light);
       }
     }
@@ -127,9 +136,13 @@
     &__main {
       margin: 0 auto;
       margin-bottom: 3.5rem;
-      margin-top: 4rem;
       min-height: calc(100vh - 7.5rem);
+      padding-top: 4rem;
       position: relative;
+
+      &--from-top {
+        padding-top: 0;
+      }
 
       &--max-width {
         max-width: var(--content-width);
@@ -146,7 +159,8 @@
 
     &__navigation {
       align-items: center;
-      background-color: var(--color-background);
+      background-color: rgba(var(--color-background-rgb), 0.8);
+      backdrop-filter: blur(24px);
       border-top: 1px solid var(--color-light);
       bottom: 0;
       display: flex;
@@ -156,8 +170,15 @@
       z-index: var(--z-navigation);
 
       @media (min-width: 640px) {
+        background-color: transparent;
+        backdrop-filter: none;
         border-top: 0;
-        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-right: 2rem;
+        position: fixed;
+        right: 0;
+        top: 0.25rem;
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout from-top>
     <div class="profile">
       <div
         :style="{
@@ -97,7 +97,7 @@
       &::before {
         background-image: linear-gradient(
           to bottom,
-          rgba(255, 232, 221, 0.8),
+          rgba(var(--color-background-rgb), 0.8),
           var(--color-background)
         );
         bottom: 0;

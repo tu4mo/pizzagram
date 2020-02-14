@@ -17,6 +17,7 @@
 <style lang="scss">
   :root {
     --color-background: #fff;
+    --color-background-rgb: 255, 255, 255;
     --color-gray: #aaa;
     --color-light: #eee;
     --color-primary: #df0054;
