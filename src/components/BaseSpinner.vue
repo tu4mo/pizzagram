@@ -8,8 +8,10 @@
   </div>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import { computed, createComponent } from "@vue/composition-api";
+
+  export default createComponent({
     props: {
       cover: {
         default: false,
@@ -20,15 +22,15 @@
         type: Boolean
       }
     },
-    computed: {
-      classes() {
-        return [
-          "spinner",
-          { "spinner--cover": this.cover, "spinner--inline": this.inline }
-        ];
-      }
+    setup(props) {
+      const classes = computed(() => [
+        "spinner",
+        { "spinner--cover": props.cover, "spinner--inline": props.inline }
+      ]);
+
+      return { classes };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -18,10 +18,12 @@
   </header>
 </template>
 
-<script>
-  import ProfilePhoto from "./ProfilePhoto";
+<script lang="ts">
+  import { computed, createComponent } from "@vue/composition-api";
 
-  export default {
+  import ProfilePhoto from "./ProfilePhoto.vue";
+
+  export default createComponent({
     components: {
       ProfilePhoto
     },
@@ -35,15 +37,19 @@
         type: Object
       }
     },
-    computed: {
-      createdDate() {
-        return this.createdAt.toLocaleDateString();
-      },
-      isUserLoaded() {
-        return this.user && Object.keys(this.user).length > 0;
-      }
+    setup(props) {
+      // @ts-ignore
+      const createdDate = computed(() => props.createdAt.toLocaleDateString());
+      const isUserLoaded = computed(
+        () => props.user && Object.keys(props.user).length > 0
+      );
+
+      return {
+        createdDate,
+        isUserLoaded
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

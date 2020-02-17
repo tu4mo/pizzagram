@@ -7,8 +7,10 @@
   </div>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import { createComponent } from "@vue/composition-api";
+
+  export default createComponent({
     props: {
       imageUrl: {
         default: null,
@@ -19,7 +21,7 @@
         type: [String, Object]
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

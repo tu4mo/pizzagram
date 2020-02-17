@@ -10,11 +10,13 @@
   </BaseLink>
 </template>
 
-<script>
-  import BaseIcon from "./BaseIcon";
-  import BaseLink from "./BaseLink";
+<script lang="ts">
+  import { createComponent } from "@vue/composition-api";
 
-  export default {
+  import BaseIcon from "./BaseIcon.vue";
+  import BaseLink from "./BaseLink.vue";
+
+  export default createComponent({
     components: {
       BaseIcon,
       BaseLink
@@ -37,7 +39,7 @@
         type: Object
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

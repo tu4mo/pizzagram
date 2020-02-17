@@ -8,8 +8,10 @@
   <img v-else :alt="username" :class="classes" :src="profileUrl" />
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import { computed, createComponent } from "@vue/composition-api";
+
+  export default createComponent({
     props: {
       asLink: {
         type: Boolean
@@ -23,20 +25,21 @@
         type: Object
       }
     },
-    computed: {
-      classes() {
-        return ["profile-photo", `profile-photo--${this.size}`];
-      },
-      username() {
-        return this.user ? this.user.username : "";
-      },
-      profileUrl() {
-        return this.user && this.user.gravatar
-          ? `https://www.gravatar.com/avatar/${this.user.gravatar}?d=identicon&s=128`
-          : undefined;
-      }
+    setup({ size, user }) {
+      const classes = computed(() => [
+        "profile-photo",
+        `profile-photo--${size}`
+      ]);
+      const username = computed(() => (user ? user.username : ""));
+      const profileUrl = computed(() =>
+        user && user.gravatar
+          ? `https://www.gravatar.com/avatar/${user.gravatar}?d=identicon&s=128`
+          : undefined
+      );
+
+      return { classes, username, profileUrl };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

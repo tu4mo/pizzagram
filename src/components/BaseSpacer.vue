@@ -2,8 +2,10 @@
   <div :class="classes"><slot /></div>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import { computed, createComponent } from "@vue/composition-api";
+
+  export default createComponent({
     props: {
       mb1: {
         default: false,
@@ -22,18 +24,18 @@
         type: Boolean
       }
     },
-    computed: {
-      classes() {
-        return {
-          spacer: true,
-          "spacer--mb1": this.mb1,
-          "spacer--mb2": this.mb2,
-          "spacer--mt1": this.mt1,
-          "spacer--my1": this.my1
-        };
-      }
+    setup(props) {
+      const classes = computed(() => ({
+        spacer: true,
+        "spacer--mb1": props.mb1,
+        "spacer--mb2": props.mb2,
+        "spacer--mt1": props.mt1,
+        "spacer--my1": props.my1
+      }));
+
+      return { classes };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -48,14 +48,16 @@
   </article>
 </template>
 
-<script>
-  import BaseButton from "./BaseButton";
-  import BaseIcon from "./BaseIcon";
-  import BaseSpacer from "./BaseSpacer";
-  import PostHeader from "./PostHeader";
-  import PostImage from "./PostImage";
+<script lang="ts">
+  import { computed, createComponent, ref } from "@vue/composition-api";
 
-  export default {
+  import BaseButton from "./BaseButton.vue";
+  import BaseIcon from "./BaseIcon.vue";
+  import BaseSpacer from "./BaseSpacer.vue";
+  import PostHeader from "./PostHeader.vue";
+  import PostImage from "./PostImage.vue";
+
+  export default createComponent({
     components: {
       BaseButton,
       BaseIcon,
@@ -77,48 +79,54 @@
         type: Object
       }
     },
-    data() {
-      return {
-        isPlaceholder: true
+    setup({ post }, context) {
+      const isPlaceholder = ref(true);
+      const postPath = computed(
+        () => `${window.location.origin}/post/${post.id}`
+      );
+      const user = computed(() =>
+        context.root.$store.getters.getUserById(post.userId)
+      );
+      const onLazyLoad = () => {
+        isPlaceholder.value = false;
+        context.root.$store.dispatch("getUserById", post.userId);
+        context.root.$store.dispatch("getLikes", { postId: post.id });
       };
-    },
-    computed: {
-      postPath() {
-        return `${window.location.origin}/post/${this.post.id}`;
-      },
-      user() {
-        return this.$store.getters.getUserById(this.post.userId);
-      }
-    },
-    methods: {
-      onLazyLoad() {
-        this.isPlaceholder = false;
-        this.$store.dispatch("getUserById", this.post.userId);
-        this.$store.dispatch("getLikes", { postId: this.post.id });
-      },
-      onLikeClick() {
-        this.$store.dispatch("toggleLike", this.post.id);
-      },
-      onRemoveClick() {
+      const onLikeClick = () => {
+        context.root.$store.dispatch("toggleLike", post.id);
+      };
+      const onRemoveClick = () => {
         if (confirm("Are you sure you want to remove this post?")) {
-          this.$emit("remove-click");
+          context.emit("remove-click");
         }
-      },
-      async onShareClick() {
+      };
+      const onShareClick = async () => {
+        // @ts-ignore
         if (navigator.share) {
+          // @ts-ignore
           await navigator.share({
             title: "Pizzagram",
-            text: `${this.post.caption}${
-              this.post.caption && this.post.location ? " - " : ""
-            }${this.post.location}`,
-            url: this.postPath
+            text: `${post.caption}${
+              post.caption && post.location ? " - " : ""
+            }${post.location}`,
+            url: postPath
           });
         } else {
           alert("Sorry, you're browser doesn't seem to support Web Share.");
         }
-      }
+      };
+
+      return {
+        isPlaceholder,
+        onLazyLoad,
+        onLikeClick,
+        onRemoveClick,
+        onShareClick,
+        postPath,
+        user
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

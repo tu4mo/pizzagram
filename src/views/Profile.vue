@@ -97,7 +97,7 @@
       &::before {
         background-image: linear-gradient(
           to bottom,
-          rgba(var(--color-background-rgb), 0.8),
+          rgba(var(--color-background-rgb), 0.75),
           var(--color-background)
         );
         bottom: 0;

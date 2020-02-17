@@ -14,11 +14,13 @@
   </div>
 </template>
 
-<script>
-  import BaseButton from "./BaseButton";
-  import BaseIcon from "./BaseIcon";
+<script lang="ts">
+  import { createComponent } from "@vue/composition-api";
 
-  export default {
+  import BaseButton from "./BaseButton.vue";
+  import BaseIcon from "./BaseIcon.vue";
+
+  export default createComponent({
     components: {
       BaseButton,
       BaseIcon
@@ -29,7 +31,7 @@
         type: Number
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

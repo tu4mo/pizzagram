@@ -34,10 +34,12 @@
   </ul>
 </template>
 
-<script>
-  import BaseInput from "./BaseInput";
+<script lang="ts">
+  import { createComponent, ref } from "@vue/composition-api";
 
-  export default {
+  import BaseInput from "./BaseInput.vue";
+
+  export default createComponent({
     components: {
       BaseInput
     },
@@ -55,18 +57,20 @@
         type: String
       }
     },
-    data() {
-      return {
-        customItem: ""
+    setup(props, context) {
+      const customItem = ref("");
+
+      const onCustomItemInput = (value: string) => {
+        customItem.value = value;
+        context.emit("change", value);
       };
-    },
-    methods: {
-      onCustomItemInput(value) {
-        this.customItem = value;
-        this.$emit("change", value);
-      }
+
+      return {
+        customItem,
+        onCustomItemInput
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
