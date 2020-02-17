@@ -79,21 +79,21 @@
         type: Object
       }
     },
-    setup({ post }, context) {
+    setup(props, context) {
       const isPlaceholder = ref(true);
       const postPath = computed(
-        () => `${window.location.origin}/post/${post.id}`
+        () => `${window.location.origin}/post/${props.post.id}`
       );
       const user = computed(() =>
-        context.root.$store.getters.getUserById(post.userId)
+        context.root.$store.getters.getUserById(props.post.userId)
       );
       const onLazyLoad = () => {
         isPlaceholder.value = false;
-        context.root.$store.dispatch("getUserById", post.userId);
-        context.root.$store.dispatch("getLikes", { postId: post.id });
+        context.root.$store.dispatch("getUserById", props.post.userId);
+        context.root.$store.dispatch("getLikes", { postId: props.post.id });
       };
       const onLikeClick = () => {
-        context.root.$store.dispatch("toggleLike", post.id);
+        context.root.$store.dispatch("toggleLike", props.post.id);
       };
       const onRemoveClick = () => {
         if (confirm("Are you sure you want to remove this post?")) {
@@ -106,9 +106,9 @@
           // @ts-ignore
           await navigator.share({
             title: "Pizzagram",
-            text: `${post.caption}${
-              post.caption && post.location ? " - " : ""
-            }${post.location}`,
+            text: `${props.post.caption}${
+              props.post.caption && props.post.location ? " - " : ""
+            }${props.post.location}`,
             url: postPath
           });
         } else {

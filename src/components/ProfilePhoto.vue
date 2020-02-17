@@ -25,15 +25,15 @@
         type: Object
       }
     },
-    setup({ size, user }) {
+    setup(props) {
       const classes = computed(() => [
         "profile-photo",
-        `profile-photo--${size}`
+        `profile-photo--${props.size}`
       ]);
-      const username = computed(() => (user ? user.username : ""));
+      const username = computed(() => (props.user ? props.user.username : ""));
       const profileUrl = computed(() =>
-        user && user.gravatar
-          ? `https://www.gravatar.com/avatar/${user.gravatar}?d=identicon&s=128`
+        props.user && props.user.gravatar
+          ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=128`
           : undefined
       );
 
