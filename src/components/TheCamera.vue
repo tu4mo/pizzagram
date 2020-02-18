@@ -13,28 +13,36 @@
   </div>
 </template>
 
-<script>
-  import BaseIcon from "./BaseIcon";
+<script lang="ts">
+  import { defineComponent } from "@vue/composition-api";
 
-  export default {
+  import BaseIcon from "./BaseIcon.vue";
+
+  export default defineComponent({
     components: {
       BaseIcon
     },
-    methods: {
-      onChange(event) {
+    setup(props, context) {
+      const onChange = (event: any) => {
         if (event.target.files[0]) {
-          this.$store.commit("setFile", event.target.files[0]);
+          context.root.$store.commit("setFile", event.target.files[0]);
         }
-      },
-      onClick() {
-        this.$store.commit("setFile", null);
+      };
 
-        if (this.$route.name !== "upload") {
-          this.$router.push({ name: "upload" });
+      const onClick = () => {
+        context.root.$store.commit("setFile", null);
+
+        if (context.root.$route.name !== "upload") {
+          context.root.$router.push({ name: "upload" });
         }
-      }
+      };
+
+      return {
+        onChange,
+        onClick
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

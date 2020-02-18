@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-  import { computed, createComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from "@vue/composition-api";
 
   import ProfilePhoto from "./ProfilePhoto.vue";
 
-  export default createComponent({
+  export default defineComponent({
     components: {
       ProfilePhoto
     },

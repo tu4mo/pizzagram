@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-  import { createComponent } from "@vue/composition-api";
+  import { defineComponent } from "@vue/composition-api";
 
   import BaseIcon from "./BaseIcon.vue";
   import BaseLink from "./BaseLink.vue";
 
-  export default createComponent({
+  export default defineComponent({
     components: {
       BaseIcon,
       BaseLink

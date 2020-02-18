@@ -5,14 +5,16 @@
   </div>
 </template>
 
-<script>
-  import TheHeader from "@/components/TheHeader";
+<script lang="ts">
+  import { defineComponent } from "@vue/composition-api";
 
-  export default {
+  import TheHeader from "@/components/TheHeader.vue";
+
+  export default defineComponent({
     components: {
       TheHeader
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

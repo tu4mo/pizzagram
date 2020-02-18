@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, createComponent, ref } from "@vue/composition-api";
+  import { computed, defineComponent, ref } from "@vue/composition-api";
 
   import BaseButton from "./BaseButton.vue";
   import BaseIcon from "./BaseIcon.vue";
@@ -57,7 +57,7 @@
   import PostHeader from "./PostHeader.vue";
   import PostImage from "./PostImage.vue";
 
-  export default createComponent({
+  export default defineComponent({
     components: {
       BaseButton,
       BaseIcon,

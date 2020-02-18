@@ -35,11 +35,11 @@
 </template>
 
 <script lang="ts">
-  import { createComponent, ref } from "@vue/composition-api";
+  import { defineComponent, ref } from "@vue/composition-api";
 
   import BaseInput from "./BaseInput.vue";
 
-  export default createComponent({
+  export default defineComponent({
     components: {
       BaseInput
     },

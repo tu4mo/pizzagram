@@ -15,12 +15,12 @@
 </template>
 
 <script lang="ts">
-  import { createComponent } from "@vue/composition-api";
+  import { defineComponent } from "@vue/composition-api";
 
   import BaseButton from "./BaseButton.vue";
   import BaseIcon from "./BaseIcon.vue";
 
-  export default createComponent({
+  export default defineComponent({
     components: {
       BaseButton,
       BaseIcon

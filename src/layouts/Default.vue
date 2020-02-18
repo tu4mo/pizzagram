@@ -35,13 +35,21 @@
   </div>
 </template>
 
-<script>
-  import BaseButton from "@/components/BaseButton";
-  import BaseIcon from "@/components/BaseIcon";
-  import TheHeader from "@/components/TheHeader";
-  import TheNavigation from "@/components/TheNavigation";
+<script lang="ts">
+  import {
+    computed,
+    defineComponent,
+    onMounted,
+    onUnmounted,
+    ref
+  } from "@vue/composition-api";
 
-  export default {
+  import BaseButton from "@/components/BaseButton.vue";
+  import BaseIcon from "@/components/BaseIcon.vue";
+  import TheHeader from "@/components/TheHeader.vue";
+  import TheNavigation from "@/components/TheNavigation.vue";
+
+  export default defineComponent({
     components: {
       BaseButton,
       BaseIcon,
@@ -62,31 +70,36 @@
         type: Boolean
       }
     },
-    data() {
-      return {
-        hasScrolled: false
+    setup(props, context) {
+      const hasScrolled = ref(false);
+
+      const canGoBack = computed(
+        () => context.root.$route.name !== "home" && window.history.length > 1
+      );
+
+      const isAuthenticated = computed(
+        () => context.root.$store.state.auth.isAuthenticated
+      );
+
+      const onScroll = () => {
+        hasScrolled.value = window.scrollY > 0;
       };
-    },
-    computed: {
-      canGoBack() {
-        return this.$route.name !== "home" && window.history.length > 1;
-      },
-      isAuthenticated() {
-        return this.$store.state.auth.isAuthenticated;
-      }
-    },
-    created() {
-      window.addEventListener("scroll", this.onScroll);
-    },
-    destroyed() {
-      window.removeEventListener("scroll", this.onScroll);
-    },
-    methods: {
-      onScroll() {
-        this.hasScrolled = window.scrollY > 0;
-      }
+
+      onMounted(() => {
+        window.addEventListener("scroll", onScroll);
+      });
+
+      onUnmounted(() => {
+        window.removeEventListener("scroll", onScroll);
+      });
+
+      return {
+        hasScrolled,
+        canGoBack,
+        isAuthenticated
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
