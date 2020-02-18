@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
@@ -17,7 +17,7 @@
         type: Boolean
       },
       size: {
-        default: "small",
+        default: 'small',
         type: String
       },
       user: {
@@ -27,19 +27,19 @@
     },
     setup(props) {
       const classes = computed(() => [
-        "profile-photo",
+        'profile-photo',
         `profile-photo--${props.size}`
-      ]);
-      const username = computed(() => (props.user ? props.user.username : ""));
+      ])
+      const username = computed(() => (props.user ? props.user.username : ''))
       const profileUrl = computed(() =>
         props.user && props.user.gravatar
           ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=128`
           : undefined
-      );
+      )
 
-      return { classes, username, profileUrl };
+      return { classes, username, profileUrl }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

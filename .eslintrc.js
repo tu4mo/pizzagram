@@ -6,15 +6,15 @@ module.exports = {
   },
 
   extends: [
-    "plugin:vue/recommended",
-    "eslint:recommended",
-    "@vue/typescript",
-    "prettier",
-    "prettier/vue",
-    "prettier/@typescript-eslint"
+    'plugin:vue/recommended',
+    'eslint:recommended',
+    '@vue/typescript',
+    'prettier',
+    'prettier/vue',
+    'prettier/@typescript-eslint'
   ],
 
   parserOptions: {
-    parser: "@typescript-eslint/parser"
+    parser: '@typescript-eslint/parser'
   }
-};
+}

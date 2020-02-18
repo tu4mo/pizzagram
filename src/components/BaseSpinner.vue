@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
@@ -24,13 +24,13 @@
     },
     setup(props) {
       const classes = computed(() => [
-        "spinner",
-        { "spinner--cover": props.cover, "spinner--inline": props.inline }
-      ]);
+        'spinner',
+        { 'spinner--cover': props.cover, 'spinner--inline': props.inline }
+      ])
 
-      return { classes };
+      return { classes }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

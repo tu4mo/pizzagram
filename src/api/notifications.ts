@@ -1,55 +1,55 @@
-import { currentUser, firestore, getUser } from ".";
+import { currentUser, firestore, getUser } from '.'
 
-const collection = firestore.collection("notifications");
+const collection = firestore.collection('notifications')
 
 export const subscribeToNotifications = (
   callback: (notifications: any[]) => void
 ) => {
-  const user = currentUser();
+  const user = currentUser()
 
   if (!user) {
-    return;
+    return
   }
 
   return collection
-    .orderBy("createdAt", "desc")
-    .where("userId", "==", user.uid)
-    .where("read", "==", false)
+    .orderBy('createdAt', 'desc')
+    .where('userId', '==', user.uid)
+    .where('read', '==', false)
     .onSnapshot(async querySnapshot => {
-      const notifications = [];
+      const notifications = []
 
       for await (const doc of querySnapshot.docs) {
-        const data = doc.data();
-        const from = await getUser(data.fromUserId);
+        const data = doc.data()
+        const from = await getUser(data.fromUserId)
         notifications.push({
           ...data,
           createdAt: data.createdAt.toDate(),
           from
-        });
+        })
       }
 
-      callback(notifications);
-    });
-};
+      callback(notifications)
+    })
+}
 
 export const markNotificationsAsRead = async () => {
-  const user = currentUser();
+  const user = currentUser()
 
   if (!user) {
-    return;
+    return
   }
 
   const notifications = await collection
-    .where("userId", "==", user.uid)
-    .where("read", "==", false)
-    .get();
+    .where('userId', '==', user.uid)
+    .where('read', '==', false)
+    .get()
 
-  const batch = firestore.batch();
+  const batch = firestore.batch()
 
   notifications.docs.forEach(async doc => {
-    const notification = collection.doc(doc.id);
-    batch.update(notification, { read: true });
-  });
+    const notification = collection.doc(doc.id)
+    batch.update(notification, { read: true })
+  })
 
-  await batch.commit();
-};
+  await batch.commit()
+}

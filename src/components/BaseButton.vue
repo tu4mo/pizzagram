@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
       component: {
-        default: "button",
+        default: 'button',
         type: String
       },
       variant: {
@@ -23,7 +23,7 @@
         type: String
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

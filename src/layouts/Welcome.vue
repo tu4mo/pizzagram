@@ -6,15 +6,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
-  import TheHeader from "@/components/TheHeader.vue";
+  import TheHeader from '@/components/TheHeader.vue'
 
   export default defineComponent({
     components: {
       TheHeader
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

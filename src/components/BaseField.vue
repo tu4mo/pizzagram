@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
       as: {
-        default: "label",
+        default: 'label',
         type: String
       },
       label: {
@@ -21,7 +21,7 @@
         type: String
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -15,10 +15,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
-  import BaseButton from "./BaseButton.vue";
-  import BaseIcon from "./BaseIcon.vue";
+  import BaseButton from './BaseButton.vue'
+  import BaseIcon from './BaseIcon.vue'
 
   export default defineComponent({
     components: {
@@ -31,7 +31,7 @@
         type: Number
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

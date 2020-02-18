@@ -30,15 +30,15 @@
 </template>
 
 <script>
-  import WelcomeLayout from "@/layouts/Welcome";
+  import WelcomeLayout from '@/layouts/Welcome'
 
-  import BaseButton from "@/components/BaseButton";
-  import BaseInput from "@/components/BaseInput";
-  import BaseLink from "@/components/BaseLink";
-  import BaseSpacer from "@/components/BaseSpacer";
-  import BaseSpinner from "@/components/BaseSpinner";
+  import BaseButton from '@/components/BaseButton'
+  import BaseInput from '@/components/BaseInput'
+  import BaseLink from '@/components/BaseLink'
+  import BaseSpacer from '@/components/BaseSpacer'
+  import BaseSpinner from '@/components/BaseSpinner'
 
-  import { signUp } from "@/api";
+  import { signUp } from '@/api'
 
   export default {
     components: {
@@ -51,32 +51,32 @@
     },
     data() {
       return {
-        email: "",
-        error: "",
+        email: '',
+        error: '',
         isLoading: false,
-        password: "",
-        username: ""
-      };
+        password: '',
+        username: ''
+      }
     },
     methods: {
       async submit() {
-        this.error = "";
-        this.isLoading = true;
+        this.error = ''
+        this.isLoading = true
 
         try {
-          await signUp(this.username, this.email, this.password);
-          this.$router.push({ name: "home" });
+          await signUp(this.username, this.email, this.password)
+          this.$router.push({ name: 'home' })
         } catch (error) {
-          this.error = "Unable to sign up.";
+          this.error = 'Unable to sign up.'
         }
 
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     metaInfo: {
-      title: "Sign Up"
+      title: 'Sign Up'
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

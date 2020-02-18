@@ -1,18 +1,18 @@
 type User = {
-  [key: string]: any;
-};
+  [key: string]: any
+}
 
 const userCache = () => {
-  const cache: User = {};
+  const cache: User = {}
 
   return {
     getAll() {
-      return cache;
+      return cache
     },
     set(username: string, user: any) {
-      cache[username] = user;
+      cache[username] = user
     }
-  };
-};
+  }
+}
 
-export default userCache();
+export default userCache()

@@ -24,15 +24,15 @@
 </template>
 
 <script>
-  import WelcomeLayout from "@/layouts/Welcome";
+  import WelcomeLayout from '@/layouts/Welcome'
 
-  import BaseButton from "@/components/BaseButton";
-  import BaseInput from "@/components/BaseInput";
-  import BaseLink from "@/components/BaseLink";
-  import BaseSpacer from "@/components/BaseSpacer";
-  import BaseSpinner from "@/components/BaseSpinner";
+  import BaseButton from '@/components/BaseButton'
+  import BaseInput from '@/components/BaseInput'
+  import BaseLink from '@/components/BaseLink'
+  import BaseSpacer from '@/components/BaseSpacer'
+  import BaseSpinner from '@/components/BaseSpinner'
 
-  import { auth } from "@/api";
+  import { auth } from '@/api'
 
   export default {
     components: {
@@ -45,23 +45,23 @@
     },
     data() {
       return {
-        email: "",
+        email: '',
         hasSentMail: false,
         isLoading: false
-      };
+      }
     },
     methods: {
       async submit() {
-        this.isLoading = true;
-        await auth.sendPasswordResetEmail(this.email);
-        this.isLoading = false;
-        this.hasSentMail = true;
+        this.isLoading = true
+        await auth.sendPasswordResetEmail(this.email)
+        this.isLoading = false
+        this.hasSentMail = true
       }
     },
     metaInfo: {
-      title: "Reset Password"
+      title: 'Reset Password'
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

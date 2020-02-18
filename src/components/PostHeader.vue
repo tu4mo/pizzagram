@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
-  import ProfilePhoto from "./ProfilePhoto.vue";
+  import ProfilePhoto from './ProfilePhoto.vue'
 
   export default defineComponent({
     components: {
@@ -39,17 +39,17 @@
     },
     setup(props) {
       // @ts-ignore
-      const createdDate = computed(() => props.createdAt.toLocaleDateString());
+      const createdDate = computed(() => props.createdAt.toLocaleDateString())
       const isUserLoaded = computed(
         () => props.user && Object.keys(props.user).length > 0
-      );
+      )
 
       return {
         createdDate,
         isUserLoaded
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

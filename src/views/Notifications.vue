@@ -28,16 +28,16 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
-  import DefaultLayout from "@/layouts/Default.vue";
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  import BaseButton from "@/components/BaseButton.vue";
-  import BaseEmpty from "@/components/BaseEmpty.vue";
-  import BaseLink from "@/components/BaseLink.vue";
-  import ProfilePhoto from "@/components/ProfilePhoto.vue";
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseEmpty from '@/components/BaseEmpty.vue'
+  import BaseLink from '@/components/BaseLink.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
-  import { markNotificationsAsRead } from "@/api/notifications";
+  import { markNotificationsAsRead } from '@/api/notifications'
 
   export default defineComponent({
     components: {
@@ -50,15 +50,15 @@
     setup(props, context) {
       const notifications = computed(
         () => context.root.$store.getters.getNotifications
-      );
+      )
 
       const onMarkAllAsReadClick = async () => {
-        await markNotificationsAsRead();
-      };
+        await markNotificationsAsRead()
+      }
 
-      return { notifications, onMarkAllAsReadClick };
+      return { notifications, onMarkAllAsReadClick }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

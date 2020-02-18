@@ -17,16 +17,12 @@
 </template>
 
 <script lang="ts">
-  import {
-    defineComponent,
-    onMounted,
-    onUnmounted
-  } from "@vue/composition-api";
+  import { defineComponent, onMounted, onUnmounted } from '@vue/composition-api'
 
-  import DefaultLayout from "@/layouts/Default.vue";
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  import BasePost from "@/components/BasePost.vue";
-  import BaseSpinner from "@/components/BaseSpinner.vue";
+  import BasePost from '@/components/BasePost.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
 
   export default defineComponent({
     components: {
@@ -36,8 +32,8 @@
     },
     setup(props, context) {
       const fetchPosts = () => {
-        context.root.$store.dispatch("getPostsForHome");
-      };
+        context.root.$store.dispatch('getPostsForHome')
+      }
 
       const handleScroll = () => {
         if (
@@ -46,20 +42,20 @@
           !context.root.$store.state.isLastPostReached &&
           !context.root.$store.state.isLoading
         ) {
-          fetchPosts();
+          fetchPosts()
         }
-      };
+      }
 
       onMounted(() => {
-        fetchPosts();
-        window.addEventListener("scroll", handleScroll);
-      });
+        fetchPosts()
+        window.addEventListener('scroll', handleScroll)
+      })
 
       onUnmounted(() => {
-        window.removeEventListener("scroll", handleScroll);
-      });
+        window.removeEventListener('scroll', handleScroll)
+      })
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

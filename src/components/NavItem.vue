@@ -11,10 +11,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
-  import BaseIcon from "./BaseIcon.vue";
-  import BaseLink from "./BaseLink.vue";
+  import BaseIcon from './BaseIcon.vue'
+  import BaseLink from './BaseLink.vue'
 
   export default defineComponent({
     components: {
@@ -39,7 +39,7 @@
         type: Object
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

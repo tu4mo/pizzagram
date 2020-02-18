@@ -42,12 +42,12 @@
     onMounted,
     onUnmounted,
     ref
-  } from "@vue/composition-api";
+  } from '@vue/composition-api'
 
-  import BaseButton from "@/components/BaseButton.vue";
-  import BaseIcon from "@/components/BaseIcon.vue";
-  import TheHeader from "@/components/TheHeader.vue";
-  import TheNavigation from "@/components/TheNavigation.vue";
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseIcon from '@/components/BaseIcon.vue'
+  import TheHeader from '@/components/TheHeader.vue'
+  import TheNavigation from '@/components/TheNavigation.vue'
 
   export default defineComponent({
     components: {
@@ -71,35 +71,35 @@
       }
     },
     setup(props, context) {
-      const hasScrolled = ref(false);
+      const hasScrolled = ref(false)
 
       const canGoBack = computed(
-        () => context.root.$route.name !== "home" && window.history.length > 1
-      );
+        () => context.root.$route.name !== 'home' && window.history.length > 1
+      )
 
       const isAuthenticated = computed(
         () => context.root.$store.state.auth.isAuthenticated
-      );
+      )
 
       const onScroll = () => {
-        hasScrolled.value = window.scrollY > 0;
-      };
+        hasScrolled.value = window.scrollY > 0
+      }
 
       onMounted(() => {
-        window.addEventListener("scroll", onScroll);
-      });
+        window.addEventListener('scroll', onScroll)
+      })
 
       onUnmounted(() => {
-        window.removeEventListener("scroll", onScroll);
-      });
+        window.removeEventListener('scroll', onScroll)
+      })
 
       return {
         hasScrolled,
         canGoBack,
         isAuthenticated
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

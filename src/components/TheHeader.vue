@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
-  import TheLogo from "./TheLogo.vue";
+  import TheLogo from './TheLogo.vue'
 
   export default defineComponent({
     components: {
@@ -20,7 +20,7 @@
         type: String
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

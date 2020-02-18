@@ -18,7 +18,7 @@
             <div class="top__username">{{ getUser(user).username }}</div>
             <div class="top__posts">
               {{ getUser(user).posts }}
-              {{ getUser(user).posts === 1 ? "post" : "posts" }}
+              {{ getUser(user).posts === 1 ? 'post' : 'posts' }}
             </div>
           </div>
         </BaseLink>
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-  import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from '@/layouts/Default'
 
-  import BaseLink from "@/components/BaseLink";
-  import ProfilePhoto from "@/components/ProfilePhoto";
+  import BaseLink from '@/components/BaseLink'
+  import ProfilePhoto from '@/components/ProfilePhoto'
 
   export default {
     components: {
@@ -41,20 +41,20 @@
       ProfilePhoto
     },
     created() {
-      this.getTopPosters();
+      this.getTopPosters()
     },
     methods: {
       getTopPosters() {
-        this.$store.dispatch("getTopPosters");
+        this.$store.dispatch('getTopPosters')
       },
       getUser(username) {
-        return this.$store.getters.getUser(username);
+        return this.$store.getters.getUser(username)
       }
     },
     metaInfo: {
-      title: "Top 10"
+      title: 'Top 10'
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

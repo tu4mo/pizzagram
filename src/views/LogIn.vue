@@ -28,17 +28,17 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from "@vue/composition-api";
+  import { defineComponent, ref } from '@vue/composition-api'
 
-  import WelcomeLayout from "@/layouts/Welcome.vue";
+  import WelcomeLayout from '@/layouts/Welcome.vue'
 
-  import BaseButton from "@/components/BaseButton.vue";
-  import BaseInput from "@/components/BaseInput.vue";
-  import BaseLink from "@/components/BaseLink.vue";
-  import BaseSpacer from "@/components/BaseSpacer.vue";
-  import BaseSpinner from "@/components/BaseSpinner.vue";
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseInput from '@/components/BaseInput.vue'
+  import BaseLink from '@/components/BaseLink.vue'
+  import BaseSpacer from '@/components/BaseSpacer.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import { signIn } from "@/api";
+  import { signIn } from '@/api'
 
   export default defineComponent({
     components: {
@@ -50,34 +50,34 @@
       WelcomeLayout
     },
     setup(props, context) {
-      const email = ref("");
-      const isLoading = ref(false);
-      const password = ref("");
+      const email = ref('')
+      const isLoading = ref(false)
+      const password = ref('')
 
       const submit = async () => {
-        isLoading.value = true;
+        isLoading.value = true
 
         try {
-          await signIn(email.value, password.value);
-          context.root.$router.push({ name: "home" });
+          await signIn(email.value, password.value)
+          context.root.$router.push({ name: 'home' })
         } catch (error) {
-          alert("Unable to sign in.");
+          alert('Unable to sign in.')
         }
 
-        isLoading.value = false;
-      };
+        isLoading.value = false
+      }
 
       return {
         email,
         isLoading,
         password,
         submit
-      };
+      }
     },
     metaInfo: {
-      title: "Log In"
+      title: 'Log In'
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

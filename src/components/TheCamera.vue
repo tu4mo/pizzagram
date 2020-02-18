@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
-  import BaseIcon from "./BaseIcon.vue";
+  import BaseIcon from './BaseIcon.vue'
 
   export default defineComponent({
     components: {
@@ -25,24 +25,24 @@
     setup(props, context) {
       const onChange = (event: any) => {
         if (event.target.files[0]) {
-          context.root.$store.commit("setFile", event.target.files[0]);
+          context.root.$store.commit('setFile', event.target.files[0])
         }
-      };
+      }
 
       const onClick = () => {
-        context.root.$store.commit("setFile", null);
+        context.root.$store.commit('setFile', null)
 
-        if (context.root.$route.name !== "upload") {
-          context.root.$router.push({ name: "upload" });
+        if (context.root.$route.name !== 'upload') {
+          context.root.$router.push({ name: 'upload' })
         }
-      };
+      }
 
       return {
         onChange,
         onClick
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

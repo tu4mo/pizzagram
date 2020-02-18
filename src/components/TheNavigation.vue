@@ -38,10 +38,10 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
-  import NavItem from "./NavItem.vue";
-  import TheCamera from "./TheCamera.vue";
+  import NavItem from './NavItem.vue'
+  import TheCamera from './TheCamera.vue'
 
   export default defineComponent({
     components: {
@@ -53,21 +53,21 @@
         context.root.$store.getters.getNotifications.length > 0
           ? context.root.$store.getters.getNotifications.length
           : null
-      );
+      )
 
       const isDevelopment = computed(
-        () => process.env.NODE_ENV === "development"
-      );
+        () => process.env.NODE_ENV === 'development'
+      )
 
-      const username = computed(() => context.root.$store.state.auth.username);
+      const username = computed(() => context.root.$store.state.auth.username)
 
       return {
         notifications,
         isDevelopment,
         username
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

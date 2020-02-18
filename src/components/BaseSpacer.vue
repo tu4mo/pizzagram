@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from "@vue/composition-api";
+  import { computed, defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
@@ -27,15 +27,15 @@
     setup(props) {
       const classes = computed(() => ({
         spacer: true,
-        "spacer--mb1": props.mb1,
-        "spacer--mb2": props.mb2,
-        "spacer--mt1": props.mt1,
-        "spacer--my1": props.my1
-      }));
+        'spacer--mb1': props.mb1,
+        'spacer--mb2': props.mb2,
+        'spacer--mt1': props.mt1,
+        'spacer--my1': props.my1
+      }))
 
-      return { classes };
+      return { classes }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

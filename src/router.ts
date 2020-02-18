@@ -1,101 +1,101 @@
-import Vue from "vue";
-import Router, { NavigationGuard } from "vue-router";
+import Vue from 'vue'
+import Router, { NavigationGuard } from 'vue-router'
 
-import Home from "./views/Home.vue";
-import Post from "./views/Post.vue";
-import Profile from "./views/Profile.vue";
-import ResetPassword from "./views/ResetPassword.vue";
-import LogIn from "./views/LogIn.vue";
-import Notifications from "./views/Notifications.vue";
-import SignUp from "./views/SignUp.vue";
-import Top from "./views/Top.vue";
-import Upload from "./views/Upload.vue";
+import Home from './views/Home.vue'
+import Post from './views/Post.vue'
+import Profile from './views/Profile.vue'
+import ResetPassword from './views/ResetPassword.vue'
+import LogIn from './views/LogIn.vue'
+import Notifications from './views/Notifications.vue'
+import SignUp from './views/SignUp.vue'
+import Top from './views/Top.vue'
+import Upload from './views/Upload.vue'
 
-import { currentUser, initializeAuth } from "./api";
+import { currentUser, initializeAuth } from './api'
 
-Vue.use(Router);
+Vue.use(Router)
 
-let firstCheck = true;
+let firstCheck = true
 
 const checkAutentication: NavigationGuard = async (to, from, next) => {
   if (firstCheck) {
-    firstCheck = false;
+    firstCheck = false
 
-    const user = await initializeAuth();
+    const user = await initializeAuth()
 
     if (user) {
-      next();
+      next()
     } else {
-      next({ name: "login" });
+      next({ name: 'login' })
     }
 
-    return;
+    return
   }
 
   if (currentUser()) {
-    next();
+    next()
   } else {
-    next({ name: "login" });
+    next({ name: 'login' })
   }
-};
+}
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: Home,
       beforeEnter: checkAutentication
     },
     {
-      path: "/profile/:username?",
-      name: "profile",
+      path: '/profile/:username?',
+      name: 'profile',
       component: Profile
     },
     {
-      path: "/login",
-      name: "login",
+      path: '/login',
+      name: 'login',
       component: LogIn
     },
     {
-      path: "/notifications",
-      name: "notifications",
+      path: '/notifications',
+      name: 'notifications',
       component: Notifications,
       beforeEnter: checkAutentication
     },
     {
-      path: "/post/:postId",
-      name: "post",
+      path: '/post/:postId',
+      name: 'post',
       component: Post
     },
     {
-      path: "/reset-password",
-      name: "reset-password",
+      path: '/reset-password',
+      name: 'reset-password',
       component: ResetPassword
     },
     {
-      path: "/signup",
-      name: "signup",
+      path: '/signup',
+      name: 'signup',
       component: SignUp
     },
     {
-      path: "/top",
-      name: "top",
+      path: '/top',
+      name: 'top',
       component: Top
     },
     {
-      path: "/upload/:id?",
-      name: "upload",
+      path: '/upload/:id?',
+      name: 'upload',
       component: Upload,
       beforeEnter: checkAutentication
     }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition;
+      return savedPosition
     } else {
-      return { x: 0, y: 0 };
+      return { x: 0, y: 0 }
     }
   }
-});
+})

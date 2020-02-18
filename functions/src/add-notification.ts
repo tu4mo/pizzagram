@@ -1,44 +1,44 @@
-import * as admin from "firebase-admin";
+import * as admin from 'firebase-admin'
 
 export enum NotificationType {
-  Like = "LIKE"
+  Like = 'LIKE'
 }
 
 export default (
   db: admin.firestore.Firestore,
   notificationType: NotificationType
 ) => async (snap: admin.firestore.DocumentSnapshot) => {
-  const notifications = db.collection("notifications");
+  const notifications = db.collection('notifications')
 
   if (notificationType === NotificationType.Like) {
-    const data = snap.data();
+    const data = snap.data()
 
     if (!data) {
-      return;
+      return
     }
 
-    const { postId, userId } = data;
+    const { postId, userId } = data
 
     const post = await db
-      .collection("posts")
+      .collection('posts')
       .doc(postId)
-      .get();
+      .get()
 
-    const postData = post.data();
+    const postData = post.data()
 
     if (!postData || postData.userId === userId) {
-      return;
+      return
     }
 
     const notification = await notifications
-      .where("fromUserId", "==", userId)
-      .where("postId", "==", postId)
-      .where("type", "==", NotificationType.Like)
-      .where("userId", "==", postData.userId)
-      .get();
+      .where('fromUserId', '==', userId)
+      .where('postId', '==', postId)
+      .where('type', '==', NotificationType.Like)
+      .where('userId', '==', postData.userId)
+      .get()
 
     if (!notification.empty) {
-      return;
+      return
     }
 
     await notifications.add({
@@ -48,6 +48,6 @@ export default (
       read: false,
       type: NotificationType.Like,
       userId: postData.userId
-    });
+    })
   }
-};
+}

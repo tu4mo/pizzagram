@@ -27,13 +27,13 @@
 </template>
 
 <script>
-  import DefaultLayout from "@/layouts/Default";
+  import DefaultLayout from '@/layouts/Default'
 
-  import BaseButton from "@/components/BaseButton";
-  import PostImage from "@/components/PostImage";
-  import ProfilePhoto from "@/components/ProfilePhoto";
+  import BaseButton from '@/components/BaseButton'
+  import PostImage from '@/components/PostImage'
+  import ProfilePhoto from '@/components/ProfilePhoto'
 
-  import { signOut } from "@/api";
+  import { signOut } from '@/api'
 
   export default {
     components: {
@@ -44,40 +44,40 @@
     },
     computed: {
       posts() {
-        return this.$store.getters.getPostsByFeed(this.user.username);
+        return this.$store.getters.getPostsByFeed(this.user.username)
       },
       user() {
-        return this.$store.getters.getUser(this.$route.params.username);
+        return this.$store.getters.getUser(this.$route.params.username)
       }
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        const { username } = vm.$route.params;
-        vm.fetchData(username);
-      });
+        const { username } = vm.$route.params
+        vm.fetchData(username)
+      })
     },
     beforeRouteUpdate(to, from, next) {
       if (to.params.username !== from.params.username) {
-        this.fetchData(to.params.username);
+        this.fetchData(to.params.username)
       }
-      next();
+      next()
     },
     methods: {
       async fetchData(username) {
-        await this.$store.dispatch("getUser", username);
-        await this.$store.dispatch("getPostsByUser", username);
+        await this.$store.dispatch('getUser', username)
+        await this.$store.dispatch('getPostsByUser', username)
       },
       async onLogOutClick() {
-        await signOut();
-        this.$router.push({ name: "login" });
+        await signOut()
+        this.$router.push({ name: 'login' })
       }
     },
     metaInfo() {
       return {
         title: this.user.username
-      };
+      }
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -89,7 +89,7 @@
       max-height: 16rem;
 
       &::after {
-        content: "";
+        content: '';
         display: block;
         padding-top: 50%;
       }
@@ -101,7 +101,7 @@
           var(--color-background)
         );
         bottom: 0;
-        content: "";
+        content: '';
         left: 0;
         position: absolute;
         right: 0;

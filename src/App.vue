@@ -3,15 +3,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "@vue/composition-api";
+  import { defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     metaInfo: {
       titleTemplate: titleChunk => {
-        return titleChunk ? `${titleChunk} - Pizzagram` : "Pizzagram";
+        return titleChunk ? `${titleChunk} - Pizzagram` : 'Pizzagram'
       }
     }
-  });
+  })
 </script>
 
 <style lang="scss">
@@ -31,7 +31,7 @@
 
   html {
     box-sizing: border-box;
-    font-family: "Comfortaa", Helvetica, Arial, sans-serif;
+    font-family: 'Comfortaa', Helvetica, Arial, sans-serif;
     touch-action: manipulation;
     user-select: none;
     -webkit-font-smoothing: antialiased;

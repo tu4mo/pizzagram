@@ -1,31 +1,31 @@
-import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
+import * as admin from 'firebase-admin'
+import * as functions from 'firebase-functions'
 
 export default (db: admin.firestore.Firestore) => async (
   change: functions.Change<FirebaseFirestore.DocumentSnapshot>
 ) => {
-  const postData = change.after.data();
+  const postData = change.after.data()
 
   if (!postData) {
-    return;
+    return
   }
 
-  const { userId } = postData;
+  const { userId } = postData
 
   const usersSnapshot = await db
-    .collection("users")
-    .where("id", "==", userId)
+    .collection('users')
+    .where('id', '==', userId)
     .limit(1)
-    .get();
+    .get()
 
   usersSnapshot.forEach(async doc => {
-    const posts = doc.data().posts + 1 || 1;
+    const posts = doc.data().posts + 1 || 1
 
-    console.log(`Increasing ${doc.id}'s posts count to ${posts}`);
+    console.log(`Increasing ${doc.id}'s posts count to ${posts}`)
 
     await db
-      .collection("users")
+      .collection('users')
       .doc(doc.id)
-      .update({ posts });
-  });
-};
+      .update({ posts })
+  })
+}

@@ -11,7 +11,7 @@
             v-if="Array.isArray(post.likes) && post.likes.length > 0"
             class="post__likes"
           >
-            {{ post.likes.length }} like{{ post.likes.length !== 1 ? "s" : "" }}
+            {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
           </div>
           <div v-if="post.caption" class="post__caption">
             {{ post.caption }}
@@ -49,13 +49,13 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref } from "@vue/composition-api";
+  import { computed, defineComponent, ref } from '@vue/composition-api'
 
-  import BaseButton from "./BaseButton.vue";
-  import BaseIcon from "./BaseIcon.vue";
-  import BaseSpacer from "./BaseSpacer.vue";
-  import PostHeader from "./PostHeader.vue";
-  import PostImage from "./PostImage.vue";
+  import BaseButton from './BaseButton.vue'
+  import BaseIcon from './BaseIcon.vue'
+  import BaseSpacer from './BaseSpacer.vue'
+  import PostHeader from './PostHeader.vue'
+  import PostImage from './PostImage.vue'
 
   export default defineComponent({
     components: {
@@ -80,41 +80,41 @@
       }
     },
     setup(props, context) {
-      const isPlaceholder = ref(true);
+      const isPlaceholder = ref(true)
       const postPath = computed(
         () => `${window.location.origin}/post/${props.post.id}`
-      );
+      )
       const user = computed(() =>
         context.root.$store.getters.getUserById(props.post.userId)
-      );
+      )
       const onLazyLoad = () => {
-        isPlaceholder.value = false;
-        context.root.$store.dispatch("getUserById", props.post.userId);
-        context.root.$store.dispatch("getLikes", { postId: props.post.id });
-      };
+        isPlaceholder.value = false
+        context.root.$store.dispatch('getUserById', props.post.userId)
+        context.root.$store.dispatch('getLikes', { postId: props.post.id })
+      }
       const onLikeClick = () => {
-        context.root.$store.dispatch("toggleLike", props.post.id);
-      };
+        context.root.$store.dispatch('toggleLike', props.post.id)
+      }
       const onRemoveClick = () => {
-        if (confirm("Are you sure you want to remove this post?")) {
-          context.emit("remove-click");
+        if (confirm('Are you sure you want to remove this post?')) {
+          context.emit('remove-click')
         }
-      };
+      }
       const onShareClick = async () => {
         // @ts-ignore
         if (navigator.share) {
           // @ts-ignore
           await navigator.share({
-            title: "Pizzagram",
+            title: 'Pizzagram',
             text: `${props.post.caption}${
-              props.post.caption && props.post.location ? " - " : ""
+              props.post.caption && props.post.location ? ' - ' : ''
             }${props.post.location}`,
             url: postPath
-          });
+          })
         } else {
-          alert("Sorry, you're browser doesn't seem to support Web Share.");
+          alert("Sorry, you're browser doesn't seem to support Web Share.")
         }
-      };
+      }
 
       return {
         isPlaceholder,
@@ -124,9 +124,9 @@
         onShareClick,
         postPath,
         user
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

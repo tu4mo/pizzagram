@@ -35,9 +35,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from "@vue/composition-api";
+  import { defineComponent, ref } from '@vue/composition-api'
 
-  import BaseInput from "./BaseInput.vue";
+  import BaseInput from './BaseInput.vue'
 
   export default defineComponent({
     components: {
@@ -58,19 +58,19 @@
       }
     },
     setup(props, context) {
-      const customItem = ref("");
+      const customItem = ref('')
 
       const onCustomItemInput = (value: string) => {
-        customItem.value = value;
-        context.emit("change", value);
-      };
+        customItem.value = value
+        context.emit('change', value)
+      }
 
       return {
         customItem,
         onCustomItemInput
-      };
+      }
     }
-  });
+  })
 </script>
 
 <style lang="scss" scoped>
