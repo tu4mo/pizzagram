@@ -27,17 +27,19 @@
   </DefaultLayout>
 </template>
 
-<script>
-  import DefaultLayout from "@/layouts/Default";
+<script lang="ts">
+  import { computed, defineComponent } from "@vue/composition-api";
 
-  import BaseButton from "@/components/BaseButton";
-  import BaseEmpty from "@/components/BaseEmpty";
-  import BaseLink from "@/components/BaseLink";
-  import ProfilePhoto from "@/components/ProfilePhoto";
+  import DefaultLayout from "@/layouts/Default.vue";
+
+  import BaseButton from "@/components/BaseButton.vue";
+  import BaseEmpty from "@/components/BaseEmpty.vue";
+  import BaseLink from "@/components/BaseLink.vue";
+  import ProfilePhoto from "@/components/ProfilePhoto.vue";
 
   import { markNotificationsAsRead } from "@/api/notifications";
 
-  export default {
+  export default defineComponent({
     components: {
       BaseButton,
       BaseEmpty,
@@ -45,17 +47,18 @@
       DefaultLayout,
       ProfilePhoto
     },
-    computed: {
-      notifications() {
-        return this.$store.getters.getNotifications;
-      }
-    },
-    methods: {
-      async onMarkAllAsReadClick() {
+    setup(props, context) {
+      const notifications = computed(
+        () => context.root.$store.getters.getNotifications
+      );
+
+      const onMarkAllAsReadClick = async () => {
         await markNotificationsAsRead();
-      }
+      };
+
+      return { notifications, onMarkAllAsReadClick };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
