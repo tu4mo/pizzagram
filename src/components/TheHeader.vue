@@ -5,10 +5,12 @@
   </header>
 </template>
 
-<script>
-  import TheLogo from "./TheLogo";
+<script lang="ts">
+  import { defineComponent } from "@vue/composition-api";
 
-  export default {
+  import TheLogo from "./TheLogo.vue";
+
+  export default defineComponent({
     components: {
       TheLogo
     },
@@ -18,7 +20,7 @@
         type: String
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

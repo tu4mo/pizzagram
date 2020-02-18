@@ -16,41 +16,50 @@
   </DefaultLayout>
 </template>
 
-<script>
-  import DefaultLayout from "@/layouts/Default";
+<script lang="ts">
+  import {
+    defineComponent,
+    onMounted,
+    onUnmounted
+  } from "@vue/composition-api";
 
-  import BasePost from "@/components/BasePost";
-  import BaseSpinner from "@/components/BaseSpinner";
+  import DefaultLayout from "@/layouts/Default.vue";
 
-  export default {
+  import BasePost from "@/components/BasePost.vue";
+  import BaseSpinner from "@/components/BaseSpinner.vue";
+
+  export default defineComponent({
     components: {
       BasePost,
       BaseSpinner,
       DefaultLayout
     },
-    created() {
-      this.fetchPosts();
-      window.addEventListener("scroll", this.handleScroll);
-    },
-    destroyed() {
-      window.removeEventListener("scroll", this.handleScroll);
-    },
-    methods: {
-      fetchPosts() {
-        this.$store.dispatch("getPostsForHome");
-      },
-      handleScroll() {
+    setup(props, context) {
+      const fetchPosts = () => {
+        context.root.$store.dispatch("getPostsForHome");
+      };
+
+      const handleScroll = () => {
         if (
           window.innerHeight + window.pageYOffset >=
             document.body.offsetHeight &&
-          !this.$store.state.isLastPostReached &&
-          !this.$store.state.isLoading
+          !context.root.$store.state.isLastPostReached &&
+          !context.root.$store.state.isLoading
         ) {
-          this.fetchPosts();
+          fetchPosts();
         }
-      }
+      };
+
+      onMounted(() => {
+        fetchPosts();
+        window.addEventListener("scroll", handleScroll);
+      });
+
+      onUnmounted(() => {
+        window.removeEventListener("scroll", handleScroll);
+      });
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

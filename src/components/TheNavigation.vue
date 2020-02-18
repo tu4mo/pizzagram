@@ -37,29 +37,37 @@
   </nav>
 </template>
 
-<script>
-  import NavItem from "./NavItem";
-  import TheCamera from "./TheCamera";
+<script lang="ts">
+  import { computed, defineComponent } from "@vue/composition-api";
 
-  export default {
+  import NavItem from "./NavItem.vue";
+  import TheCamera from "./TheCamera.vue";
+
+  export default defineComponent({
     components: {
       NavItem,
       TheCamera
     },
-    computed: {
-      notifications() {
-        return this.$store.getters.getNotifications.length > 0
-          ? this.$store.getters.getNotifications.length
-          : null;
-      },
-      isDevelopment() {
-        return process.env.NODE_ENV === "development";
-      },
-      username() {
-        return this.$store.state.auth.username;
-      }
+    setup(props, context) {
+      const notifications = computed(() =>
+        context.root.$store.getters.getNotifications.length > 0
+          ? context.root.$store.getters.getNotifications.length
+          : null
+      );
+
+      const isDevelopment = computed(
+        () => process.env.NODE_ENV === "development"
+      );
+
+      const username = computed(() => context.root.$store.state.auth.username);
+
+      return {
+        notifications,
+        isDevelopment,
+        username
+      };
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
