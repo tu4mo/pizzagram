@@ -11,14 +11,17 @@
         <ProfilePhoto :user="user" class="profile__photo" size="large" />
         <div class="profile__username">{{ user.username }}</div>
       </div>
-      <div class="profile__posts">
-        <PostImage
+      <ul class="profile__posts">
+        <li
           v-for="post in $store.getters.getPostsByFeed(user.username)"
           :key="post.id"
-          :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
-          :to="{ name: 'post', params: { postId: post.id } }"
-        />
-      </div>
+        >
+          <PostImage
+            :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
+            :to="{ name: 'post', params: { postId: post.id } }"
+          />
+        </li>
+      </ul>
       <div v-if="$store.getters.getIsMe(user.id)" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
       </div>
@@ -123,7 +126,7 @@
     }
 
     &__photo {
-      border: 0.25rem solid var(--color-background);
+      box-shadow: 0 0 4rem 2rem #fff;
       margin-bottom: 0.5rem;
     }
 
@@ -136,6 +139,7 @@
       grid-gap: 1px;
       grid-template-columns: repeat(3, 1fr);
       margin: 0 auto;
+      list-style: none;
       padding: 2rem 0;
 
       @media (min-width: 640px) {

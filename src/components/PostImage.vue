@@ -1,9 +1,9 @@
 <template>
   <RouterLink v-if="to" :to="to" class="post-image">
-    <img v-lazy="imageUrl" class="post-image__image" />
+    <img v-lazy="imageUrl" alt="" class="post-image__image" />
   </RouterLink>
   <div v-else class="post-image">
-    <img v-lazy="imageUrl" class="post-image__image" />
+    <img v-lazy="imageUrl" alt="" class="post-image__image" />
   </div>
 </template>
 
