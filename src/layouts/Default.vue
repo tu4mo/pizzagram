@@ -112,6 +112,7 @@
       justify-content: center;
       left: 0;
       padding: 0 2rem;
+      padding-top: env(safe-area-inset-top);
       position: fixed;
       right: 0;
       transition: background-color 0.4s;
@@ -150,7 +151,7 @@
       margin: 0 auto;
       margin-bottom: 3.5rem;
       min-height: calc(100vh - 7.5rem);
-      padding-top: 4rem;
+      padding-top: calc(4rem + env(safe-area-inset-top));
       position: relative;
 
       &--from-top {

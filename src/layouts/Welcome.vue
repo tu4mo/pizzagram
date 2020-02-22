@@ -34,6 +34,7 @@
       display: flex;
       justify-content: center;
       left: 0;
+      padding-top: env(safe-area-inset-top);
       position: fixed;
       right: 0;
       top: 0;
