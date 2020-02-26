@@ -1,8 +1,12 @@
-<template functional>
-  <div class="icon" v-html="$options.ICONS[props.name]" />
+<template>
+  <div class="icon" v-html="icon" />
 </template>
 
-<script>
+<script lang="ts">
+  // eslint-disable-next-line
+  import { VNode } from 'vue'
+  import { computed, defineComponent } from '@vue/composition-api'
+
   import bell from 'feather-icons/dist/icons/bell.svg'
   import camera from 'feather-icons/dist/icons/camera.svg'
   import chevronLeft from 'feather-icons/dist/icons/chevron-left.svg'
@@ -13,25 +17,33 @@
   import trash2 from 'feather-icons/dist/icons/trash-2.svg'
   import user from 'feather-icons/dist/icons/user.svg'
 
-  export default {
-    ICONS: {
-      bell,
-      camera,
-      chevronLeft,
-      heart,
-      home,
-      share,
-      star,
-      trash2,
-      user
-    },
+  export default defineComponent({
     props: {
       name: {
         required: true,
         type: String
       }
+    },
+    setup(props) {
+      const ICONS: { [key: string]: VNode } = {
+        bell,
+        camera,
+        chevronLeft,
+        heart,
+        home,
+        share,
+        star,
+        trash2,
+        user
+      }
+
+      const icon = computed(() => ICONS[props.name])
+
+      return {
+        icon
+      }
     }
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

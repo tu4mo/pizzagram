@@ -23,18 +23,20 @@
   </WelcomeLayout>
 </template>
 
-<script>
-  import WelcomeLayout from '@/layouts/Welcome'
+<script lang="ts">
+  import { defineComponent, ref } from '@vue/composition-api'
 
-  import BaseButton from '@/components/BaseButton'
-  import BaseInput from '@/components/BaseInput'
-  import BaseLink from '@/components/BaseLink'
-  import BaseSpacer from '@/components/BaseSpacer'
-  import BaseSpinner from '@/components/BaseSpinner'
+  import WelcomeLayout from '@/layouts/Welcome.vue'
+
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseInput from '@/components/BaseInput.vue'
+  import BaseLink from '@/components/BaseLink.vue'
+  import BaseSpacer from '@/components/BaseSpacer.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { auth } from '@/api'
 
-  export default {
+  export default defineComponent({
     components: {
       BaseButton,
       BaseInput,
@@ -43,25 +45,36 @@
       BaseSpinner,
       WelcomeLayout
     },
-    data() {
-      return {
-        email: '',
-        hasSentMail: false,
-        isLoading: false
+    setup() {
+      const email = ref('')
+      const hasSentMail = ref(false)
+      const isLoading = ref(false)
+
+      const submit = async () => {
+        isLoading.value = true
+        hasSentMail.value = false
+
+        try {
+          await auth.sendPasswordResetEmail(email.value)
+          hasSentMail.value = true
+        } catch (e) {
+          alert(e.message)
+        }
+
+        isLoading.value = false
       }
-    },
-    methods: {
-      async submit() {
-        this.isLoading = true
-        await auth.sendPasswordResetEmail(this.email)
-        this.isLoading = false
-        this.hasSentMail = true
+
+      return {
+        email,
+        hasSentMail,
+        isLoading,
+        submit
       }
     },
     metaInfo: {
       title: 'Reset Password'
     }
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
