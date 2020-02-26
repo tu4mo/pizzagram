@@ -30,7 +30,6 @@
       ]"
     >
       <slot />
-      <div class="default-layout__spacer" />
     </main>
   </div>
 </template>
@@ -137,6 +136,7 @@
       position: absolute;
       left: 0;
       top: 0;
+      top: env(safe-area-inset-top);
 
       @media (min-width: 640px) {
         display: none;
@@ -149,8 +149,8 @@
 
     &__main {
       margin: 0 auto;
-      margin-bottom: 3.5rem;
-      min-height: calc(100vh - 7.5rem);
+      min-height: 100vh;
+      padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
       padding-top: calc(4rem + env(safe-area-inset-top));
       position: relative;
 
@@ -161,10 +161,6 @@
       &--max-width {
         max-width: var(--content-width);
       }
-    }
-
-    &__spacer {
-      padding-bottom: env(safe-area-inset-bottom);
     }
 
     &__header {

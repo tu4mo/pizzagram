@@ -139,8 +139,8 @@
       grid-gap: 1px;
       grid-template-columns: repeat(3, 1fr);
       margin: 0 auto;
+      margin-top: 2rem;
       list-style: none;
-      padding: 2rem 0;
 
       @media (min-width: 640px) {
         grid-gap: 1rem;
@@ -151,7 +151,7 @@
     }
 
     &__footer {
-      margin-top: 1rem;
+      margin: 1rem 0;
     }
   }
 </style>
