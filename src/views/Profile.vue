@@ -17,7 +17,7 @@
           :key="post.id"
         >
           <PostImage
-            :image-url="post.imageUrl.replace('.jpg', '_128.jpg')"
+            :image-url="post.imageUrl.replace('.jpg', '_t.jpg')"
             :to="{ name: 'post', params: { postId: post.id } }"
           />
         </li>

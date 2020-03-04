@@ -19,7 +19,7 @@ export default (db: admin.firestore.Firestore) => async (
 
   const bucket = storage.bucket('pizzagram-cc.appspot.com')
   const photoFile = bucket.file(`posts/${id}.jpg`)
-  const thumbnailFile = bucket.file(`posts/${id}_128.jpg`)
+  const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
 
   const usersCollection = db.collection('users')
 

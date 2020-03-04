@@ -12,7 +12,7 @@ export default (size: number) => {
   const bucket = storage.bucket(fileBucket)
 
   const { name } = path.parse(filePath)
-  const resizedFileName = size === 128 ? `${name}_${size}.jpg` : `${name}.jpg`
+  const resizedFileName = size === 256 ? `${name}_t.jpg` : `${name}.jpg`
   const resizedFilePath = path.join(path.dirname(filePath), resizedFileName)
 
   const resizedUploadStream = bucket.file(resizedFilePath).createWriteStream({
