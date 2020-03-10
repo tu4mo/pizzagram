@@ -1,6 +1,6 @@
 <template>
   <article class="post">
-    <lazy-component @show="onLazyLoad">
+    <div v-if="!isPlaceholder">
       <PostHeader :created-at="post.createdAt" :user="user" />
       <BaseSpacer mt1>
         <PostImage :image-url="post.imageUrl" :to="imageTo" />
@@ -40,11 +40,14 @@
           </BaseButton>
         </div>
       </footer>
-    </lazy-component>
-    <template v-if="isPlaceholder">
+    </div>
+    <div
+      v-else
+      v-observe-visibility="{ callback: onVisibilityChanged, once: true }"
+    >
       <PostHeader :created-at="post.createdAt" />
       <div class="post__image"><PostImage /></div>
-    </template>
+    </div>
   </article>
 </template>
 
@@ -81,25 +84,35 @@
     },
     setup(props, context) {
       const isPlaceholder = ref(true)
+
       const postPath = computed(
         () => `${window.location.origin}/post/${props.post.id}`
       )
+
       const user = computed(() =>
         context.root.$store.getters.getUserById(props.post.userId)
       )
-      const onLazyLoad = () => {
+
+      const onVisibilityChanged = (isVisible: boolean) => {
+        if (!isVisible) {
+          return
+        }
+
         isPlaceholder.value = false
         context.root.$store.dispatch('getUserById', props.post.userId)
         context.root.$store.dispatch('getLikes', { postId: props.post.id })
       }
+
       const onLikeClick = () => {
         context.root.$store.dispatch('toggleLike', props.post.id)
       }
+
       const onRemoveClick = () => {
         if (confirm('Are you sure you want to remove this post?')) {
           context.emit('remove-click')
         }
       }
+
       const onShareClick = async () => {
         // @ts-ignore
         if (navigator.share) {
@@ -118,7 +131,7 @@
 
       return {
         isPlaceholder,
-        onLazyLoad,
+        onVisibilityChanged,
         onLikeClick,
         onRemoveClick,
         onShareClick,

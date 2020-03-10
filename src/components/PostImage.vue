@@ -1,14 +1,16 @@
 <template>
-  <RouterLink v-if="to" :to="to" class="post-image">
-    <img v-lazy="imageUrl" alt="" class="post-image__image" />
-  </RouterLink>
-  <div v-else class="post-image">
-    <img v-lazy="imageUrl" alt="" class="post-image__image" />
+  <div v-observe-visibility="{ callback: onVisibilityChanged, once: true }">
+    <RouterLink v-if="to" :to="to" class="post-image">
+      <img :src="actualUrl" alt="" class="post-image__image" />
+    </RouterLink>
+    <div v-else class="post-image">
+      <img :src="actualUrl" alt="" class="post-image__image" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from '@vue/composition-api'
+  import { defineComponent, ref } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
@@ -19,6 +21,22 @@
       to: {
         default: null,
         type: [String, Object]
+      }
+    },
+    setup(props) {
+      const actualUrl = ref('')
+
+      const onVisibilityChanged = (isVisible: boolean) => {
+        if (!isVisible) {
+          return
+        }
+
+        actualUrl.value = props.imageUrl
+      }
+
+      return {
+        actualUrl,
+        onVisibilityChanged
       }
     }
   })

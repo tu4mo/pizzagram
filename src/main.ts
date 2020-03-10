@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueCompositionApi from '@vue/composition-api'
-import VueLazyload from 'vue-lazyload'
+import VueObserveVisibility from 'vue-observe-visibility'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 import Meta from 'vue-meta'
@@ -24,11 +24,7 @@ if (process.env.NODE_ENV !== 'development') {
 Vue.config.productionTip = false
 
 Vue.use(VueCompositionApi)
-
-Vue.use(VueLazyload, {
-  lazyComponent: true,
-  observer: true
-})
+Vue.use(VueObserveVisibility)
 
 Vue.use(Meta)
 
