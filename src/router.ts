@@ -11,7 +11,7 @@ import SignUp from './views/SignUp.vue'
 import Top from './views/Top.vue'
 import Upload from './views/Upload.vue'
 
-import { currentUser, initializeAuth } from './api'
+import { currentUser, initializeAuth } from './api/user'
 
 Vue.use(Router)
 

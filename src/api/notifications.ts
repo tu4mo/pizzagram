@@ -1,4 +1,5 @@
-import { currentUser, firestore, getUser } from '.'
+import { firestore } from '.'
+import { currentUser, getUser } from './user'
 
 const collection = firestore.collection('notifications')
 

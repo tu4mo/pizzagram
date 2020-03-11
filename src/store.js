@@ -6,14 +6,14 @@ import {
   getLikes,
   getPost,
   getPosts,
-  getUser,
-  getUserByUsername,
   QUERY_LIMIT,
   removePost,
   setOnAuthStateChangedCallback,
   subscribeToPosts,
   toggleLike
 } from './api'
+
+import { getUser, getUserByUsername } from './api/user'
 
 import { subscribeToNotifications } from './api/notifications'
 
