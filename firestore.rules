@@ -18,6 +18,10 @@ service cloud.firestore {
       allow create: if request.auth.uid != null;
     }
 
+    match /comments/{commentId} {
+      allow read;
+    }
+
     match /notifications/{notificationId} {
       allow read: if request.auth.uid == resource.data.userId;
       allow update: if request.auth.uid == resource.data.userId
