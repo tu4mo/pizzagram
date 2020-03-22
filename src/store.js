@@ -4,14 +4,17 @@ import Vuex from 'vuex'
 import {
   fetchTopPosters,
   getLikes,
-  getPost,
-  getPosts,
-  QUERY_LIMIT,
-  removePost,
   setOnAuthStateChangedCallback,
-  subscribeToPosts,
   toggleLike
 } from './api'
+
+import {
+  getPost,
+  getPosts,
+  removePost,
+  subscribeToPosts,
+  QUERY_LIMIT
+} from './api/posts'
 
 import { getUser, getUserByUsername } from './api/user'
 
