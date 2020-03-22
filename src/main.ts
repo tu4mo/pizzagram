@@ -15,9 +15,9 @@ if (process.env.NODE_ENV !== 'development') {
     integrations: [
       new Integrations.Vue({
         Vue,
-        attachProps: true
-      })
-    ]
+        attachProps: true,
+      }),
+    ],
   })
 }
 
@@ -31,5 +31,5 @@ Vue.use(Meta)
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

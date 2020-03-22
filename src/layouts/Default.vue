@@ -3,7 +3,7 @@
     <div
       :class="[
         'default-layout__top',
-        { 'default-layout__top--border': hasScrolled }
+        { 'default-layout__top--border': hasScrolled },
       ]"
     >
       <div class="default-layout__back">
@@ -25,8 +25,8 @@
         'default-layout__main',
         {
           'default-layout__main--from-top': fromTop,
-          'default-layout__main--max-width': maxWidth
-        }
+          'default-layout__main--max-width': maxWidth,
+        },
       ]"
     >
       <slot />
@@ -40,7 +40,7 @@
     defineComponent,
     onMounted,
     onUnmounted,
-    ref
+    ref,
   } from '@vue/composition-api'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -53,21 +53,21 @@
       BaseButton,
       BaseIcon,
       TheHeader,
-      TheNavigation
+      TheNavigation,
     },
     props: {
       maxWidth: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       title: {
         default: null,
-        type: String
+        type: String,
       },
       fromTop: {
         default: false,
-        type: Boolean
-      }
+        type: Boolean,
+      },
     },
     setup(props, context) {
       const hasScrolled = ref(false)
@@ -95,9 +95,9 @@
       return {
         hasScrolled,
         canGoBack,
-        isAuthenticated
+        isAuthenticated,
       }
-    }
+    },
   })
 </script>
 

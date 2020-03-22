@@ -11,7 +11,7 @@ const userCache = () => {
     },
     set(username: string, user: any) {
       cache[username] = user
-    }
+    },
   }
 }
 

@@ -2,5 +2,5 @@ module.exports = {
   htmlWhitespaceSensitivity: 'ignore',
   semi: false,
   singleQuote: true,
-  vueIndentScriptAndStyle: true
+  vueIndentScriptAndStyle: true,
 }

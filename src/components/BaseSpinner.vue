@@ -15,21 +15,21 @@
     props: {
       cover: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       inline: {
         default: false,
-        type: Boolean
-      }
+        type: Boolean,
+      },
     },
     setup(props) {
       const classes = computed(() => [
         'spinner',
-        { 'spinner--cover': props.cover, 'spinner--inline': props.inline }
+        { 'spinner--cover': props.cover, 'spinner--inline': props.inline },
       ])
 
       return { classes }
-    }
+    },
   })
 </script>
 

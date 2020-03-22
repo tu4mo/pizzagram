@@ -47,7 +47,7 @@
       BaseLink,
       BaseSpacer,
       BaseSpinner,
-      WelcomeLayout
+      WelcomeLayout,
     },
     data() {
       return {
@@ -55,7 +55,7 @@
         error: '',
         isLoading: false,
         password: '',
-        username: ''
+        username: '',
       }
     },
     methods: {
@@ -71,11 +71,11 @@
         }
 
         this.isLoading = false
-      }
+      },
     },
     metaInfo: {
-      title: 'Sign Up'
-    }
+      title: 'Sign Up',
+    },
   }
 </script>
 

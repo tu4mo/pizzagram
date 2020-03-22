@@ -12,14 +12,14 @@
 
   export default defineComponent({
     components: {
-      TheLogo
+      TheLogo,
     },
     props: {
       title: {
         default: null,
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   })
 </script>
 

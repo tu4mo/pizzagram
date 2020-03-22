@@ -11,14 +11,14 @@ export const createUserObject = (doc: firebase.firestore.DocumentSnapshot) => {
 }
 
 export const initializeAuth = () =>
-  new Promise<firebase.User | null>(resolve => {
-    auth.onAuthStateChanged(user => {
+  new Promise<firebase.User | null>((resolve) => {
+    auth.onAuthStateChanged((user) => {
       resolve(user)
     })
   })
 
 export const getUser = async (id: string) => {
-  if (!Object.values(userCache.getAll()).find(user => user.id === id)) {
+  if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
     try {
       const querySnapshot = await firestore
         .collection('users')
@@ -37,15 +37,12 @@ export const getUser = async (id: string) => {
     }
   }
 
-  return Object.values(userCache.getAll()).find(user => user.id === id)
+  return Object.values(userCache.getAll()).find((user) => user.id === id)
 }
 
 export const getUserByUsername = async (username: string) => {
   if (!userCache.getAll()[username]) {
-    const docRef = await firestore
-      .collection('users')
-      .doc(username)
-      .get()
+    const docRef = await firestore.collection('users').doc(username).get()
 
     const user = createUserObject(docRef)
 

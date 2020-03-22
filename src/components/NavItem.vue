@@ -19,26 +19,26 @@
   export default defineComponent({
     components: {
       BaseIcon,
-      BaseLink
+      BaseLink,
     },
     props: {
       badge: {
         default: null,
-        type: [Number, String]
+        type: [Number, String],
       },
       exact: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       icon: {
         required: true,
-        type: String
+        type: String,
       },
       to: {
         required: true,
-        type: Object
-      }
-    }
+        type: Object,
+      },
+    },
   })
 </script>
 

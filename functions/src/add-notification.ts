@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin'
 
 export enum NotificationType {
-  Like = 'LIKE'
+  Like = 'LIKE',
 }
 
 export default (
@@ -19,10 +19,7 @@ export default (
 
     const { postId, userId } = data
 
-    const post = await db
-      .collection('posts')
-      .doc(postId)
-      .get()
+    const post = await db.collection('posts').doc(postId).get()
 
     const postData = post.data()
 
@@ -47,7 +44,7 @@ export default (
       postId,
       read: false,
       type: NotificationType.Like,
-      userId: postData.userId
+      userId: postData.userId,
     })
   }
 }

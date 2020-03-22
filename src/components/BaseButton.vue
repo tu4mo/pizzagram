@@ -16,13 +16,13 @@
     props: {
       component: {
         default: 'button',
-        type: String
+        type: String,
       },
       variant: {
         default: null,
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   })
 </script>
 

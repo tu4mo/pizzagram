@@ -9,20 +9,20 @@
     props: {
       mb1: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       mb2: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       mt1: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       my1: {
         default: false,
-        type: Boolean
-      }
+        type: Boolean,
+      },
     },
     setup(props) {
       const classes = computed(() => ({
@@ -30,11 +30,11 @@
         'spacer--mb1': props.mb1,
         'spacer--mb2': props.mb2,
         'spacer--mt1': props.mt1,
-        'spacer--my1': props.my1
+        'spacer--my1': props.my1,
       }))
 
       return { classes }
-    }
+    },
   })
 </script>
 

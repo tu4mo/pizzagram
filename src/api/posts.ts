@@ -11,15 +11,15 @@ export const subscribeToPosts = (callback: (posts: any[]) => void) =>
     .orderBy('createdAt', 'desc')
     .where('published', '==', true)
     .limit(QUERY_LIMIT)
-    .onSnapshot(querySnapshot => {
+    .onSnapshot((querySnapshot) => {
       const posts: any[] = []
-      querySnapshot.forEach(doc => posts.push(createPostObject(doc)))
+      querySnapshot.forEach((doc) => posts.push(createPostObject(doc)))
       callback(posts)
     })
 
 export const getPosts = async ({
   userId,
-  startAfter
+  startAfter,
 }: { userId?: string; startAfter?: any } = {}) => {
   let query = firestore
     .collection('posts')
@@ -40,17 +40,14 @@ export const getPosts = async ({
 
   const posts: any[] = []
 
-  querySnapshot.docs.forEach(doc => posts.push(createPostObject(doc)))
+  querySnapshot.docs.forEach((doc) => posts.push(createPostObject(doc)))
 
   return posts
 }
 
 export const getPost = async (id: string) => {
   try {
-    const docRef = await firestore
-      .collection('posts')
-      .doc(id)
-      .get()
+    const docRef = await firestore.collection('posts').doc(id).get()
 
     return createPostObject(docRef)
   } catch (error) {
@@ -66,7 +63,7 @@ const createPostObject = (doc: firebase.firestore.DocumentSnapshot) => {
         ...data,
         createdAt: data.createdAt.toDate(),
         doc,
-        id: doc.id
+        id: doc.id,
       }
     : data
 }
@@ -77,7 +74,7 @@ export const sharePost = async ({
   rating,
   latitude,
   longitude,
-  location
+  location,
 }: {
   caption: string
   file: File
@@ -101,31 +98,25 @@ export const sharePost = async ({
     latitude,
     longitude,
     location,
-    userId: user.uid
+    userId: user.uid,
   })
   const uploadTask = await uploadFile(file, docRef.id)
   const downloadUrl = await uploadTask.ref.getDownloadURL()
 
   await docRef.update({
     imageUrl: downloadUrl,
-    published: true
+    published: true,
   })
 
   return docRef.id
 }
 
 const uploadFile = async (file: File, id: string) => {
-  const uploadTask = storageRef
-    .child('posts')
-    .child(`${id}.jpg`)
-    .put(file)
+  const uploadTask = storageRef.child('posts').child(`${id}.jpg`).put(file)
 
   return uploadTask
 }
 
 export const removePost = async (id: string) => {
-  await firestore
-    .collection('posts')
-    .doc(id)
-    .delete()
+  await firestore.collection('posts').doc(id).delete()
 }

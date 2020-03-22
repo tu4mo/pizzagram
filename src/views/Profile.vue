@@ -3,7 +3,7 @@
     <div class="profile">
       <div
         :style="{
-          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`
+          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`,
         }"
         class="profile__header"
       />
@@ -43,7 +43,7 @@
       BaseButton,
       DefaultLayout,
       PostImage,
-      ProfilePhoto
+      ProfilePhoto,
     },
     computed: {
       posts() {
@@ -51,10 +51,10 @@
       },
       user() {
         return this.$store.getters.getUser(this.$route.params.username)
-      }
+      },
     },
     beforeRouteEnter(to, from, next) {
-      next(vm => {
+      next((vm) => {
         const { username } = vm.$route.params
         vm.fetchData(username)
       })
@@ -73,13 +73,13 @@
       async onLogOutClick() {
         await signOut()
         this.$router.push({ name: 'login' })
-      }
+      },
     },
     metaInfo() {
       return {
-        title: this.user.username
+        title: this.user.username,
       }
-    }
+    },
   }
 </script>
 

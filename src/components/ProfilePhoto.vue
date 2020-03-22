@@ -14,21 +14,21 @@
   export default defineComponent({
     props: {
       asLink: {
-        type: Boolean
+        type: Boolean,
       },
       size: {
         default: 'small',
-        type: String
+        type: String,
       },
       user: {
         default: undefined,
-        type: Object
-      }
+        type: Object,
+      },
     },
     setup(props) {
       const classes = computed(() => [
         'profile-photo',
-        `profile-photo--${props.size}`
+        `profile-photo--${props.size}`,
       ])
       const username = computed(() => (props.user ? props.user.username : ''))
       const profileUrl = computed(() =>
@@ -38,7 +38,7 @@
       )
 
       return { classes, username, profileUrl }
-    }
+    },
   })
 </script>
 

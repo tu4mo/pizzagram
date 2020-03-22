@@ -20,7 +20,7 @@
   export default {
     components: {
       BasePost,
-      DefaultLayout
+      DefaultLayout,
     },
     computed: {
       postId() {
@@ -28,7 +28,7 @@
       },
       singlePost() {
         return this.$store.getters.getPostById(this.postId)
-      }
+      },
     },
     created() {
       const { postId } = this.$route.params
@@ -47,13 +47,13 @@
       onRemoveClick() {
         this.$store.dispatch('removePost', this.postId)
         this.$router.go(-1)
-      }
+      },
     },
     metaInfo() {
       return {
-        title: this.$store.getters.getUserById(this.singlePost.userId).username
+        title: this.$store.getters.getUserById(this.singlePost.userId).username,
       }
-    }
+    },
   }
 </script>
 

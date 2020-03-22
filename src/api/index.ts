@@ -14,7 +14,7 @@ firebase.initializeApp({
   databaseURL: 'https://pizzagram-cc.firebaseio.com',
   projectId: 'pizzagram-cc',
   storageBucket: 'pizzagram-cc.appspot.com',
-  messagingSenderId: '393669371775'
+  messagingSenderId: '393669371775',
 })
 
 export const auth = firebase.auth()
@@ -30,7 +30,7 @@ let isSigningUp = false
 
 let onAuthStateChangedCallback: (user: firebase.User | null) => void
 
-auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(async (user) => {
   !isSigningUp && onAuthStateChangedCallback(user)
 })
 
@@ -51,7 +51,7 @@ export const signUp = async (
 
   await userDoc.set({
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    id: null
+    id: null,
   })
 
   await auth.createUserWithEmailAndPassword(email, password)
@@ -142,7 +142,7 @@ export const getNearbyLocations = async (
   try {
     const query = locations.near({
       center: new firebase.firestore.GeoPoint(latitude, longitude),
-      radius: 0.4
+      radius: 0.4,
     })
 
     const querySnapshot = await query.get()
@@ -152,7 +152,7 @@ export const getNearbyLocations = async (
     for (const doc of querySnapshot.docs) {
       locationsArray.push({
         id: doc.id,
-        name: doc.data().name
+        name: doc.data().name,
       })
     }
 
@@ -165,7 +165,7 @@ export const getNearbyLocations = async (
 export const addLocation = async ({
   name,
   latitude,
-  longitude
+  longitude,
 }: {
   name: string
   latitude: number
@@ -173,6 +173,6 @@ export const addLocation = async ({
 }) => {
   await locations.add({
     coordinates: new firebase.firestore.GeoPoint(latitude, longitude),
-    name: name.trim()
+    name: name.trim(),
   })
 }

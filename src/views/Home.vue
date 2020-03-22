@@ -28,7 +28,7 @@
     components: {
       BasePost,
       BaseSpinner,
-      DefaultLayout
+      DefaultLayout,
     },
     setup(props, context) {
       const fetchPosts = () => {
@@ -54,7 +54,7 @@
       onUnmounted(() => {
         window.removeEventListener('scroll', handleScroll)
       })
-    }
+    },
   })
 </script>
 

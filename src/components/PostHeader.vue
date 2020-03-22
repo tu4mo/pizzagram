@@ -25,17 +25,17 @@
 
   export default defineComponent({
     components: {
-      ProfilePhoto
+      ProfilePhoto,
     },
     props: {
       createdAt: {
         required: true,
-        type: Date
+        type: Date,
       },
       user: {
         default: () => {},
-        type: Object
-      }
+        type: Object,
+      },
     },
     setup(props) {
       // @ts-ignore
@@ -46,9 +46,9 @@
 
       return {
         createdDate,
-        isUserLoaded
+        isUserLoaded,
       }
-    }
+    },
   })
 </script>
 

@@ -32,12 +32,12 @@ export default (db: admin.firestore.Firestore) => async (
     const deleteBatch = db.batch()
 
     const likesSnapshot = await likes.where('postId', '==', id).get()
-    likesSnapshot.forEach(doc => {
+    likesSnapshot.forEach((doc) => {
       deleteBatch.delete(likes.doc(doc.id))
     })
 
     const notificationsSnapshot = await likes.where('postId', '==', id).get()
-    notificationsSnapshot.forEach(doc => {
+    notificationsSnapshot.forEach((doc) => {
       deleteBatch.delete(notifications.doc(doc.id))
     })
 
@@ -52,7 +52,7 @@ export default (db: admin.firestore.Firestore) => async (
       .limit(1)
       .get()
 
-    usersSnapshot.forEach(async userRef => {
+    usersSnapshot.forEach(async (userRef) => {
       const posts = userRef.data().posts - 1
       await usersCollection.doc(userRef.id).update({ posts })
       console.log(`Decreasing ${userRef.id}'s posts count to ${posts}`)

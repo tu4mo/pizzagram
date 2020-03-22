@@ -16,12 +16,12 @@
     props: {
       imageUrl: {
         default: null,
-        type: String
+        type: String,
       },
       to: {
         default: null,
-        type: [String, Object]
-      }
+        type: [String, Object],
+      },
     },
     setup(props) {
       const actualUrl = ref('')
@@ -36,9 +36,9 @@
 
       return {
         actualUrl,
-        onVisibilityChanged
+        onVisibilityChanged,
       }
-    }
+    },
   })
 </script>
 

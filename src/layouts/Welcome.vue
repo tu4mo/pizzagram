@@ -12,8 +12,8 @@
 
   export default defineComponent({
     components: {
-      TheHeader
-    }
+      TheHeader,
+    },
   })
 </script>
 

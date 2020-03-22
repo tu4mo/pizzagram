@@ -41,21 +41,21 @@
 
   export default defineComponent({
     components: {
-      BaseInput
+      BaseInput,
     },
     props: {
       name: {
         required: true,
-        type: String
+        type: String,
       },
       options: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
       value: {
         required: true,
-        type: String
-      }
+        type: String,
+      },
     },
     setup(props, context) {
       const customItem = ref('')
@@ -67,9 +67,9 @@
 
       return {
         customItem,
-        onCustomItemInput
+        onCustomItemInput,
       }
-    }
+    },
   })
 </script>
 

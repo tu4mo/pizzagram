@@ -7,7 +7,7 @@ export default (db: admin.firestore.Firestore) => async (
 ) => {
   const usersSnapshot = await db.collection('users').get()
 
-  usersSnapshot.forEach(async userRef => {
+  usersSnapshot.forEach(async (userRef) => {
     const postsSnapshot = await db
       .collection('posts')
       .where('userId', '==', userRef.data().id)

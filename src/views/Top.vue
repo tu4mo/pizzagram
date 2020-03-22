@@ -9,7 +9,7 @@
         <BaseLink
           :to="{
             name: 'profile',
-            params: { username: getUser(user).username }
+            params: { username: getUser(user).username },
           }"
           class="top__item"
         >
@@ -38,7 +38,7 @@
     components: {
       BaseLink,
       DefaultLayout,
-      ProfilePhoto
+      ProfilePhoto,
     },
     created() {
       this.getTopPosters()
@@ -49,11 +49,11 @@
       },
       getUser(username) {
         return this.$store.getters.getUser(username)
-      }
+      },
     },
     metaInfo: {
-      title: 'Top 10'
-    }
+      title: 'Top 10',
+    },
   }
 </script>
 

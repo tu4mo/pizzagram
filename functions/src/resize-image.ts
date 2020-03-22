@@ -37,8 +37,8 @@ export default async (
   const resizedUploadStream = bucket.file(resizedFilePath).createWriteStream({
     metadata: {
       contentType: contentType,
-      metadata: { resized: true }
-    }
+      metadata: { resized: true },
+    },
   })
 
   const pipeline = sharp()
@@ -49,10 +49,7 @@ export default async (
     .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
     .pipe(resizedUploadStream)
 
-  bucket
-    .file(filePath)
-    .createReadStream()
-    .pipe(pipeline)
+  bucket.file(filePath).createReadStream().pipe(pipeline)
 
   await new Promise((resolve, reject) =>
     resizedUploadStream.on('finish', resolve).on('error', reject)

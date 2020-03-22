@@ -15,13 +15,13 @@
     props: {
       borderless: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       value: {
         required: true,
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   })
 </script>
 

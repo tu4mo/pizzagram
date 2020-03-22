@@ -16,7 +16,7 @@ export const subscribeToNotifications = (
     .orderBy('createdAt', 'desc')
     .where('userId', '==', user.uid)
     .where('read', '==', false)
-    .onSnapshot(async querySnapshot => {
+    .onSnapshot(async (querySnapshot) => {
       const notifications = []
 
       for await (const doc of querySnapshot.docs) {
@@ -25,7 +25,7 @@ export const subscribeToNotifications = (
         notifications.push({
           ...data,
           createdAt: data.createdAt.toDate(),
-          from
+          from,
         })
       }
 
@@ -47,7 +47,7 @@ export const markNotificationsAsRead = async () => {
 
   const batch = firestore.batch()
 
-  notifications.docs.forEach(async doc => {
+  notifications.docs.forEach(async (doc) => {
     const notification = collection.doc(doc.id)
     batch.update(notification, { read: true })
   })

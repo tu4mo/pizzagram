@@ -2,7 +2,7 @@ module.exports = {
   root: true,
 
   env: {
-    node: true
+    node: true,
   },
 
   extends: [
@@ -11,10 +11,10 @@ module.exports = {
     '@vue/typescript',
     'prettier',
     'prettier/vue',
-    'prettier/@typescript-eslint'
+    'prettier/@typescript-eslint',
   ],
 
   parserOptions: {
-    parser: '@typescript-eslint/parser'
-  }
+    parser: '@typescript-eslint/parser',
+  },
 }

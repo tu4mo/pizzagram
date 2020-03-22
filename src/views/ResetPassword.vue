@@ -43,7 +43,7 @@
       BaseLink,
       BaseSpacer,
       BaseSpinner,
-      WelcomeLayout
+      WelcomeLayout,
     },
     setup() {
       const email = ref('')
@@ -68,12 +68,12 @@
         email,
         hasSentMail,
         isLoading,
-        submit
+        submit,
       }
     },
     metaInfo: {
-      title: 'Reset Password'
-    }
+      title: 'Reset Password',
+    },
   })
 </script>
 

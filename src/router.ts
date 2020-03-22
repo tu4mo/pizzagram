@@ -46,50 +46,50 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: checkAutentication
+      beforeEnter: checkAutentication,
     },
     {
       path: '/profile/:username?',
       name: 'profile',
-      component: Profile
+      component: Profile,
     },
     {
       path: '/login',
       name: 'login',
-      component: LogIn
+      component: LogIn,
     },
     {
       path: '/notifications',
       name: 'notifications',
       component: Notifications,
-      beforeEnter: checkAutentication
+      beforeEnter: checkAutentication,
     },
     {
       path: '/post/:postId',
       name: 'post',
-      component: Post
+      component: Post,
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: ResetPassword
+      component: ResetPassword,
     },
     {
       path: '/signup',
       name: 'signup',
-      component: SignUp
+      component: SignUp,
     },
     {
       path: '/top',
       name: 'top',
-      component: Top
+      component: Top,
     },
     {
       path: '/upload/:id?',
       name: 'upload',
       component: Upload,
-      beforeEnter: checkAutentication
-    }
+      beforeEnter: checkAutentication,
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -97,5 +97,5 @@ export default new Router({
     } else {
       return { x: 0, y: 0 }
     }
-  }
+  },
 })

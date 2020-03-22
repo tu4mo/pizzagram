@@ -31,8 +31,8 @@
             :class="[
               'post__like-button',
               {
-                'post__like-button--liked': $store.getters.getHasLiked(post.id)
-              }
+                'post__like-button--liked': $store.getters.getHasLiked(post.id),
+              },
             ]"
             @click="onLikeClick"
           >
@@ -66,21 +66,21 @@
       BaseIcon,
       BaseSpacer,
       PostHeader,
-      PostImage
+      PostImage,
     },
     props: {
       imageTo: {
         default: null,
-        type: Object
+        type: Object,
       },
       isRemovable: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       post: {
         required: true,
-        type: Object
-      }
+        type: Object,
+      },
     },
     setup(props, context) {
       const isPlaceholder = ref(true)
@@ -122,7 +122,7 @@
             text: `${props.post.caption}${
               props.post.caption && props.post.location ? ' - ' : ''
             }${props.post.location}`,
-            url: postPath
+            url: postPath,
           })
         } else {
           alert("Sorry, you're browser doesn't seem to support Web Share.")
@@ -136,9 +136,9 @@
         onRemoveClick,
         onShareClick,
         postPath,
-        user
+        user,
       }
-    }
+    },
   })
 </script>
 

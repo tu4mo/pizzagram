@@ -5,7 +5,7 @@ import {
   fetchTopPosters,
   getLikes,
   setOnAuthStateChangedCallback,
-  toggleLike
+  toggleLike,
 } from './api'
 
 import {
@@ -13,7 +13,7 @@ import {
   getPosts,
   removePost,
   subscribeToPosts,
-  QUERY_LIMIT
+  QUERY_LIMIT,
 } from './api/posts'
 
 import { getUser, getUserByUsername } from './api/user'
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
     auth: {
       isAuthenticated: false,
       username: '',
-      userId: ''
+      userId: '',
     },
     isLoading: false,
     isLastPostReached: false,
@@ -35,30 +35,30 @@ const store = new Vuex.Store({
     file: null,
     notifications: [],
     users: {},
-    posts: {}
+    posts: {},
   },
 
   getters: {
-    getUser: state => username => state.users[username] || {},
+    getUser: (state) => (username) => state.users[username] || {},
 
-    getUserById: state => userId =>
-      Object.values(state.users).find(user => user.id === userId) || {},
+    getUserById: (state) => (userId) =>
+      Object.values(state.users).find((user) => user.id === userId) || {},
 
-    getIsMe: state => userId => state.auth.userId === userId,
+    getIsMe: (state) => (userId) => state.auth.userId === userId,
 
-    getHasLiked: state => postId =>
+    getHasLiked: (state) => (postId) =>
       state.posts[postId].likes &&
       state.posts[postId].likes.includes(state.auth.userId),
 
-    getPostById: state => id => {
+    getPostById: (state) => (id) => {
       return state.posts[id] ? state.posts[id] : {}
     },
 
-    getPostsByFeed: state => feed => {
+    getPostsByFeed: (state) => (feed) => {
       const postIds = Object.keys(state.feeds[feed] || {})
       return postIds.length > 0
         ? postIds
-            .map(postId => state.posts[postId])
+            .map((postId) => state.posts[postId])
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         : []
     },
@@ -68,7 +68,7 @@ const store = new Vuex.Store({
         .sort((a, b) => users[a].posts + users[b].posts)
         .slice(0, 10),
 
-    getNotifications: state => state.notifications || []
+    getNotifications: (state) => state.notifications || [],
   },
 
   mutations: {
@@ -89,7 +89,7 @@ const store = new Vuex.Store({
     addToFeeds(state, { feed, postId }) {
       state.feeds = {
         ...state.feeds,
-        [feed]: { ...(state.feeds[feed] || {}), [postId]: true }
+        [feed]: { ...(state.feeds[feed] || {}), [postId]: true },
       }
     },
 
@@ -111,7 +111,7 @@ const store = new Vuex.Store({
 
     removePost(state, postId) {
       Vue.delete(state.posts, postId)
-      Object.keys(state.feeds).forEach(feed => {
+      Object.keys(state.feeds).forEach((feed) => {
         Vue.delete(state.feeds[feed], postId)
       })
     },
@@ -121,8 +121,8 @@ const store = new Vuex.Store({
         ...state.posts,
         [postId]: {
           ...state.posts[postId],
-          likes
-        }
+          likes,
+        },
       }
     },
 
@@ -131,7 +131,7 @@ const store = new Vuex.Store({
       const { userId } = state.auth
 
       if (likes.includes(userId)) {
-        state.posts[postId].likes = likes.filter(userId => userId !== userId)
+        state.posts[postId].likes = likes.filter((userId) => userId !== userId)
       } else {
         state.posts[postId].likes = [...likes, userId]
       }
@@ -143,7 +143,7 @@ const store = new Vuex.Store({
 
     setNotifications(state, notifications) {
       state.notifications = notifications
-    }
+    },
   },
 
   actions: {
@@ -164,10 +164,10 @@ const store = new Vuex.Store({
         postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null
 
       const posts = await getPosts({
-        startAfter: lastPost
+        startAfter: lastPost,
       })
 
-      posts.forEach(post => {
+      posts.forEach((post) => {
         commit('addToPosts', post)
         commit('addToFeeds', { feed: 'home', postId: post.id })
       })
@@ -183,7 +183,7 @@ const store = new Vuex.Store({
       const user = getters.getUser(username)
       if (Object.keys(user).length) {
         const posts = await getPosts({ userId: user.id })
-        posts.forEach(post => {
+        posts.forEach((post) => {
           commit('addToPosts', post)
           commit('addToFeeds', { feed: username, postId: post.id })
         })
@@ -222,32 +222,32 @@ const store = new Vuex.Store({
 
     async getTopPosters({ commit }) {
       const topPosters = await fetchTopPosters()
-      topPosters.forEach(user => commit('addToUsers', user))
-    }
-  }
+      topPosters.forEach((user) => commit('addToUsers', user))
+    },
+  },
 })
 
 let unsubscribeToPosts = () => {}
 let unsubscribeToNotifications = () => {}
 
-setOnAuthStateChangedCallback(async user => {
+setOnAuthStateChangedCallback(async (user) => {
   if (user) {
     const userData = await getUser(user.uid)
     store.commit('setIsAuthenticated', {
       isAuthenticated: true,
       username: userData.username,
-      userId: user.uid
+      userId: user.uid,
     })
     store.commit('addToUsers', userData)
 
-    unsubscribeToPosts = subscribeToPosts(posts => {
-      posts.forEach(post => {
+    unsubscribeToPosts = subscribeToPosts((posts) => {
+      posts.forEach((post) => {
         store.commit('addToPosts', post)
         store.commit('addToFeeds', { feed: 'home', postId: post.id })
       })
     })
 
-    unsubscribeToNotifications = subscribeToNotifications(notifications => {
+    unsubscribeToNotifications = subscribeToNotifications((notifications) => {
       store.commit('setNotifications', notifications)
     })
   } else {
@@ -256,7 +256,7 @@ setOnAuthStateChangedCallback(async user => {
 
     store.commit('setIsAuthenticated', {
       isAuthenticated: false,
-      username: ''
+      username: '',
     })
   }
 })

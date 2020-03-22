@@ -23,14 +23,14 @@
   export default defineComponent({
     components: {
       BaseButton,
-      BaseIcon
+      BaseIcon,
     },
     props: {
       value: {
         required: true,
-        type: Number
-      }
-    }
+        type: Number,
+      },
+    },
   })
 </script>
 

@@ -47,7 +47,7 @@
       BaseLink,
       BaseSpacer,
       BaseSpinner,
-      WelcomeLayout
+      WelcomeLayout,
     },
     setup(props, context) {
       const email = ref('')
@@ -71,12 +71,12 @@
         email,
         isLoading,
         password,
-        submit
+        submit,
       }
     },
     metaInfo: {
-      title: 'Log In'
-    }
+      title: 'Log In',
+    },
   })
 </script>
 

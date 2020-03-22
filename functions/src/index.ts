@@ -28,12 +28,12 @@ exports.addLikeNotification = functions.firestore
 
 exports.generateResizedImages = functions.storage
   .object()
-  .onFinalize(object =>
-    Promise.all([256, 1024].map(size => resizeImage(object, size)))
+  .onFinalize((object) =>
+    Promise.all([256, 1024].map((size) => resizeImage(object, size)))
   )
 
 exports.addPostsCount = functions.https.onRequest(addPostsCount(db))
 
 exports.generateThumbnail = functions.https.onRequest(() => {
-  return [256, 1024].map(size => generateThumbnail(size))
+  return [256, 1024].map((size) => generateThumbnail(size))
 })

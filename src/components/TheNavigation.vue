@@ -46,7 +46,7 @@
   export default defineComponent({
     components: {
       NavItem,
-      TheCamera
+      TheCamera,
     },
     setup(props, context) {
       const notifications = computed(() =>
@@ -64,9 +64,9 @@
       return {
         notifications,
         isDevelopment,
-        username
+        username,
       }
-    }
+    },
   })
 </script>
 

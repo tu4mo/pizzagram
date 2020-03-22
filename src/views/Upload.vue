@@ -25,7 +25,7 @@
                 :options="locations"
                 :value="form.location"
                 name="location"
-                @change="location => (form.location = location)"
+                @change="(location) => (form.location = location)"
               />
             </BaseField>
           </BaseSpacer>
@@ -64,7 +64,7 @@
       BaseSpinner,
       BaseInput,
       DefaultLayout,
-      PostImage
+      PostImage,
     },
     data() {
       return {
@@ -73,19 +73,19 @@
           latitude: null,
           longitude: null,
           location: '',
-          rating: 0
+          rating: 0,
         },
         imageUrl: '',
         isDetectingPizza: false,
         isLoading: false,
         isLocationEnabled: false,
-        locations: []
+        locations: [],
       }
     },
     computed: {
       file() {
         return this.$store.state.file
-      }
+      },
     },
     watch: {
       file(newFile) {
@@ -93,7 +93,7 @@
           this.imageUrl = ''
           this.reader.readAsDataURL(newFile)
         }
-      }
+      },
     },
     created() {
       this.reader = new FileReader()
@@ -116,9 +116,9 @@
               this.form.longitude
             )
 
-            this.locations = locations.map(location => ({
+            this.locations = locations.map((location) => ({
               label: location.name,
-              value: location.name
+              value: location.name,
             }))
 
             this.isLocationEnabled = true
@@ -140,7 +140,7 @@
             const predictions = await model.detect(image)
 
             const isPizza = predictions.some(
-              prediction => prediction.class === 'pizza'
+              (prediction) => prediction.class === 'pizza'
             )
 
             if (!isPizza) {
@@ -166,13 +166,13 @@
         if (
           this.form.location &&
           !this.locations.some(
-            location => location.label === this.form.location
+            (location) => location.label === this.form.location
           )
         ) {
           await addLocation({
             name: this.form.location,
             latitude: this.form.latitude,
-            longitude: this.form.longitude
+            longitude: this.form.longitude,
           })
         }
 
@@ -191,11 +191,11 @@
         this.form.rating = 0
         this.form.latitude = null
         this.form.longitude = null
-      }
+      },
     },
     metaInfo: {
-      title: 'Upload'
-    }
+      title: 'Upload',
+    },
   }
 </script>
 

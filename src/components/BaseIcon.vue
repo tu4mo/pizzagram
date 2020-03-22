@@ -21,8 +21,8 @@
     props: {
       name: {
         required: true,
-        type: String
-      }
+        type: String,
+      },
     },
     setup(props) {
       const ICONS: { [key: string]: VNode } = {
@@ -34,15 +34,15 @@
         share,
         star,
         trash2,
-        user
+        user,
       }
 
       const icon = computed(() => ICONS[props.name])
 
       return {
-        icon
+        icon,
       }
-    }
+    },
   })
 </script>
 

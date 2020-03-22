@@ -45,7 +45,7 @@
       BaseEmpty,
       BaseLink,
       DefaultLayout,
-      ProfilePhoto
+      ProfilePhoto,
     },
     setup(props, context) {
       const notifications = computed(
@@ -57,7 +57,7 @@
       }
 
       return { notifications, onMarkAllAsReadClick }
-    }
+    },
   })
 </script>
 

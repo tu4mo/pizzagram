@@ -11,17 +11,17 @@
     props: {
       activeClass: {
         default: null,
-        type: String
+        type: String,
       },
       exact: {
         default: false,
-        type: Boolean
+        type: Boolean,
       },
       to: {
         required: true,
-        type: Object
-      }
-    }
+        type: Object,
+      },
+    },
   })
 </script>
 

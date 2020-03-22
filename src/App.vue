@@ -7,10 +7,10 @@
 
   export default defineComponent({
     metaInfo: {
-      titleTemplate: titleChunk => {
+      titleTemplate: (titleChunk) => {
         return titleChunk ? `${titleChunk} - Pizzagram` : 'Pizzagram'
-      }
-    }
+      },
+    },
   })
 </script>
 

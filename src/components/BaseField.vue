@@ -14,13 +14,13 @@
     props: {
       as: {
         default: 'label',
-        type: String
+        type: String,
       },
       label: {
         required: true,
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   })
 </script>
 

@@ -20,7 +20,7 @@
 
   export default defineComponent({
     components: {
-      BaseIcon
+      BaseIcon,
     },
     setup(props, context) {
       const onChange = (event: any) => {
@@ -39,9 +39,9 @@
 
       return {
         onChange,
-        onClick
+        onClick,
       }
-    }
+    },
   })
 </script>
 
