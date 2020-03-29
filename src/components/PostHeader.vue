@@ -73,6 +73,10 @@
 
     &__profile {
       margin-right: 0.5rem;
+
+      @media (min-width: 640px) {
+        margin-right: 1rem;
+      }
     }
 
     &__created-date {
