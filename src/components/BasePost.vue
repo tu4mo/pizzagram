@@ -1,53 +1,51 @@
 <template>
-  <article class="post">
-    <div v-if="!isPlaceholder">
-      <PostHeader :created-at="post.createdAt" :user="user" />
-      <BaseSpacer mt1>
-        <PostImage :image-url="post.imageUrl" :to="imageTo" />
-      </BaseSpacer>
-      <footer class="post__footer">
-        <div class="post__info">
-          <div
-            v-if="Array.isArray(post.likes) && post.likes.length > 0"
-            class="post__likes"
-          >
-            {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
-          </div>
-          <div v-if="post.caption" class="post__caption">
-            {{ post.caption }}
-          </div>
-          <div v-if="post.location" class="post__location">
-            {{ post.location }}
-          </div>
+  <article v-if="!isPlaceholder" class="post">
+    <PostHeader :created-at="post.createdAt" :user="user" />
+    <BaseSpacer mt1>
+      <PostImage :image-url="post.imageUrl" :to="imageTo" />
+    </BaseSpacer>
+    <footer class="post__footer">
+      <div class="post__info">
+        <div
+          v-if="Array.isArray(post.likes) && post.likes.length > 0"
+          class="post__likes"
+        >
+          {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
         </div>
-        <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
-          <BaseButton v-if="isRemovable" @click="onRemoveClick">
-            <BaseIcon name="trash2" />
-          </BaseButton>
-          <BaseButton class="post__share-button" @click="onShareClick">
-            <BaseIcon name="share" />
-          </BaseButton>
-          <BaseButton
-            :class="[
-              'post__like-button',
-              {
-                'post__like-button--liked': $store.getters.getHasLiked(post.id),
-              },
-            ]"
-            @click="onLikeClick"
-          >
-            <BaseIcon name="heart" />
-          </BaseButton>
+        <div v-if="post.caption" class="post__caption">
+          {{ post.caption }}
         </div>
-      </footer>
-    </div>
-    <div
-      v-else
-      v-observe-visibility="{ callback: onVisibilityChanged, once: true }"
-    >
-      <PostHeader :created-at="post.createdAt" />
-      <div class="post__image"><PostImage /></div>
-    </div>
+        <div v-if="post.location" class="post__location">
+          {{ post.location }}
+        </div>
+      </div>
+      <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
+        <BaseButton v-if="isRemovable" @click="onRemoveClick">
+          <BaseIcon name="trash2" />
+        </BaseButton>
+        <BaseButton class="post__share-button" @click="onShareClick">
+          <BaseIcon name="share" />
+        </BaseButton>
+        <BaseButton
+          :class="[
+            'post__like-button',
+            {
+              'post__like-button--liked': $store.getters.getHasLiked(post.id),
+            },
+          ]"
+          @click="onLikeClick"
+        >
+          <BaseIcon name="heart" />
+        </BaseButton>
+      </div>
+    </footer>
+  </article>
+  <article
+    v-else
+    v-observe-visibility="{ callback: onVisibilityChanged, once: true }"
+  >
+    <PostHeader :created-at="post.createdAt" />
+    <div class="post__image"><PostImage /></div>
   </article>
 </template>
 
