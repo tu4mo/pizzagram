@@ -150,7 +150,6 @@
     &__main {
       margin: 0 auto;
       min-height: 100vh;
-      min-height: -webkit-fill-available;
       padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
       padding-top: calc(4rem + env(safe-area-inset-top));
       position: relative;
