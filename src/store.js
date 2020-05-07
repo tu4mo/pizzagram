@@ -69,6 +69,10 @@ const store = new Vuex.Store({
         .slice(0, 10),
 
     getNotifications: (state) => state.notifications || [],
+
+    getUnreadNotificationsCount: (state, getters) =>
+      getters.getNotifications.filter((notification) => !notification.read)
+        .length,
   },
 
   mutations: {

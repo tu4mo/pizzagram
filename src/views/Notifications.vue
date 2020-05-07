@@ -20,15 +20,19 @@
               photo
             </BaseLink>
           </div>
+          <div v-if="!notification.read" class="notification__unread" />
         </li>
       </ul>
-      <BaseButton @click="onMarkAllAsReadClick">Mark All as Read</BaseButton>
     </template>
   </DefaultLayout>
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from '@vue/composition-api'
+  import {
+    computed,
+    defineComponent,
+    onDeactivated,
+  } from '@vue/composition-api'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -52,11 +56,13 @@
         () => context.root.$store.getters.getNotifications
       )
 
-      const onMarkAllAsReadClick = async () => {
-        await markNotificationsAsRead()
-      }
+      onDeactivated(async () => {
+        if (context.root.$store.getters.getUnreadNotificationsCount > 0) {
+          await markNotificationsAsRead()
+        }
+      })
 
-      return { notifications, onMarkAllAsReadClick }
+      return { notifications }
     },
   })
 </script>
@@ -77,6 +83,14 @@
 
     &__date {
       color: var(--color-gray);
+    }
+
+    &__unread {
+      background-color: var(--color-primary);
+      border-radius: 0.25rem;
+      height: 0.5rem;
+      margin-left: auto;
+      width: 0.5rem;
     }
   }
 </style>

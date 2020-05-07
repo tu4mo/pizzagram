@@ -49,11 +49,12 @@
       TheCamera,
     },
     setup(props, context) {
-      const notifications = computed(() =>
-        context.root.$store.getters.getNotifications.length > 0
-          ? context.root.$store.getters.getNotifications.length
-          : null
-      )
+      const notifications = computed(() => {
+        const unreadNotificationsCount =
+          context.root.$store.getters.getUnreadNotificationsCount
+
+        return unreadNotificationsCount > 0 ? unreadNotificationsCount : null
+      })
 
       const isDevelopment = computed(
         () => process.env.NODE_ENV === 'development'

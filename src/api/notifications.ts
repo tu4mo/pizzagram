@@ -15,7 +15,7 @@ export const subscribeToNotifications = (
   return collection
     .orderBy('createdAt', 'desc')
     .where('userId', '==', user.uid)
-    .where('read', '==', false)
+    .limit(64)
     .onSnapshot(async (querySnapshot) => {
       const notifications = []
 
@@ -25,6 +25,7 @@ export const subscribeToNotifications = (
         notifications.push({
           ...data,
           createdAt: data.createdAt.toDate(),
+          id: doc.id,
           from,
         })
       }
