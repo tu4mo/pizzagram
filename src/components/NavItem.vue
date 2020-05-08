@@ -52,14 +52,19 @@
     }
 
     &__badge {
+      align-items: center;
       background-color: var(--color-primary);
-      border-radius: 0.75rem;
+      border-radius: 1rem;
       color: #fff;
+      display: flex;
+      height: 1rem;
+      justify-content: center;
       line-height: 1;
-      padding: 0.1rem 0.25rem;
+      min-width: 1rem;
+      padding: 0 0.25rem;
       position: absolute;
-      top: -0.3125rem;
       right: -0.3125rem;
+      top: -0.3125rem;
     }
   }
 </style>
