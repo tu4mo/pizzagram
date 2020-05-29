@@ -28,33 +28,42 @@
   </DefaultLayout>
 </template>
 
-<script>
-  import DefaultLayout from '@/layouts/Default'
+<script lang="ts">
+  import { defineComponent, onMounted } from '@vue/composition-api'
 
-  import BaseLink from '@/components/BaseLink'
-  import ProfilePhoto from '@/components/ProfilePhoto'
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  export default {
+  import BaseLink from '@/components/BaseLink.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
+
+  export default defineComponent({
     components: {
       BaseLink,
       DefaultLayout,
       ProfilePhoto,
     },
-    created() {
-      this.getTopPosters()
-    },
-    methods: {
-      getTopPosters() {
-        this.$store.dispatch('getTopPosters')
-      },
-      getUser(username) {
-        return this.$store.getters.getUser(username)
-      },
+    setup(props, context) {
+      const getTopPosters = () => {
+        context.root.$store.dispatch('getTopPosters')
+      }
+
+      const getUser = (username: string) => {
+        return context.root.$store.getters.getUser(username)
+      }
+
+      onMounted(() => {
+        getTopPosters()
+      })
+
+      return {
+        getTopPosters,
+        getUser,
+      }
     },
     metaInfo: {
       title: 'Top 10',
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
