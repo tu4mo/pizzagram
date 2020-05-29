@@ -6,7 +6,6 @@
         :key="post.id"
         :image-to="{ name: 'post', params: { postId: post.id } }"
         :post="post"
-        class="home__base-post"
       />
       <BaseSpinner
         v-if="$store.state.isLoading"
@@ -60,20 +59,15 @@
 
 <style lang="scss" scoped>
   .home {
+    display: grid;
+    grid-gap: 2rem;
     margin: 0 auto;
     padding: 1rem 0;
     position: relative;
 
     @media (min-width: 640px) {
+      grid-gap: 4rem;
       padding: 2rem;
-    }
-
-    &__base-post:not(:last-child) {
-      margin-bottom: 2rem;
-
-      @media (min-width: 640px) {
-        margin-bottom: 4rem;
-      }
     }
   }
 </style>

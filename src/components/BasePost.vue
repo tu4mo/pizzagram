@@ -1,9 +1,7 @@
 <template>
   <article v-if="!isPlaceholder" class="post">
     <PostHeader :created-at="post.createdAt" :user="user" />
-    <BaseSpacer mt1>
-      <PostImage :image-url="post.imageUrl" :to="imageTo" />
-    </BaseSpacer>
+    <PostImage :image-url="post.imageUrl" :to="imageTo" />
     <footer class="post__footer">
       <div class="post__info">
         <div
@@ -54,7 +52,6 @@
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
-  import BaseSpacer from './BaseSpacer.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
 
@@ -62,7 +59,6 @@
     components: {
       BaseButton,
       BaseIcon,
-      BaseSpacer,
       PostHeader,
       PostImage,
     },
@@ -142,11 +138,13 @@
 
 <style lang="scss" scoped>
   .post {
+    display: grid;
+    grid-gap: 1rem;
+
     &__footer {
       align-items: flex-start;
       display: flex;
       padding-left: 1rem;
-      padding-top: 1rem;
       padding-right: 1rem;
 
       @media (min-width: 640px) {
@@ -174,12 +172,10 @@
     }
 
     &__buttons {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
+      grid-gap: 1rem;
       flex: 0 0 auto;
-
-      & > *:not(:last-child) {
-        margin-right: 1rem;
-      }
     }
 
     &__share-button {
