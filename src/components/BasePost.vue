@@ -116,7 +116,7 @@
             text: `${props.post.caption}${
               props.post.caption && props.post.location ? ' - ' : ''
             }${props.post.location}`,
-            url: postPath,
+            url: postPath as any,
           })
         } else {
           alert("Sorry, you're browser doesn't seem to support Web Share.")
