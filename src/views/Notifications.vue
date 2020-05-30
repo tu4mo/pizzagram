@@ -13,7 +13,15 @@
             <div class="notification__date">
               {{ notification.createdAt.toLocaleDateString() }}
             </div>
-            {{ notification.from.username }} liked your
+            <BaseLink
+              :to="{
+                name: 'profile',
+                params: { username: notification.from.username },
+              }"
+            >
+              {{ notification.from.username }}
+            </BaseLink>
+            liked your
             <BaseLink
               :to="{ name: 'post', params: { postId: notification.postId } }"
             >
