@@ -17,13 +17,13 @@
     "@google-cloud/storage": "^5.0.1",
     "@types/sharp": "^0.25.0",
     "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.6.1",
-    "sharp": "^0.25.2"
+    "firebase-functions": "^3.6.2",
+    "sharp": "^0.25.3"
   },
   "devDependencies": {
-    "firebase-tools": "^8.2.0",
+    "firebase-tools": "^8.4.1",
     "tslint": "^6.1.2",
-    "typescript": "^3.7.3"
+    "typescript": "^3.9.3"
   },
   "private": true
 }
