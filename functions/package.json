@@ -21,9 +21,9 @@
     "sharp": "^0.25.3"
   },
   "devDependencies": {
-    "firebase-tools": "^8.4.1",
+    "firebase-tools": "^8.4.2",
     "tslint": "^6.1.2",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "private": true
 }
