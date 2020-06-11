@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router, { NavigationGuard } from 'vue-router'
 
-import Home from './views/Home.vue'
-import Post from './views/Post.vue'
-import Profile from './views/Profile.vue'
-import ResetPassword from './views/ResetPassword.vue'
-import LogIn from './views/LogIn.vue'
-import Notifications from './views/Notifications.vue'
-import SignUp from './views/SignUp.vue'
-import Top from './views/Top.vue'
-import Upload from './views/Upload.vue'
+const Home = () => import('./views/Home.vue')
+const Post = () => import('./views/Post.vue')
+const Profile = () => import('./views/Profile.vue')
+const ResetPassword = () => import('./views/ResetPassword.vue')
+const LogIn = () => import('./views/LogIn.vue')
+const Notifications = () => import('./views/Notifications.vue')
+const SignUp = () => import('./views/SignUp.vue')
+const Top = () => import('./views/Top.vue')
+const Upload = () => import('./views/Upload.vue')
 
 import { currentUser, initializeAuth } from './api/user'
 
