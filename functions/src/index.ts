@@ -36,8 +36,8 @@ exports.addPostsCount = functions.https.onRequest(addPostsCount(db))
 
 exports.generateThumbnail = functions.https.onRequest(async () => {
   try {
-    for await (const size of [256, 1024]) {
-      generateThumbnail(size)
+    for (const size of [256, 1024]) {
+      await generateThumbnail(size)
     }
   } catch (e) {
     console.error(e.message)
