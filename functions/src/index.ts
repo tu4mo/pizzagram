@@ -35,11 +35,7 @@ exports.generateResizedImages = functions.storage
 exports.addPostsCount = functions.https.onRequest(addPostsCount(db))
 
 exports.generateThumbnail = functions.https.onRequest(async () => {
-  try {
-    for (const size of [256, 1024]) {
-      await generateThumbnail(size)
-    }
-  } catch (e) {
-    console.error(e.message)
+  for (const size of [256, 1024]) {
+    await generateThumbnail(size)
   }
 })
