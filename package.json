@@ -19,7 +19,7 @@
     "core-js": "^3.6.5",
     "feather-icons": "^4.28.0",
     "firebase": "^7.15.0",
-    "geofirestore": "^3.6.0",
+    "geofirestore": "^4.1.0",
     "md5": "^2.2.1",
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
