@@ -16,7 +16,8 @@ service cloud.firestore {
     }
 
     match /locations/{locationId} {
-      allow read, create: if request.auth.uid != null
+      allow read: if request.auth.uid != null;
+      allow create: if request.auth.uid != null
         && request.resource.data.g.size() == 2
         && request.resource.data.g.geohash is string
         && request.resource.data.g.geopoint is latlng
