@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueCompositionApi from '@vue/composition-api'
+import VueCompositionAPI from '@vue/composition-api'
 import VueObserveVisibility from 'vue-observe-visibility'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 Vue.config.productionTip = false
 
-Vue.use(VueCompositionApi)
+Vue.use(VueCompositionAPI)
 Vue.use(VueObserveVisibility)
 
 Vue.use(Meta)

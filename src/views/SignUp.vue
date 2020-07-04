@@ -34,18 +34,20 @@
   </WelcomeLayout>
 </template>
 
-<script>
-  import WelcomeLayout from '@/layouts/Welcome'
+<script lang="ts">
+  import { defineComponent, ref } from '@vue/composition-api'
 
-  import BaseButton from '@/components/BaseButton'
-  import BaseInput from '@/components/BaseInput'
-  import BaseLink from '@/components/BaseLink'
-  import BaseSpacer from '@/components/BaseSpacer'
-  import BaseSpinner from '@/components/BaseSpinner'
+  import WelcomeLayout from '@/layouts/Welcome.vue'
+
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseInput from '@/components/BaseInput.vue'
+  import BaseLink from '@/components/BaseLink.vue'
+  import BaseSpacer from '@/components/BaseSpacer.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { signUp } from '@/api'
 
-  export default {
+  export default defineComponent({
     components: {
       BaseButton,
       BaseInput,
@@ -54,34 +56,40 @@
       BaseSpinner,
       WelcomeLayout,
     },
-    data() {
-      return {
-        email: '',
-        error: '',
-        isLoading: false,
-        password: '',
-        username: '',
-      }
-    },
-    methods: {
-      async submit() {
-        this.error = ''
-        this.isLoading = true
+    setup(props, context) {
+      const email = ref('')
+      const error = ref('')
+      const isLoading = ref(false)
+      const password = ref('')
+      const username = ref('')
+
+      const submit = async () => {
+        error.value = ''
+        isLoading.value = true
 
         try {
-          await signUp(this.username, this.email, this.password)
-          this.$router.push({ name: 'home' })
+          await signUp(username.value, email.value, password.value)
+          context.root.$router.push({ name: 'home' })
         } catch (error) {
-          this.error = 'Unable to sign up.'
+          error.value = 'Unable to sign up.'
         }
 
-        this.isLoading = false
-      },
+        isLoading.value = false
+      }
+
+      return {
+        email,
+        error,
+        isLoading,
+        password,
+        submit,
+        username,
+      }
     },
     metaInfo: {
       title: 'Sign Up',
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
