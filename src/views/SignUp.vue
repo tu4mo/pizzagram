@@ -3,7 +3,12 @@
     <BaseSpinner v-if="isLoading" cover />
     <form class="signup" @submit.prevent="submit">
       <BaseSpacer mb1>
-        <BaseInput v-model.trim="username" placeholder="Username" />
+        <BaseInput
+          v-model.trim="username"
+          placeholder="Username"
+          minlength="3"
+          maxlength="15"
+        />
       </BaseSpacer>
       <BaseSpacer mb1>
         <BaseInput v-model.trim="email" placeholder="E-mail" type="email" />

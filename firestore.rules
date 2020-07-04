@@ -3,7 +3,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAllowedUsername(user) {
-      return user != 'home'
+      return user.size() > 2 && user.size() < 16
     }
 
     match /likes/{likeId} {
@@ -43,7 +43,8 @@ service cloud.firestore {
     match /posts/{postId} {
       allow create;
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;
-      allow update: if request.auth.uid == resource.data.userId && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption', 'rating']));
+      allow update: if request.auth.uid == resource.data.userId
+        && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption', 'rating']));
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
