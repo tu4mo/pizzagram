@@ -14,7 +14,8 @@
           {{ post.caption }}
         </div>
         <div v-if="post.location" class="post__location">
-          {{ post.location }}
+          <BaseIcon name="mapPin" size="sm" />
+          <span class="post__location-text">{{ post.location }}</span>
         </div>
       </div>
       <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
@@ -168,7 +169,13 @@
     }
 
     &__location {
+      align-items: center;
       color: var(--color-gray);
+      display: flex;
+    }
+
+    &__location-text {
+      margin-left: 0.5rem;
     }
 
     &__buttons {

@@ -1,5 +1,5 @@
 <template>
-  <div class="icon" v-html="icon" />
+  <div :class="['icon', `icon--${size}`]" v-html="icon" />
 </template>
 
 <script lang="ts">
@@ -12,6 +12,7 @@
   import chevronLeft from 'feather-icons/dist/icons/chevron-left.svg'
   import heart from 'feather-icons/dist/icons/heart.svg'
   import home from 'feather-icons/dist/icons/home.svg'
+  import mapPin from 'feather-icons/dist/icons/map-pin.svg'
   import share from 'feather-icons/dist/icons/share.svg'
   import star from 'feather-icons/dist/icons/star.svg'
   import trash2 from 'feather-icons/dist/icons/trash-2.svg'
@@ -23,6 +24,10 @@
         required: true,
         type: String,
       },
+      size: {
+        default: 'md',
+        type: String,
+      },
     },
     setup(props) {
       const ICONS: { [key: string]: VNode } = {
@@ -31,6 +36,7 @@
         chevronLeft,
         heart,
         home,
+        mapPin,
         share,
         star,
         trash2,
@@ -52,6 +58,16 @@
 
     /deep/ svg {
       display: block;
+    }
+
+    &--md /deep/ svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    &--sm /deep/ svg {
+      height: 1rem;
+      width: 1rem;
     }
   }
 </style>
