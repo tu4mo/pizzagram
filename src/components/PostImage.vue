@@ -1,5 +1,11 @@
 <template>
-  <div v-observe-visibility="{ callback: onVisibilityChanged, once: true }">
+  <div
+    v-observe-visibility="{
+      callback: onVisibilityChanged,
+      intersection: { rootMargin: '512px' },
+      once: true,
+    }"
+  >
     <RouterLink v-if="to" :to="to" class="post-image">
       <img :src="actualUrl" alt="" class="post-image__image" />
     </RouterLink>

@@ -41,7 +41,11 @@
   </article>
   <article
     v-else
-    v-observe-visibility="{ callback: onVisibilityChanged, once: true }"
+    v-observe-visibility="{
+      callback: onVisibilityChanged,
+      intersection: { rootMargin: '512px' },
+      once: true,
+    }"
   >
     <PostHeader :created-at="post.createdAt" />
     <div class="post__image"><PostImage /></div>
