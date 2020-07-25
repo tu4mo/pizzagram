@@ -12,10 +12,12 @@ export const subscribeToNotifications = (
     return
   }
 
+  const beginningDate = Date.now() - 1000 * 60 * 60 * 24 * 90
+
   return collection
     .orderBy('createdAt', 'desc')
     .where('userId', '==', user.uid)
-    .limit(64)
+    .where('createdAt', '>=', new Date(beginningDate))
     .onSnapshot(async (querySnapshot) => {
       const notifications = []
 
