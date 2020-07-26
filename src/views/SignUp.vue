@@ -81,8 +81,8 @@
         try {
           await signUp(username.value, email.value, password.value)
           context.root.$router.push({ name: 'home' })
-        } catch (error) {
-          error.value = 'Unable to sign up.'
+        } catch (err) {
+          error.value = err.message
         }
 
         isLoading.value = false
