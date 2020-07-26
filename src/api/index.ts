@@ -52,6 +52,7 @@ export const signUp = async (
   await userDoc.set({
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     id: null,
+    name: username,
   })
 
   await auth.createUserWithEmailAndPassword(email, password)
