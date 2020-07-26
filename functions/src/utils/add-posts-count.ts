@@ -8,18 +8,22 @@ export default (db: admin.firestore.Firestore) => async (
   const usersSnapshot = await db.collection('users').get()
 
   usersSnapshot.forEach(async (userRef) => {
-    const postsSnapshot = await db
-      .collection('posts')
-      .where('userId', '==', userRef.data().id)
-      .get()
-
-    await db
-      .collection('users')
-      .doc(userRef.id)
-      .update({ posts: postsSnapshot.size })
-
-    console.log(`${userRef.id}: ${postsSnapshot.size}`)
+    await updateUserPostsCount(db, userRef.id)
   })
 
   res.send('OK')
+}
+
+export const updateUserPostsCount = async (
+  db: admin.firestore.Firestore,
+  userId: string
+) => {
+  const postsSnapshot = await db
+    .collection('posts')
+    .where('userId', '==', userId)
+    .get()
+
+  await db.collection('users').doc(userId).update({ posts: postsSnapshot.size })
+
+  console.log(`Updated ${userId}'s posts count: ${postsSnapshot.size}.`)
 }
