@@ -6,15 +6,26 @@
         <BaseInput
           v-model.trim="username"
           placeholder="Username"
+          required
           minlength="3"
           maxlength="15"
         />
       </BaseSpacer>
       <BaseSpacer mb1>
-        <BaseInput v-model.trim="email" placeholder="E-mail" type="email" />
+        <BaseInput
+          v-model.trim="email"
+          placeholder="E-mail"
+          required
+          type="email"
+        />
       </BaseSpacer>
       <BaseSpacer mb1>
-        <BaseInput v-model="password" placeholder="Password" type="password" />
+        <BaseInput
+          v-model="password"
+          placeholder="Password"
+          required
+          type="password"
+        />
       </BaseSpacer>
       <BaseButton :disabled="!username || !email || !password" type="submit">
         Sign Up
