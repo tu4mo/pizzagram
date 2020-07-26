@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {
-  fetchTopPosters,
-  getLikes,
-  setOnAuthStateChangedCallback,
-  toggleLike,
-} from './api'
+import { fetchTopPosters, setOnAuthStateChangedCallback } from './api'
+
+import { getLikes, toggleLike } from './api/likes'
 
 import {
   getPost,
