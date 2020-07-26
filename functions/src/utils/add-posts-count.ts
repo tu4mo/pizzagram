@@ -23,18 +23,7 @@ export const updateUserPostsCount = async (
     .where('userId', '==', userId)
     .get()
 
-  const usersSnapshot = await db
-    .collection('users')
-    .where('id', '==', userId)
-    .limit(1)
-    .get()
+  await db.collection('users').doc(userId).update({ posts: postsSnapshot.size })
 
-  usersSnapshot.forEach(async (user) => {
-    await db
-      .collection('users')
-      .doc(user.id)
-      .update({ posts: postsSnapshot.size })
-
-    console.log(`Updated ${user.id}'s posts count: ${postsSnapshot.size}.`)
-  })
+  console.log(`Updated ${userId}'s posts count: ${postsSnapshot.size}.`)
 }
