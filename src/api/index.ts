@@ -47,15 +47,6 @@ export const signUp = async (
 ) => {
   isSigningUp = true
 
-  const users = await firestore
-    .collection('users')
-    .where('name', '==', username)
-    .get()
-
-  if (users.size) {
-    throw new Error('The username is already in use by another account.')
-  }
-
   const userDoc = firestore.collection('users').doc(username)
 
   await userDoc.set({
