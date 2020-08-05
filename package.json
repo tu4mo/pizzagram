@@ -19,12 +19,12 @@
     "core-js": "^3.6.5",
     "feather-icons": "^4.28.0",
     "firebase": "^7.17.1",
-    "geofirestore": "^4.2.1",
-    "md5": "^2.2.1",
+    "geofirestore": "^4.3.0",
+    "md5": "^2.3.0",
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
     "vue-observe-visibility": "^0.4.6",
-    "vue-router": "^3.3.4",
+    "vue-router": "^3.4.0",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
