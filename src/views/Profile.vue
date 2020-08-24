@@ -19,6 +19,7 @@
           <PostImage
             :image-url="post.imageUrl.replace('.jpg', '_t.jpg')"
             :to="{ name: 'post', params: { postId: post.id } }"
+            rounded
           />
         </li>
       </ul>
@@ -137,14 +138,14 @@
 
     &__posts {
       display: grid;
-      grid-gap: 1px;
+      gap: 1px;
       grid-template-columns: repeat(3, 1fr);
       margin: 0 auto;
       margin-top: 2rem;
       list-style: none;
 
       @media (min-width: 640px) {
-        grid-gap: 1rem;
+        gap: 1rem;
         grid-template-columns: repeat(4, 1fr);
         max-width: var(--content-width-lg);
         padding: 2rem;

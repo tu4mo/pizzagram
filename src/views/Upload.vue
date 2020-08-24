@@ -6,7 +6,7 @@
       </BaseEmpty>
       <template v-else>
         <div class="upload__image">
-          <PostImage ref="image" :image-url="imageUrl" />
+          <PostImage ref="image" :image-url="imageUrl" rounded />
         </div>
         <div class="upload__form">
           <BaseSpacer mb2>

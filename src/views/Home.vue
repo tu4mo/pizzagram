@@ -60,13 +60,13 @@
 <style lang="scss" scoped>
   .home {
     display: grid;
-    grid-gap: 2rem;
+    gap: 2rem;
     margin: 0 auto;
     padding: 1rem 0;
     position: relative;
 
     @media (min-width: 640px) {
-      grid-gap: 4rem;
+      gap: 4rem;
       padding: 2rem;
     }
   }

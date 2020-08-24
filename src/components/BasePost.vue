@@ -1,6 +1,8 @@
 <template>
   <article v-if="!isPlaceholder" class="post">
-    <PostHeader :created-at="post.createdAt" :user="user" />
+    <div class="post__header">
+      <PostHeader :created-at="post.createdAt" :user="user" />
+    </div>
     <PostImage :image-url="post.imageUrl" :to="imageTo" />
     <footer class="post__footer">
       <div class="post__info">
@@ -143,18 +145,28 @@
 
 <style lang="scss" scoped>
   .post {
+    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.1);
     display: grid;
-    grid-gap: 1rem;
+
+    @media (min-width: 640px) {
+      border-radius: 2rem;
+    }
+
+    &__header {
+      padding: 1rem;
+
+      @media (min-width: 640px) {
+        padding: 2rem;
+      }
+    }
 
     &__footer {
       align-items: flex-start;
       display: flex;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding: 1rem;
 
       @media (min-width: 640px) {
-        padding-left: 0;
-        padding-right: 0;
+        padding: 2rem;
       }
     }
 
@@ -185,7 +197,7 @@
     &__buttons {
       display: grid;
       grid-auto-flow: column;
-      grid-gap: 1rem;
+      gap: 1.5rem;
       flex: 0 0 auto;
     }
 

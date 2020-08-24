@@ -6,10 +6,14 @@
       once: true,
     }"
   >
-    <RouterLink v-if="to" :to="to" class="post-image">
+    <RouterLink
+      v-if="to"
+      :to="to"
+      :class="['post-image', { 'post-image--rounded': rounded }]"
+    >
       <img :src="actualUrl" alt="" class="post-image__image" />
     </RouterLink>
-    <div v-else class="post-image">
+    <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
       <img :src="actualUrl" alt="" class="post-image__image" />
     </div>
   </div>
@@ -23,6 +27,10 @@
       imageUrl: {
         default: null,
         type: String,
+      },
+      rounded: {
+        default: false,
+        type: Boolean,
       },
       to: {
         default: null,
@@ -68,12 +76,14 @@
       top: 0;
       width: 100%;
 
-      @media (min-width: 640px) {
-        border-radius: 1rem;
-      }
-
       .post-image__link:active & {
         opacity: 0.8;
+      }
+
+      .post-image--rounded & {
+        @media (min-width: 640px) {
+          border-radius: 1rem;
+        }
       }
     }
   }

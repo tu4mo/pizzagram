@@ -83,14 +83,13 @@
     &__items {
       align-items: center;
       color: var(--color-secondary);
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
       height: 3.5rem;
       justify-content: space-around;
-    }
 
-    &__item:not(:last-child) {
       @media (min-width: 640px) {
-        margin-right: 2rem;
+        gap: 1.5rem;
       }
     }
   }
