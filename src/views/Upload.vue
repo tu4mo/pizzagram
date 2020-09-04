@@ -134,6 +134,9 @@
 
         this.$nextTick(async () => {
           try {
+            await import('@tensorflow/tfjs-backend-cpu')
+            await import('@tensorflow/tfjs-backend-webgl')
+
             const cocoSsd = await import('@tensorflow-models/coco-ssd')
             const model = await cocoSsd.load()
             const image = this.$refs.image.$el.querySelector('img')
