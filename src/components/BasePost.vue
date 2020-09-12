@@ -215,7 +215,7 @@
       &--liked {
         color: var(--color-primary);
 
-        & /deep/ svg {
+        & ::v-deep svg {
           fill: var(--color-primary);
         }
       }

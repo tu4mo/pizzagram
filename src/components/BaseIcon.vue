@@ -56,16 +56,16 @@
   .icon {
     cursor: inherit;
 
-    /deep/ svg {
+    ::v-deep svg {
       display: block;
     }
 
-    &--md /deep/ svg {
+    &--md ::v-deep svg {
       height: 1.5rem;
       width: 1.5rem;
     }
 
-    &--sm /deep/ svg {
+    &--sm ::v-deep svg {
       height: 1rem;
       width: 1rem;
     }
