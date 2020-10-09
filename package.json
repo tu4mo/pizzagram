@@ -28,7 +28,6 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.3",
     "@types/md5": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
