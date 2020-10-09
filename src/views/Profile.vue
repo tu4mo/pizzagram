@@ -46,14 +46,6 @@
       PostImage,
       ProfilePhoto,
     },
-    computed: {
-      posts() {
-        return this.$store.getters.getPostsByFeed(this.user.username)
-      },
-      user() {
-        return this.$store.getters.getUser(this.$route.params.username)
-      },
-    },
     beforeRouteEnter(to, from, next) {
       next((vm) => {
         const { username } = vm.$route.params
@@ -65,6 +57,14 @@
         this.fetchData(to.params.username)
       }
       next()
+    },
+    computed: {
+      posts() {
+        return this.$store.getters.getPostsByFeed(this.user.username)
+      },
+      user() {
+        return this.$store.getters.getUser(this.$route.params.username)
+      },
     },
     methods: {
       async fetchData(username) {

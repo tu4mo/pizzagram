@@ -44,7 +44,6 @@
 
   import DefaultLayout from '@/layouts/Default.vue'
 
-  import BaseButton from '@/components/BaseButton.vue'
   import BaseEmpty from '@/components/BaseEmpty.vue'
   import BaseLink from '@/components/BaseLink.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
@@ -53,7 +52,6 @@
 
   export default defineComponent({
     components: {
-      BaseButton,
       BaseEmpty,
       BaseLink,
       DefaultLayout,

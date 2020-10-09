@@ -22,6 +22,12 @@
       BasePost,
       DefaultLayout,
     },
+    beforeRouteUpdate(to, from, next) {
+      if (to.params.postId !== from.params.postId) {
+        this.fetchPost(to.params.postId)
+      }
+      next()
+    },
     computed: {
       postId() {
         return this.$route.params.postId
@@ -33,12 +39,6 @@
     created() {
       const { postId } = this.$route.params
       this.fetchPost(postId)
-    },
-    beforeRouteUpdate(to, from, next) {
-      if (to.params.postId !== from.params.postId) {
-        this.fetchPost(to.params.postId)
-      }
-      next()
     },
     methods: {
       fetchPost(postId) {
