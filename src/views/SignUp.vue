@@ -9,11 +9,13 @@
           required
           minlength="3"
           maxlength="15"
+          name="username"
         />
       </BaseSpacer>
       <BaseSpacer mb1>
         <BaseInput
           v-model.trim="email"
+          name="email"
           placeholder="E-mail"
           required
           type="email"
@@ -22,6 +24,7 @@
       <BaseSpacer mb1>
         <BaseInput
           v-model="password"
+          name="password"
           placeholder="Password"
           required
           type="password"
