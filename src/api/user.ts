@@ -1,3 +1,4 @@
+import firebase from 'firebase/app'
 import { auth, firestore } from '.'
 
 import userCache from './user-cache'
