@@ -41,7 +41,9 @@ service cloud.firestore {
     }
 
     match /posts/{postId} {
-      allow create;
+      allow create: if request.resource.data.userId == request.auth.uid
+        && request.resource.data.published == false
+        && !('likes' in request.resource.data);
       allow read: if resource.data.published == true || request.auth.uid == resource.data.userId;
       allow update: if request.auth.uid == resource.data.userId
         && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption', 'rating']));
