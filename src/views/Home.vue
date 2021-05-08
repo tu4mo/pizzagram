@@ -16,12 +16,19 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted, onUnmounted } from '@vue/composition-api'
+  import {
+    computed,
+    defineComponent,
+    onMounted,
+    onUnmounted,
+  } from '@vue/composition-api'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BasePost from '@/components/BasePost.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
+
+  import store from '@/store'
 
   export default defineComponent({
     components: {
@@ -29,17 +36,19 @@
       BaseSpinner,
       DefaultLayout,
     },
-    setup(props, context) {
+    setup() {
+      const isAuthenticated = computed(() => store.state.auth.isAuthenticated)
+
       const fetchPosts = () => {
-        context.root.$store.dispatch('getPostsForHome')
+        store.dispatch('getPostsForHome')
       }
 
       const handleScroll = () => {
         if (
           window.innerHeight + window.pageYOffset >=
             document.body.offsetHeight &&
-          !context.root.$store.state.isLastPostReached &&
-          !context.root.$store.state.isLoading
+          !store.state.isLastPostReached &&
+          !store.state.isLoading
         ) {
           fetchPosts()
         }
@@ -47,11 +56,16 @@
 
       onMounted(() => {
         fetchPosts()
-        window.addEventListener('scroll', handleScroll)
+
+        if (isAuthenticated.value) {
+          window.addEventListener('scroll', handleScroll)
+        }
       })
 
       onUnmounted(() => {
-        window.removeEventListener('scroll', handleScroll)
+        if (isAuthenticated.value) {
+          window.removeEventListener('scroll', handleScroll)
+        }
       })
     },
   })

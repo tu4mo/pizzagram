@@ -17,7 +17,7 @@
       </div>
       <div class="default-layout__header"><TheHeader :title="title" /></div>
     </div>
-    <div v-if="isAuthenticated" class="default-layout__navigation">
+    <div class="default-layout__navigation">
       <TheNavigation />
     </div>
     <main
@@ -76,10 +76,6 @@
         () => context.root.$route.name !== 'home' && window.history.length > 1
       )
 
-      const isAuthenticated = computed(
-        () => context.root.$store.state.auth.isAuthenticated
-      )
-
       const onScroll = () => {
         hasScrolled.value = window.scrollY > 0
       }
@@ -95,7 +91,6 @@
       return {
         hasScrolled,
         canGoBack,
-        isAuthenticated,
       }
     },
   })

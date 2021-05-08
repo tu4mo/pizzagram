@@ -1,38 +1,45 @@
 <template>
   <nav class="navigation">
     <div class="navigation__items">
-      <NavItem
-        :to="{ name: 'home' }"
-        class="navigation__item"
-        exact
-        icon="home"
-      >
-        Home
-      </NavItem>
-      <TheCamera class="navigation__item" />
-      <NavItem
-        v-if="isDevelopment"
-        :to="{ name: 'top' }"
-        class="navigation__item"
-        icon="star"
-      >
-        Top Posts
-      </NavItem>
-      <NavItem
-        :badge="notifications"
-        :to="{ name: 'notifications' }"
-        class="navigation__item"
-        icon="bell"
-      >
-        Notifications
-      </NavItem>
-      <NavItem
-        :to="{ name: 'profile', params: { username: username || null } }"
-        class="navigation__item"
-        icon="user"
-      >
-        Profile
-      </NavItem>
+      <template v-if="isAuthenticated">
+        <NavItem
+          :to="{ name: 'home' }"
+          class="navigation__item"
+          exact
+          icon="home"
+        >
+          Home
+        </NavItem>
+        <TheCamera class="navigation__item" />
+        <NavItem
+          v-if="isDevelopment"
+          :to="{ name: 'top' }"
+          class="navigation__item"
+          icon="star"
+        >
+          Top Posts
+        </NavItem>
+        <NavItem
+          :badge="notifications"
+          :to="{ name: 'notifications' }"
+          class="navigation__item"
+          icon="bell"
+        >
+          Notifications
+        </NavItem>
+        <NavItem
+          :to="{ name: 'profile', params: { username: username || null } }"
+          class="navigation__item"
+          icon="user"
+        >
+          Profile
+        </NavItem>
+      </template>
+      <template v-else>
+        <NavItem :to="{ name: 'login' }" class="navigation__item" icon="user">
+          Log In
+        </NavItem>
+      </template>
     </div>
   </nav>
 </template>
@@ -49,6 +56,10 @@
       TheCamera,
     },
     setup(props, context) {
+      const isAuthenticated = computed(
+        () => context.root.$store.state.auth.isAuthenticated
+      )
+
       const notifications = computed(() => {
         const unreadNotificationsCount =
           context.root.$store.getters.getUnreadNotificationsCount
@@ -64,6 +75,7 @@
 
       return {
         notifications,
+        isAuthenticated,
         isDevelopment,
         username,
       }
