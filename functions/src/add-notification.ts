@@ -47,5 +47,7 @@ export default async (
       type: NotificationType.Like,
       userId: postData.userId,
     })
+
+    console.log('Notification added')
   }
 }

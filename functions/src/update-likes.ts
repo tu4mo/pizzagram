@@ -6,17 +6,11 @@ export const updateLikes = async (
 ) => {
   const like = snapshot.data()
 
-  const usersSnapshot = await db
-    .collection('posts')
-    .where('id', '==', like.postId)
-    .limit(1)
-    .get()
+  const post = await db.collection('posts').doc(like.postId).get()
 
-  usersSnapshot.forEach(async (doc) => {
-    const likes = doc.data().likes + 1 || 1
-
-    console.log(`Increasing ${doc.id}'s likes count to ${likes}`)
-
-    await db.collection('posts').doc(doc.id).update({ likes })
-  })
+  if (post.exists) {
+    const likes = post.data()?.likes + 1 || 1
+    await db.collection('posts').doc(post.id).update({ likes })
+    console.log(`Increased ${post.id}'s likes count to ${likes}`)
+  }
 }
