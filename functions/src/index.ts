@@ -27,9 +27,13 @@ exports.onCreateLike = functions.firestore
   .onCreate((snapshot) =>
     Promise.all([
       addNotification(snapshot, db, NotificationType.Like),
-      updateLikes(snapshot, db),
+      updateLikes(snapshot, db, true),
     ])
   )
+
+exports.onDeleteLike = functions.firestore
+  .document('likes/{likeId}')
+  .onDelete((snapshot) => updateLikes(snapshot, db, false))
 
 exports.generateResizedImages = functions.storage
   .object()
