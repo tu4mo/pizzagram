@@ -23,7 +23,7 @@ exports.updatePost = functions.firestore
   .document('posts/{postId}')
   .onUpdate(updatePost(db))
 
-exports.addLike = functions.firestore
+exports.onCreateLike = functions.firestore
   .document('likes/{likeId}')
   .onCreate((snapshot) =>
     Promise.all([
