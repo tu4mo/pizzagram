@@ -7,6 +7,7 @@ import generateThumbnail from './utils/generate-thumbnail'
 import addNotification, { NotificationType } from './add-notification'
 import resizeImage from './resize-image'
 import removePost from './remove-post'
+import { updateLikes } from './update-likes'
 import updatePost from './update-post'
 
 admin.initializeApp()
@@ -22,9 +23,14 @@ exports.updatePost = functions.firestore
   .document('posts/{postId}')
   .onUpdate(updatePost(db))
 
-exports.addLikeNotification = functions.firestore
+exports.addLike = functions.firestore
   .document('likes/{likeId}')
-  .onCreate(addNotification(db, NotificationType.Like))
+  .onCreate((snapshot) =>
+    Promise.all([
+      addNotification(snapshot, db, NotificationType.Like),
+      updateLikes(snapshot, db),
+    ])
+  )
 
 exports.generateResizedImages = functions.storage
   .object()

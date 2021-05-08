@@ -4,10 +4,11 @@ export enum NotificationType {
   Like = 'LIKE',
 }
 
-export default (
+export default async (
+  snap: admin.firestore.QueryDocumentSnapshot,
   db: admin.firestore.Firestore,
   notificationType: NotificationType
-) => async (snap: admin.firestore.DocumentSnapshot) => {
+) => {
   const notifications = db.collection('notifications')
 
   if (notificationType === NotificationType.Like) {
