@@ -39,6 +39,16 @@ const checkAutentication: NavigationGuard = async (to, from, next) => {
   }
 }
 
+const disallowLoggedUser: NavigationGuard = async (to, from, next) => {
+  const user = await initializeAuth()
+
+  if (user) {
+    next({ name: 'home' })
+  } else {
+    next()
+  }
+}
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -57,6 +67,7 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: LogIn,
+      beforeEnter: disallowLoggedUser,
     },
     {
       path: '/notifications',
@@ -78,6 +89,7 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp,
+      beforeEnter: disallowLoggedUser,
     },
     {
       path: '/top',
