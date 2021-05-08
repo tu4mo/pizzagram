@@ -16,8 +16,15 @@ const addLikesCountToPosts = async () => {
       .where('postId', '==', post.id)
       .get()
 
-    await db.collection('posts').doc(post.id).update({ likes: likes.size })
-    console.log(`Updated ${post.id} with ${likes.size} likes`)
+    let userIds = []
+
+    for (const doc of likes.docs) {
+      userIds.push(doc.data().userId)
+    }
+
+    await db.collection('posts').doc(post.id).update({ likes: userIds })
+
+    console.log(`Updated ${post.id} with ${userIds.length} likes`)
   }
 }
 

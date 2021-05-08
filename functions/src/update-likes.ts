@@ -6,13 +6,25 @@ export const updateLikes = async (
   add: boolean
 ) => {
   const like = snapshot.data()
-
   const post = await db.collection('posts').doc(like.postId).get()
 
-  if (post.exists) {
-    const currentLikes = post.data()?.likes || 0
-    const likes = add ? currentLikes + 1 : Math.abs(currentLikes - 1)
-    await db.collection('posts').doc(post.id).update({ likes })
-    console.log(`Set ${post.id}'s likes count from ${currentLikes} to ${likes}`)
+  if (!post.exists) {
+    return
+  }
+
+  if (add) {
+    await db
+      .collection('posts')
+      .doc(post.id)
+      .update({ likes: admin.firestore.FieldValue.arrayUnion(like.userId) })
+
+    console.log(`Added ${like.userId} to ${post.id} likes`)
+  } else {
+    await db
+      .collection('posts')
+      .doc(post.id)
+      .update({ likes: admin.firestore.FieldValue.arrayRemove(like.userId) })
+
+    console.log(`Removed ${like.userId} from ${post.id} likes`)
   }
 }
