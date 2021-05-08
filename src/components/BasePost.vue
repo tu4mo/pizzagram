@@ -101,7 +101,6 @@
 
         isPlaceholder.value = false
         context.root.$store.dispatch('getUserById', props.post.userId)
-        context.root.$store.dispatch('getLikes', { postId: props.post.id })
       }
 
       const onLikeClick = () => {

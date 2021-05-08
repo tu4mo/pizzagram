@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import { fetchTopPosters, setOnAuthStateChangedCallback } from './api'
 
-import { getLikes, toggleLike } from './api/likes'
+import { toggleLike } from './api/likes'
 
 import {
   getPost,
@@ -107,7 +107,7 @@ const store = new Vuex.Store({
     },
 
     addToPosts(state, post) {
-      state.posts = { ...state.posts, [post.id]: { ...post, likes: null } }
+      state.posts = { ...state.posts, [post.id]: post }
     },
 
     removePost(state, postId) {
@@ -115,16 +115,6 @@ const store = new Vuex.Store({
       Object.keys(state.feeds).forEach((feed) => {
         Vue.delete(state.feeds[feed], postId)
       })
-    },
-
-    addLikes(state, { postId, likes }) {
-      state.posts = {
-        ...state.posts,
-        [postId]: {
-          ...state.posts[postId],
-          likes,
-        },
-      }
     },
 
     toggleLike(state, postId) {
@@ -206,19 +196,9 @@ const store = new Vuex.Store({
       commit('addToUsers', user)
     },
 
-    async toggleLike({ commit, dispatch }, postId) {
+    async toggleLike({ commit }, postId) {
       commit('toggleLike', postId)
       await toggleLike(postId)
-      dispatch('getLikes', { postId, force: true })
-    },
-
-    async getLikes({ commit, state }, { postId, force = false }) {
-      if (state.posts[postId].likes && !force) {
-        return
-      }
-
-      const likes = await getLikes(postId)
-      commit('addLikes', { postId, likes })
     },
 
     async getTopPosters({ commit }) {
