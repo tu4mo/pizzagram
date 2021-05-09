@@ -57,13 +57,13 @@
       onMounted(() => {
         fetchPosts()
 
-        if (isAuthenticated.value) {
+        if (isAuthenticated) {
           window.addEventListener('scroll', handleScroll)
         }
       })
 
       onUnmounted(() => {
-        if (isAuthenticated.value) {
+        if (isAuthenticated) {
           window.removeEventListener('scroll', handleScroll)
         }
       })
