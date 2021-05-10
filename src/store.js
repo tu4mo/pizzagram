@@ -43,10 +43,6 @@ const store = new Vuex.Store({
 
     getIsMe: (state) => (userId) => state.auth.userId === userId,
 
-    getHasLiked: (state) => (postId) =>
-      state.posts[postId].likes &&
-      state.posts[postId].likes.includes(state.auth.userId),
-
     getPostById: (state) => (id) => {
       return state.posts[id] ? state.posts[id] : {}
     },

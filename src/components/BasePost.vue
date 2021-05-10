@@ -30,9 +30,7 @@
         <BaseButton
           :class="[
             'post__like-button',
-            {
-              'post__like-button--liked': $store.getters.getHasLiked(post.id),
-            },
+            { 'post__like-button--liked': hasLiked },
           ]"
           @click="onLikeClick"
         >
@@ -129,7 +127,14 @@
         }
       }
 
+      const hasLiked = computed(
+        () =>
+          props.post.likes &&
+          props.post.likes.includes(context.root.$store.state.auth.userId)
+      )
+
       return {
+        hasLiked,
         isPlaceholder,
         onVisibilityChanged,
         onLikeClick,
