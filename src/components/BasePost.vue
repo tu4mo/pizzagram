@@ -112,9 +112,11 @@
       }
 
       const onShareClick = async () => {
-        // @ts-ignore
-        if (navigator.share) {
-          // @ts-ignore
+        if (!navigator.share) {
+          alert("Sorry, you're browser doesn't seem to support Web Share.")
+        }
+
+        try {
           await navigator.share({
             title: 'Pizzagram',
             text: `${props.post.caption}${
@@ -122,8 +124,8 @@
             }${props.post.location}`,
             url: postPath as any,
           })
-        } else {
-          alert("Sorry, you're browser doesn't seem to support Web Share.")
+        } catch (e) {
+          //
         }
       }
 
