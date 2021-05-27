@@ -1,3 +1,5 @@
+import { getDoc, doc, setDoc, deleteDoc } from 'firebase/firestore'
+
 import { firestore } from '.'
 import { currentUser } from './user'
 
@@ -8,12 +10,12 @@ export const toggleLike = async (postId: string) => {
     return
   }
 
-  const doc = firestore.collection('likes').doc(`${user.uid}_${postId}`)
-  const snapshot = await doc.get()
+  const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+  const snapshot = await getDoc(likeDoc)
 
-  if (snapshot.exists) {
-    await doc.delete()
+  if (snapshot.exists()) {
+    await deleteDoc(likeDoc)
   } else {
-    await doc.set({ postId, userId: user.uid })
+    await setDoc(likeDoc, { postId, userId: user.uid })
   }
 }

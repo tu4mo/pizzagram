@@ -34,7 +34,7 @@
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import { auth } from '@/api'
+  import { sendPasswordResetEmail } from '@/api'
 
   export default defineComponent({
     components: {
@@ -55,7 +55,7 @@
         hasSentMail.value = false
 
         try {
-          await auth.sendPasswordResetEmail(email.value)
+          await sendPasswordResetEmail(email.value)
           hasSentMail.value = true
         } catch (e) {
           alert(e.message)

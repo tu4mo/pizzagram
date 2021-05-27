@@ -1,8 +1,25 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore/memory'
-import 'firebase/storage'
-import { GeoFirestore } from 'geofirestore'
+import firebase from 'firebase/compat/app'
+// import { initializeApp } from 'firebase/app'
+import {
+  getAuth,
+  User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from 'firebase/auth'
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  serverTimestamp,
+  updateDoc,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+} from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
 
 import { createUserObject, currentUser } from './user'
 
@@ -17,25 +34,24 @@ firebase.initializeApp({
   messagingSenderId: '393669371775',
 })
 
-export const auth = firebase.auth()
+export const auth = getAuth()
+const sendPasswordResetEmailFunc = (email: string) =>
+  sendPasswordResetEmail(auth, email)
+export { sendPasswordResetEmailFunc as sendPasswordResetEmail }
 
-export { firebase }
-export const firestore = firebase.firestore()
-export const storage = firebase.storage()
-
-const geofirestore = new GeoFirestore(firestore)
-const locations = geofirestore.collection('locations')
+export const firestore = getFirestore()
+export const storage = getStorage()
 
 let isSigningUp = false
 
-let onAuthStateChangedCallback: (user: firebase.User | null) => void
+let onAuthStateChangedCallback: (user: User | null) => void
 
 auth.onAuthStateChanged(async (user) => {
   !isSigningUp && onAuthStateChangedCallback(user)
 })
 
 export const setOnAuthStateChangedCallback = (
-  callback: (user: firebase.User | null) => void
+  callback: (user: User | null) => void
 ) => {
   onAuthStateChangedCallback = callback
 }
@@ -47,15 +63,15 @@ export const signUp = async (
 ) => {
   isSigningUp = true
 
-  const userDoc = firestore.collection('users').doc(username)
+  const docRef = doc(firestore, 'users', username)
 
-  await userDoc.set({
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  await setDoc(docRef, {
+    createdAt: serverTimestamp(),
     id: null,
     name: username,
   })
 
-  await auth.createUserWithEmailAndPassword(email, password)
+  await createUserWithEmailAndPassword(auth, email, password)
 
   const gravatar = md5(email.toLowerCase())
 
@@ -65,7 +81,7 @@ export const signUp = async (
     return
   }
 
-  await userDoc.update({ gravatar, id: user.uid })
+  await updateDoc(docRef, { gravatar, id: user.uid })
 
   onAuthStateChangedCallback(user)
 
@@ -73,7 +89,7 @@ export const signUp = async (
 }
 
 export const signIn = async (email: string, password: string) => {
-  await auth.signInWithEmailAndPassword(email, password)
+  await signInWithEmailAndPassword(auth, email, password)
 }
 
 export const signOut = async () => {
@@ -82,11 +98,9 @@ export const signOut = async () => {
 
 export const fetchTopPosters = async () => {
   try {
-    const querySnapshot = await firestore
-      .collection('users')
-      .orderBy('posts', 'desc')
-      .limit(10)
-      .get()
+    const querySnapshot = await getDocs(
+      query(collection(firestore, 'users'), orderBy('posts', 'desc'), limit(10))
+    )
 
     const users = []
 
@@ -98,46 +112,4 @@ export const fetchTopPosters = async () => {
   } catch (error) {
     console.error(error)
   }
-}
-
-export const getNearbyLocations = async (
-  latitude: number,
-  longitude: number
-) => {
-  try {
-    const query = locations.near({
-      center: new firebase.firestore.GeoPoint(latitude, longitude),
-      radius: 0.4,
-    })
-
-    const querySnapshot = await query.get()
-
-    const locationsArray = []
-
-    for (const doc of querySnapshot.docs) {
-      locationsArray.push({
-        id: doc.id,
-        name: doc.data().name,
-      })
-    }
-
-    return locationsArray
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export const addLocation = async ({
-  name,
-  latitude,
-  longitude,
-}: {
-  name: string
-  latitude: number
-  longitude: number
-}) => {
-  await locations.add({
-    coordinates: new firebase.firestore.GeoPoint(latitude, longitude),
-    name: name.trim(),
-  })
 }

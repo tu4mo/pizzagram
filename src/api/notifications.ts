@@ -1,7 +1,18 @@
+import {
+  collection,
+  where,
+  doc,
+  getDocs,
+  query,
+  orderBy,
+  onSnapshot,
+  writeBatch,
+} from 'firebase/firestore'
+
 import { firestore } from '.'
 import { currentUser, getUser } from './user'
 
-const collection = firestore.collection('notifications')
+const notifications = collection(firestore, 'notifications')
 
 export const subscribeToNotifications = (
   callback: (notifications: any[]) => void
@@ -14,26 +25,29 @@ export const subscribeToNotifications = (
 
   const beginningDate = Date.now() - 1000 * 60 * 60 * 24 * 90
 
-  return collection
-    .orderBy('createdAt', 'desc')
-    .where('userId', '==', user.uid)
-    .where('createdAt', '>=', new Date(beginningDate))
-    .onSnapshot(async (querySnapshot) => {
-      const notifications = []
+  const q = query(
+    notifications,
+    orderBy('createdAt', 'desc'),
+    where('userId', '==', user.uid),
+    where('createdAt', '>=', new Date(beginningDate))
+  )
 
-      for await (const doc of querySnapshot.docs) {
-        const data = doc.data()
-        const from = await getUser(data.fromUserId)
-        notifications.push({
-          ...data,
-          createdAt: data.createdAt.toDate(),
-          id: doc.id,
-          from,
-        })
-      }
+  return onSnapshot(q, async (querySnapshot) => {
+    const notifications = []
 
-      callback(notifications)
-    })
+    for await (const doc of querySnapshot.docs) {
+      const data: any = doc.data()
+      const from = await getUser(data.fromUserId)
+      notifications.push({
+        ...data,
+        createdAt: data.createdAt.toDate(),
+        id: doc.id,
+        from,
+      })
+    }
+
+    callback(notifications)
+  })
 }
 
 export const markNotificationsAsRead = async () => {
@@ -43,15 +57,18 @@ export const markNotificationsAsRead = async () => {
     return
   }
 
-  const notifications = await collection
-    .where('userId', '==', user.uid)
-    .where('read', '==', false)
-    .get()
+  const querySnapshot = await getDocs(
+    query(
+      notifications,
+      where('userId', '==', user.uid),
+      where('read', '==', false)
+    )
+  )
 
-  const batch = firestore.batch()
+  const batch = writeBatch(firestore)
 
-  notifications.docs.forEach(async (doc) => {
-    const notification = collection.doc(doc.id)
+  querySnapshot.forEach(async (docRef) => {
+    const notification = doc(firestore, 'notifications', docRef.id)
     batch.update(notification, { read: true })
   })
 

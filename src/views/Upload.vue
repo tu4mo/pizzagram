@@ -50,7 +50,7 @@
   import BaseInput from '@/components/BaseInput'
   import PostImage from '@/components/PostImage'
 
-  import { addLocation, getNearbyLocations } from '@/api'
+  import { addLocation, getNearbyLocations } from '@/api/locations'
   import { sharePost } from '@/api/posts'
 
   export default {

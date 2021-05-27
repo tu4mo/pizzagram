@@ -151,7 +151,7 @@ const store = new Vuex.Store({
         postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null
 
       const posts = await getPosts({
-        startAfter: lastPost,
+        after: lastPost,
       })
 
       posts.forEach((post) => {

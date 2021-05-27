@@ -1,9 +1,19 @@
-import firebase from 'firebase/app'
-import { auth, firestore } from '.'
+import { onAuthStateChanged, User } from 'firebase/auth'
+import {
+  QueryDocumentSnapshot,
+  collection,
+  where,
+  limit,
+  getDoc,
+  doc,
+  getDocs,
+  query,
+} from 'firebase/firestore'
 
+import { auth, firestore } from '.'
 import userCache from './user-cache'
 
-export const createUserObject = (doc: firebase.firestore.DocumentSnapshot) => {
+export const createUserObject = (doc: QueryDocumentSnapshot<any>) => {
   const data = doc.data()
 
   return data
@@ -12,8 +22,8 @@ export const createUserObject = (doc: firebase.firestore.DocumentSnapshot) => {
 }
 
 export const initializeAuth = () =>
-  new Promise<firebase.User | null>((resolve) => {
-    auth.onAuthStateChanged((user) => {
+  new Promise<User | null>((resolve) => {
+    onAuthStateChanged(auth, (user) => {
       resolve(user)
     })
   })
@@ -21,11 +31,9 @@ export const initializeAuth = () =>
 export const getUser = async (id: string) => {
   if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
     try {
-      const querySnapshot = await firestore
-        .collection('users')
-        .where('id', '==', id)
-        .limit(1)
-        .get()
+      const querySnapshot = await getDocs(
+        query(collection(firestore, 'users'), where('id', '==', id), limit(1))
+      )
 
       const doc = querySnapshot.docs[0]
       const user = createUserObject(doc)
@@ -43,7 +51,7 @@ export const getUser = async (id: string) => {
 
 export const getUserByUsername = async (username: string) => {
   if (!userCache.getAll()[username]) {
-    const docRef = await firestore.collection('users').doc(username).get()
+    const docRef = await getDoc(doc(firestore, 'users', username))
 
     const user = createUserObject(docRef)
 
