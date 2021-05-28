@@ -3,7 +3,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAllowedUsername(user) {
-      return user.size() > 2 && user.size() < 16 && user.matches('[0-9A-Za-z_]+') == true
+      return user.size() > 2 && user.size() < 16 && user.matches('[0-9A-Za-z_]+') == true;
     }
 
     match /likes/{likeId} {
