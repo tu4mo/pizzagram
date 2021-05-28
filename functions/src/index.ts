@@ -1,8 +1,6 @@
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 
-import generateThumbnail from './utils/generate-thumbnail'
-
 import addNotification, { NotificationType } from './add-notification'
 import resizeImage from './resize-image'
 import removePost from './remove-post'
@@ -40,9 +38,3 @@ exports.generateResizedImages = functions.storage
   .onFinalize((object) =>
     Promise.all([256, 1024].map((size) => resizeImage(object, size)))
   )
-
-exports.generateThumbnail = functions.https.onRequest(async () => {
-  for (const size of [256, 1024]) {
-    await generateThumbnail(size)
-  }
-})
