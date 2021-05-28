@@ -36,5 +36,5 @@ exports.onDeleteLike = functions.firestore
 exports.generateResizedImages = functions.storage
   .object()
   .onFinalize((object) =>
-    Promise.all([256, 1024].map((size) => resizeImage(object, size)))
+    Promise.all([resizeImage(object, true), resizeImage(object, false)])
   )

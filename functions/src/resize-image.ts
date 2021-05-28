@@ -7,7 +7,7 @@ const storage = new Storage()
 
 export default async (
   object: functions.storage.ObjectMetadata,
-  size: number
+  isThumbnail: boolean
 ) => {
   const fileBucket = object.bucket
   const filePath = object.name
@@ -31,7 +31,8 @@ export default async (
 
   const bucket = storage.bucket(fileBucket)
 
-  const resizedFileName = size === 256 ? `${name}_t.jpg` : `${name}.jpg`
+  const size = isThumbnail ? 256 : 1024
+  const resizedFileName = isThumbnail ? `${name}_t.jpg` : `${name}.jpg`
   const resizedFilePath = path.join(path.dirname(filePath), resizedFileName)
 
   const resizedUploadStream = bucket.file(resizedFilePath).createWriteStream({
@@ -46,7 +47,7 @@ export default async (
   pipeline
     .rotate()
     .resize(size, size, { fit: 'inside', withoutEnlargement: true })
-    .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
+    .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
     .pipe(resizedUploadStream)
 
   bucket.file(filePath).createReadStream().pipe(pipeline)
