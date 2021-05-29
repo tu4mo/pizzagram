@@ -39,19 +39,14 @@ export const onDeleteUser = async (
   const postsCollection = db.collection('posts')
   const posts = await postsCollection.where('userId', '==', uid).get()
 
-  const postsIds: string[] = []
+  const files: Promise<any>[] = []
   posts.forEach((doc) => {
     deleteBatch.delete(postsCollection.doc(doc.id))
-    postsIds.push(doc.id)
+    files.push(bucket.file(`posts/${doc.id}.jpg`).delete())
+    files.push(bucket.file(`posts/${doc.id}_t.jpg`).delete())
   })
 
-  for (const postId in postsIds) {
-    await Promise.all([
-      bucket.file(`posts/${postId}.jpg`).delete(),
-      bucket.file(`posts/${postId}_t.jpg`).delete(),
-    ])
-    console.log(`Removed ${postId}.jpg and ${postId}_t.jpg.`)
-  }
+  await Promise.all(files)
 
   // Remove user
   const usersCollection = db.collection('users')
