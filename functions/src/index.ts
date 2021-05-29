@@ -6,6 +6,7 @@ import resizeImage from './resize-image'
 import removePost from './remove-post'
 import { updateLikes } from './update-likes'
 import updatePost from './update-post'
+import { onDeleteUser } from './on-delete-user'
 
 admin.initializeApp()
 
@@ -32,6 +33,10 @@ exports.onCreateLike = functions.firestore
 exports.onDeleteLike = functions.firestore
   .document('likes/{likeId}')
   .onDelete((snapshot) => updateLikes(snapshot, db, false))
+
+exports.onDeleteUser = functions.auth
+  .user()
+  .onDelete((user) => onDeleteUser(user, db))
 
 exports.generateResizedImages = functions.storage
   .object()
