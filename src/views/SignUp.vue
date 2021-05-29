@@ -5,10 +5,9 @@
       <BaseSpacer mb1>
         <BaseInput
           v-model.trim="username"
+          pattern="[0-9A-Za-z_]{3,15}"
           placeholder="Username"
           required
-          minlength="3"
-          maxlength="15"
           name="username"
         />
       </BaseSpacer>

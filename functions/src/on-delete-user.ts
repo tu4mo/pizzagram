@@ -10,7 +10,7 @@ export const onDeleteUser = async (
   const { uid, email } = user
   const deleteBatch = db.batch()
 
-  console.log(`Removing ${email} (${uid}) data...`)
+  console.log(`Removing ${email} (${uid})...`)
 
   // Remove comments
   const commentsCollection = db.collection('comments')
