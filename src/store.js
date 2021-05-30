@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { fetchTopPosters, setOnAuthStateChangedCallback } from './api'
-
+import { setOnAuthStateChangedCallback } from './api'
 import { toggleLike } from './api/likes'
-
 import {
   getPost,
   getPosts,
@@ -12,10 +10,9 @@ import {
   subscribeToPosts,
   QUERY_LIMIT,
 } from './api/posts'
-
 import { getUser, getUserByUsername } from './api/user'
-
 import { subscribeToNotifications } from './api/notifications'
+import { fetchTopPosters } from './api/top'
 
 Vue.use(Vuex)
 

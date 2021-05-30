@@ -9,19 +9,14 @@ import {
 } from 'firebase/auth'
 import {
   getFirestore,
-  collection,
   doc,
   setDoc,
   serverTimestamp,
   updateDoc,
-  query,
-  orderBy,
-  limit,
-  getDocs,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-import { createUserObject, currentUser } from './user'
+import { currentUser } from './user'
 
 import md5 from 'md5'
 
@@ -94,22 +89,4 @@ export const signIn = async (email: string, password: string) => {
 
 export const signOut = async () => {
   await auth.signOut()
-}
-
-export const fetchTopPosters = async () => {
-  try {
-    const querySnapshot = await getDocs(
-      query(collection(firestore, 'users'), orderBy('posts', 'desc'), limit(10))
-    )
-
-    const users = []
-
-    for (const doc of querySnapshot.docs) {
-      users.push(createUserObject(doc))
-    }
-
-    return users
-  } catch (error) {
-    console.error(error)
-  }
 }
