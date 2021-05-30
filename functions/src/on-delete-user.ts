@@ -26,12 +26,18 @@ export const onDeleteUser = async (
     deleteBatch.delete(likesCollection.doc(doc.id))
   })
 
-  // Remove notifications
+  // Remove notifications to user
   const notificationsCollection = db.collection('notifications')
-  const notifications = await notificationsCollection
+  const notificationsToUser = await notificationsCollection
     .where('userId', '==', uid)
     .get()
-  notifications.forEach((doc) => {
+  notificationsToUser.forEach((doc) => {
+    deleteBatch.delete(notificationsCollection.doc(doc.id))
+  })
+  const notificationsFromUser = await notificationsCollection
+    .where('fromUserId', '==', uid)
+    .get()
+  notificationsFromUser.forEach((doc) => {
     deleteBatch.delete(notificationsCollection.doc(doc.id))
   })
 
@@ -61,7 +67,9 @@ export const onDeleteUser = async (
   console.log(
     `Removed ${comments.size} comments, ` +
       `${likes.size} likes, ` +
-      `${notifications.size} notifications, ` +
+      `${
+        notificationsToUser.size + notificationsFromUser.size
+      } notifications, ` +
       `${posts.size} posts.`
   )
 }

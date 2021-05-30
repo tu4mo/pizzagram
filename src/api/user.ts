@@ -42,7 +42,7 @@ export const getUser = async (id: string) => {
         userCache.set(user.username, user)
       }
     } catch (error) {
-      console.error(error)
+      console.error(`Unable to get user ${id}`, error)
     }
   }
 
