@@ -28,6 +28,7 @@ firebase.initializeApp({
   storageBucket: 'pizzagram-cc.appspot.com',
   messagingSenderId: '393669371775',
 })
+firebase.firestore().settings({ experimentalForceLongPolling: true })
 
 export const auth = getAuth()
 const sendPasswordResetEmailFunc = (email: string) =>
