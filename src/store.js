@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { setOnAuthStateChangedCallback } from './api'
+import { setOnAuthStateChangedCallback, signOut } from './api'
 import { toggleLike } from './api/likes'
 import {
   getPost,
@@ -206,24 +206,29 @@ let unsubscribeToNotifications = () => {}
 
 setOnAuthStateChangedCallback(async (user) => {
   if (user) {
-    const userData = await getUser(user.uid)
-    store.commit('setIsAuthenticated', {
-      isAuthenticated: true,
-      username: userData.username,
-      userId: user.uid,
-    })
-    store.commit('addToUsers', userData)
-
-    unsubscribeToPosts = subscribeToPosts((posts) => {
-      posts.forEach((post) => {
-        store.commit('addToPosts', post)
-        store.commit('addToFeeds', { feed: 'home', postId: post.id })
+    try {
+      const userData = await getUser(user.uid)
+      store.commit('setIsAuthenticated', {
+        isAuthenticated: true,
+        username: userData.username,
+        userId: user.uid,
       })
-    })
+      store.commit('addToUsers', userData)
 
-    unsubscribeToNotifications = subscribeToNotifications((notifications) => {
-      store.commit('setNotifications', notifications)
-    })
+      unsubscribeToPosts = subscribeToPosts((posts) => {
+        posts.forEach((post) => {
+          store.commit('addToPosts', post)
+          store.commit('addToFeeds', { feed: 'home', postId: post.id })
+        })
+      })
+
+      unsubscribeToNotifications = subscribeToNotifications((notifications) => {
+        store.commit('setNotifications', notifications)
+      })
+    } catch (e) {
+      // Sign out if there's an error getting user
+      await signOut()
+    }
   } else {
     unsubscribeToPosts()
     unsubscribeToNotifications()
