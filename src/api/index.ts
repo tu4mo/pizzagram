@@ -27,6 +27,7 @@ firebase.initializeApp({
   projectId: 'pizzagram-cc',
   storageBucket: 'pizzagram-cc.appspot.com',
   messagingSenderId: '393669371775',
+  appId: '1:393669371775:web:7334a83ecef631ecea9c4a',
 })
 
 export const auth = getAuth()
