@@ -115,9 +115,13 @@ const store = new Vuex.Store({
       const { userId } = state.auth
 
       if (likes.includes(userId)) {
-        state.posts[postId].likes = likes.filter((userId) => userId !== userId)
+        Vue.set(
+          state.posts[postId],
+          'likes',
+          likes.filter((userId) => userId !== userId)
+        )
       } else {
-        state.posts[postId].likes = [...likes, userId]
+        Vue.set(state.posts[postId], 'likes', [...likes, userId])
       }
     },
 
