@@ -18,7 +18,7 @@
     "@vue/composition-api": "^1.0.0-rc.6",
     "core-js": "^3.8.3",
     "feather-icons": "^4.28.0",
-    "firebase": "9.0.0-beta.2",
+    "firebase": "9.0.0-beta.5",
     "geofirestore": "^4.4.1",
     "md5": "^2.3.0",
     "vue": "^2.6.12",
