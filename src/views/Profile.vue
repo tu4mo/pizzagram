@@ -87,10 +87,11 @@
 <style lang="scss" scoped>
   .profile {
     &__header {
-      background-size: cover;
+      background-attachment: fixed;
       background-position: 50% 50%;
-      position: relative;
+      background-size: cover;
       max-height: 16rem;
+      position: relative;
 
       &::after {
         content: '';
