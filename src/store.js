@@ -20,6 +20,7 @@ const store = new Vuex.Store({
   state: {
     auth: {
       isAuthenticated: false,
+      isInitialized: false,
       username: '',
       userId: '',
     },
@@ -68,6 +69,7 @@ const store = new Vuex.Store({
   mutations: {
     setIsAuthenticated(state, { isAuthenticated, username, userId }) {
       state.auth.isAuthenticated = isAuthenticated
+      state.auth.isInitialized = true
       state.auth.username = username
       state.auth.userId = userId
     },
