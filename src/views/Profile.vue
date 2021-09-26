@@ -17,9 +17,10 @@
           :key="post.id"
         >
           <PostImage
-            :image-url="post.imageUrl.replace('.jpg', '_t.jpg')"
+            :image-url="post.imageUrl"
             :to="{ name: 'post', params: { postId: post.id } }"
             rounded
+            thumbnail
           />
         </li>
       </ul>

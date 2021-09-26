@@ -32,6 +32,10 @@
         default: false,
         type: Boolean,
       },
+      thumbnail: {
+        default: false,
+        type: Boolean,
+      },
       to: {
         default: null,
         type: [String, Object],
@@ -45,7 +49,9 @@
           return
         }
 
-        actualUrl.value = props.imageUrl
+        actualUrl.value = props.thumbnail
+          ? props.imageUrl.replace('.jpg', '_t.jpg')
+          : props.imageUrl
       }
 
       return {

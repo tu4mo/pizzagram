@@ -11,7 +11,10 @@
           />
           <div>
             <div class="notification__date">
-              {{ notification.createdAt.toLocaleDateString() }}
+              <div>
+                {{ notification.createdAt.toLocaleDateString() }}
+              </div>
+              <div v-if="!notification.read" class="notification__unread" />
             </div>
             <BaseLink
               :to="{
@@ -28,7 +31,12 @@
               photo
             </BaseLink>
           </div>
-          <div v-if="!notification.read" class="notification__unread" />
+          <PostImage
+            v-if="notification.imageUrl"
+            class="notification__image"
+            :image-url="notification.imageUrl"
+            thumbnail
+          />
         </li>
       </ul>
     </template>
@@ -46,6 +54,7 @@
 
   import BaseEmpty from '@/components/BaseEmpty.vue'
   import BaseLink from '@/components/BaseLink.vue'
+  import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { markNotificationsAsRead } from '@/api/notifications'
@@ -55,6 +64,7 @@
       BaseEmpty,
       BaseLink,
       DefaultLayout,
+      PostImage,
       ProfilePhoto,
     },
     setup(props, context) {
@@ -77,17 +87,17 @@
   .notification {
     align-items: center;
     display: flex;
+    gap: 1rem;
     padding: 1rem;
 
     @media (min-width: 640px) {
       padding: 2rem;
     }
 
-    &__profile {
-      margin-right: 1rem;
-    }
-
     &__date {
+      align-items: center;
+      display: flex;
+      gap: 0.5rem;
       color: var(--color-gray);
     }
 
@@ -95,8 +105,16 @@
       background-color: var(--color-primary);
       border-radius: 0.25rem;
       height: 0.5rem;
-      margin-left: auto;
       width: 0.5rem;
+    }
+
+    &__image {
+      border-radius: 0.25rem;
+      flex: 0 0 auto;
+      margin-left: auto;
+      overflow: hidden;
+      width: 4rem;
+      height: 4rem;
     }
   }
 </style>

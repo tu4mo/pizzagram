@@ -42,6 +42,7 @@ export default async (
     await notifications.add({
       createdAt: new Date(),
       fromUserId: userId,
+      imageUrl: postData.imageUrl,
       postId,
       read: false,
       type: NotificationType.Like,
