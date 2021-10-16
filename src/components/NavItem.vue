@@ -1,5 +1,5 @@
 <template>
-  <BaseLink
+  <RouterLink
     :exact="exact"
     :to="to"
     active-class="nav-item--active"
@@ -7,19 +7,17 @@
   >
     <BaseIcon :name="icon" />
     <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
-  </BaseLink>
+  </RouterLink>
 </template>
 
 <script lang="ts">
   import { defineComponent } from '@vue/composition-api'
 
   import BaseIcon from './BaseIcon.vue'
-  import BaseLink from './BaseLink.vue'
 
   export default defineComponent({
     components: {
       BaseIcon,
-      BaseLink,
     },
     props: {
       badge: {
