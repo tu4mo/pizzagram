@@ -4,7 +4,7 @@ import 'firebase/compat/firestore'
 import * as geofirestore from 'geofirestore'
 import { GeoPoint } from 'firebase/firestore'
 
-// @ts-expect-error
+// @ts-expect-error GeoFirestore is not updated to new Firestore SDK
 const GeoFirestore = geofirestore.initializeApp(firebase.firestore())
 const locations = GeoFirestore.collection('locations')
 

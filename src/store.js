@@ -207,8 +207,8 @@ const store = new Vuex.Store({
   },
 })
 
-let unsubscribeToPosts = () => {}
-let unsubscribeToNotifications = () => {}
+let unsubscribeToPosts = () => undefined
+let unsubscribeToNotifications = () => undefined
 
 setOnAuthStateChangedCallback(async (user) => {
   if (user) {

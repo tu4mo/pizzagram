@@ -26,7 +26,10 @@ const postsCollection = collection(firestore, 'posts')
 
 export const QUERY_LIMIT = 9
 
-export const subscribeToPosts = (callback: (posts: any[]) => void) => {
+export const subscribeToPosts = (
+  // eslint-disable-next-line no-unused-vars
+  callback: (posts: unknown[]) => void
+) => {
   const q = query(
     postsCollection,
     orderBy('createdAt', 'desc'),
@@ -35,7 +38,7 @@ export const subscribeToPosts = (callback: (posts: any[]) => void) => {
   )
 
   return onSnapshot(q, async (querySnapshot) => {
-    const posts: any[] = []
+    const posts: unknown[] = []
     querySnapshot.forEach((doc) => posts.push(createPostObject(doc)))
     callback(posts)
   })
@@ -52,7 +55,7 @@ export const getPosts = async ({
     after ? startAfter(after) : undefined,
   ].filter((item): item is QueryConstraint => !!item)
 
-  const posts: any[] = []
+  const posts: unknown[] = []
 
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
   querySnapshot.docs.forEach((doc) => posts.push(createPostObject(doc)))
@@ -69,6 +72,7 @@ export const getPost = async (id: string) => {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createPostObject = (doc: DocumentSnapshot<any>) => {
   const data = doc.data()
 

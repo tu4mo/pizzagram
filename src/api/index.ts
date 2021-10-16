@@ -40,6 +40,7 @@ export const storage = getStorage()
 
 let isSigningUp = false
 
+// eslint-disable-next-line no-unused-vars
 let onAuthStateChangedCallback: (user: User | null) => void
 
 auth.onAuthStateChanged(async (user) => {
@@ -47,6 +48,7 @@ auth.onAuthStateChanged(async (user) => {
 })
 
 export const setOnAuthStateChangedCallback = (
+  // eslint-disable-next-line no-unused-vars
   callback: (user: User | null) => void
 ) => {
   onAuthStateChangedCallback = callback

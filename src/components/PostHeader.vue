@@ -33,12 +33,11 @@
         type: Date,
       },
       user: {
-        default: () => {},
+        default: () => ({}),
         type: Object,
       },
     },
     setup(props) {
-      // @ts-ignore
       const createdDate = computed(() => props.createdAt.toLocaleDateString())
       const isUserLoaded = computed(
         () => props.user && Object.keys(props.user).length > 0

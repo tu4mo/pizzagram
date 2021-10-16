@@ -15,7 +15,8 @@ import { currentUser, getUser } from './user'
 const notifications = collection(firestore, 'notifications')
 
 export const subscribeToNotifications = (
-  callback: (notifications: any[]) => void
+  // eslint-disable-next-line no-unused-vars
+  callback: (notifications: unknown[]) => void
 ) => {
   const user = currentUser()
 
