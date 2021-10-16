@@ -24,17 +24,11 @@
         <BaseButton v-if="isRemovable" @click="onRemoveClick">
           <BaseIcon name="trash2" />
         </BaseButton>
-        <BaseButton class="post__share-button" @click="onShareClick">
+        <BaseButton secondary @click="onShareClick">
           <BaseIcon name="share" />
         </BaseButton>
-        <BaseButton
-          :class="[
-            'post__like-button',
-            { 'post__like-button--liked': hasLiked },
-          ]"
-          @click="onLikeClick"
-        >
-          <BaseIcon name="heart" />
+        <BaseButton :secondary="!hasLiked" @click="onLikeClick">
+          <BaseIcon :fill="hasLiked" name="heart" />
         </BaseButton>
       </div>
     </footer>
@@ -205,26 +199,6 @@
       grid-auto-flow: column;
       gap: 1.5rem;
       flex: 0 0 auto;
-    }
-
-    &__share-button {
-      color: var(--color-secondary);
-
-      &--active {
-        color: var(--color-primary);
-      }
-    }
-
-    &__like-button {
-      color: var(--color-secondary);
-
-      &--liked {
-        color: var(--color-primary);
-
-        & ::v-deep svg {
-          fill: var(--color-primary);
-        }
-      }
     }
   }
 </style>

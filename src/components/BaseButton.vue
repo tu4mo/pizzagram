@@ -2,7 +2,10 @@
   <component
     :is="component"
     v-bind="$attrs"
-    :class="['button', { [`button--${variant}`]: variant }]"
+    :class="[
+      'button',
+      { [`button--secondary`]: secondary, [`button--${variant}`]: variant },
+    ]"
     v-on="$listeners"
   >
     <slot />
@@ -14,6 +17,10 @@
 
   export default defineComponent({
     props: {
+      secondary: {
+        default: false,
+        type: Boolean,
+      },
       component: {
         default: 'button',
         type: String,
@@ -51,6 +58,10 @@
       font-size: inherit;
       font-weight: inherit;
       line-height: inherit;
+    }
+
+    &--secondary {
+      color: var(--color-secondary);
     }
   }
 </style>

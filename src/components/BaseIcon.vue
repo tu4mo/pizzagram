@@ -1,5 +1,8 @@
 <template>
-  <div :class="['icon', `icon--${size}`]" v-html="icon" />
+  <div
+    :class="['icon', `icon--${size}`, { 'icon--fill': fill }]"
+    v-html="icon"
+  />
 </template>
 
 <script lang="ts">
@@ -18,6 +21,10 @@
 
   export default defineComponent({
     props: {
+      fill: {
+        default: false,
+        type: Boolean,
+      },
       name: {
         required: true,
         type: String,
@@ -56,6 +63,10 @@
 
     ::v-deep svg {
       display: block;
+    }
+
+    &--fill ::v-deep svg {
+      fill: currentColor;
     }
 
     &--md ::v-deep svg {
