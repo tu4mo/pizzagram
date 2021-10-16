@@ -49,7 +49,7 @@
         type: String,
       },
       options: {
-        type: Array,
+        type: Array as () => { label?: string; value?: string }[],
         default: () => [],
       },
       value: {

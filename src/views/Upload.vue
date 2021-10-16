@@ -38,17 +38,17 @@
 </template>
 
 <script>
-  import DefaultLayout from '@/layouts/Default'
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  import BaseButton from '@/components/BaseButton'
-  import BaseEmpty from '@/components/BaseEmpty'
-  import BaseField from '@/components/BaseField'
-  import BaseRating from '@/components/BaseRating'
-  import BaseSelect from '@/components/BaseSelect'
-  import BaseSpacer from '@/components/BaseSpacer'
-  import BaseSpinner from '@/components/BaseSpinner'
-  import BaseInput from '@/components/BaseInput'
-  import PostImage from '@/components/PostImage'
+  import BaseButton from '@/components/BaseButton.vue'
+  import BaseEmpty from '@/components/BaseEmpty.vue'
+  import BaseField from '@/components/BaseField.vue'
+  import BaseRating from '@/components/BaseRating.vue'
+  import BaseSelect from '@/components/BaseSelect.vue'
+  import BaseSpacer from '@/components/BaseSpacer.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import BaseInput from '@/components/BaseInput.vue'
+  import PostImage from '@/components/PostImage.vue'
 
   import { addLocation, getNearbyLocations } from '@/api/locations'
   import { sharePost } from '@/api/posts'

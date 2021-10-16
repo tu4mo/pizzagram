@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import DefaultLayout from '@/layouts/Default'
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  import BasePost from '@/components/BasePost'
+  import BasePost from '@/components/BasePost.vue'
 
   export default {
     components: {

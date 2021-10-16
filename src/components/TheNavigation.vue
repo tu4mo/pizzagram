@@ -15,6 +15,7 @@
           v-if="isDevelopment"
           :to="{ name: 'top' }"
           class="navigation__item"
+          exact
           icon="star"
         >
           Top Posts
@@ -23,6 +24,7 @@
           :badge="notifications"
           :to="{ name: 'notifications' }"
           class="navigation__item"
+          exact
           icon="bell"
         >
           Notifications
@@ -30,13 +32,19 @@
         <NavItem
           :to="{ name: 'profile', params: { username: username || null } }"
           class="navigation__item"
+          exact
           icon="user"
         >
           Profile
         </NavItem>
       </template>
       <template v-else>
-        <NavItem :to="{ name: 'login' }" class="navigation__item" icon="user">
+        <NavItem
+          :to="{ name: 'login' }"
+          class="navigation__item"
+          exact
+          icon="user"
+        >
           Log In
         </NavItem>
       </template>

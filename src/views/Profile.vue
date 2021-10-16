@@ -32,11 +32,11 @@
 </template>
 
 <script>
-  import DefaultLayout from '@/layouts/Default'
+  import DefaultLayout from '@/layouts/Default.vue'
 
-  import BaseButton from '@/components/BaseButton'
-  import PostImage from '@/components/PostImage'
-  import ProfilePhoto from '@/components/ProfilePhoto'
+  import BaseButton from '@/components/BaseButton.vue'
+  import PostImage from '@/components/PostImage.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { signOut } from '@/api'
 

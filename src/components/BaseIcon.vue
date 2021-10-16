@@ -3,20 +3,18 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line
-  import { VNode } from 'vue'
   import { computed, defineComponent } from '@vue/composition-api'
 
-  import bell from 'feather-icons/dist/icons/bell.svg'
-  import camera from 'feather-icons/dist/icons/camera.svg'
-  import chevronLeft from 'feather-icons/dist/icons/chevron-left.svg'
-  import heart from 'feather-icons/dist/icons/heart.svg'
-  import home from 'feather-icons/dist/icons/home.svg'
-  import mapPin from 'feather-icons/dist/icons/map-pin.svg'
-  import share from 'feather-icons/dist/icons/share.svg'
-  import star from 'feather-icons/dist/icons/star.svg'
-  import trash2 from 'feather-icons/dist/icons/trash-2.svg'
-  import user from 'feather-icons/dist/icons/user.svg'
+  import bell from 'feather-icons/dist/icons/bell.svg?raw'
+  import camera from 'feather-icons/dist/icons/camera.svg?raw'
+  import chevronLeft from 'feather-icons/dist/icons/chevron-left.svg?raw'
+  import heart from 'feather-icons/dist/icons/heart.svg?raw'
+  import home from 'feather-icons/dist/icons/home.svg?raw'
+  import mapPin from 'feather-icons/dist/icons/map-pin.svg?raw'
+  import share from 'feather-icons/dist/icons/share.svg?raw'
+  import star from 'feather-icons/dist/icons/star.svg?raw'
+  import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
+  import user from 'feather-icons/dist/icons/user.svg?raw'
 
   export default defineComponent({
     props: {
@@ -30,7 +28,7 @@
       },
     },
     setup(props) {
-      const ICONS: { [key: string]: VNode } = {
+      const ICONS: { [key: string]: string } = {
         bell,
         camera,
         chevronLeft,

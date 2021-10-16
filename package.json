@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
+    "build": "vue-tsc --noEmit && vite build",
     "deploy": "npm run build && firebase deploy",
-    "format": "prettier --write ."
+    "dev": "vite",
+    "format": "prettier --write .",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@sentry/browser": "^6.3.1",
@@ -16,7 +15,6 @@
     "@tensorflow-models/coco-ssd": "^2.2.2",
     "@tensorflow/tfjs": "^3.4.0",
     "@vue/composition-api": "^1.0.0-rc.6",
-    "core-js": "^3.8.3",
     "feather-icons": "^4.28.0",
     "firebase": "^9.0.1",
     "geofirestore": "^4.4.1",
@@ -31,27 +29,19 @@
     "@types/md5": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
-    "@vue/cli-plugin-babel": "^4.5.10",
-    "@vue/cli-plugin-eslint": "^4.5.10",
-    "@vue/cli-plugin-typescript": "^4.5.10",
-    "@vue/cli-service": "^4.5.10",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
-    "@vue/test-utils": "^1.1.2",
-    "babel-eslint": "^10.0.3",
+    "autoprefixer": "^10.3.7",
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.4.1",
     "firebase-tools": "^9.10.0",
     "prettier": "^2.2.1",
-    "raw-loader": "^4.0.2",
-    "sass": "^1.32.5",
-    "sass-loader": "^10.1.1",
     "typescript": "^4.3.2",
-    "vue-template-compiler": "^2.6.12"
-  },
-  "gitHooks": {
-    "pre-push": "npm run lint"
+    "vite": "^2.6.7",
+    "vite-plugin-vue2": "^1.9.0",
+    "vue-template-compiler": "^2.6.12",
+    "vue-tsc": "^0.28.6"
   },
   "browserslist": [
     "defaults",

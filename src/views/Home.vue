@@ -2,15 +2,12 @@
   <DefaultLayout max-width>
     <div class="home">
       <BasePost
-        v-for="post in $store.getters.getPostsByFeed('home')"
+        v-for="post in posts"
         :key="post.id"
         :image-to="{ name: 'post', params: { postId: post.id } }"
         :post="post"
       />
-      <BaseSpinner
-        v-if="$store.state.isLoading"
-        :inline="$store.getters.getPostsByFeed('home').length > 0"
-      />
+      <BaseSpinner v-if="isLoading" :inline="posts.length > 0" />
     </div>
   </DefaultLayout>
 </template>
@@ -67,6 +64,11 @@
           window.removeEventListener('scroll', handleScroll)
         }
       })
+
+      return {
+        isLoading: computed(() => store.state.isLoading),
+        posts: computed(() => store.getters.getPostsByFeed('home')),
+      }
     },
   })
 </script>
