@@ -83,7 +83,7 @@
         try {
           await signUp(username.value, email.value, password.value)
           context.root.$router.push({ name: 'home' })
-        } catch (err) {
+        } catch (err: any) {
           error.value = err.message
         }
 

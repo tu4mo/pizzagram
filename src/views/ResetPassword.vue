@@ -57,8 +57,8 @@
         try {
           await sendPasswordResetEmail(email.value)
           hasSentMail.value = true
-        } catch (e) {
-          alert(e.message)
+        } catch (err: any) {
+          alert(err.message)
         }
 
         isLoading.value = false
