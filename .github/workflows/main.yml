@@ -15,15 +15,12 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Install Functions
+        working-directory: functions
+        run: npm ci
+
       - name: Build
         run: npm run build
 
-      - name: Build Functions
-        working-directory: functions
-        run: |
-          npm ci
-          npm run build
-
       - name: Deploy
-        run: |
-          npx firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+        run: npx firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
