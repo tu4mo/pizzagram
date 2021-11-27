@@ -55,6 +55,7 @@
       border-radius: 1rem;
       color: #fff;
       display: flex;
+      font-size: 0.75rem;
       height: 1rem;
       justify-content: center;
       line-height: 1;
