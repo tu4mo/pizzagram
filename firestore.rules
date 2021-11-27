@@ -34,10 +34,11 @@ service cloud.firestore {
       allow read: if request.auth.uid == resource.data.userId;
       allow update: if request.auth.uid == resource.data.userId
         && request.resource.data.keys().hasOnly([
-          'createdAt', 'fromUserId', 'postId', 'read', 'type', 'userId'
+          'createdAt', 'fromUserId', 'imageUrl', 'postId', 'read', 'type', 'userId'
         ])
         && request.resource.data.createdAt == resource.data.createdAt
         && request.resource.data.fromUserId == resource.data.fromUserId
+        && request.resource.data.imageUrl == resource.data.imageUrl
         && request.resource.data.postId == resource.data.postId
         && request.resource.data.read is bool
         && request.resource.data.type == resource.data.type
