@@ -43,6 +43,7 @@
 <style lang="scss" scoped>
   .nav-item {
     color: var(--color-secondary);
+    padding: 0.5rem;
     position: relative;
 
     &--active {

@@ -55,6 +55,8 @@
 
     &__label {
       cursor: pointer;
+      display: block;
+      padding: 0.5rem;
     }
 
     &__input {
