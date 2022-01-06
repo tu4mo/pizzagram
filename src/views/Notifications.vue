@@ -24,17 +24,13 @@
             >
               {{ notification.from.username }}
             </BaseLink>
-            liked your
-            <BaseLink
-              :to="{ name: 'post', params: { postId: notification.postId } }"
-            >
-              photo
-            </BaseLink>
+            liked your photo
           </div>
           <PostImage
             v-if="notification.imageUrl"
             class="notification__image"
             :image-url="notification.imageUrl"
+            :to="{ name: 'post', params: { postId: notification.postId } }"
             thumbnail
           />
         </li>
