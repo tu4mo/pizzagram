@@ -134,8 +134,9 @@
 
         this.$nextTick(async () => {
           try {
-            await import('@tensorflow/tfjs-backend-cpu')
-            await import('@tensorflow/tfjs-backend-webgl')
+            await import('@tensorflow/tfjs')
+            // await import('@tensorflow/tfjs-backend-cpu')
+            // await import('@tensorflow/tfjs-backend-webgl')
 
             const cocoSsd = await import('@tensorflow-models/coco-ssd')
             const model = await cocoSsd.load()
