@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout from-top>
+  <DefaultLayout from-top :title="user.username">
     <div class="profile">
       <div
         :style="{
@@ -9,7 +9,6 @@
       />
       <div class="profile__user">
         <ProfilePhoto :user="user" class="profile__photo" size="large" />
-        <div class="profile__username">{{ user.username }}</div>
       </div>
       <ul class="profile__posts">
         <li
@@ -132,10 +131,6 @@
     &__photo {
       box-shadow: 0 0 4rem 2rem #fff;
       margin-bottom: 0.5rem;
-    }
-
-    &__username {
-      font-weight: bold;
     }
 
     &__posts {

@@ -47,5 +47,11 @@
         }
       }
     }
+
+    &__title {
+      @media (min-width: 640px) {
+        margin-top: 4px;
+      }
+    }
   }
 </style>
