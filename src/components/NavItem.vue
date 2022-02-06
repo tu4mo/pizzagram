@@ -63,8 +63,8 @@
       min-width: 1rem;
       padding: 0 0.25rem;
       position: absolute;
-      right: -0.375rem;
-      top: -0.375rem;
+      right: 0;
+      top: 0;
     }
   }
 </style>
