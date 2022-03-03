@@ -47,5 +47,8 @@
   "browserslist": [
     "defaults",
     "not IE 11"
+  ],
+  "workspaces": [
+    "functions"
   ]
 }

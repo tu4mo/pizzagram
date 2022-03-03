@@ -15,10 +15,6 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Install Functions
-        working-directory: functions
-        run: npm ci
-
       - name: Build
         run: npm run build
 
