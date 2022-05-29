@@ -15,7 +15,7 @@
     "@sentry/integrations": "^6.3.1",
     "@tensorflow-models/coco-ssd": "^2.2.2",
     "@tensorflow/tfjs": "^3.13.0",
-    "@vue/composition-api": "^1.0.0-rc.6",
+    "@vue/composition-api": "^1.6.2",
     "feather-icons": "^4.28.0",
     "firebase": "^9.8.1",
     "geofirestore": "^5.2.0",
@@ -23,7 +23,7 @@
     "vue": "^2.6.12",
     "vue-meta": "^2.4.0",
     "vue-observe-visibility": "^1.0.0",
-    "vue-router": "^3.4.9",
+    "vue-router": "^3.5.4",
     "vuex": "^3.6.0"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "firebase-tools": "^11.0.1",
-    "prettier": "^2.2.1",
+    "prettier": "^2.6.2",
     "sass": "^1.43.2",
     "typescript": "^4.3.2",
     "vite": "^2.6.7",
