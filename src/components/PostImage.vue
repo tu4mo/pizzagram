@@ -1,26 +1,18 @@
 <template>
-  <div
-    v-observe-visibility="{
-      callback: onVisibilityChanged,
-      intersection: { rootMargin: '512px' },
-      once: true,
-    }"
+  <RouterLink
+    v-if="to"
+    :to="to"
+    :class="['post-image', { 'post-image--rounded': rounded }]"
   >
-    <RouterLink
-      v-if="to"
-      :to="to"
-      :class="['post-image', { 'post-image--rounded': rounded }]"
-    >
-      <img :src="actualUrl" alt="" class="post-image__image" />
-    </RouterLink>
-    <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
-      <img :src="actualUrl" alt="" class="post-image__image" />
-    </div>
+    <img :src="actualUrl" alt="" class="post-image__image" loading="lazy" />
+  </RouterLink>
+  <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
+    <img :src="actualUrl" alt="" class="post-image__image" loading="lazy" />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from '@vue/composition-api'
+  import { defineComponent } from '@vue/composition-api'
 
   export default defineComponent({
     props: {
@@ -42,21 +34,10 @@
       },
     },
     setup(props) {
-      const actualUrl = ref('')
-
-      const onVisibilityChanged = (isVisible: boolean) => {
-        if (!isVisible) {
-          return
-        }
-
-        actualUrl.value = props.thumbnail
-          ? props.imageUrl.replace('.jpg', '_t.jpg')
-          : props.imageUrl
-      }
-
       return {
-        actualUrl,
-        onVisibilityChanged,
+        actualUrl: props.thumbnail
+          ? props.imageUrl.replace('.jpg', '_t.jpg')
+          : props.imageUrl,
       }
     },
   })
