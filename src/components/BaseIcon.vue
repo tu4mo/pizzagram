@@ -61,20 +61,20 @@
   .icon {
     cursor: inherit;
 
-    ::v-deep svg {
+    :deep(svg) {
       display: block;
     }
 
-    &--fill ::v-deep svg {
+    &--fill :deep(svg) {
       fill: currentColor;
     }
 
-    &--md ::v-deep svg {
+    &--md :deep(svg) {
       height: 1.5rem;
       width: 1.5rem;
     }
 
-    &--sm ::v-deep svg {
+    &--sm :deep(svg) {
       height: 1rem;
       width: 1rem;
     }

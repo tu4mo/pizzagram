@@ -1,12 +1,12 @@
 import path from 'path'
 import { defineConfig } from 'vite'
-import { createVuePlugin } from 'vite-plugin-vue2'
+import vue from '@vitejs/plugin-vue2'
 
 export default defineConfig({
   build: {
     cssCodeSplit: false,
   },
-  plugins: [createVuePlugin()],
+  plugins: [vue()],
   resolve: {
     alias: [
       {
