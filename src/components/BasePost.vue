@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref } from '@vue/composition-api'
+  import { computed, defineComponent, getCurrentInstance, ref } from 'vue'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
@@ -76,6 +76,8 @@
       },
     },
     setup(props, context) {
+      const instance = getCurrentInstance()
+
       const isPlaceholder = ref(true)
 
       const postPath = computed(
@@ -83,7 +85,7 @@
       )
 
       const user = computed(() =>
-        context.root.$store.getters.getUserById(props.post.userId)
+        instance?.proxy.$store.getters.getUserById(props.post.userId)
       )
 
       const onVisibilityChanged = (isVisible: boolean) => {
@@ -92,11 +94,11 @@
         }
 
         isPlaceholder.value = false
-        context.root.$store.dispatch('getUserById', props.post.userId)
+        instance?.proxy.$store.dispatch('getUserById', props.post.userId)
       }
 
       const onLikeClick = () => {
-        context.root.$store.dispatch('toggleLike', props.post.id)
+        instance?.proxy.$store.dispatch('toggleLike', props.post.id)
       }
 
       const onRemoveClick = () => {
@@ -126,7 +128,7 @@
       const hasLiked = computed(
         () =>
           props.post.likes &&
-          props.post.likes.includes(context.root.$store.state.auth.userId)
+          props.post.likes.includes(instance?.proxy.$store.state.auth.userId)
       )
 
       return {

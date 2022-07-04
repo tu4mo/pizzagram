@@ -13,12 +13,7 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    onMounted,
-    onUnmounted,
-  } from '@vue/composition-api'
+  import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 

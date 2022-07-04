@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from '@vue/composition-api'
+  import { computed, defineComponent } from 'vue'
 
   import bell from 'feather-icons/dist/icons/bell.svg?raw'
   import camera from 'feather-icons/dist/icons/camera.svg?raw'

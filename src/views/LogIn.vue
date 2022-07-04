@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from '@vue/composition-api'
+  import { defineComponent, ref, getCurrentInstance } from 'vue'
 
   import WelcomeLayout from '@/layouts/Welcome.vue'
 
@@ -59,7 +59,9 @@
       BaseSpinner,
       WelcomeLayout,
     },
-    setup(props, context) {
+    setup() {
+      const instance = getCurrentInstance()
+
       const email = ref('')
       const isLoading = ref(false)
       const password = ref('')
@@ -69,7 +71,7 @@
 
         try {
           await signIn(email.value, password.value)
-          context.root.$router.push({ name: 'home' })
+          instance?.proxy.$router.push({ name: 'home' })
         } catch (error) {
           alert('Unable to sign in.')
         }

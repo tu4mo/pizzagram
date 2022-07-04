@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted } from '@vue/composition-api'
+  import { defineComponent, getCurrentInstance, onMounted } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -42,13 +42,15 @@
       DefaultLayout,
       ProfilePhoto,
     },
-    setup(props, context) {
+    setup() {
+      const instance = getCurrentInstance()
+
       const getTopPosters = () => {
-        context.root.$store.dispatch('getTopPosters')
+        instance?.proxy.$store.dispatch('getTopPosters')
       }
 
       const getUser = (username: string) => {
-        return context.root.$store.getters.getUser(username)
+        return instance?.proxy.$store.getters.getUser(username)
       }
 
       onMounted(() => {

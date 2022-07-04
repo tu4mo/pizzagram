@@ -41,10 +41,11 @@
   import {
     computed,
     defineComponent,
+    getCurrentInstance,
     onMounted,
     onUnmounted,
     ref,
-  } from '@vue/composition-api'
+  } from 'vue'
 
   import BaseButton from '@/components/BaseButton.vue'
   import BaseIcon from '@/components/BaseIcon.vue'
@@ -72,11 +73,14 @@
         type: Boolean,
       },
     },
-    setup(props, context) {
+    setup() {
+      const instance = getCurrentInstance()
+
       const hasScrolled = ref(false)
 
       const canGoBack = computed(
-        () => context.root.$route.name !== 'home' && window.history.length > 1
+        () =>
+          instance?.proxy.$route.name !== 'home' && window.history.length > 1
       )
 
       const onScroll = () => {

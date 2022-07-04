@@ -48,8 +48,9 @@
   import {
     computed,
     defineComponent,
+    getCurrentInstance,
     onDeactivated,
-  } from '@vue/composition-api'
+  } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -68,13 +69,15 @@
       PostImage,
       ProfilePhoto,
     },
-    setup(props, context) {
+    setup() {
+      const instance = getCurrentInstance()
+
       const notifications = computed(
-        () => context.root.$store.getters.getNotifications
+        () => instance?.proxy.$store.getters.getNotifications
       )
 
       onDeactivated(async () => {
-        if (context.root.$store.getters.getUnreadNotificationsCount > 0) {
+        if (instance?.proxy.$store.getters.getUnreadNotificationsCount > 0) {
           await markNotificationsAsRead()
         }
       })

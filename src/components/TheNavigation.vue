@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from '@vue/composition-api'
+  import { computed, defineComponent, getCurrentInstance } from 'vue'
 
   import NavItem from './NavItem.vue'
   import TheCamera from './TheCamera.vue'
@@ -64,13 +64,15 @@
       TheCamera,
     },
     setup(props, context) {
+      const instance = getCurrentInstance()
+
       const isAuthenticated = computed(
-        () => context.root.$store.state.auth.isAuthenticated
+        () => instance?.proxy.$store.state.auth.isAuthenticated
       )
 
       const notifications = computed(() => {
         const unreadNotificationsCount =
-          context.root.$store.getters.getUnreadNotificationsCount
+          instance?.proxy.$store.getters.getUnreadNotificationsCount
 
         return unreadNotificationsCount > 0 ? unreadNotificationsCount : null
       })
@@ -79,7 +81,9 @@
         () => process.env.NODE_ENV === 'development'
       )
 
-      const username = computed(() => context.root.$store.state.auth.username)
+      const username = computed(
+        () => instance?.proxy.$store.state.auth.username
+      )
 
       return {
         notifications,

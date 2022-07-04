@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from '@vue/composition-api'
+  import { defineComponent, getCurrentInstance } from 'vue'
 
   import BaseIcon from './BaseIcon.vue'
 
@@ -22,18 +22,20 @@
     components: {
       BaseIcon,
     },
-    setup(props, context) {
+    setup() {
+      const instance = getCurrentInstance()
+
       const onChange = (event: any) => {
         if (event.target.files[0]) {
-          context.root.$store.commit('setFile', event.target.files[0])
+          instance?.proxy.$store.commit('setFile', event.target.files[0])
         }
       }
 
       const onClick = () => {
-        context.root.$store.commit('setFile', null)
+        instance?.proxy.$store.commit('setFile', null)
 
-        if (context.root.$route.name !== 'upload') {
-          context.root.$router.push({ name: 'upload' })
+        if (instance?.proxy.$route.name !== 'upload') {
+          instance?.proxy.$router.push({ name: 'upload' })
         }
       }
 
