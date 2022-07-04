@@ -1,8 +1,10 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div
     :class="['icon', `icon--${size}`, { 'icon--fill': fill }]"
     v-html="icon"
   />
+  <!-- eslint-enable -->
 </template>
 
 <script lang="ts">

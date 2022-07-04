@@ -63,7 +63,7 @@
       NavItem,
       TheCamera,
     },
-    setup(props, context) {
+    setup() {
       const instance = getCurrentInstance()
 
       const isAuthenticated = computed(
