@@ -52,47 +52,28 @@
   </nav>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, getCurrentInstance } from 'vue'
+<script setup lang="ts">
+  import { computed, getCurrentInstance } from 'vue'
 
   import NavItem from './NavItem.vue'
   import TheCamera from './TheCamera.vue'
 
-  export default defineComponent({
-    components: {
-      NavItem,
-      TheCamera,
-    },
-    setup() {
-      const instance = getCurrentInstance()
+  const instance = getCurrentInstance()
 
-      const isAuthenticated = computed(
-        () => instance?.proxy.$store.state.auth.isAuthenticated
-      )
+  const isAuthenticated = computed(
+    () => instance?.proxy.$store.state.auth.isAuthenticated
+  )
 
-      const notifications = computed(() => {
-        const unreadNotificationsCount =
-          instance?.proxy.$store.getters.getUnreadNotificationsCount
+  const notifications = computed(() => {
+    const unreadNotificationsCount =
+      instance?.proxy.$store.getters.getUnreadNotificationsCount
 
-        return unreadNotificationsCount > 0 ? unreadNotificationsCount : null
-      })
-
-      const isDevelopment = computed(
-        () => process.env.NODE_ENV === 'development'
-      )
-
-      const username = computed(
-        () => instance?.proxy.$store.state.auth.username
-      )
-
-      return {
-        notifications,
-        isAuthenticated,
-        isDevelopment,
-        username,
-      }
-    },
+    return unreadNotificationsCount > 0 ? unreadNotificationsCount : null
   })
+
+  const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
+
+  const username = computed(() => instance?.proxy.$store.state.auth.username)
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout max-width>
+  <DefaultLayout max-width title="Notifications">
     <BaseEmpty v-if="notifications.length === 0">No notifications.</BaseEmpty>
     <template v-else>
       <ul v-for="(notification, index) in notifications" :key="index">

@@ -5,20 +5,13 @@
   </header>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
+<script setup lang="ts">
   import TheLogo from './TheLogo.vue'
 
-  export default defineComponent({
-    components: {
-      TheLogo,
-    },
-    props: {
-      title: {
-        default: null,
-        type: String,
-      },
+  defineProps({
+    title: {
+      default: null,
+      type: String,
     },
   })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout max-width>
+  <DefaultLayout max-width title="Upload">
     <div class="upload">
       <BaseEmpty v-if="!file || !imageUrl">
         Use the Camera icon to upload a photo
