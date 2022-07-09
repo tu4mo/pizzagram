@@ -4,23 +4,19 @@
   </RouterLink>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    props: {
-      activeClass: {
-        default: null,
-        type: String,
-      },
-      exact: {
-        default: false,
-        type: Boolean,
-      },
-      to: {
-        required: true,
-        type: Object,
-      },
+<script setup lang="ts">
+  defineProps({
+    activeClass: {
+      default: null,
+      type: String,
+    },
+    exact: {
+      default: false,
+      type: Boolean,
+    },
+    to: {
+      required: true,
+      type: Object,
     },
   })
 </script>

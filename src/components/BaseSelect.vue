@@ -34,43 +34,34 @@
   </ul>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+  import { ref } from 'vue'
 
   import BaseInput from './BaseInput.vue'
 
-  export default defineComponent({
-    components: {
-      BaseInput,
+  defineProps({
+    name: {
+      required: true,
+      type: String,
     },
-    props: {
-      name: {
-        required: true,
-        type: String,
-      },
-      options: {
-        type: Array as () => { label?: string; value?: string }[],
-        default: () => [],
-      },
-      value: {
-        required: true,
-        type: String,
-      },
+    options: {
+      type: Array as () => { label?: string; value?: string }[],
+      default: () => [],
     },
-    setup(props, context) {
-      const customItem = ref('')
-
-      const onCustomItemInput = (value: string) => {
-        customItem.value = value
-        context.emit('change', value)
-      }
-
-      return {
-        customItem,
-        onCustomItemInput,
-      }
+    value: {
+      required: true,
+      type: String,
     },
   })
+
+  const customItem = ref('')
+
+  const emit = defineEmits(['change'])
+
+  const onCustomItemInput = (value: string) => {
+    customItem.value = value
+    emit('change', value)
+  }
 </script>
 
 <style lang="scss" scoped>

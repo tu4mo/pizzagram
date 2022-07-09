@@ -7,8 +7,8 @@
   <!-- eslint-enable -->
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+  import { computed } from 'vue'
 
   import bell from 'feather-icons/dist/icons/bell.svg?raw'
   import camera from 'feather-icons/dist/icons/camera.svg?raw'
@@ -21,42 +21,35 @@
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
   import user from 'feather-icons/dist/icons/user.svg?raw'
 
-  export default defineComponent({
-    props: {
-      fill: {
-        default: false,
-        type: Boolean,
-      },
-      name: {
-        required: true,
-        type: String,
-      },
-      size: {
-        default: 'md',
-        type: String,
-      },
+  const props = defineProps({
+    fill: {
+      default: false,
+      type: Boolean,
     },
-    setup(props) {
-      const ICONS: { [key: string]: string } = {
-        bell,
-        camera,
-        chevronLeft,
-        heart,
-        home,
-        mapPin,
-        share,
-        star,
-        trash2,
-        user,
-      }
-
-      const icon = computed(() => ICONS[props.name])
-
-      return {
-        icon,
-      }
+    name: {
+      required: true,
+      type: String,
+    },
+    size: {
+      default: 'md',
+      type: String,
     },
   })
+
+  const ICONS: { [key: string]: string } = {
+    bell,
+    camera,
+    chevronLeft,
+    heart,
+    home,
+    mapPin,
+    share,
+    star,
+    trash2,
+    user,
+  }
+
+  const icon = computed(() => ICONS[props.name])
 </script>
 
 <style lang="scss" scoped>

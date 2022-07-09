@@ -7,19 +7,15 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    props: {
-      as: {
-        default: 'label',
-        type: String,
-      },
-      label: {
-        required: true,
-        type: String,
-      },
+<script setup lang="ts">
+  defineProps({
+    as: {
+      default: 'label',
+      type: String,
+    },
+    label: {
+      required: true,
+      type: String,
     },
   })
 </script>

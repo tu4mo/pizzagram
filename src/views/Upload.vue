@@ -19,13 +19,13 @@
               <BaseRating v-model="form.rating" />
             </BaseField>
           </BaseSpacer>
-          <BaseSpacer v-if="isLocationEnabled" mb2>
+          <BaseSpacer v-if="!isLocationEnabled" mb2>
             <BaseField label="Restaurant">
               <BaseSelect
                 :options="locations"
                 :value="form.location"
                 name="location"
-                @change="(location) => (form.location = location)"
+                @change="onLocationChange"
               />
             </BaseField>
           </BaseSpacer>
@@ -159,6 +159,9 @@
             console.error(error)
           }
         })
+      },
+      onLocationChange(location) {
+        this.form.location = location
       },
       async onShareClick() {
         this.isLoading = true

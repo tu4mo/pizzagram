@@ -12,23 +12,19 @@
   </component>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    props: {
-      secondary: {
-        default: false,
-        type: Boolean,
-      },
-      component: {
-        default: 'button',
-        type: String,
-      },
-      variant: {
-        default: null,
-        type: String,
-      },
+<script setup lang="ts">
+  defineProps({
+    secondary: {
+      default: false,
+      type: Boolean,
+    },
+    component: {
+      default: 'button',
+      type: String,
+    },
+    variant: {
+      default: null,
+      type: String,
     },
   })
 </script>

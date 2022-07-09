@@ -10,32 +10,25 @@
   </RouterLink>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
+<script setup lang="ts">
   import BaseIcon from './BaseIcon.vue'
 
-  export default defineComponent({
-    components: {
-      BaseIcon,
+  defineProps({
+    badge: {
+      default: null,
+      type: [Number, String],
     },
-    props: {
-      badge: {
-        default: null,
-        type: [Number, String],
-      },
-      exact: {
-        default: false,
-        type: Boolean,
-      },
-      icon: {
-        required: true,
-        type: String,
-      },
-      to: {
-        required: true,
-        type: Object,
-      },
+    exact: {
+      default: false,
+      type: Boolean,
+    },
+    icon: {
+      required: true,
+      type: String,
+    },
+    to: {
+      required: true,
+      type: Object,
     },
   })
 </script>

@@ -12,15 +12,18 @@
 
   export default defineComponent({
     inheritAttrs: false,
-    props: {
-      borderless: {
-        default: false,
-        type: Boolean,
-      },
-      value: {
-        required: true,
-        type: String,
-      },
+  })
+</script>
+
+<script setup lang="ts">
+  defineProps({
+    borderless: {
+      default: false,
+      type: Boolean,
+    },
+    value: {
+      required: true,
+      type: String,
     },
   })
 </script>

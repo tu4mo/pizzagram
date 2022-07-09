@@ -14,22 +14,14 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
+<script setup lang="ts">
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseIcon,
-    },
-    props: {
-      value: {
-        required: true,
-        type: Number,
-      },
+  defineProps({
+    value: {
+      required: true,
+      type: Number,
     },
   })
 </script>

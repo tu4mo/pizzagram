@@ -8,29 +8,24 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+  import { computed } from 'vue'
 
-  export default defineComponent({
-    props: {
-      cover: {
-        default: false,
-        type: Boolean,
-      },
-      inline: {
-        default: false,
-        type: Boolean,
-      },
+  const props = defineProps({
+    cover: {
+      default: false,
+      type: Boolean,
     },
-    setup(props) {
-      const classes = computed(() => [
-        'spinner',
-        { 'spinner--cover': props.cover, 'spinner--inline': props.inline },
-      ])
-
-      return { classes }
+    inline: {
+      default: false,
+      type: Boolean,
     },
   })
+
+  const classes = computed(() => [
+    'spinner',
+    { 'spinner--cover': props.cover, 'spinner--inline': props.inline },
+  ])
 </script>
 
 <style lang="scss" scoped>
