@@ -18,37 +18,26 @@
   </header>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+  import { computed } from 'vue'
 
   import ProfilePhoto from './ProfilePhoto.vue'
 
-  export default defineComponent({
-    components: {
-      ProfilePhoto,
+  const props = defineProps({
+    createdAt: {
+      required: true,
+      type: Date,
     },
-    props: {
-      createdAt: {
-        required: true,
-        type: Date,
-      },
-      user: {
-        default: () => ({}),
-        type: Object,
-      },
-    },
-    setup(props) {
-      const createdDate = computed(() => props.createdAt.toLocaleDateString())
-      const isUserLoaded = computed(
-        () => props.user && Object.keys(props.user).length > 0
-      )
-
-      return {
-        createdDate,
-        isUserLoaded,
-      }
+    user: {
+      default: () => ({}),
+      type: Object,
     },
   })
+
+  const createdDate = computed(() => props.createdAt.toLocaleDateString())
+  const isUserLoaded = computed(
+    () => props.user && Object.keys(props.user).length > 0
+  )
 </script>
 
 <style lang="scss" scoped>

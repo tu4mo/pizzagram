@@ -37,10 +37,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import {
     computed,
-    defineComponent,
     getCurrentInstance,
     onMounted,
     onUnmounted,
@@ -52,54 +51,39 @@
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseIcon,
-      TheHeader,
-      TheNavigation,
+  defineProps({
+    maxWidth: {
+      default: false,
+      type: Boolean,
     },
-    props: {
-      maxWidth: {
-        default: false,
-        type: Boolean,
-      },
-      title: {
-        default: null,
-        type: String,
-      },
-      fromTop: {
-        default: false,
-        type: Boolean,
-      },
+    title: {
+      default: null,
+      type: String,
     },
-    setup() {
-      const instance = getCurrentInstance()
-
-      const hasScrolled = ref(false)
-
-      const canGoBack = computed(
-        () =>
-          instance?.proxy.$route.name !== 'home' && window.history.length > 1
-      )
-
-      const onScroll = () => {
-        hasScrolled.value = window.scrollY > 0
-      }
-
-      onMounted(() => {
-        window.addEventListener('scroll', onScroll)
-      })
-
-      onUnmounted(() => {
-        window.removeEventListener('scroll', onScroll)
-      })
-
-      return {
-        hasScrolled,
-        canGoBack,
-      }
+    fromTop: {
+      default: false,
+      type: Boolean,
     },
+  })
+
+  const instance = getCurrentInstance()
+
+  const hasScrolled = ref(false)
+
+  const canGoBack = computed(
+    () => instance?.proxy.$route.name !== 'home' && window.history.length > 1
+  )
+
+  const onScroll = () => {
+    hasScrolled.value = window.scrollY > 0
+  }
+
+  onMounted(() => {
+    window.addEventListener('scroll', onScroll)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll)
   })
 </script>
 

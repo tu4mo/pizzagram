@@ -8,38 +8,33 @@
   <img v-else :alt="username" :class="classes" :src="profileUrl" />
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+  import { computed } from 'vue'
 
-  export default defineComponent({
-    props: {
-      asLink: {
-        type: Boolean,
-      },
-      size: {
-        default: 'small',
-        type: String,
-      },
-      user: {
-        default: undefined,
-        type: Object,
-      },
+  const props = defineProps({
+    asLink: {
+      type: Boolean,
     },
-    setup(props) {
-      const classes = computed(() => [
-        'profile-photo',
-        `profile-photo--${props.size}`,
-      ])
-      const username = computed(() => (props.user ? props.user.username : ''))
-      const profileUrl = computed(() =>
-        props.user && props.user.gravatar
-          ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`
-          : undefined
-      )
-
-      return { classes, username, profileUrl }
+    size: {
+      default: 'small',
+      type: String,
+    },
+    user: {
+      default: undefined,
+      type: Object,
     },
   })
+
+  const classes = computed(() => [
+    'profile-photo',
+    `profile-photo--${props.size}`,
+  ])
+  const username = computed(() => (props.user ? props.user.username : ''))
+  const profileUrl = computed(() =>
+    props.user && props.user.gravatar
+      ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`
+      : undefined
+  )
 </script>
 
 <style lang="scss" scoped>

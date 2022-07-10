@@ -44,13 +44,8 @@
   </DefaultLayout>
 </template>
 
-<script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    getCurrentInstance,
-    onDeactivated,
-  } from 'vue'
+<script setup lang="ts">
+  import { computed, getCurrentInstance, onDeactivated } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -61,29 +56,16 @@
 
   import { markNotificationsAsRead } from '@/api/notifications'
 
-  export default defineComponent({
-    components: {
-      BaseEmpty,
-      BaseLink,
-      DefaultLayout,
-      PostImage,
-      ProfilePhoto,
-    },
-    setup() {
-      const instance = getCurrentInstance()
+  const instance = getCurrentInstance()
 
-      const notifications = computed(
-        () => instance?.proxy.$store.getters.getNotifications
-      )
+  const notifications = computed(
+    () => instance?.proxy.$store.getters.getNotifications
+  )
 
-      onDeactivated(async () => {
-        if (instance?.proxy.$store.getters.getUnreadNotificationsCount > 0) {
-          await markNotificationsAsRead()
-        }
-      })
-
-      return { notifications }
-    },
+  onDeactivated(async () => {
+    if (instance?.proxy.$store.getters.getUnreadNotificationsCount > 0) {
+      await markNotificationsAsRead()
+    }
   })
 </script>
 

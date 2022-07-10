@@ -11,36 +11,29 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    props: {
-      imageUrl: {
-        default: null,
-        type: String,
-      },
-      rounded: {
-        default: false,
-        type: Boolean,
-      },
-      thumbnail: {
-        default: false,
-        type: Boolean,
-      },
-      to: {
-        default: null,
-        type: [String, Object],
-      },
+<script setup lang="ts">
+  const props = defineProps({
+    imageUrl: {
+      default: null,
+      type: String,
     },
-    setup(props) {
-      return {
-        actualUrl: props.thumbnail
-          ? props.imageUrl.replace('.jpg', '_t.jpg')
-          : props.imageUrl,
-      }
+    rounded: {
+      default: false,
+      type: Boolean,
+    },
+    thumbnail: {
+      default: false,
+      type: Boolean,
+    },
+    to: {
+      default: null,
+      type: [String, Object],
     },
   })
+
+  const actualUrl = props.thumbnail
+    ? props.imageUrl.replace('.jpg', '_t.jpg')
+    : props.imageUrl
 </script>
 
 <style lang="scss" scoped>

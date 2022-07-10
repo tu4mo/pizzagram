@@ -13,38 +13,26 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, getCurrentInstance } from 'vue'
+<script setup lang="ts">
+  import { getCurrentInstance } from 'vue'
 
   import BaseIcon from './BaseIcon.vue'
 
-  export default defineComponent({
-    components: {
-      BaseIcon,
-    },
-    setup() {
-      const instance = getCurrentInstance()
+  const instance = getCurrentInstance()
 
-      const onChange = (event: any) => {
-        if (event.target.files[0]) {
-          instance?.proxy.$store.commit('setFile', event.target.files[0])
-        }
-      }
+  const onChange = (event: any) => {
+    if (event.target.files[0]) {
+      instance?.proxy.$store.commit('setFile', event.target.files[0])
+    }
+  }
 
-      const onClick = () => {
-        instance?.proxy.$store.commit('setFile', null)
+  const onClick = () => {
+    instance?.proxy.$store.commit('setFile', null)
 
-        if (instance?.proxy.$route.name !== 'upload') {
-          instance?.proxy.$router.push({ name: 'upload' })
-        }
-      }
-
-      return {
-        onChange,
-        onClick,
-      }
-    },
-  })
+    if (instance?.proxy.$route.name !== 'upload') {
+      instance?.proxy.$router.push({ name: 'upload' })
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -12,8 +12,8 @@
   </DefaultLayout>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
+<script setup lang="ts">
+  import { computed, onMounted, onUnmounted } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -22,50 +22,34 @@
 
   import store from '@/store'
 
-  export default defineComponent({
-    components: {
-      BasePost,
-      BaseSpinner,
-      DefaultLayout,
-    },
-    setup() {
-      const isAuthenticated = computed(() => store.state.auth.isAuthenticated)
+  const fetchPosts = () => {
+    store.dispatch('getPostsForHome')
+  }
 
-      const fetchPosts = () => {
-        store.dispatch('getPostsForHome')
-      }
+  const handleScroll = () => {
+    console.log('foo')
+    if (
+      window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+      !store.state.isLastPostReached &&
+      !store.state.isLoading
+    ) {
+      console.log('handle')
+      fetchPosts()
+    }
+  }
 
-      const handleScroll = () => {
-        if (
-          window.innerHeight + window.pageYOffset >=
-            document.body.offsetHeight &&
-          !store.state.isLastPostReached &&
-          !store.state.isLoading
-        ) {
-          fetchPosts()
-        }
-      }
+  onMounted(() => {
+    fetchPosts()
 
-      onMounted(() => {
-        fetchPosts()
-
-        if (isAuthenticated.value) {
-          window.addEventListener('scroll', handleScroll)
-        }
-      })
-
-      onUnmounted(() => {
-        if (isAuthenticated.value) {
-          window.removeEventListener('scroll', handleScroll)
-        }
-      })
-
-      return {
-        isLoading: computed(() => store.state.isLoading),
-        posts: computed(() => store.getters.getPostsByFeed('home')),
-      }
-    },
+    window.addEventListener('scroll', handleScroll)
   })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+
+  const isLoading = computed(() => store.state.isLoading)
+  const posts = computed(() => store.getters.getPostsByFeed('home'))
 </script>
 
 <style lang="scss" scoped>
