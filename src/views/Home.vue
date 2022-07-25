@@ -32,7 +32,6 @@
       !store.state.isLastPostReached &&
       !store.state.isLoading
     ) {
-      console.log('handle')
       fetchPosts()
     }
   }

@@ -37,7 +37,7 @@
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
-  import { signOut } from '@/api'
+  import { signOut } from '@/api/auth'
 
   export default {
     components: {

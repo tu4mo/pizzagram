@@ -1,7 +1,7 @@
 import { getDoc, doc, setDoc, deleteDoc } from 'firebase/firestore'
 
 import { firestore } from '.'
-import { currentUser } from './user'
+import { currentUser } from './auth'
 
 export const toggleLike = async (postId: string) => {
   const user = currentUser()

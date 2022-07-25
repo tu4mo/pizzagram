@@ -1,4 +1,3 @@
-import { onAuthStateChanged, User } from 'firebase/auth'
 import {
   QueryDocumentSnapshot,
   collection,
@@ -10,7 +9,7 @@ import {
   query,
 } from 'firebase/firestore'
 
-import { auth, firestore } from '.'
+import { firestore } from '.'
 import userCache from './user-cache'
 
 export const createUserObject = (doc: QueryDocumentSnapshot<any>) => {
@@ -20,13 +19,6 @@ export const createUserObject = (doc: QueryDocumentSnapshot<any>) => {
     ? { ...data, createdAt: data.createdAt.toDate(), username: doc.id }
     : data
 }
-
-export const initializeAuth = () =>
-  new Promise<User | null>((resolve) => {
-    onAuthStateChanged(auth, (user) => {
-      resolve(user)
-    })
-  })
 
 export const getUser = async (id: string) => {
   if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
@@ -62,5 +54,3 @@ export const getUserByUsername = async (username: string) => {
 
   return userCache.getAll()[username]
 }
-
-export const currentUser = () => auth.currentUser

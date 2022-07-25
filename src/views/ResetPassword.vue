@@ -34,7 +34,7 @@
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import { sendPasswordResetEmail } from '@/api'
+  import { sendPasswordResetEmail } from '@/api/auth'
 
   export default defineComponent({
     components: {

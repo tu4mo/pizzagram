@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { setOnAuthStateChangedCallback, signOut } from './api'
+import { setOnAuthStateChangedCallback, signOut } from './api/auth'
 import { toggleLike } from './api/likes'
 import {
   getPost,

@@ -10,7 +10,8 @@ import {
 } from 'firebase/firestore'
 
 import { firestore } from '.'
-import { currentUser, getUser } from './user'
+import { currentUser } from './auth'
+import { getUser } from './user'
 
 const notifications = collection(firestore, 'notifications')
 

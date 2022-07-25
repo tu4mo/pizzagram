@@ -58,7 +58,7 @@
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import { signUp } from '@/api'
+  import { signUp } from '@/api/auth'
 
   export default defineComponent({
     components: {

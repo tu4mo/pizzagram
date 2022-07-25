@@ -19,7 +19,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { firestore, storage } from '.'
-import { currentUser } from './user'
+import { currentUser } from './auth'
 
 const storageRef = ref(storage)
 const postsCollection = collection(firestore, 'posts')
