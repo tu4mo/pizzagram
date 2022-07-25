@@ -27,7 +27,6 @@
   }
 
   const handleScroll = () => {
-    console.log('foo')
     if (
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
       !store.state.isLastPostReached &&
