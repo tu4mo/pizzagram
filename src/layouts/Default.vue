@@ -17,10 +17,7 @@
       </div>
       <div class="default-layout__header"><TheHeader :title="title" /></div>
     </div>
-    <div
-      v-if="$store.state.auth.isInitialized"
-      class="default-layout__navigation"
-    >
+    <div v-if="authStore.isInitialized" class="default-layout__navigation">
       <TheNavigation />
     </div>
     <main
@@ -50,6 +47,7 @@
   import BaseIcon from '@/components/BaseIcon.vue'
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
+  import { authStore } from '@/store/auth'
 
   defineProps({
     maxWidth: {

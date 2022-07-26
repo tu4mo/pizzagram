@@ -1,29 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { setOnAuthStateChangedCallback, signOut } from './api/auth'
-import { toggleLike } from './api/likes'
-import {
-  getPost,
-  getPosts,
-  removePost,
-  subscribeToPosts,
-  QUERY_LIMIT,
-} from './api/posts'
-import { getUser, getUserByUsername } from './api/user'
-import { subscribeToNotifications } from './api/notifications'
-import { fetchTopPosters } from './api/top'
+import { toggleLike } from '@/api/likes'
+import { getPost, getPosts, removePost, QUERY_LIMIT } from '@/api/posts'
+import { getUser, getUserByUsername } from '@/api/user'
+import { fetchTopPosters } from '@/api/top'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    auth: {
-      isAuthenticated: false,
-      isInitialized: false,
-      username: '',
-      userId: '',
-    },
     isLoading: false,
     isLastPostReached: false,
     feeds: {},
@@ -38,8 +24,6 @@ const store = new Vuex.Store({
 
     getUserById: (state) => (userId) =>
       Object.values(state.users).find((user) => user.id === userId) || {},
-
-    getIsMe: (state) => (userId) => state.auth.userId === userId,
 
     getPostById: (state) => (id) => {
       return state.posts[id] ? state.posts[id] : {}
@@ -67,13 +51,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setIsAuthenticated(state, { isAuthenticated, username, userId }) {
-      state.auth.isAuthenticated = isAuthenticated
-      state.auth.isInitialized = true
-      state.auth.username = username
-      state.auth.userId = userId
-    },
-
     setIsLoading(state, isLoading) {
       state.isLoading = isLoading
     },
@@ -205,45 +182,6 @@ const store = new Vuex.Store({
       topPosters.forEach((user) => commit('addToUsers', user))
     },
   },
-})
-
-let unsubscribeToPosts = () => undefined
-let unsubscribeToNotifications = () => undefined
-
-setOnAuthStateChangedCallback(async (user) => {
-  if (user) {
-    try {
-      const userData = await getUser(user.uid)
-      store.commit('setIsAuthenticated', {
-        isAuthenticated: true,
-        username: userData.username,
-        userId: user.uid,
-      })
-      store.commit('addToUsers', userData)
-
-      unsubscribeToPosts = subscribeToPosts((posts) => {
-        posts.forEach((post) => {
-          store.commit('addToPosts', post)
-          store.commit('addToFeeds', { feed: 'home', postId: post.id })
-        })
-      })
-
-      unsubscribeToNotifications = subscribeToNotifications((notifications) => {
-        store.commit('setNotifications', notifications)
-      })
-    } catch (e) {
-      // Sign out if there's an error getting user
-      await signOut()
-    }
-  } else {
-    unsubscribeToPosts()
-    unsubscribeToNotifications()
-
-    store.commit('setIsAuthenticated', {
-      isAuthenticated: false,
-      username: '',
-    })
-  }
 })
 
 export default store

@@ -3,7 +3,7 @@
     <div class="post-view">
       <template v-if="Object.keys(singlePost).length">
         <BasePost
-          :is-removable="$store.getters.getIsMe(singlePost.userId)"
+          :is-removable="isMe"
           :post="singlePost"
           @remove-click="onRemoveClick"
         />
@@ -16,6 +16,7 @@
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BasePost from '@/components/BasePost.vue'
+  import { authStore } from '@/store/auth'
 
   export default {
     components: {
@@ -34,6 +35,9 @@
       },
       singlePost() {
         return this.$store.getters.getPostById(this.postId)
+      },
+      isMe() {
+        return authStore.getIsMe(this.singlePost.userId)
       },
     },
     created() {

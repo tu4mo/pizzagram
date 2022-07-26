@@ -1,7 +1,7 @@
 <template>
   <nav class="navigation">
     <div class="navigation__items">
-      <template v-if="isAuthenticated">
+      <template v-if="authStore.isAuthenticated">
         <NavItem
           :to="{ name: 'home' }"
           class="navigation__item"
@@ -30,7 +30,10 @@
           Notifications
         </NavItem>
         <NavItem
-          :to="{ name: 'profile', params: { username: username || null } }"
+          :to="{
+            name: 'profile',
+            params: { username: authStore.username || null },
+          }"
           class="navigation__item"
           exact
           icon="user"
@@ -57,12 +60,9 @@
 
   import NavItem from './NavItem.vue'
   import TheCamera from './TheCamera.vue'
+  import { authStore } from '@/store/auth'
 
   const instance = getCurrentInstance()
-
-  const isAuthenticated = computed(
-    () => instance?.proxy.$store.state.auth.isAuthenticated
-  )
 
   const notifications = computed(() => {
     const unreadNotificationsCount =
@@ -72,8 +72,6 @@
   })
 
   const isDevelopment = computed(() => process.env.NODE_ENV === 'development')
-
-  const username = computed(() => instance?.proxy.$store.state.auth.username)
 </script>
 
 <style lang="scss" scoped>

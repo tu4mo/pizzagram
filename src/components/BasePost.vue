@@ -20,7 +20,7 @@
           <span class="post__location-text">{{ post.location }}</span>
         </div>
       </div>
-      <div v-if="$store.state.auth.isAuthenticated" class="post__buttons">
+      <div v-if="authStore.isAuthenticated" class="post__buttons">
         <BaseButton v-if="isRemovable" @click="onRemoveClick">
           <BaseIcon name="trash2" />
         </BaseButton>
@@ -53,6 +53,7 @@
   import BaseIcon from './BaseIcon.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
+  import { authStore } from '@/store/auth'
 
   export default defineComponent({
     components: {
@@ -126,12 +127,11 @@
       }
 
       const hasLiked = computed(
-        () =>
-          props.post.likes &&
-          props.post.likes.includes(instance?.proxy.$store.state.auth.userId)
+        () => props.post.likes && props.post.likes.includes(authStore.userId)
       )
 
       return {
+        authStore,
         hasLiked,
         isPlaceholder,
         onVisibilityChanged,

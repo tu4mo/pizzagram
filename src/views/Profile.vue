@@ -23,7 +23,7 @@
           />
         </li>
       </ul>
-      <div v-if="$store.getters.getIsMe(user.id)" class="profile__footer">
+      <div v-if="isMe" class="profile__footer">
         <BaseButton @click="onLogOutClick">Log Out</BaseButton>
       </div>
     </div>
@@ -38,6 +38,7 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { signOut } from '@/api/auth'
+  import { authStore } from '@/store/auth'
 
   export default {
     components: {
@@ -64,6 +65,9 @@
       },
       user() {
         return this.$store.getters.getUser(this.$route.params.username)
+      },
+      isMe() {
+        return authStore.getIsMe(this.user.id)
       },
     },
     methods: {
