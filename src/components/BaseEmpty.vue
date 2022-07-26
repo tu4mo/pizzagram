@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
   .empty {
     align-items: center;
     bottom: 0;

@@ -28,7 +28,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .input {
     background-color: var(--color-background);
     border: 1px solid var(--color-light);
@@ -39,10 +39,10 @@
     padding: 1rem;
     width: 100%;
     -webkit-appearance: none;
+  }
 
-    &--borderless {
-      border: 0;
-      padding: 0;
-    }
+  .input--borderless {
+    border: 0;
+    padding: 0;
   }
 </style>

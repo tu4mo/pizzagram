@@ -29,7 +29,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .button {
     background-color: transparent;
     border: 0;
@@ -44,20 +44,20 @@
     text-decoration: none;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
+  }
 
-    &:disabled {
-      opacity: 0.5;
-    }
+  .button:disabled {
+    opacity: 0.5;
+  }
 
-    &--inline {
-      display: inline;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: inherit;
-    }
+  .button--inline {
+    display: inline;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
 
-    &--secondary {
-      color: var(--color-secondary);
-    }
+  .button--secondary {
+    color: var(--color-secondary);
   }
 </style>

@@ -20,14 +20,12 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  .field {
-    &__label {
-      color: var(--color-primary);
-      display: block;
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-    }
+<style scoped>
+  .field__label {
+    color: var(--color-primary);
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
   }
 </style>
