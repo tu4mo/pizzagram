@@ -56,19 +56,18 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, getCurrentInstance } from 'vue'
+  import { computed } from 'vue'
 
   import NavItem from './NavItem.vue'
   import TheCamera from './TheCamera.vue'
   import { authStore } from '@/store/auth'
-
-  const instance = getCurrentInstance()
+  import { notificationsStore } from '@/store/notifications'
 
   const notifications = computed(() => {
     const unreadNotificationsCount =
-      instance?.proxy.$store.getters.getUnreadNotificationsCount
+      notificationsStore.getUnreadNotificationsCount()
 
-    return unreadNotificationsCount > 0 ? unreadNotificationsCount : null
+    return unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined
   })
 
   const isDevelopment = computed(() => process.env.NODE_ENV === 'development')

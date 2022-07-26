@@ -14,7 +14,6 @@ const store = new Vuex.Store({
     isLastPostReached: false,
     feeds: {},
     file: null,
-    notifications: [],
     users: {},
     posts: {},
   },
@@ -42,12 +41,6 @@ const store = new Vuex.Store({
       Object.keys(users)
         .sort((a, b) => users[a].posts + users[b].posts)
         .slice(0, 10),
-
-    getNotifications: (state) => state.notifications || [],
-
-    getUnreadNotificationsCount: (state, getters) =>
-      getters.getNotifications.filter((notification) => !notification.read)
-        .length,
   },
 
   mutations: {
@@ -106,10 +99,6 @@ const store = new Vuex.Store({
 
     setIsLastPostReached(state, isLastPostReached) {
       state.isLastPostReached = isLastPostReached
-    },
-
-    setNotifications(state, notifications) {
-      state.notifications = notifications
     },
   },
 

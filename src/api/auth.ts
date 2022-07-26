@@ -22,8 +22,8 @@ export const currentUser = () => auth.currentUser
 
 let isSigningUp = false
 
-// eslint-disable-next-line no-unused-vars
-let onAuthStateChangedCallback: (user: User | null) => void
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let onAuthStateChangedCallback: (user: User | null) => void = () => undefined
 
 auth.onAuthStateChanged(async (user) => {
   !isSigningUp && onAuthStateChangedCallback(user)
@@ -31,7 +31,7 @@ auth.onAuthStateChanged(async (user) => {
 
 export const setOnAuthStateChangedCallback = (
   // eslint-disable-next-line no-unused-vars
-  callback: (user: User | null) => void
+  callback: (user: User | null) => undefined
 ) => {
   onAuthStateChangedCallback = callback
 }

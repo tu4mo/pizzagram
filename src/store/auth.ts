@@ -2,11 +2,12 @@ import { reactive } from 'vue'
 import { Unsubscribe } from 'firebase/firestore'
 
 import { setOnAuthStateChangedCallback, signOut } from '@/api/auth'
-import { subscribeToNotifications } from '@/api/notifications'
 import { subscribeToPosts } from '@/api/posts'
 import { getUser } from '@/api/user'
 
 import store from '@/store'
+import { subscribeToNotifications } from '@/api/notifications'
+import { notificationsStore } from './notifications'
 
 export const authStore = reactive({
   isAuthenticated: false,
@@ -42,7 +43,7 @@ setOnAuthStateChangedCallback(async (user) => {
       })
 
       unsubscribeToNotifications = subscribeToNotifications((notifications) => {
-        store.commit('setNotifications', notifications)
+        notificationsStore.notifications = notifications
       })
     } catch (e) {
       // Sign out if there's an error getting user

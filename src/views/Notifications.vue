@@ -1,8 +1,13 @@
 <template>
   <DefaultLayout max-width title="Notifications">
-    <BaseEmpty v-if="notifications.length === 0">No notifications.</BaseEmpty>
+    <BaseEmpty v-if="notificationsStore.notifications.length === 0">
+      No notifications.
+    </BaseEmpty>
     <template v-else>
-      <ul v-for="(notification, index) in notifications" :key="index">
+      <ul
+        v-for="(notification, index) in notificationsStore.notifications"
+        :key="index"
+      >
         <li v-if="notification.type === 'LIKE'" class="notification">
           <ProfilePhoto
             as-link
@@ -45,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, getCurrentInstance, onDeactivated } from 'vue'
+  import { onDeactivated } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -55,15 +60,10 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { markNotificationsAsRead } from '@/api/notifications'
-
-  const instance = getCurrentInstance()
-
-  const notifications = computed(
-    () => instance?.proxy.$store.getters.getNotifications
-  )
+  import { notificationsStore } from '@/store/notifications'
 
   onDeactivated(async () => {
-    if (instance?.proxy.$store.getters.getUnreadNotificationsCount > 0) {
+    if (notificationsStore.getUnreadNotificationsCount() > 0) {
       await markNotificationsAsRead()
     }
   })
