@@ -64,7 +64,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .select {
     background-color: var(--color-background);
     border: 1px solid var(--color-light);
@@ -72,22 +72,22 @@
     display: block;
     font-size: 1rem;
     list-style-type: none;
+  }
 
-    &__item {
-      padding: 1rem;
+  .select__item {
+    padding: 1rem;
+  }
 
-      &:not(:last-child) {
-        border-bottom: 1px solid var(--color-light);
-      }
-    }
+  .select__item:not(:last-child) {
+    border-bottom: 1px solid var(--color-light);
+  }
 
-    &__label {
-      align-items: center;
-      display: flex;
-    }
+  .select__label {
+    align-items: center;
+    display: flex;
+  }
 
-    &__input {
-      margin-right: 0.5rem;
-    }
+  .select__input {
+    margin-right: 0.5rem;
   }
 </style>
