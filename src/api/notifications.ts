@@ -15,9 +15,21 @@ import { getUser } from './user'
 
 const notifications = collection(firestore, 'notifications')
 
+export type Notification = {
+  createdAt: Date
+  from: unknown
+  fromUserId: string
+  id: string
+  imageUrl: string
+  postId: string
+  read: boolean
+  type: 'LIKE'
+  userId: string
+}
+
 export const subscribeToNotifications = (
   // eslint-disable-next-line no-unused-vars
-  callback: (notifications: unknown[]) => void
+  callback: (notifications: Notification[]) => void
 ) => {
   const user = currentUser()
 
@@ -45,7 +57,7 @@ export const subscribeToNotifications = (
         createdAt: data.createdAt.toDate(),
         id: doc.id,
         from,
-      })
+      } as Notification)
     }
 
     callback(notifications)

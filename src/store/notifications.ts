@@ -1,6 +1,11 @@
 import { reactive } from 'vue'
 
-export const notificationsStore = reactive({
+import { Notification } from '@/api/notifications'
+
+export const notificationsStore = reactive<{
+  notifications: Notification[]
+  getUnreadNotificationsCount: () => number
+}>({
   notifications: [],
 
   getUnreadNotificationsCount() {

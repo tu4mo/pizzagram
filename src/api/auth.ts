@@ -31,7 +31,7 @@ auth.onAuthStateChanged(async (user) => {
 
 export const setOnAuthStateChangedCallback = (
   // eslint-disable-next-line no-unused-vars
-  callback: (user: User | null) => undefined
+  callback: (user: User | null) => Promise<void>
 ) => {
   onAuthStateChangedCallback = callback
 }

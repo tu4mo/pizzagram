@@ -26,9 +26,23 @@ const postsCollection = collection(firestore, 'posts')
 
 export const QUERY_LIMIT = 9
 
+type Post = {
+  caption: string
+  createdAt: Date
+  id: string
+  imageUrl: string
+  latitude: number | null
+  likes: string[]
+  location: string
+  longitude: number | null
+  published: boolean
+  rating: number
+  userId: string
+}
+
 export const subscribeToPosts = (
   // eslint-disable-next-line no-unused-vars
-  callback: (posts: unknown[]) => void
+  callback: (posts: Post[]) => void
 ) => {
   const q = query(
     postsCollection,
@@ -38,7 +52,7 @@ export const subscribeToPosts = (
   )
 
   return onSnapshot(q, async (querySnapshot) => {
-    const posts: unknown[] = []
+    const posts: Post[] = []
     querySnapshot.forEach((doc) => posts.push(createPostObject(doc)))
     callback(posts)
   })
@@ -73,7 +87,7 @@ export const getPost = async (id: string) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createPostObject = (doc: DocumentSnapshot<any>) => {
+const createPostObject = (doc: DocumentSnapshot<any>): Post => {
   const data = doc.data()
 
   return data
