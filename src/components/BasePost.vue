@@ -165,6 +165,7 @@
     &__footer {
       align-items: flex-start;
       display: flex;
+      gap: 1.5rem;
       padding: 1rem;
 
       @media (min-width: 640px) {
@@ -174,7 +175,6 @@
 
     &__info {
       flex: 1 1 auto;
-      margin-right: 1rem;
     }
 
     &__likes {
