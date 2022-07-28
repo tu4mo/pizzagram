@@ -48,10 +48,6 @@ const store = new Vuex.Store({
       state.isLoading = isLoading
     },
 
-    setUser(state, user) {
-      state.user = user
-    },
-
     addToFeeds(state, { feed, postId }) {
       state.feeds = {
         ...state.feeds,
