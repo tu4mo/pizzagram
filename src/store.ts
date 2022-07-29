@@ -1,10 +1,11 @@
-import Vue from 'vue'
+import Vue, { del } from 'vue'
 import Vuex from 'vuex'
 
 import { toggleLike } from '@/api/likes'
 import { getPost, getPosts, removePost, QUERY_LIMIT } from '@/api/posts'
 import { getUser, getUserByUsername } from '@/api/user'
 import { fetchTopPosters } from '@/api/top'
+import { feedsStore } from './store/feeds'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,6 @@ const store = new Vuex.Store({
   state: {
     isLoading: false,
     isLastPostReached: false,
-    feeds: {},
     file: null,
     users: {},
     posts: {},
@@ -28,8 +28,8 @@ const store = new Vuex.Store({
       return state.posts[id] ? state.posts[id] : {}
     },
 
-    getPostsByFeed: (state) => (feed) => {
-      const postIds = Object.keys(state.feeds[feed] || {})
+    getPostsByFeed: (state) => (feed: string) => {
+      const postIds = Object.keys(feedsStore.feeds[feed] || {})
       return postIds.length > 0
         ? postIds
             .map((postId) => state.posts[postId])
@@ -48,17 +48,6 @@ const store = new Vuex.Store({
       state.isLoading = isLoading
     },
 
-    addToFeeds(state, { feed, postId }) {
-      state.feeds = {
-        ...state.feeds,
-        [feed]: { ...(state.feeds[feed] || {}), [postId]: true },
-      }
-    },
-
-    clearFeed(state, feed) {
-      delete state.feeds[feed]
-    },
-
     setFile(state, file) {
       state.file = file
     },
@@ -73,8 +62,8 @@ const store = new Vuex.Store({
 
     removePost(state, postId) {
       Vue.delete(state.posts, postId)
-      Object.keys(state.feeds).forEach((feed) => {
-        Vue.delete(state.feeds[feed], postId)
+      Object.keys(feedsStore.feeds).forEach((feed) => {
+        del(feedsStore.feeds[feed], postId)
       })
     },
 
@@ -121,7 +110,7 @@ const store = new Vuex.Store({
 
       posts.forEach((post) => {
         commit('addToPosts', post)
-        commit('addToFeeds', { feed: 'home', postId: post.id })
+        feedsStore.addToFeeds('home', post.id)
       })
 
       commit('setIsLoading', false)
@@ -137,7 +126,7 @@ const store = new Vuex.Store({
         const posts = await getPosts({ userId: user.id })
         posts.forEach((post) => {
           commit('addToPosts', post)
-          commit('addToFeeds', { feed: username, postId: post.id })
+          feedsStore.addToFeeds(username, post.id)
         })
       }
     },

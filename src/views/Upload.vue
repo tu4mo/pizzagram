@@ -52,6 +52,7 @@
 
   import { addLocation, getNearbyLocations } from '@/api/locations'
   import { sharePost } from '@/api/posts'
+  import { feedsStore } from '@/store/feeds'
 
   export default {
     components: {
@@ -182,7 +183,7 @@
           })
         }
 
-        this.$store.commit('clearFeed', 'home')
+        feedsStore.feeds.home = {}
         this.$store.dispatch('getPostsForHome')
 
         this.resetForm()

@@ -8,6 +8,7 @@ import { getUser } from '@/api/user'
 import store from '@/store'
 import { subscribeToNotifications } from '@/api/notifications'
 import { notificationsStore } from './notifications'
+import { feedsStore } from './feeds'
 
 export const authStore = reactive({
   isAuthenticated: false,
@@ -38,7 +39,7 @@ setOnAuthStateChangedCallback(async (user) => {
       unsubscribeToPosts = subscribeToPosts((posts) => {
         posts.forEach((post) => {
           store.commit('addToPosts', post)
-          store.commit('addToFeeds', { feed: 'home', postId: post.id })
+          feedsStore.addToFeeds('home', post.id)
         })
       })
 
