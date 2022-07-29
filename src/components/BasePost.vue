@@ -46,8 +46,8 @@
   </article>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, getCurrentInstance, ref } from 'vue'
+<script setup lang="ts">
+  import { computed, getCurrentInstance, ref } from 'vue'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
@@ -55,94 +55,75 @@
   import PostImage from './PostImage.vue'
   import { authStore } from '@/store/auth'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseIcon,
-      PostHeader,
-      PostImage,
+  const props = defineProps({
+    imageTo: {
+      default: null,
+      type: Object,
     },
-    props: {
-      imageTo: {
-        default: null,
-        type: Object,
-      },
-      isRemovable: {
-        default: false,
-        type: Boolean,
-      },
-      post: {
-        required: true,
-        type: Object,
-      },
+    isRemovable: {
+      default: false,
+      type: Boolean,
     },
-    setup(props, context) {
-      const instance = getCurrentInstance()
-
-      const isPlaceholder = ref(true)
-
-      const postPath = computed(
-        () => `${window.location.origin}/post/${props.post.id}`
-      )
-
-      const user = computed(() =>
-        instance?.proxy.$store.getters.getUserById(props.post.userId)
-      )
-
-      const onVisibilityChanged = (isVisible: boolean) => {
-        if (!isVisible) {
-          return
-        }
-
-        isPlaceholder.value = false
-        instance?.proxy.$store.dispatch('getUserById', props.post.userId)
-      }
-
-      const onLikeClick = () => {
-        instance?.proxy.$store.dispatch('toggleLike', props.post.id)
-      }
-
-      const onRemoveClick = () => {
-        if (confirm('Are you sure you want to remove this post?')) {
-          context.emit('remove-click')
-        }
-      }
-
-      const onShareClick = async () => {
-        if (!navigator.share) {
-          alert("Sorry, you're browser doesn't seem to support Web Share.")
-        }
-
-        try {
-          await navigator.share({
-            title: 'Pizzagram',
-            text: `${props.post.caption}${
-              props.post.caption && props.post.location ? ' - ' : ''
-            }${props.post.location}`,
-            url: postPath as any,
-          })
-        } catch (e) {
-          //
-        }
-      }
-
-      const hasLiked = computed(
-        () => props.post.likes && props.post.likes.includes(authStore.userId)
-      )
-
-      return {
-        authStore,
-        hasLiked,
-        isPlaceholder,
-        onVisibilityChanged,
-        onLikeClick,
-        onRemoveClick,
-        onShareClick,
-        postPath,
-        user,
-      }
+    post: {
+      required: true,
+      type: Object,
     },
   })
+
+  const emit = defineEmits(['remove-click'])
+
+  const instance = getCurrentInstance()
+
+  const isPlaceholder = ref(true)
+
+  const postPath = computed(
+    () => `${window.location.origin}/post/${props.post.id}`
+  )
+
+  const user = computed(() =>
+    instance?.proxy.$store.getters.getUserById(props.post.userId)
+  )
+
+  const onVisibilityChanged = (isVisible: boolean) => {
+    if (!isVisible) {
+      return
+    }
+
+    isPlaceholder.value = false
+    instance?.proxy.$store.dispatch('getUserById', props.post.userId)
+  }
+
+  const onLikeClick = () => {
+    instance?.proxy.$store.dispatch('toggleLike', props.post.id)
+  }
+
+  const onRemoveClick = () => {
+    if (confirm('Are you sure you want to remove this post?')) {
+      emit('remove-click')
+    }
+  }
+
+  const onShareClick = async () => {
+    if (!navigator.share) {
+      alert("Sorry, you're browser doesn't seem to support Web Share.")
+    }
+
+    try {
+      await navigator.share({
+        title: 'Pizzagram',
+        text: `${props.post.caption}${
+          props.post.caption && props.post.location ? ' - ' : ''
+        }${props.post.location}`,
+        url: postPath as any,
+      })
+    } catch (e) {
+      //
+    }
+  }
+
+  const hasLiked = computed(
+    () => props.post.likes && props.post.likes.includes(authStore.userId)
+  )
 </script>
 
 <style lang="scss" scoped>

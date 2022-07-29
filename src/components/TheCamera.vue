@@ -35,27 +35,27 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .camera {
     position: relative;
+  }
 
-    &--active {
-      color: var(--color-primary);
-    }
+  .camera--active {
+    color: var(--color-primary);
+  }
 
-    &__label {
-      cursor: pointer;
-      display: block;
-      padding: 0.5rem;
-    }
+  .camera__label {
+    cursor: pointer;
+    display: block;
+    padding: 0.5rem;
+  }
 
-    &__input {
-      width: 0.1px;
-      height: 0.1px;
-      opacity: 0;
-      overflow: hidden;
-      position: absolute;
-      z-index: -1;
-    }
+  .camera__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
   }
 </style>

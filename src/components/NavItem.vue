@@ -33,31 +33,31 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .nav-item {
     color: var(--color-secondary);
     padding: 0.5rem;
     position: relative;
+  }
 
-    &--active {
-      color: var(--color-primary);
-    }
+  .nav-item--active {
+    color: var(--color-primary);
+  }
 
-    &__badge {
-      align-items: center;
-      background-color: var(--color-primary);
-      border-radius: 1rem;
-      color: #fff;
-      display: flex;
-      font-size: 0.75rem;
-      height: 1rem;
-      justify-content: center;
-      line-height: 1;
-      min-width: 1rem;
-      padding: 0 0.25rem;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
+  .nav-item__badge {
+    align-items: center;
+    background-color: var(--color-primary);
+    border-radius: 1rem;
+    color: #fff;
+    display: flex;
+    font-size: 0.75rem;
+    height: 1rem;
+    justify-content: center;
+    line-height: 1;
+    min-width: 1rem;
+    padding: 0 0.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 </style>

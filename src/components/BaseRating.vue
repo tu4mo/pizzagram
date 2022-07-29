@@ -26,24 +26,24 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .rating {
     display: flex;
     justify-content: center;
     list-style: none;
     margin: 0.5rem 0;
+  }
 
-    &__button {
-      color: var(--color-gray);
-      width: auto;
+  .rating__button {
+    color: var(--color-gray);
+    width: auto;
+  }
 
-      &:not(:last-child) {
-        margin-right: 1rem;
-      }
+  .rating__button:not(:last-child) {
+    margin-right: 1rem;
+  }
 
-      &--active {
-        color: var(--color-primary);
-      }
-    }
+  .rating__button--active {
+    color: var(--color-primary);
   }
 </style>

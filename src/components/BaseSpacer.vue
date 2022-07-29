@@ -33,23 +33,21 @@
   }))
 </script>
 
-<style lang="scss" scoped>
-  .spacer {
-    &--mb1 {
-      margin-bottom: 1rem;
-    }
+<style scoped>
+  .spacer--mb1 {
+    margin-bottom: 1rem;
+  }
 
-    &--mb2 {
-      margin-bottom: 2rem;
-    }
+  .spacer--mb2 {
+    margin-bottom: 2rem;
+  }
 
-    &--mt1 {
-      margin-top: 1rem;
-    }
+  .spacer--mt1 {
+    margin-top: 1rem;
+  }
 
-    &--my1 {
-      margin-bottom: 1rem;
-      margin-top: 1rem;
-    }
+  .spacer--my1 {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 </style>

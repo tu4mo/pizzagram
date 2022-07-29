@@ -4,15 +4,15 @@
   </RouterLink>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
   .logo {
     display: block;
     -webkit-tap-highlight-color: transparent;
+  }
 
-    &__image {
-      display: block;
-      max-height: 100%;
-      max-width: 100%;
-    }
+  .logo__image {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
   }
 </style>

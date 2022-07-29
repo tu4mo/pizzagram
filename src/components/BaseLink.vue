@@ -21,7 +21,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .link {
     color: var(--color-primary);
     text-decoration: none;
