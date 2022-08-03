@@ -17,17 +17,18 @@
   import { getCurrentInstance } from 'vue'
 
   import BaseIcon from './BaseIcon.vue'
+  import { fileStore } from '@/store/file'
 
   const instance = getCurrentInstance()
 
   const onChange = (event: any) => {
     if (event.target.files[0]) {
-      instance?.proxy.$store.commit('setFile', event.target.files[0])
+      fileStore.file = event.target.files[0]
     }
   }
 
   const onClick = () => {
-    instance?.proxy.$store.commit('setFile', null)
+    fileStore.file = null
 
     if (instance?.proxy.$route.name !== 'upload') {
       instance?.proxy.$router.push({ name: 'upload' })

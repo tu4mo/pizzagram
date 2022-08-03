@@ -13,7 +13,6 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     isLastPostReached: false,
-    file: null,
     users: {},
     posts: {},
   },
@@ -44,10 +43,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setFile(state, file) {
-      state.file = file
-    },
-
     addToUsers(state, user) {
       state.users = { ...state.users, [user.username]: user }
     },

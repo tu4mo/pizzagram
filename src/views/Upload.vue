@@ -53,6 +53,7 @@
   import { addLocation, getNearbyLocations } from '@/api/locations'
   import { sharePost } from '@/api/posts'
   import { feedsStore } from '@/store/feeds'
+  import { fileStore } from '@/store/file'
 
   export default {
     components: {
@@ -85,7 +86,7 @@
     },
     computed: {
       file() {
-        return this.$store.state.file
+        return fileStore.file
       },
     },
     watch: {
@@ -168,7 +169,7 @@
         this.isLoading = true
 
         await sharePost({ file: this.file, ...this.form })
-        this.$store.commit('setFile', null)
+        fileStore.file = null
 
         if (
           this.form.location &&
