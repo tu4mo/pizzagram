@@ -58,7 +58,7 @@ export const subscribeToPosts = (
   })
 }
 
-export const getPosts = async ({
+export const fetchPosts = async ({
   userId,
   after,
 }: { userId?: string; after?: DocumentSnapshot<unknown> } = {}) => {
@@ -77,7 +77,7 @@ export const getPosts = async ({
   return posts
 }
 
-export const getPost = async (id: string) => {
+export const fetchPost = async (id: string) => {
   try {
     const docRef = await getDoc(doc(firestore, 'posts', id))
     return createPostObject(docRef)

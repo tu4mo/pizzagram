@@ -2,7 +2,7 @@ import Vue, { del } from 'vue'
 import Vuex from 'vuex'
 
 import { toggleLike } from '@/api/likes'
-import { getPost, getPosts, removePost, QUERY_LIMIT } from '@/api/posts'
+import { fetchPost, fetchPosts, removePost, QUERY_LIMIT } from '@/api/posts'
 import { getUser, getUserByUsername } from '@/api/user'
 import { fetchTopPosters } from '@/api/top'
 import { feedsStore } from './store/feeds'
@@ -93,7 +93,7 @@ const store = new Vuex.Store({
         return
       }
 
-      const post = await getPost(postId)
+      const post = await fetchPost(postId)
       commit('addToPosts', post)
     },
 
@@ -104,7 +104,7 @@ const store = new Vuex.Store({
       const lastPost =
         postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : null
 
-      const posts = await getPosts({
+      const posts = await fetchPosts({
         after: lastPost,
       })
 
@@ -123,7 +123,7 @@ const store = new Vuex.Store({
     async getPostsByUser({ commit, getters }, username) {
       const user = getters.getUser(username)
       if (Object.keys(user).length) {
-        const posts = await getPosts({ userId: user.id })
+        const posts = await fetchPosts({ userId: user.id })
         posts.forEach((post) => {
           commit('addToPosts', post)
           feedsStore.addToFeeds(username, post.id)
