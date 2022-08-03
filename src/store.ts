@@ -5,13 +5,13 @@ import { toggleLike } from '@/api/likes'
 import { fetchPost, fetchPosts, removePost, QUERY_LIMIT } from '@/api/posts'
 import { getUser, getUserByUsername } from '@/api/user'
 import { fetchTopPosters } from '@/api/top'
-import { feedsStore } from './store/feeds'
+import { feedsStore } from '@/store/feeds'
+import { postsStore } from '@/store/posts'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    isLoading: false,
     isLastPostReached: false,
     file: null,
     users: {},
@@ -44,10 +44,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    setIsLoading(state, isLoading) {
-      state.isLoading = isLoading
-    },
-
     setFile(state, file) {
       state.file = file
     },
@@ -98,7 +94,7 @@ const store = new Vuex.Store({
     },
 
     async getPostsForHome({ commit, getters }) {
-      commit('setIsLoading', true)
+      postsStore.isLoading = true
 
       const postsInHome = getters.getPostsByFeed('home')
       const lastPost =
@@ -113,7 +109,7 @@ const store = new Vuex.Store({
         feedsStore.addToFeeds('home', post.id)
       })
 
-      commit('setIsLoading', false)
+      postsStore.isLoading = false
 
       if (posts.length < QUERY_LIMIT) {
         commit('setIsLastPostReached', true)

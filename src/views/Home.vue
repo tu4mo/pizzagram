@@ -7,7 +7,7 @@
         :image-to="{ name: 'post', params: { postId: post.id } }"
         :post="post"
       />
-      <BaseSpinner v-if="isLoading" :inline="posts.length > 0" />
+      <BaseSpinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
     </div>
   </DefaultLayout>
 </template>
@@ -21,6 +21,7 @@
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import store from '@/store'
+  import { postsStore } from '@/store/posts'
 
   const fetchPosts = () => {
     store.dispatch('getPostsForHome')
@@ -30,7 +31,7 @@
     if (
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
       !store.state.isLastPostReached &&
-      !store.state.isLoading
+      !postsStore.isLoading
     ) {
       fetchPosts()
     }
@@ -46,7 +47,6 @@
     window.removeEventListener('scroll', handleScroll)
   })
 
-  const isLoading = computed(() => store.state.isLoading)
   const posts = computed(() => store.getters.getPostsByFeed('home'))
 </script>
 
