@@ -4,6 +4,8 @@ import { reactive } from 'vue'
 
 export const postsStore = reactive<{
   isLoading: boolean
+  isLastPostReached: boolean
 }>({
   isLoading: false,
+  isLastPostReached: false,
 })

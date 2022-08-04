@@ -30,7 +30,7 @@
   const handleScroll = () => {
     if (
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
-      !store.state.isLastPostReached &&
+      !postsStore.isLastPostReached &&
       !postsStore.isLoading
     ) {
       fetchPosts()

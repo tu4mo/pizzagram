@@ -12,7 +12,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    isLastPostReached: false,
     users: {},
     posts: {},
   },
@@ -72,10 +71,6 @@ const store = new Vuex.Store({
         Vue.set(state.posts[postId], 'likes', [...likes, userId])
       }
     },
-
-    setIsLastPostReached(state, isLastPostReached) {
-      state.isLastPostReached = isLastPostReached
-    },
   },
 
   actions: {
@@ -107,7 +102,7 @@ const store = new Vuex.Store({
       postsStore.isLoading = false
 
       if (posts.length < QUERY_LIMIT) {
-        commit('setIsLastPostReached', true)
+        postsStore.isLastPostReached = true
       }
     },
 
