@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import { toggleLike } from '@/api/likes'
 import { fetchPost, fetchPosts, removePost, QUERY_LIMIT } from '@/api/posts'
-import { getUser, getUserByUsername } from '@/api/user'
+import { fetchUser, fetchUserByUsername } from '@/api/user'
 import { fetchTopPosters } from '@/api/top'
 import { feedsStore } from '@/store/feeds'
 import { postsStore } from '@/store/posts'
@@ -123,12 +123,12 @@ const store = new Vuex.Store({
     },
 
     async getUser({ commit }, username) {
-      const user = await getUserByUsername(username)
+      const user = await fetchUserByUsername(username)
       commit('addToUsers', user)
     },
 
     async getUserById({ commit }, userId) {
-      const user = await getUser(userId)
+      const user = await fetchUser(userId)
       commit('addToUsers', user)
     },
 

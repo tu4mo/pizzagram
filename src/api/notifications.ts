@@ -11,7 +11,7 @@ import {
 
 import { firestore } from '.'
 import { currentUser } from './auth'
-import { getUser } from './user'
+import { fetchUser } from './user'
 
 const notifications = collection(firestore, 'notifications')
 
@@ -51,7 +51,7 @@ export const subscribeToNotifications = (
 
     for await (const doc of querySnapshot.docs) {
       const data = doc.data()
-      const from = await getUser(data.fromUserId)
+      const from = await fetchUser(data.fromUserId)
       notifications.push({
         ...data,
         createdAt: data.createdAt.toDate(),

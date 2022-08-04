@@ -3,7 +3,7 @@ import { Unsubscribe } from 'firebase/firestore'
 
 import { setOnAuthStateChangedCallback, signOut } from '@/api/auth'
 import { subscribeToPosts } from '@/api/posts'
-import { getUser } from '@/api/user'
+import { fetchUser } from '@/api/user'
 
 import store from '@/store'
 import { subscribeToNotifications } from '@/api/notifications'
@@ -27,7 +27,7 @@ let unsubscribeToNotifications: Unsubscribe | undefined = () => undefined
 setOnAuthStateChangedCallback(async (user) => {
   if (user) {
     try {
-      const userData = await getUser(user.uid)
+      const userData = await fetchUser(user.uid)
 
       authStore.isAuthenticated = true
       authStore.isInitialized = true

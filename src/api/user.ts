@@ -20,7 +20,7 @@ export const createUserObject = (doc: QueryDocumentSnapshot<any>) => {
     : data
 }
 
-export const getUser = async (id: string) => {
+export const fetchUser = async (id: string) => {
   if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
     try {
       const querySnapshot = await getDocs(
@@ -41,7 +41,7 @@ export const getUser = async (id: string) => {
   return Object.values(userCache.getAll()).find((user) => user.id === id)
 }
 
-export const getUserByUsername = async (username: string) => {
+export const fetchUserByUsername = async (username: string) => {
   if (!userCache.getAll()[username]) {
     const docRef = await getDoc(doc(firestore, 'users', username))
 
