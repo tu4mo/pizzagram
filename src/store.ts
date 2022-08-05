@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import { toggleLike } from '@/api/likes'
 import { fetchPost, fetchPosts, removePost, QUERY_LIMIT } from '@/api/posts'
-import { fetchUser, fetchUserByUsername } from '@/api/user'
+import { fetchUserByUsername } from '@/api/user'
 import { fetchTopPosters } from '@/api/top'
 import { feedsStore } from '@/store/feeds'
 import { postsStore } from '@/store/posts'
