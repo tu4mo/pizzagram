@@ -12,7 +12,16 @@ import {
 import { firestore } from '.'
 import userCache from './user-cache'
 
-export const createUserObject = (doc: QueryDocumentSnapshot<any>) => {
+export type User = {
+  createdAt: Date
+  gravatar: string
+  id: string
+  name: string
+  posts: number
+  username: string
+}
+
+export const createUserObject = (doc: QueryDocumentSnapshot<any>): User => {
   const data = doc.data()
 
   return data

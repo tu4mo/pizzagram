@@ -1,15 +1,13 @@
-type User = {
-  [key: string]: any
-}
+import { User } from './user'
 
 const userCache = () => {
-  const cache: User = {}
+  const cache: { [key: string]: User } = {}
 
   return {
     getAll() {
       return cache
     },
-    set(username: string, user: any) {
+    set(username: string, user: User) {
       cache[username] = user
     },
   }

@@ -19,9 +19,6 @@ const store = new Vuex.Store({
   getters: {
     getUser: (state) => (username) => state.users[username] || {},
 
-    getUserById: (state) => (userId) =>
-      Object.values(state.users).find((user) => user.id === userId) || {},
-
     getPostById: (state) => (id) => {
       return state.posts[id] ? state.posts[id] : {}
     },
@@ -106,8 +103,8 @@ const store = new Vuex.Store({
       }
     },
 
-    async getPostsByUser({ commit, getters }, username) {
-      const user = getters.getUser(username)
+    async getPostsByUser({ commit }, username) {
+      const user = await fetchUserByUsername(username)
       if (Object.keys(user).length) {
         const posts = await fetchPosts({ userId: user.id })
         posts.forEach((post) => {
@@ -124,11 +121,6 @@ const store = new Vuex.Store({
 
     async getUser({ commit }, username) {
       const user = await fetchUserByUsername(username)
-      commit('addToUsers', user)
-    },
-
-    async getUserById({ commit }, userId) {
-      const user = await fetchUser(userId)
       commit('addToUsers', user)
     },
 

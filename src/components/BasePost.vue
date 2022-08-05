@@ -54,6 +54,7 @@
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
   import { authStore } from '@/store/auth'
+  import { fetchUser, User } from '@/api/user'
 
   const props = defineProps({
     imageTo: {
@@ -80,17 +81,15 @@
     () => `${window.location.origin}/post/${props.post.id}`
   )
 
-  const user = computed(() =>
-    instance?.proxy.$store.getters.getUserById(props.post.userId)
-  )
+  const user = ref<User | undefined>(undefined)
 
-  const onVisibilityChanged = (isVisible: boolean) => {
+  const onVisibilityChanged = async (isVisible: boolean) => {
     if (!isVisible) {
       return
     }
 
     isPlaceholder.value = false
-    instance?.proxy.$store.dispatch('getUserById', props.post.userId)
+    user.value = await fetchUser(props.post.userId)
   }
 
   const onLikeClick = () => {
