@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { getCurrentInstance, onActivated } from 'vue'
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -39,6 +40,7 @@
 
   import { signOut } from '@/api/auth'
   import { authStore } from '@/store/auth'
+  import { setTitle } from '@/title'
 
   export default {
     components: {
@@ -58,6 +60,12 @@
         this.fetchData(to.params.username)
       }
       next()
+    },
+    setup() {
+      onActivated(() => {
+        const instance = getCurrentInstance()
+        setTitle(instance?.proxy.$route.params.username, true)
+      })
     },
     computed: {
       posts() {
@@ -79,11 +87,6 @@
         await signOut()
         this.$router.push({ name: 'login' })
       },
-    },
-    metaInfo() {
-      return {
-        title: this.user.username,
-      }
     },
   }
 </script>

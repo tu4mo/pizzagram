@@ -35,6 +35,7 @@
 
   import BaseLink from '@/components/BaseLink.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import { setTitle } from '@/title'
 
   export default defineComponent({
     components: {
@@ -43,6 +44,8 @@
       ProfilePhoto,
     },
     setup() {
+      setTitle('Top 10')
+
       const instance = getCurrentInstance()
 
       const getTopPosters = () => {
@@ -61,9 +64,6 @@
         getTopPosters,
         getUser,
       }
-    },
-    metaInfo: {
-      title: 'Top 10',
     },
   })
 </script>

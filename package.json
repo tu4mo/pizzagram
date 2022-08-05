@@ -20,7 +20,6 @@
     "geofirestore": "^5.2.0",
     "md5": "^2.3.0",
     "vue": "^2.7.8",
-    "vue-meta": "^2.4.0",
     "vue-observe-visibility": "^1.0.0",
     "vue-router": "^3.5.4",
     "vuex": "^3.6.2"

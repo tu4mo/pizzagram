@@ -11,13 +11,13 @@ import {
 
 import { firestore } from '.'
 import { currentUser } from './auth'
-import { fetchUser } from './user'
+import { fetchUser, User } from './user'
 
 const notifications = collection(firestore, 'notifications')
 
 export type Notification = {
   createdAt: Date
-  from: unknown
+  from: User
   fromUserId: string
   id: string
   imageUrl: string

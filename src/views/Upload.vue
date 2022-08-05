@@ -54,6 +54,7 @@
   import { sharePost } from '@/api/posts'
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
+  import { setTitle } from '@/title'
 
   export default {
     components: {
@@ -67,6 +68,9 @@
       BaseInput,
       DefaultLayout,
       PostImage,
+    },
+    setup() {
+      setTitle('Upload')
     },
     data() {
       return {
@@ -200,9 +204,6 @@
         this.form.latitude = null
         this.form.longitude = null
       },
-    },
-    metaInfo: {
-      title: 'Upload',
     },
   }
 </script>

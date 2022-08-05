@@ -49,6 +49,7 @@
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { signIn } from '@/api/auth'
+  import { setTitle } from '@/title'
 
   export default defineComponent({
     components: {
@@ -60,6 +61,8 @@
       WelcomeLayout,
     },
     setup() {
+      setTitle('Log In')
+
       const instance = getCurrentInstance()
 
       const email = ref('')
@@ -85,9 +88,6 @@
         password,
         submit,
       }
-    },
-    metaInfo: {
-      title: 'Log In',
     },
   })
 </script>

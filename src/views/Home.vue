@@ -22,6 +22,9 @@
 
   import store from '@/store'
   import { postsStore } from '@/store/posts'
+  import { setTitle } from '@/title'
+
+  setTitle()
 
   const fetchPosts = () => {
     store.dispatch('getPostsForHome')

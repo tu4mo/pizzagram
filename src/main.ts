@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueObserveVisibility from 'vue-observe-visibility'
 import * as Sentry from '@sentry/vue'
 import { BrowserTracing } from '@sentry/tracing'
-import Meta from 'vue-meta'
 
 import App from './App.vue'
 import router from './router'
@@ -25,8 +24,6 @@ if (process.env.NODE_ENV !== 'development') {
 Vue.config.productionTip = false
 
 Vue.use(VueObserveVisibility)
-
-Vue.use(Meta)
 
 new Vue({
   router,

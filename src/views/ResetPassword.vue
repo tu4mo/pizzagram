@@ -35,6 +35,7 @@
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { sendPasswordResetEmail } from '@/api/auth'
+  import { setTitle } from '@/title'
 
   export default defineComponent({
     components: {
@@ -46,6 +47,8 @@
       WelcomeLayout,
     },
     setup() {
+      setTitle('Reset Password')
+
       const email = ref('')
       const hasSentMail = ref(false)
       const isLoading = ref(false)
@@ -70,9 +73,6 @@
         isLoading,
         submit,
       }
-    },
-    metaInfo: {
-      title: 'Reset Password',
     },
   })
 </script>

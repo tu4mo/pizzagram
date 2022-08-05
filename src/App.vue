@@ -2,18 +2,6 @@
   <keep-alive><RouterView /></keep-alive>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    metaInfo: {
-      titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} - Pizzagram` : 'Pizzagram'
-      },
-    },
-  })
-</script>
-
 <style lang="scss">
   :root {
     --color-background: #fff;

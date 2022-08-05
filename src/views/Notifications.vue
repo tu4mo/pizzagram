@@ -61,6 +61,9 @@
 
   import { markNotificationsAsRead } from '@/api/notifications'
   import { notificationsStore } from '@/store/notifications'
+  import { setTitle } from '@/title'
+
+  setTitle('Notifications')
 
   onDeactivated(async () => {
     if (notificationsStore.getUnreadNotificationsCount() > 0) {
