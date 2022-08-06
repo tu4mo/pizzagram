@@ -40,30 +40,32 @@
   )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .post-header {
     align-items: center;
     display: flex;
     justify-content: space-between;
+  }
 
-    &__user {
-      align-items: center;
-      color: var(--color-secondary);
-      display: flex;
-      font-weight: bold;
-      text-decoration: none;
-    }
+  .post-header__user {
+    align-items: center;
+    color: var(--color-secondary);
+    display: flex;
+    font-weight: bold;
+    text-decoration: none;
+  }
 
-    &__profile {
-      margin-right: 0.5rem;
+  .post-header__profile {
+    margin-right: 0.5rem;
+  }
 
-      @media (min-width: 640px) {
-        margin-right: 1rem;
-      }
-    }
+  .post-header__created-date {
+    color: var(--color-gray);
+  }
 
-    &__created-date {
-      color: var(--color-gray);
+  @media (min-width: 640px) {
+    .post-header__profile {
+      margin-right: 1rem;
     }
   }
 </style>

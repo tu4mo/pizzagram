@@ -125,62 +125,64 @@
   )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .post {
     box-shadow: 0 0 3rem rgba(0, 0, 0, 0.1);
     display: grid;
+  }
 
-    @media (min-width: 640px) {
+  .post__header {
+    padding: 1rem;
+  }
+
+  .post__footer {
+    align-items: flex-start;
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .post__info {
+    flex: 1 1 auto;
+  }
+
+  .post__likes {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .post__caption {
+    color: var(--color-gray);
+  }
+
+  .post__location {
+    align-items: center;
+    color: var(--color-gray);
+    display: flex;
+  }
+
+  .post__location-text {
+    margin-left: 0.5rem;
+  }
+
+  .post__buttons {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1.5rem;
+    flex: 0 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .post {
       border-radius: 2rem;
     }
 
-    &__header {
-      padding: 1rem;
-
-      @media (min-width: 640px) {
-        padding: 2rem;
-      }
+    .post__header {
+      padding: 2rem;
     }
 
-    &__footer {
-      align-items: flex-start;
-      display: flex;
-      gap: 1.5rem;
-      padding: 1rem;
-
-      @media (min-width: 640px) {
-        padding: 2rem;
-      }
-    }
-
-    &__info {
-      flex: 1 1 auto;
-    }
-
-    &__likes {
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-    }
-
-    &__caption {
-      color: var(--color-gray);
-    }
-
-    &__location {
-      align-items: center;
-      color: var(--color-gray);
-      display: flex;
-    }
-
-    &__location-text {
-      margin-left: 0.5rem;
-    }
-
-    &__buttons {
-      display: grid;
-      grid-auto-flow: column;
-      gap: 1.5rem;
-      flex: 0 0 auto;
+    .post__footer {
+      padding: 2rem;
     }
   }
 </style>

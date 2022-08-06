@@ -28,7 +28,7 @@
   ])
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .spinner {
     align-items: center;
     animation: animation-show 0.5s;
@@ -40,45 +40,45 @@
     position: fixed;
     right: 0;
     top: 0;
+  }
 
-    &--cover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
+  .spinner--cover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 
-    &--inline {
-      position: relative;
-    }
+  .spinner--inline {
+    position: relative;
+  }
 
-    &__rotate {
-      animation: animation-rotate 1s infinite linear;
-      width: 40px;
-      height: 40px;
-      position: relative;
-      text-align: center;
-    }
+  .spinner__rotate {
+    animation: animation-rotate 1s infinite linear;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+  }
 
-    &__pepperoni-1,
-    &__pepperoni-2 {
-      animation: animation-bounce 2s infinite ease-in-out;
-      background-color: var(--color-primary);
-      border: 4px solid var(--color-secondary);
-      border-radius: 100%;
-      display: inline-block;
-      height: 30%;
-      position: absolute;
-      top: 0;
-      width: 30%;
-    }
+  .spinner__pepperoni-1,
+  .spinner__pepperoni-2 {
+    animation: animation-bounce 2s infinite ease-in-out;
+    background-color: var(--color-primary);
+    border: 4px solid var(--color-secondary);
+    border-radius: 100%;
+    display: inline-block;
+    height: 30%;
+    position: absolute;
+    top: 0;
+    width: 30%;
+  }
 
-    &__pepperoni-2 {
-      animation-delay: -1s;
-      bottom: 0;
-      top: auto;
-    }
+  .spinner__pepperoni-2 {
+    animation-delay: -1s;
+    bottom: 0;
+    top: auto;
+  }
 
-    &__slot {
-      margin-top: 2rem;
-    }
+  .spinner__slot {
+    margin-top: 2rem;
   }
 
   @keyframes animation-show {

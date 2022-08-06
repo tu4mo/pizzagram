@@ -52,26 +52,26 @@
   const icon = computed(() => ICONS[props.name])
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .icon {
     cursor: inherit;
+  }
 
-    :deep(svg) {
-      display: block;
-    }
+  .icon:deep(svg) {
+    display: block;
+  }
 
-    &--fill :deep(svg) {
-      fill: currentColor;
-    }
+  .icon--fill:deep(svg) {
+    fill: currentColor;
+  }
 
-    &--md :deep(svg) {
-      height: 1.5rem;
-      width: 1.5rem;
-    }
+  .icon--md:deep(svg) {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 
-    &--sm :deep(svg) {
-      height: 1rem;
-      width: 1rem;
-    }
+  .icon--sm:deep(svg) {
+    height: 1rem;
+    width: 1rem;
   }
 </style>

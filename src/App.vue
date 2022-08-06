@@ -2,7 +2,7 @@
   <keep-alive><RouterView /></keep-alive>
 </template>
 
-<style lang="scss">
+<style>
   :root {
     --color-background: #fff;
     --color-background-rgb: 255, 255, 255;
@@ -15,6 +15,16 @@
 
     --z-header: 1;
     --z-navigation: 2;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
   }
 
   html {
@@ -31,19 +41,11 @@
     background-color: var(--color-background);
     font-size: 0.75rem;
     line-height: 1.5;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-    }
   }
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    margin: 0;
-    padding: 0;
+  @media (min-width: 640px) {
+    body {
+      font-size: 1rem;
+    }
   }
 </style>
