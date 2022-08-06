@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, getCurrentInstance, onUpdated } from 'vue'
+  import { computed, defineComponent, getCurrentInstance, onUpdated } from 'vue'
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -67,26 +67,35 @@
       onUpdated(() => {
         setTitle(instance?.proxy.$route.params.username, true)
       })
-    },
-    computed: {
-      posts() {
-        return this.$store.getters.getPostsByFeed(this.user.username)
-      },
-      user() {
-        return this.$store.getters.getUser(this.$route.params.username)
-      },
-      isMe() {
-        return authStore.getIsMe(this.user.id)
-      },
+
+      const user = computed(() =>
+        instance?.proxy.$store.getters.getUser(
+          instance.proxy.$route.params.username
+        )
+      )
+
+      const posts = computed(() =>
+        instance?.proxy.$store.getters.getPostsByFeed(user.value.username)
+      )
+
+      const isMe = computed(() => authStore.getIsMe(user.value.id))
+
+      const onLogOutClick = async () => {
+        await signOut()
+        instance?.proxy.$router.push({ name: 'login' })
+      }
+
+      return {
+        posts,
+        user,
+        isMe,
+        onLogOutClick,
+      }
     },
     methods: {
       async fetchData(username: string) {
         await this.$store.dispatch('getUser', username)
         await this.$store.dispatch('getPostsByUser', username)
-      },
-      async onLogOutClick() {
-        await signOut()
-        this.$router.push({ name: 'login' })
       },
     },
   })
