@@ -30,8 +30,8 @@
   </DefaultLayout>
 </template>
 
-<script>
-  import { getCurrentInstance, onActivated } from 'vue'
+<script lang="ts">
+  import { defineComponent, getCurrentInstance, onUpdated } from 'vue'
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -42,7 +42,7 @@
   import { authStore } from '@/store/auth'
   import { setTitle } from '@/title'
 
-  export default {
+  export default defineComponent({
     components: {
       BaseButton,
       DefaultLayout,
@@ -62,8 +62,9 @@
       next()
     },
     setup() {
-      onActivated(() => {
-        const instance = getCurrentInstance()
+      const instance = getCurrentInstance()
+
+      onUpdated(() => {
         setTitle(instance?.proxy.$route.params.username, true)
       })
     },
@@ -79,7 +80,7 @@
       },
     },
     methods: {
-      async fetchData(username) {
+      async fetchData(username: string) {
         await this.$store.dispatch('getUser', username)
         await this.$store.dispatch('getPostsByUser', username)
       },
@@ -88,7 +89,7 @@
         this.$router.push({ name: 'login' })
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
