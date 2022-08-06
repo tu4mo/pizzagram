@@ -12,47 +12,32 @@
   </DefaultLayout>
 </template>
 
-<script>
+<script setup lang="ts">
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BasePost from '@/components/BasePost.vue'
   import { authStore } from '@/store/auth'
+  import { computed, getCurrentInstance, onActivated } from 'vue'
 
-  export default {
-    components: {
-      BasePost,
-      DefaultLayout,
-    },
-    beforeRouteUpdate(to, from, next) {
-      if (to.params.postId !== from.params.postId) {
-        this.fetchPost(to.params.postId)
-      }
-      next()
-    },
-    computed: {
-      postId() {
-        return this.$route.params.postId
-      },
-      singlePost() {
-        return this.$store.getters.getPostById(this.postId)
-      },
-      isMe() {
-        return authStore.getIsMe(this.singlePost.userId)
-      },
-    },
-    created() {
-      const { postId } = this.$route.params
-      this.fetchPost(postId)
-    },
-    methods: {
-      fetchPost(postId) {
-        this.$store.dispatch('getPostById', { postId })
-      },
-      onRemoveClick() {
-        this.$store.dispatch('removePost', this.postId)
-        this.$router.go(-1)
-      },
-    },
+  const instance = getCurrentInstance()
+
+  onActivated(() => {
+    instance?.proxy.$store.dispatch('getPostById', {
+      postId: instance?.proxy.$route.params.postId,
+    })
+  })
+
+  const postId = computed(() => instance?.proxy.$route.params.postId)
+
+  const singlePost = computed(() =>
+    instance?.proxy.$store.getters.getPostById(postId.value)
+  )
+
+  const isMe = computed(() => authStore.getIsMe(singlePost.value.userId))
+
+  const onRemoveClick = () => {
+    instance?.proxy.$store.dispatch('removePost', postId.value)
+    instance?.proxy.$router.go(-1)
   }
 </script>
 
