@@ -1,24 +1,20 @@
 <template>
   <DefaultLayout title="Top 10">
     <ul class="top">
-      <li
-        v-for="(user, index) in $store.getters.getTopPosters"
-        :key="user"
-        class="top__row"
-      >
+      <li v-for="(user, index) in topPosters" :key="user.id" class="top__row">
         <BaseLink
           :to="{
             name: 'profile',
-            params: { username: getUser(user).username },
+            params: { username: user.username },
           }"
           class="top__item"
         >
-          <ProfilePhoto :user="getUser(user)" />
+          <ProfilePhoto :user="user" />
           <div class="top__user">
-            <div class="top__username">{{ getUser(user).username }}</div>
+            <div class="top__username">{{ user.username }}</div>
             <div class="top__posts">
-              {{ getUser(user).posts }}
-              {{ getUser(user).posts === 1 ? 'post' : 'posts' }}
+              {{ user.posts }}
+              {{ user.posts === 1 ? 'post' : 'posts' }}
             </div>
           </div>
         </BaseLink>
@@ -28,43 +24,23 @@
   </DefaultLayout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, getCurrentInstance, onMounted } from 'vue'
+<script setup lang="ts">
+  import { onMounted, ref } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseLink from '@/components/BaseLink.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import { setTitle } from '@/title'
+  import { fetchTopPosters } from '@/api/top'
+  import { User } from '@/api/user'
 
-  export default defineComponent({
-    components: {
-      BaseLink,
-      DefaultLayout,
-      ProfilePhoto,
-    },
-    setup() {
-      setTitle('Top 10')
+  setTitle('Top 10')
 
-      const instance = getCurrentInstance()
+  const topPosters = ref<User[] | undefined>(undefined)
 
-      const getTopPosters = () => {
-        instance?.proxy.$store.dispatch('getTopPosters')
-      }
-
-      const getUser = (username: string) => {
-        return instance?.proxy.$store.getters.getUser(username)
-      }
-
-      onMounted(() => {
-        getTopPosters()
-      })
-
-      return {
-        getTopPosters,
-        getUser,
-      }
-    },
+  onMounted(async () => {
+    topPosters.value = await fetchTopPosters()
   })
 </script>
 

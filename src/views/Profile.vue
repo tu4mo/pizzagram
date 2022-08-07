@@ -1,5 +1,6 @@
 <template>
-  <DefaultLayout from-top :title="user.username">
+  <BaseSpinner v-if="isLoading" />
+  <DefaultLayout v-else from-top :title="user.username">
     <div class="profile">
       <div
         :style="{
@@ -30,75 +31,58 @@
   </DefaultLayout>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, getCurrentInstance, onUpdated } from 'vue'
+<script setup lang="ts">
+  import { computed, getCurrentInstance, ref, watch } from 'vue'
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { signOut } from '@/api/auth'
   import { authStore } from '@/store/auth'
   import { setTitle } from '@/title'
+  import { fetchUserByUsername, User } from '@/api/user'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      DefaultLayout,
-      PostImage,
-      ProfilePhoto,
-    },
-    beforeRouteEnter(to, from, next) {
-      next((vm) => {
-        const { username } = vm.$route.params
-        vm.fetchData(username)
-      })
-    },
-    beforeRouteUpdate(to, from, next) {
-      if (to.params.username !== from.params.username) {
-        this.fetchData(to.params.username)
-      }
-      next()
-    },
-    setup() {
-      const instance = getCurrentInstance()
+  const instance = getCurrentInstance()
+  const isLoading = ref(true)
+  const user = ref<User | null>(null)
 
-      onUpdated(() => {
-        setTitle(instance?.proxy.$route.params.username, true)
-      })
+  const fetchUser = async () => {
+    isLoading.value = true
 
-      const user = computed(() =>
-        instance?.proxy.$store.getters.getUser(
-          instance.proxy.$route.params.username
-        )
-      )
+    const username = instance?.proxy.$route.params.username
 
-      const posts = computed(() =>
-        instance?.proxy.$store.getters.getPostsByFeed(user.value.username)
-      )
+    if (username) {
+      user.value = await fetchUserByUsername(username)
+      await instance.proxy.$store.dispatch('getPostsByUser', username)
+    }
 
-      const isMe = computed(() => authStore.getIsMe(user.value.id))
+    isLoading.value = false
+  }
 
-      const onLogOutClick = async () => {
-        await signOut()
-        instance?.proxy.$router.push({ name: 'login' })
-      }
-
-      return {
-        posts,
-        user,
-        isMe,
-        onLogOutClick,
+  watch(
+    () => instance?.proxy.$route.params.username,
+    (username) => {
+      if (username) {
+        fetchUser()
+        setTitle(username, true)
       }
     },
-    methods: {
-      async fetchData(username: string) {
-        await this.$store.dispatch('getUser', username)
-        await this.$store.dispatch('getPostsByUser', username)
-      },
-    },
-  })
+    { immediate: true }
+  )
+
+  const posts = computed(() =>
+    instance?.proxy.$store.getters.getPostsByFeed(user.value.username)
+  )
+
+  const isMe = computed(() => authStore.getIsMe(user.value.id))
+
+  const onLogOutClick = async () => {
+    await signOut()
+    instance?.proxy.$router.push({ name: 'login' })
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import { toggleLike } from '@/api/likes'
 import { fetchPost, fetchPosts, removePost, QUERY_LIMIT } from '@/api/posts'
 import { fetchUserByUsername } from '@/api/user'
-import { fetchTopPosters } from '@/api/top'
 import { feedsStore } from '@/store/feeds'
 import { postsStore } from '@/store/posts'
 
@@ -12,13 +11,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    users: {},
     posts: {},
   },
 
   getters: {
-    getUser: (state) => (username) => state.users[username] || {},
-
     getPostById: (state) => (id) => {
       return state.posts[id] ? state.posts[id] : {}
     },
@@ -31,18 +27,9 @@ const store = new Vuex.Store({
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         : []
     },
-
-    getTopPosters: ({ users }) =>
-      Object.keys(users)
-        .sort((a, b) => users[a].posts + users[b].posts)
-        .slice(0, 10),
   },
 
   mutations: {
-    addToUsers(state, user) {
-      state.users = { ...state.users, [user.username]: user }
-    },
-
     addToPosts(state, post) {
       state.posts = { ...state.posts, [post.id]: post }
     },
@@ -119,19 +106,9 @@ const store = new Vuex.Store({
       commit('removePost', postId)
     },
 
-    async getUser({ commit }, username) {
-      const user = await fetchUserByUsername(username)
-      commit('addToUsers', user)
-    },
-
     async toggleLike({ commit }, postId) {
       commit('toggleLike', postId)
       await toggleLike(postId)
-    },
-
-    async getTopPosters({ commit }) {
-      const topPosters = await fetchTopPosters()
-      topPosters.forEach((user) => commit('addToUsers', user))
     },
   },
 })

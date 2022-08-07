@@ -2,6 +2,7 @@ import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
 
 import { firestore } from '.'
 import { createUserObject } from './user'
+import userCache from './user-cache'
 
 export const fetchTopPosters = async () => {
   try {
@@ -12,7 +13,9 @@ export const fetchTopPosters = async () => {
     const users = []
 
     for (const doc of querySnapshot.docs) {
-      users.push(createUserObject(doc))
+      const user = createUserObject(doc)
+      users.push(user)
+      userCache.set(user.username, user)
     }
 
     return users

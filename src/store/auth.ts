@@ -34,8 +34,6 @@ setOnAuthStateChangedCallback(async (user) => {
       authStore.username = userData.username
       authStore.userId = user.uid
 
-      store.commit('addToUsers', userData)
-
       unsubscribeToPosts = subscribeToPosts((posts) => {
         posts.forEach((post) => {
           store.commit('addToPosts', post)
