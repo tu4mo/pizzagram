@@ -16,7 +16,7 @@ export const authStore = reactive({
   username: '',
   userId: '',
 
-  getIsMe(userId: string) {
+  getIsMe(userId: string | undefined) {
     return this.userId === userId
   },
 })

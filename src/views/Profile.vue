@@ -1,5 +1,5 @@
 <template>
-  <BaseSpinner v-if="isLoading" />
+  <BaseSpinner v-if="!user" />
   <DefaultLayout v-else from-top :title="user.username">
     <div class="profile">
       <div
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
   import { computed, getCurrentInstance, ref, watch } from 'vue'
+
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -40,26 +41,21 @@
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
-  import { signOut } from '@/api/auth'
   import { authStore } from '@/store/auth'
-  import { setTitle } from '@/title'
   import { fetchUserByUsername, User } from '@/api/user'
+  import { setTitle } from '@/title'
+  import { signOut } from '@/api/auth'
 
   const instance = getCurrentInstance()
-  const isLoading = ref(true)
-  const user = ref<User | null>(null)
+  const user = ref<User | undefined>(undefined)
 
   const fetchUser = async () => {
-    isLoading.value = true
-
     const username = instance?.proxy.$route.params.username
 
     if (username) {
       user.value = await fetchUserByUsername(username)
       await instance.proxy.$store.dispatch('getPostsByUser', username)
     }
-
-    isLoading.value = false
   }
 
   watch(
@@ -74,10 +70,10 @@
   )
 
   const posts = computed(() =>
-    instance?.proxy.$store.getters.getPostsByFeed(user.value.username)
+    instance?.proxy.$store.getters.getPostsByFeed(user.value?.username)
   )
 
-  const isMe = computed(() => authStore.getIsMe(user.value.id))
+  const isMe = computed(() => authStore.getIsMe(user.value?.id))
 
   const onLogOutClick = async () => {
     await signOut()
