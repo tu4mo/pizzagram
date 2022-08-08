@@ -12,6 +12,8 @@
 </template>
 
 <script setup lang="ts">
+  import { computed } from 'vue'
+
   const props = defineProps({
     imageUrl: {
       default: null,
@@ -31,9 +33,9 @@
     },
   })
 
-  const actualUrl = props.thumbnail
-    ? props.imageUrl.replace('.jpg', '_t.jpg')
-    : props.imageUrl
+  const actualUrl = computed(() =>
+    props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl
+  )
 </script>
 
 <style lang="scss" scoped>
