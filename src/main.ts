@@ -5,7 +5,6 @@ import { BrowserTracing } from '@sentry/tracing'
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
 
 if (process.env.NODE_ENV !== 'development') {
   Sentry.init({
@@ -25,8 +24,4 @@ Vue.config.productionTip = false
 
 Vue.use(VueObserveVisibility)
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app')
+new Vue({ router, render: (h) => h(App) }).$mount('#app')

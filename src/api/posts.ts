@@ -15,6 +15,7 @@ import {
   deleteDoc,
   startAfter,
   QueryConstraint,
+  setDoc,
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
@@ -26,9 +27,10 @@ const postsCollection = collection(firestore, 'posts')
 
 export const QUERY_LIMIT = 9
 
-type Post = {
+export type Post = {
   caption: string
   createdAt: Date
+  doc: DocumentSnapshot<any>
   id: string
   imageUrl: string
   latitude: number | null
@@ -69,7 +71,7 @@ export const fetchPosts = async ({
     after ? startAfter(after) : undefined,
   ].filter((item): item is QueryConstraint => !!item)
 
-  const posts: unknown[] = []
+  const posts: Post[] = []
 
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
   querySnapshot.docs.forEach((doc) => posts.push(createPostObject(doc)))
@@ -150,4 +152,21 @@ export const sharePost = async ({
 
 export const removePost = async (id: string) => {
   await deleteDoc(doc(postsCollection, id))
+}
+
+export const toggleLike = async (postId: string) => {
+  const user = currentUser()
+
+  if (!user) {
+    return
+  }
+
+  const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+  const snapshot = await getDoc(likeDoc)
+
+  if (snapshot.exists()) {
+    await deleteDoc(likeDoc)
+  } else {
+    await setDoc(likeDoc, { postId, userId: user.uid })
+  }
 }

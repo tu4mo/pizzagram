@@ -20,29 +20,23 @@
   import BasePost from '@/components/BasePost.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import store from '@/store'
-  import { postsStore } from '@/store/posts'
+  import { postsStore, getPostsByFeed, fetchPostsForHome } from '@/store/posts'
   import { setTitle } from '@/title'
 
   setTitle()
 
-  const fetchPosts = () => {
-    store.dispatch('getPostsForHome')
-  }
-
-  const handleScroll = () => {
+  const handleScroll = async () => {
     if (
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
       !postsStore.isLastPostReached &&
       !postsStore.isLoading
     ) {
-      fetchPosts()
+      await fetchPostsForHome()
     }
   }
 
-  onMounted(() => {
-    fetchPosts()
-
+  onMounted(async () => {
+    await fetchPostsForHome()
     window.addEventListener('scroll', handleScroll)
   })
 
@@ -50,7 +44,7 @@
     window.removeEventListener('scroll', handleScroll)
   })
 
-  const posts = computed(() => store.getters.getPostsByFeed('home'))
+  const posts = computed(() => getPostsByFeed('home'))
 </script>
 
 <style lang="scss" scoped>

@@ -5,21 +5,20 @@ import { setOnAuthStateChangedCallback, signOut } from '@/api/auth'
 import { subscribeToPosts } from '@/api/posts'
 import { fetchUser } from '@/api/user'
 
-import store from '@/store'
 import { subscribeToNotifications } from '@/api/notifications'
 import { notificationsStore } from './notifications'
 import { feedsStore } from './feeds'
+import { postsStore } from './posts'
 
 export const authStore = reactive({
   isAuthenticated: false,
   isInitialized: false,
   username: '',
   userId: '',
-
-  getIsMe(userId: string | undefined) {
-    return this.userId === userId
-  },
 })
+
+export const getIsMe = (userId: string | undefined) =>
+  authStore.userId === userId
 
 let unsubscribeToPosts: Unsubscribe = () => undefined
 let unsubscribeToNotifications: Unsubscribe | undefined = () => undefined
@@ -29,6 +28,11 @@ setOnAuthStateChangedCallback(async (user) => {
     try {
       const userData = await fetchUser(user.uid)
 
+      if (!userData) {
+        await signOut()
+        return
+      }
+
       authStore.isAuthenticated = true
       authStore.isInitialized = true
       authStore.username = userData.username
@@ -36,7 +40,7 @@ setOnAuthStateChangedCallback(async (user) => {
 
       unsubscribeToPosts = subscribeToPosts((posts) => {
         posts.forEach((post) => {
-          store.commit('addToPosts', post)
+          postsStore.posts[post.id] = post
           feedsStore.addToFeeds('home', post.id)
         })
       })

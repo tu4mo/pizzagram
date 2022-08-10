@@ -37,7 +37,7 @@
   </DefaultLayout>
 </template>
 
-<script>
+<script lang="ts">
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -55,6 +55,7 @@
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
+  import { fetchPostsForHome } from '@/store/posts'
 
   export default {
     components: {
@@ -189,7 +190,7 @@
         }
 
         feedsStore.feeds.home = {}
-        this.$store.dispatch('getPostsForHome')
+        await fetchPostsForHome()
 
         this.resetForm()
 

@@ -12,10 +12,7 @@
         <ProfilePhoto :user="user" class="profile__photo" size="large" />
       </div>
       <ul class="profile__posts">
-        <li
-          v-for="post in $store.getters.getPostsByFeed(user.username)"
-          :key="post.id"
-        >
+        <li v-for="post in posts" :key="post.id">
           <PostImage
             :image-url="post.imageUrl"
             :to="{ name: 'post', params: { postId: post.id } }"
@@ -41,20 +38,21 @@
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
-  import { authStore } from '@/store/auth'
+  import { getIsMe } from '@/store/auth'
   import { fetchUserByUsername, User } from '@/api/user'
   import { setTitle } from '@/title'
   import { signOut } from '@/api/auth'
+  import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'
 
   const instance = getCurrentInstance()
   const user = ref<User | undefined>(undefined)
 
-  const fetchUser = async () => {
+  const fetchUserData = async () => {
     const username = instance?.proxy.$route.params.username
 
     if (username) {
       user.value = await fetchUserByUsername(username)
-      await instance.proxy.$store.dispatch('getPostsByUser', username)
+      await fetchPostsForUser(username)
     }
   }
 
@@ -62,18 +60,15 @@
     () => instance?.proxy.$route.params.username,
     (username) => {
       if (username) {
-        fetchUser()
+        fetchUserData()
         setTitle(username, true)
       }
     },
     { immediate: true }
   )
 
-  const posts = computed(() =>
-    instance?.proxy.$store.getters.getPostsByFeed(user.value?.username)
-  )
-
-  const isMe = computed(() => authStore.getIsMe(user.value?.id))
+  const posts = computed(() => getPostsByFeed(user.value?.username))
+  const isMe = computed(() => getIsMe(user.value?.id))
 
   const onLogOutClick = async () => {
     await signOut()

@@ -1,13 +1,12 @@
 <template>
-  <DefaultLayout>
+  <BaseSpinner v-if="!singlePost" />
+  <DefaultLayout v-else>
     <div class="post-view">
-      <template v-if="Object.keys(singlePost).length">
-        <BasePost
-          :is-removable="isMe"
-          :post="singlePost"
-          @remove-click="onRemoveClick"
-        />
-      </template>
+      <BasePost
+        :is-removable="isMe"
+        :post="singlePost"
+        @remove-click="onRemoveClick"
+      />
     </div>
   </DefaultLayout>
 </template>
@@ -16,28 +15,34 @@
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BasePost from '@/components/BasePost.vue'
-  import { authStore } from '@/store/auth'
-  import { computed, getCurrentInstance, onActivated } from 'vue'
+  import BaseSpinner from '@/components/BaseSpinner.vue'
+
+  import { getIsMe } from '@/store/auth'
+  import { computed, getCurrentInstance, ref, watch } from 'vue'
+  import { Post } from '@/api/posts'
+  import { getPost, removePost } from '@/store/posts'
 
   const instance = getCurrentInstance()
-
-  onActivated(() => {
-    instance?.proxy.$store.dispatch('getPostById', {
-      postId: instance?.proxy.$route.params.postId,
-    })
-  })
-
   const postId = computed(() => instance?.proxy.$route.params.postId)
+  const singlePost = ref<Post | undefined>(undefined)
+  const isMe = computed(() => getIsMe(singlePost.value?.userId))
 
-  const singlePost = computed(() =>
-    instance?.proxy.$store.getters.getPostById(postId.value)
+  watch(
+    () => instance?.proxy.$route.params.postId,
+    async (postId) => {
+      if (postId) {
+        singlePost.value = undefined
+        singlePost.value = await getPost(postId)
+      }
+    },
+    { immediate: true }
   )
 
-  const isMe = computed(() => authStore.getIsMe(singlePost.value.userId))
-
   const onRemoveClick = () => {
-    instance?.proxy.$store.dispatch('removePost', postId.value)
-    instance?.proxy.$router.go(-1)
+    if (postId.value) {
+      removePost(postId.value)
+      instance?.proxy.$router.go(-1)
+    }
   }
 </script>
 

@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, getCurrentInstance, ref } from 'vue'
+  import { computed, ref, watch } from 'vue'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
@@ -55,6 +55,7 @@
   import PostImage from './PostImage.vue'
   import { authStore } from '@/store/auth'
   import { fetchUser, User } from '@/api/user'
+  import { toggleLike } from '@/store/posts'
 
   const props = defineProps({
     imageTo: {
@@ -73,8 +74,6 @@
 
   const emit = defineEmits(['remove-click'])
 
-  const instance = getCurrentInstance()
-
   const isPlaceholder = ref(true)
 
   const postPath = computed(
@@ -82,6 +81,15 @@
   )
 
   const user = ref<User | undefined>(undefined)
+  watch(
+    [() => props.post, () => isPlaceholder.value],
+    async () => {
+      if (!isPlaceholder.value) {
+        user.value = await fetchUser(props.post.userId)
+      }
+    },
+    { immediate: true }
+  )
 
   const onVisibilityChanged = async (isVisible: boolean) => {
     if (!isVisible) {
@@ -89,11 +97,10 @@
     }
 
     isPlaceholder.value = false
-    user.value = await fetchUser(props.post.userId)
   }
 
-  const onLikeClick = () => {
-    instance?.proxy.$store.dispatch('toggleLike', props.post.id)
+  const onLikeClick = async () => {
+    await toggleLike(props.post.id)
   }
 
   const onRemoveClick = () => {
