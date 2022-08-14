@@ -38,6 +38,8 @@
 </template>
 
 <script lang="ts">
+  import { defineComponent } from 'vue'
+
   import DefaultLayout from '@/layouts/Default.vue'
 
   import BaseButton from '@/components/BaseButton.vue'
@@ -57,7 +59,7 @@
   import { setTitle } from '@/title'
   import { fetchPostsForHome } from '@/store/posts'
 
-  export default {
+  export default defineComponent({
     components: {
       BaseButton,
       BaseEmpty,
@@ -206,7 +208,7 @@
         this.form.longitude = null
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
