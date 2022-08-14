@@ -7,7 +7,7 @@ import { fetchUser } from '@/api/user'
 
 import { subscribeToNotifications } from '@/api/notifications'
 import { notificationsStore } from './notifications'
-import { feedsStore } from './feeds'
+import { addToFeed } from './feeds'
 import { postsStore } from './posts'
 
 export const authStore = reactive({
@@ -41,7 +41,7 @@ setOnAuthStateChangedCallback(async (user) => {
       unsubscribeToPosts = subscribeToPosts((posts) => {
         posts.forEach((post) => {
           postsStore.posts[post.id] = post
-          feedsStore.addToFeeds('home', post.id)
+          addToFeed('home', post.id)
         })
       })
 

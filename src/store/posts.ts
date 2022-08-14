@@ -1,7 +1,7 @@
 import { del, reactive, set } from 'vue'
 
 import * as api from '@/api/posts'
-import { feedsStore } from './feeds'
+import { addToFeed, feedsStore } from './feeds'
 import { fetchUserByUsername } from '@/api/user'
 import { authStore } from './auth'
 
@@ -59,7 +59,7 @@ export const fetchPostsForHome = async () => {
 
   posts.forEach((post) => {
     postsStore.posts = { ...postsStore.posts, [post.id]: post }
-    feedsStore.addToFeeds('home', post.id)
+    addToFeed('home', post.id)
   })
 
   postsStore.isLoading = false
@@ -75,7 +75,7 @@ export const fetchPostsForUser = async (username: string) => {
     const posts = await api.fetchPosts({ userId: user.id })
     posts.forEach((post) => {
       postsStore.posts = { ...postsStore.posts, [post.id]: post }
-      feedsStore.addToFeeds(username, post.id)
+      addToFeed(username, post.id)
     })
   }
 }
