@@ -24,10 +24,9 @@
           @change="$emit('change', customItem)"
         />
         <BaseInput
-          :value="customItem"
+          v-model="customItem"
           borderless
           placeholder="Add new location"
-          @input="onCustomItemInput"
         />
       </label>
     </li>
@@ -35,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
 
   import BaseInput from './BaseInput.vue'
 
@@ -58,10 +57,9 @@
 
   const emit = defineEmits(['change'])
 
-  const onCustomItemInput = (value: string) => {
-    customItem.value = value
+  watch(customItem, (value) => {
     emit('change', value)
-  }
+  })
 </script>
 
 <style scoped>
