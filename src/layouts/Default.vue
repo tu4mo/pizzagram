@@ -35,19 +35,14 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    computed,
-    getCurrentInstance,
-    onMounted,
-    onUnmounted,
-    ref,
-  } from 'vue'
+  import { computed, onMounted, onUnmounted, ref } from 'vue'
 
   import BaseButton from '@/components/BaseButton.vue'
   import BaseIcon from '@/components/BaseIcon.vue'
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
   import { authStore } from '@/store/auth'
+  import { useRoute } from 'vue-router'
 
   defineProps({
     maxWidth: {
@@ -64,12 +59,11 @@
     },
   })
 
-  const instance = getCurrentInstance()
-
+  const route = useRoute()
   const hasScrolled = ref(false)
 
   const canGoBack = computed(
-    () => instance?.proxy.$route.name !== 'home' && window.history.length > 1
+    () => route.name !== 'home' && window.history.length > 1
   )
 
   const onScroll = () => {

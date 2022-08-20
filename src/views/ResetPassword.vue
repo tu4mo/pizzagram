@@ -23,8 +23,8 @@
   </WelcomeLayout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+  import { ref } from 'vue'
 
   import WelcomeLayout from '@/layouts/Welcome.vue'
 
@@ -37,44 +37,25 @@
   import { sendPasswordResetEmail } from '@/api/auth'
   import { setTitle } from '@/title'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseInput,
-      BaseLink,
-      BaseSpacer,
-      BaseSpinner,
-      WelcomeLayout,
-    },
-    setup() {
-      setTitle('Reset Password')
+  setTitle('Reset Password')
 
-      const email = ref('')
-      const hasSentMail = ref(false)
-      const isLoading = ref(false)
+  const email = ref('')
+  const hasSentMail = ref(false)
+  const isLoading = ref(false)
 
-      const submit = async () => {
-        isLoading.value = true
-        hasSentMail.value = false
+  const submit = async () => {
+    isLoading.value = true
+    hasSentMail.value = false
 
-        try {
-          await sendPasswordResetEmail(email.value)
-          hasSentMail.value = true
-        } catch (err: any) {
-          alert(err.message)
-        }
+    try {
+      await sendPasswordResetEmail(email.value)
+      hasSentMail.value = true
+    } catch (err: any) {
+      alert(err.message)
+    }
 
-        isLoading.value = false
-      }
-
-      return {
-        email,
-        hasSentMail,
-        isLoading,
-        submit,
-      }
-    },
-  })
+    isLoading.value = false
+  }
 </script>
 
 <style lang="scss" scoped>

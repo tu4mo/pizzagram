@@ -14,12 +14,11 @@
 </template>
 
 <script setup lang="ts">
-  import { getCurrentInstance } from 'vue'
-
   import BaseIcon from './BaseIcon.vue'
   import { fileStore } from '@/store/file'
+  import { useRouter } from 'vue-router'
 
-  const instance = getCurrentInstance()
+  const router = useRouter()
 
   const onChange = (event: any) => {
     if (event.target.files[0]) {
@@ -30,8 +29,8 @@
   const onClick = () => {
     fileStore.file = null
 
-    if (instance?.proxy.$route.name !== 'upload') {
-      instance?.proxy.$router.push({ name: 'upload' })
+    if (router.currentRoute.value.name !== 'upload') {
+      router.push({ name: 'upload' })
     }
   }
 </script>

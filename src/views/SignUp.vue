@@ -47,8 +47,8 @@
   </WelcomeLayout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, getCurrentInstance, ref } from 'vue'
+<script setup lang="ts">
+  import { ref } from 'vue'
 
   import WelcomeLayout from '@/layouts/Welcome.vue'
 
@@ -60,51 +60,31 @@
 
   import { signUp } from '@/api/auth'
   import { setTitle } from '@/title'
+  import { useRouter } from 'vue-router'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseInput,
-      BaseLink,
-      BaseSpacer,
-      BaseSpinner,
-      WelcomeLayout,
-    },
-    setup() {
-      setTitle('Sign Up')
+  setTitle('Sign Up')
 
-      const instance = getCurrentInstance()
+  const router = useRouter()
 
-      const email = ref('')
-      const error = ref('')
-      const isLoading = ref(false)
-      const password = ref('')
-      const username = ref('')
+  const email = ref('')
+  const error = ref('')
+  const isLoading = ref(false)
+  const password = ref('')
+  const username = ref('')
 
-      const submit = async () => {
-        error.value = ''
-        isLoading.value = true
+  const submit = async () => {
+    error.value = ''
+    isLoading.value = true
 
-        try {
-          await signUp(username.value, email.value, password.value)
-          instance?.proxy.$router.push({ name: 'home' })
-        } catch (err: any) {
-          error.value = err.message
-        }
+    try {
+      await signUp(username.value, email.value, password.value)
+      router.push({ name: 'home' })
+    } catch (err: any) {
+      error.value = err.message
+    }
 
-        isLoading.value = false
-      }
-
-      return {
-        email,
-        error,
-        isLoading,
-        password,
-        submit,
-        username,
-      }
-    },
-  })
+    isLoading.value = false
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, getCurrentInstance, ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
 
   import DefaultLayout from '@/layouts/Default.vue'
 
@@ -43,12 +43,14 @@
   import { setTitle } from '@/title'
   import { signOut } from '@/api/auth'
   import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'
+  import { useRoute, useRouter } from 'vue-router'
 
-  const instance = getCurrentInstance()
+  const route = useRoute()
+  const router = useRouter()
   const user = ref<User | undefined>(undefined)
 
   const fetchUserData = async () => {
-    const username = instance?.proxy.$route.params.username
+    const username = route.params.username
 
     if (username) {
       user.value = await fetchUserByUsername(username)
@@ -57,7 +59,7 @@
   }
 
   watch(
-    () => instance?.proxy.$route.params.username,
+    () => route.params.username,
     (username) => {
       if (username) {
         fetchUserData()
@@ -72,7 +74,7 @@
 
   const onLogOutClick = async () => {
     await signOut()
-    instance?.proxy.$router.push({ name: 'login' })
+    router.push({ name: 'login' })
   }
 </script>
 

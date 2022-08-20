@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :active-class="activeClass" :exact="exact" :to="to" class="link">
+  <RouterLink :active-class="activeClass" :to="to" class="link">
     <slot />
   </RouterLink>
 </template>
@@ -9,10 +9,6 @@
     activeClass: {
       default: null,
       type: String,
-    },
-    exact: {
-      default: false,
-      type: Boolean,
     },
     to: {
       required: true,

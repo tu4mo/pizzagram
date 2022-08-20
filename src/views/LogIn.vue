@@ -37,8 +37,8 @@
   </WelcomeLayout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, getCurrentInstance } from 'vue'
+<script setup lang="ts">
+  import { ref } from 'vue'
 
   import WelcomeLayout from '@/layouts/Welcome.vue'
 
@@ -50,46 +50,27 @@
 
   import { signIn } from '@/api/auth'
   import { setTitle } from '@/title'
+  import { useRouter } from 'vue-router'
 
-  export default defineComponent({
-    components: {
-      BaseButton,
-      BaseInput,
-      BaseLink,
-      BaseSpacer,
-      BaseSpinner,
-      WelcomeLayout,
-    },
-    setup() {
-      setTitle('Log In')
+  setTitle('Log In')
 
-      const instance = getCurrentInstance()
+  const router = useRouter()
+  const email = ref('')
+  const isLoading = ref(false)
+  const password = ref('')
 
-      const email = ref('')
-      const isLoading = ref(false)
-      const password = ref('')
+  const submit = async () => {
+    isLoading.value = true
 
-      const submit = async () => {
-        isLoading.value = true
+    try {
+      await signIn(email.value, password.value)
+      router.push({ name: 'home' })
+    } catch (error) {
+      alert('Unable to sign in.')
+    }
 
-        try {
-          await signIn(email.value, password.value)
-          instance?.proxy.$router.push({ name: 'home' })
-        } catch (error) {
-          alert('Unable to sign in.')
-        }
-
-        isLoading.value = false
-      }
-
-      return {
-        email,
-        isLoading,
-        password,
-        submit,
-      }
-    },
-  })
+    isLoading.value = false
+  }
 </script>
 
 <style lang="scss" scoped>

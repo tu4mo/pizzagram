@@ -1,5 +1,5 @@
 <template>
-  <article v-if="!isPlaceholder" class="post">
+  <article class="post">
     <div class="post__header">
       <PostHeader :created-at="post.createdAt" :user="user" />
     </div>
@@ -33,17 +33,6 @@
       </div>
     </footer>
   </article>
-  <article
-    v-else
-    v-observe-visibility="{
-      callback: onVisibilityChanged,
-      intersection: { rootMargin: '512px' },
-      once: true,
-    }"
-  >
-    <PostHeader :created-at="post.createdAt" />
-    <div class="post__image"><PostImage /></div>
-  </article>
 </template>
 
 <script setup lang="ts">
@@ -74,30 +63,18 @@
 
   const emit = defineEmits(['remove-click'])
 
-  const isPlaceholder = ref(true)
-
   const postPath = computed(
     () => `${window.location.origin}/post/${props.post.id}`
   )
 
   const user = ref<User | undefined>(undefined)
   watch(
-    [() => props.post, () => isPlaceholder.value],
+    () => props.post,
     async () => {
-      if (!isPlaceholder.value) {
-        user.value = await fetchUser(props.post.userId)
-      }
+      user.value = await fetchUser(props.post.userId)
     },
     { immediate: true }
   )
-
-  const onVisibilityChanged = async (isVisible: boolean) => {
-    if (!isVisible) {
-      return
-    }
-
-    isPlaceholder.value = false
-  }
 
   const onLikeClick = async () => {
     await toggleLike(props.post.id)

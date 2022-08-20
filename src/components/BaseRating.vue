@@ -4,10 +4,15 @@
       v-for="rating in [1, 2, 3, 4, 5]"
       :key="rating"
       :aria-label="`Rating: ${rating}`"
-      :aria-checked="rating === value"
-      :class="['rating__button', { 'rating__button--active': rating <= value }]"
+      :aria-checked="rating === modelValue"
+      :class="[
+        'rating__button',
+        { 'rating__button--active': rating <= modelValue },
+      ]"
       role="radio"
-      @click.prevent="$emit('input', rating === value ? 0 : rating)"
+      @click.prevent="
+        $emit('update:modelValue', rating === modelValue ? 0 : rating)
+      "
     >
       <BaseIcon name="star" />
     </BaseButton>
@@ -19,8 +24,8 @@
   import BaseIcon from './BaseIcon.vue'
 
   defineProps({
-    value: {
-      required: true,
+    modelValue: {
+      default: 0,
       type: Number,
     },
   })

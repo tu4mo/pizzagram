@@ -6,7 +6,6 @@
       'button',
       { [`button--secondary`]: secondary, [`button--${variant}`]: variant },
     ]"
-    v-on="$listeners"
   >
     <slot />
   </component>

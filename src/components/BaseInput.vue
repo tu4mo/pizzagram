@@ -2,8 +2,8 @@
   <input
     v-bind="$attrs"
     :class="['input', { 'input--borderless': borderless }]"
-    :value="value"
-    @input="$emit('input', $event.target.value)"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>
 
@@ -21,11 +21,13 @@
       default: false,
       type: Boolean,
     },
-    value: {
-      required: true,
+    modelValue: {
+      default: '',
       type: String,
     },
   })
+
+  defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>

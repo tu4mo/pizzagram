@@ -18,17 +18,19 @@
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { getIsMe } from '@/store/auth'
-  import { computed, getCurrentInstance, ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import { Post } from '@/api/posts'
   import { getPost, removePost } from '@/store/posts'
+  import { useRoute, useRouter } from 'vue-router'
 
-  const instance = getCurrentInstance()
-  const postId = computed(() => instance?.proxy.$route.params.postId)
+  const route = useRoute()
+  const router = useRouter()
+  const postId = route.params.postId
   const singlePost = ref<Post | undefined>(undefined)
   const isMe = computed(() => getIsMe(singlePost.value?.userId))
 
   watch(
-    () => instance?.proxy.$route.params.postId,
+    () => route.params.postId,
     async (postId) => {
       if (postId) {
         singlePost.value = undefined
@@ -39,9 +41,9 @@
   )
 
   const onRemoveClick = () => {
-    if (postId.value) {
-      removePost(postId.value)
-      instance?.proxy.$router.go(-1)
+    if (postId) {
+      removePost(postId)
+      router.go(-1)
     }
   }
 </script>

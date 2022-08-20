@@ -1,4 +1,4 @@
-import { del, reactive, set } from 'vue'
+import { reactive } from 'vue'
 
 import * as api from '@/api/posts'
 import { addToFeed, feedsStore } from './feeds'
@@ -83,10 +83,10 @@ export const fetchPostsForUser = async (username: string) => {
 export const removePost = async (id: string) => {
   await api.removePost(id)
 
-  del(postsStore.posts, id)
+  delete postsStore.posts[id]
 
   Object.keys(feedsStore.feeds).forEach((feed) => {
-    del(feedsStore.feeds[feed], id)
+    delete feedsStore.feeds[feed][id]
   })
 }
 
@@ -95,13 +95,9 @@ export const toggleLike = async (postId: string) => {
   const userId = authStore.userId
 
   if (likes.includes(userId)) {
-    set(
-      postsStore.posts[postId],
-      'likes',
-      likes.filter((userId) => userId !== userId)
-    )
+    postsStore.posts[postId].likes = likes.filter((userId) => userId !== userId)
   } else {
-    set(postsStore.posts[postId], 'likes', [...likes, userId])
+    postsStore.posts[postId].likes = [...likes, userId]
   }
 
   await api.toggleLike(postId)

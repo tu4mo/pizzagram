@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Router, { NavigationGuard } from 'vue-router'
+import { createRouter, createWebHistory, NavigationGuard } from 'vue-router'
 
 const Home = () => import('./views/Home.vue')
 const Post = () => import('./views/Post.vue')
@@ -12,8 +11,6 @@ const Top = () => import('./views/Top.vue')
 const Upload = () => import('./views/Upload.vue')
 
 import { currentUser, initializeAuth } from './api/auth'
-
-Vue.use(Router)
 
 let firstCheck = true
 
@@ -49,8 +46,8 @@ const disallowLoggedUser: NavigationGuard = async (to, from, next) => {
   }
 }
 
-export default new Router({
-  mode: 'history',
+export const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -106,7 +103,7 @@ export default new Router({
     if (savedPosition) {
       return savedPosition
     } else {
-      return { x: 0, y: 0 }
+      return { left: 0, top: 0 }
     }
   },
 })
