@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { Unsubscribe } from 'firebase/firestore'
+import type { Unsubscribe } from 'firebase/firestore'
 
 import { setOnAuthStateChangedCallback, signOut } from '@/api/auth'
 import { subscribeToPosts } from '@/api/posts'

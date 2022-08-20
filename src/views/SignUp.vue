@@ -87,7 +87,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .signup {
     text-align: center;
   }

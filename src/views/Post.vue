@@ -19,7 +19,7 @@
 
   import { getIsMe } from '@/store/auth'
   import { computed, ref, watch } from 'vue'
-  import { Post } from '@/api/posts'
+  import type { Post } from '@/api/posts'
   import { getPost, removePost } from '@/store/posts'
   import { useRoute, useRouter } from 'vue-router'
 
@@ -48,13 +48,15 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .post-view {
     margin: 0 auto;
     max-width: var(--content-width);
     padding: 1rem 0;
+  }
 
-    @media (min-width: 640px) {
+  @media (min-width: 640px) {
+    .post-view {
       padding: 2rem;
     }
   }

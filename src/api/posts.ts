@@ -1,6 +1,6 @@
+import type { DocumentSnapshot, QueryConstraint } from 'firebase/firestore'
 import {
   collection,
-  DocumentSnapshot,
   limit,
   onSnapshot,
   orderBy,
@@ -14,7 +14,6 @@ import {
   updateDoc,
   deleteDoc,
   startAfter,
-  QueryConstraint,
   setDoc,
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'

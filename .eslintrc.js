@@ -18,6 +18,7 @@ module.exports = {
   },
 
   rules: {
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     'vue/multi-word-component-names': 'off',
   },

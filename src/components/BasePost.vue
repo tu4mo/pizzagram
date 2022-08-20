@@ -43,7 +43,8 @@
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
   import { authStore } from '@/store/auth'
-  import { fetchUser, User } from '@/api/user'
+  import type { User } from '@/api/user'
+  import { fetchUser } from '@/api/user'
   import { toggleLike } from '@/store/posts'
 
   const props = defineProps({

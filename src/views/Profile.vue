@@ -39,7 +39,8 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { getIsMe } from '@/store/auth'
-  import { fetchUserByUsername, User } from '@/api/user'
+  import type { User } from '@/api/user'
+  import { fetchUserByUsername } from '@/api/user'
   import { setTitle } from '@/title'
   import { signOut } from '@/api/auth'
   import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'

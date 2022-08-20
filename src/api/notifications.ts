@@ -11,7 +11,8 @@ import {
 
 import { firestore } from '.'
 import { currentUser } from './auth'
-import { fetchUser, User } from './user'
+import type { User } from './user'
+import { fetchUser } from './user'
 
 const notifications = collection(firestore, 'notifications')
 

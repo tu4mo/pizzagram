@@ -1,12 +1,12 @@
 import { doc, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 
+import type { User } from 'firebase/auth'
 import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   signInWithEmailAndPassword,
-  User,
 } from 'firebase/auth'
 
 import { firestore } from '.'

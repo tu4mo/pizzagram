@@ -33,7 +33,7 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import { setTitle } from '@/title'
   import { fetchTopPosters } from '@/api/top'
-  import { User } from '@/api/user'
+  import type { User } from '@/api/user'
 
   setTitle('Top 10')
 

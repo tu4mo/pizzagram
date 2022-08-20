@@ -1,4 +1,4 @@
-import { User } from './user'
+import type { User } from './user'
 
 const userCache = () => {
   const cache: { [key: string]: User } = {}

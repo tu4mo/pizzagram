@@ -60,50 +60,55 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
   import { markNotificationsAsRead } from '@/api/notifications'
-  import { notificationsStore } from '@/store/notifications'
+  import {
+    getUnreadNotificationsCount,
+    notificationsStore,
+  } from '@/store/notifications'
   import { setTitle } from '@/title'
 
   setTitle('Notifications')
 
   onDeactivated(async () => {
-    if (notificationsStore.getUnreadNotificationsCount() > 0) {
+    if (getUnreadNotificationsCount() > 0) {
       await markNotificationsAsRead()
     }
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .notification {
     align-items: center;
     display: flex;
     gap: 1rem;
     padding: 1rem;
+  }
 
-    @media (min-width: 640px) {
+  @media (min-width: 640px) {
+    .notification {
       padding: 2rem;
     }
+  }
 
-    &__date {
-      align-items: center;
-      display: flex;
-      gap: 0.5rem;
-      color: var(--color-gray);
-    }
+  .notification__date {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    color: var(--color-gray);
+  }
 
-    &__unread {
-      background-color: var(--color-primary);
-      border-radius: 0.25rem;
-      height: 0.5rem;
-      width: 0.5rem;
-    }
+  .notification__unread {
+    background-color: var(--color-primary);
+    border-radius: 0.25rem;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
 
-    &__image {
-      border-radius: 0.25rem;
-      flex: 0 0 auto;
-      margin-left: auto;
-      overflow: hidden;
-      width: 4rem;
-      height: 4rem;
-    }
+  .notification__image {
+    border-radius: 0.25rem;
+    flex: 0 0 auto;
+    margin-left: auto;
+    overflow: hidden;
+    width: 4rem;
+    height: 4rem;
   }
 </style>

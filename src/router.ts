@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory, NavigationGuard } from 'vue-router'
+import type { NavigationGuard } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const Home = () => import('./views/Home.vue')
 const Post = () => import('./views/Post.vue')
