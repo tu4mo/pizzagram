@@ -3,7 +3,9 @@
     v-bind="$attrs"
     :class="['input', { 'input--borderless': borderless }]"
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="
+      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+    "
   />
 </template>
 

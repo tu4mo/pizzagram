@@ -47,15 +47,17 @@
   const posts = computed(() => getPostsByFeed('home'))
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .home {
     display: grid;
     gap: 2rem;
     margin: 0 auto;
     padding: 1rem 0;
     position: relative;
+  }
 
-    @media (min-width: 640px) {
+  @media (min-width: 640px) {
+    .home {
       gap: 4rem;
       padding: 2rem;
     }
