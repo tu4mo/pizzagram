@@ -22,6 +22,7 @@
   import type { Post } from '@/api/posts'
   import { getPost, removePost } from '@/store/posts'
   import { useRoute, useRouter } from 'vue-router'
+  import { setTitle } from '@/title'
 
   const route = useRoute()
   const router = useRouter()
@@ -35,6 +36,8 @@
       if (postId) {
         singlePost.value = undefined
         singlePost.value = await getPost(postId)
+
+        setTitle(singlePost.value?.caption, true)
       }
     },
     { immediate: true }
