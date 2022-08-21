@@ -16,35 +16,39 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .header {
     align-items: center;
     display: flex;
     font-weight: bold;
     height: 4rem;
     justify-content: center;
+  }
 
-    @media (min-width: 640px) {
+  .header__logo {
+    height: 2.5rem;
+  }
+
+  .header__title {
+    font-size: var(--font-size-md);
+  }
+
+  .header--has-title .header__logo {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .header {
       justify-content: flex-start;
     }
 
-    &__logo {
-      height: 2.5rem;
-
-      .header--has-title & {
-        display: none;
-
-        @media (min-width: 640px) {
-          display: block;
-          margin-right: 1rem;
-        }
-      }
+    .header__title {
+      margin-top: 4px;
     }
 
-    &__title {
-      @media (min-width: 640px) {
-        margin-top: 4px;
-      }
+    .header--has-title .header__logo {
+      display: block;
+      margin-right: 1rem;
     }
   }
 </style>

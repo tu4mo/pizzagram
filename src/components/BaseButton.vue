@@ -35,7 +35,7 @@
     border-radius: 0.5rem;
     color: var(--color-primary);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     font-weight: bold;
     display: block;
     line-height: 3rem;

@@ -14,8 +14,12 @@
     --color-light: #eee;
     --color-primary: #df0054;
     --color-secondary: #470032;
+
     --content-width: 740px;
     --content-width-lg: 960px;
+
+    --font-size-sm: 0.75rem;
+    --font-size-md: 1rem;
 
     --z-header: 1;
     --z-navigation: 2;
@@ -43,13 +47,13 @@
 
   body {
     background-color: var(--color-background);
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
   }
 
   @media (min-width: 640px) {
     body {
-      font-size: 1rem;
+      font-size: var(--font-size-md);
     }
   }
 </style>

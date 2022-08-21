@@ -38,7 +38,7 @@
     border: 1px solid var(--color-light);
     border-radius: 0.25rem;
     display: block;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     line-height: 1;
     padding: 1rem;
     width: 100%;

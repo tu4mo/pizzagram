@@ -68,7 +68,7 @@
     border: 1px solid var(--color-light);
     border-radius: 0.25rem;
     display: block;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     list-style-type: none;
   }
 
