@@ -8,7 +8,8 @@
     "dev": "vite",
     "format": "prettier --write .",
     "lint": "eslint --ext .js,.ts,.vue src",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@sentry/tracing": "^7.11.1",
