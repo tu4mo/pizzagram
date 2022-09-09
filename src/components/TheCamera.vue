@@ -20,7 +20,7 @@
 
   const router = useRouter()
 
-  const onChange = (event: any) => {
+  const onChange = (event: Event) => {
     if (event.target.files[0]) {
       fileStore.file = event.target.files[0]
     }

@@ -13,11 +13,11 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@google-cloud/storage": "^6.4.1",
+    "@google-cloud/storage": "^6.4.2",
     "@types/sharp": "^0.30.5",
     "firebase-admin": "^11.0.1",
-    "firebase-functions": "^3.22.0",
-    "sharp": "^0.30.7"
+    "firebase-functions": "^3.23.0",
+    "sharp": "^0.31.0"
   },
   "private": true
 }
