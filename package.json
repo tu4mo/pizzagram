@@ -42,8 +42,7 @@
     "vue-tsc": "^0.40.13"
   },
   "browserslist": [
-    "defaults",
-    "not IE 11"
+    "defaults"
   ],
   "workspaces": [
     "functions"
