@@ -2,9 +2,12 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
-    match /posts/{allPaths=**} {
+    match /posts/{fileId} {
       allow read;
-      allow create: if request.auth != null && request.resource.contentType.matches('image/.*');
+      allow create:
+        if request.auth != null
+          && request.resource.contentType.matches('image/.*')
+          && firestore.exists(/databases/(default)/documents/posts/$(fileId));
     }
   }
 }
