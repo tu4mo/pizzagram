@@ -7,7 +7,7 @@ service firebase.storage {
       allow create:
         if request.auth != null
           && request.resource.contentType.matches('image/.*')
-          && firestore.exists(/databases/(default)/documents/posts/$(fileId));
+          && firestore.exists(/databases/(default)/documents/posts/$(fileId.replace('.jpg', '')));
     }
   }
 }
