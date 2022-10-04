@@ -34,7 +34,6 @@ export type Post = {
   imageUrl: string
   latitude: number | null
   likes: string[]
-  location: string
   longitude: number | null
   published: boolean
   rating: number
@@ -107,14 +106,12 @@ export const sharePost = async ({
   rating,
   latitude,
   longitude,
-  location,
 }: {
   caption: string
   file: File
   rating: number
   latitude: number
   longitude: number
-  location: string
 }) => {
   const user = currentUser()
 
@@ -130,7 +127,6 @@ export const sharePost = async ({
     rating,
     latitude,
     longitude,
-    location,
     userId: user.uid,
   })
 
