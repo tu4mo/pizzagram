@@ -15,10 +15,6 @@
         <div v-if="post.caption" class="post__caption">
           {{ post.caption }}
         </div>
-        <div v-if="post.location" class="post__location">
-          <BaseIcon name="mapPin" size="sm" />
-          <span class="post__location-text">{{ post.location }}</span>
-        </div>
       </div>
       <div v-if="authStore.isAuthenticated" class="post__buttons">
         <BaseButton v-if="isRemovable" @click="onRemoveClick">
@@ -95,9 +91,7 @@
     try {
       await navigator.share({
         title: 'Pizzagram',
-        text: `${props.post.caption}${
-          props.post.caption && props.post.location ? ' - ' : ''
-        }${props.post.location}`,
+        text: props.post.caption,
         url: postPath as any,
       })
     } catch (e) {
@@ -138,16 +132,6 @@
 
   .post__caption {
     color: var(--color-gray);
-  }
-
-  .post__location {
-    align-items: center;
-    color: var(--color-gray);
-    display: flex;
-  }
-
-  .post__location-text {
-    margin-left: 0.5rem;
   }
 
   .post__buttons {
