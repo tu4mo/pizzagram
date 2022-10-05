@@ -1,9 +1,8 @@
-import firebase from 'firebase/compat/app'
-// import { initializeApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-firebase.initializeApp({
+initializeApp({
   apiKey: 'AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg',
   authDomain: 'pizzagram-cc.firebaseapp.com',
   databaseURL: 'https://pizzagram-cc.firebaseio.com',
