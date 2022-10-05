@@ -32,9 +32,7 @@ export type Post = {
   doc: DocumentSnapshot<any>
   id: string
   imageUrl: string
-  latitude: number | null
   likes: string[]
-  longitude: number | null
   published: boolean
   rating: number
   userId: string
@@ -104,14 +102,10 @@ export const sharePost = async ({
   caption,
   file,
   rating,
-  latitude,
-  longitude,
 }: {
   caption: string
   file: File
   rating: number
-  latitude: number
-  longitude: number
 }) => {
   const user = currentUser()
 
@@ -125,8 +119,6 @@ export const sharePost = async ({
     imageUrl: null,
     published: false,
     rating,
-    latitude,
-    longitude,
     userId: user.uid,
   })
 

@@ -50,12 +50,7 @@
   setTitle('Upload')
 
   const router = useRouter()
-  const form = reactive({
-    caption: '',
-    latitude: 0,
-    longitude: 0,
-    rating: 0,
-  })
+  const form = reactive({ caption: '', rating: 0 })
   const imageUrl = ref<string | ArrayBuffer | null>('')
   const isLoading = ref(false)
   const imageContainer = ref<HTMLDivElement>()
@@ -112,8 +107,6 @@
   const resetForm = () => {
     form.caption = ''
     form.rating = 0
-    form.latitude = 0
-    form.longitude = 0
   }
 
   const onShareClick = async () => {
