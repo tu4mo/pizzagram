@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin'
+import type * as admin from 'firebase-admin'
 import { Storage } from '@google-cloud/storage'
 const storage = new Storage()
 const bucket = storage.bucket('gs://pizzagram-cc.appspot.com')
