@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions'
+import type * as functions from 'firebase-functions'
 import { Storage } from '@google-cloud/storage'
 import * as path from 'path'
 import * as sharp from 'sharp'

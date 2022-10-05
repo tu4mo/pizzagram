@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin'
+import type * as admin from 'firebase-admin'
 
 export enum NotificationType {
   Like = 'LIKE',

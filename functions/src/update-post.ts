@@ -1,5 +1,5 @@
-import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
+import type * as admin from 'firebase-admin'
+import type * as functions from 'firebase-functions'
 
 export default (db: admin.firestore.Firestore) =>
   async (change: functions.Change<FirebaseFirestore.DocumentSnapshot>) => {
