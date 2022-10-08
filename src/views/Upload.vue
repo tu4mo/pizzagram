@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout max-width title="Upload">
     <div class="upload">
-      <BaseEmpty v-if="!file || !imageUrl">
+      <BaseEmpty v-if="!fileStore.file || !imageUrl">
         Use the Camera icon to upload a photo
       </BaseEmpty>
       <template v-else>
@@ -44,23 +44,22 @@
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
   import { fetchPostsForHome } from '@/store/posts'
-  import { computed, nextTick, reactive, ref, watch } from 'vue'
+  import { nextTick, reactive, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
 
   setTitle('Upload')
 
   const router = useRouter()
   const form = reactive({ caption: '', rating: 0 })
-  const imageUrl = ref<string | ArrayBuffer | null>('')
+  const imageUrl = ref('')
   const isLoading = ref(false)
   const imageContainer = ref<HTMLDivElement>()
-
-  const file = computed(() => fileStore.file)
+  const fileReader = new FileReader()
 
   const onFileLoad = () => {
     isLoading.value = true
 
-    imageUrl.value = reader.result
+    imageUrl.value = fileReader.result as string
 
     nextTick(async () => {
       try {
@@ -69,8 +68,9 @@
 
         const cocoSsd = await import('@tensorflow-models/coco-ssd')
         const model = await cocoSsd.load()
-        const image = imageContainer.value!.querySelector('img')
-        const predictions = await model.detect(image!)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const image = imageContainer.value!.querySelector('img')!
+        const predictions = await model.detect(image)
 
         const isPizza = predictions.some(
           (prediction) => prediction.class === 'pizza'
@@ -91,15 +91,14 @@
     })
   }
 
-  const reader = new FileReader()
-  reader.addEventListener('load', onFileLoad)
+  fileReader.addEventListener('load', onFileLoad)
 
   watch(
-    () => file.value,
-    (newFile: Blob) => {
+    () => fileStore.file,
+    (newFile) => {
       if (newFile) {
         imageUrl.value = ''
-        reader.readAsDataURL(newFile)
+        fileReader.readAsDataURL(newFile)
       }
     }
   )
@@ -110,9 +109,13 @@
   }
 
   const onShareClick = async () => {
+    if (!fileStore.file) {
+      return
+    }
+
     isLoading.value = true
 
-    await sharePost({ file: file.value, ...form })
+    await sharePost({ file: fileStore.file, ...form })
     fileStore.file = null
 
     feedsStore.feeds.home = {}
