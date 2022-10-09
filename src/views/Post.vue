@@ -26,12 +26,12 @@
 
   const route = useRoute()
   const router = useRouter()
-  const postId = route.params.postId
+  const postId = route.params.postId as string
   const singlePost = ref<Post | undefined>(undefined)
   const isMe = computed(() => getIsMe(singlePost.value?.userId))
 
   watch(
-    () => route.params.postId,
+    () => route.params.postId as string,
     async (postId) => {
       if (postId) {
         singlePost.value = undefined

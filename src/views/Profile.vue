@@ -51,7 +51,7 @@
   const user = ref<User | undefined>(undefined)
 
   const fetchUserData = async () => {
-    const username = route.params.username
+    const username = route.params.username as string
 
     if (username) {
       user.value = await fetchUserByUsername(username)
@@ -60,7 +60,7 @@
   }
 
   watch(
-    () => route.params.username,
+    () => route.params.username as string,
     (username) => {
       if (username) {
         fetchUserData()
