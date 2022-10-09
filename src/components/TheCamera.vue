@@ -21,8 +21,10 @@
   const router = useRouter()
 
   const onChange = (event: Event) => {
-    if (event.target.files[0]) {
-      fileStore.file = event.target.files[0]
+    const target = event.target as HTMLInputElement
+    const file: File = (target.files as FileList)[0]
+    if (file) {
+      fileStore.file = file
     }
   }
 
