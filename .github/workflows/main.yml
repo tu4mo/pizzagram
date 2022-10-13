@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Check types
+        run: npm run type-check
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: npx firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
