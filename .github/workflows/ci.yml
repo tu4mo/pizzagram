@@ -1,7 +1,7 @@
-name: CI/CD
+name: CI
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -25,6 +25,3 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Deploy
-        run: npx firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
