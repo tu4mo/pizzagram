@@ -34,7 +34,6 @@ export type Post = {
   imageUrl: string
   likes: string[]
   published: boolean
-  rating: number
   userId: string
 }
 
@@ -101,11 +100,9 @@ const createPostObject = (doc: DocumentSnapshot<any>): Post => {
 export const sharePost = async ({
   caption,
   file,
-  rating,
 }: {
   caption: string
   file: File
-  rating: number
 }) => {
   const user = currentUser()
 
@@ -118,7 +115,6 @@ export const sharePost = async ({
     createdAt: serverTimestamp(),
     imageUrl: null,
     published: false,
-    rating,
     userId: user.uid,
   })
 

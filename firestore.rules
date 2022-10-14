@@ -41,7 +41,7 @@ service cloud.firestore {
       allow read: if resource.data.published == true
         || request.auth.uid == resource.data.userId;
       allow update: if request.auth.uid == resource.data.userId
-        && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption', 'rating']));
+        && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption']));
       allow delete: if request.auth.uid == resource.data.userId;
     }
 

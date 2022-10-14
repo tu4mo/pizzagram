@@ -14,11 +14,6 @@
               <BaseInput v-model.trim="form.caption" maxlength="100" />
             </BaseField>
           </BaseSpacer>
-          <BaseSpacer mb2>
-            <BaseField as="div" label="Rating">
-              <BaseRating v-model="form.rating" />
-            </BaseField>
-          </BaseSpacer>
           <BaseButton @click="onShareClick">Share</BaseButton>
         </div>
       </template>
@@ -33,7 +28,6 @@
   import BaseButton from '@/components/BaseButton.vue'
   import BaseEmpty from '@/components/BaseEmpty.vue'
   import BaseField from '@/components/BaseField.vue'
-  import BaseRating from '@/components/BaseRating.vue'
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
   import BaseInput from '@/components/BaseInput.vue'
@@ -50,7 +44,7 @@
   setTitle('Upload')
 
   const router = useRouter()
-  const form = reactive({ caption: '', rating: 0 })
+  const form = reactive({ caption: '' })
   const imageUrl = ref('')
   const isLoading = ref(false)
   const imageContainer = ref<HTMLDivElement>()
@@ -105,7 +99,6 @@
 
   const resetForm = () => {
     form.caption = ''
-    form.rating = 0
   }
 
   const onShareClick = async () => {
