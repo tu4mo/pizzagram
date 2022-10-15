@@ -44,50 +44,50 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .top {
     list-style-type: none;
     padding: 2rem;
     position: relative;
+  }
 
-    &__row {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+  .top__row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
 
-      &:not(:last-child) {
-        margin-bottom: 2rem;
-      }
-    }
+  .top__row:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 
-    &__item {
-      align-items: center;
-      color: var(--color-secondary);
-      display: flex;
-    }
+  .top__item {
+    align-items: center;
+    color: var(--color-secondary);
+    display: flex;
+  }
 
-    &__rank {
-      background-color: var(--color-primary);
-      border-radius: 0.25rem;
-      color: #fff;
-      font-weight: bold;
-      margin-left: 1rem;
-      padding: 0.5rem 0;
-      text-align: center;
-      width: 2rem;
-    }
+  .top__rank {
+    background-color: var(--color-primary);
+    border-radius: 0.25rem;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+    text-align: center;
+    width: 2rem;
+  }
 
-    &__user {
-      margin-left: 1rem;
-    }
+  .top__user {
+    margin-left: 1rem;
+  }
 
-    &__username {
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-    }
+  .top__username {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
 
-    &__posts {
-      color: var(--color-gray);
-    }
+  .top__posts {
+    color: var(--color-gray);
   }
 </style>
