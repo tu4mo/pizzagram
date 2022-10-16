@@ -37,40 +37,41 @@
   )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .profile-photo {
     border-radius: 50%;
     display: block;
     object-fit: cover;
+  }
+  .profile-photo--small {
+    height: 2rem;
+    width: 2rem;
+  }
 
-    &--small {
-      height: 2rem;
-      width: 2rem;
+  .profile-photo--medium {
+    height: 4rem;
+    width: 4rem;
+  }
 
-      @media (min-width: 640px) {
-        height: 4rem;
-        width: 4rem;
-      }
-    }
+  .profile-photo--large {
+    height: 8rem;
+    width: 8rem;
+  }
 
-    &--medium {
+  @media (min-width: 640px) {
+    .profile-photo--small {
       height: 4rem;
       width: 4rem;
-
-      @media (min-width: 640px) {
-        height: 8rem;
-        width: 8rem;
-      }
     }
 
-    &--large {
+    .profile-photo--medium {
       height: 8rem;
       width: 8rem;
+    }
 
-      @media (min-width: 640px) {
-        height: 16rem;
-        width: 16rem;
-      }
+    .profile-photo--large {
+      height: 16rem;
+      width: 16rem;
     }
   }
 </style>
