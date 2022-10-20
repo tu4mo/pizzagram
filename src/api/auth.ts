@@ -3,17 +3,14 @@ import { doc, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import type { User } from 'firebase/auth'
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   onAuthStateChanged,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 
-import { firestore } from '.'
+import { auth, firestore } from '.'
 
 import md5 from 'md5'
-
-export const auth = getAuth()
 
 export const sendPasswordResetEmail = (email: string) =>
   firebaseSendPasswordResetEmail(auth, email)
