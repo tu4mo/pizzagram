@@ -2,7 +2,10 @@
   <RouterLink
     v-if="to"
     :to="to"
-    :class="['post-image', { 'post-image--rounded': rounded }]"
+    :class="[
+      'post-image',
+      { 'post-image--rounded': rounded, 'post-image--thumbnail': thumbnail },
+    ]"
   >
     <img :src="actualUrl" alt="" class="post-image__image" loading="lazy" />
   </RouterLink>
@@ -38,35 +41,40 @@
   )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .post-image {
     display: block;
     position: relative;
+    transition: transform 0.2s ease;
+  }
 
-    &::before {
-      content: '';
-      display: block;
-      padding-top: 100%;
+  .post-image::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  .post-image__image {
+    background-color: var(--color-light);
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .post-image__link:active .post-image__image {
+    opacity: 0.8;
+  }
+
+  @media (min-width: 640px) {
+    .post-image--thumbnail:hover {
+      transform: scale(1.04);
     }
 
-    &__image {
-      background-color: var(--color-light);
-      height: 100%;
-      left: 0;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      width: 100%;
-
-      .post-image__link:active & {
-        opacity: 0.8;
-      }
-
-      .post-image--rounded & {
-        @media (min-width: 640px) {
-          border-radius: 1rem;
-        }
-      }
+    .post-image--rounded .post-image__image {
+      border-radius: 1rem;
     }
   }
 </style>
