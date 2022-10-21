@@ -38,12 +38,10 @@ export const getPostsByFeed = (feed?: string) => {
   }
 
   const postIds = Object.keys(feedsStore.feeds[feed] || {})
-  return postIds.length > 0
-    ? postIds
-        .map((postId) => postsStore.posts[postId])
-        .filter(Boolean)
-        .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
-    : []
+  return postIds
+    .map((postId) => postsStore.posts[postId])
+    .filter(Boolean)
+    .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 }
 
 export const fetchPostsForHome = async () => {
