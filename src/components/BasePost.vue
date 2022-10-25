@@ -106,7 +106,7 @@
 
 <style scoped>
   .post {
-    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
     display: grid;
   }
 

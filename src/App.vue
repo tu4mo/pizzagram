@@ -21,6 +21,8 @@
     --font-size-sm: 0.75rem;
     --font-size-md: 1rem;
 
+    --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+
     --z-header: 1;
     --z-navigation: 2;
   }
