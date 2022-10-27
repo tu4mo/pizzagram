@@ -1,11 +1,11 @@
 import {
   collection,
-  where,
   doc,
   getDocs,
-  query,
-  orderBy,
   onSnapshot,
+  orderBy,
+  query,
+  where,
   writeBatch,
 } from 'firebase/firestore'
 

@@ -1,10 +1,10 @@
-import { doc, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 
 import type { User } from 'firebase/auth'
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 
