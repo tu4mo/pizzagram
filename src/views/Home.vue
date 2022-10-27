@@ -20,7 +20,7 @@
   import BasePost from '@/components/BasePost.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
-  import { postsStore, getPostsByFeed, fetchPostsForHome } from '@/store/posts'
+  import { fetchPostsForHome, getPostsByFeed, postsStore } from '@/store/posts'
   import { setTitle } from '@/title'
 
   setTitle()

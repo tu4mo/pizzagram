@@ -1,4 +1,4 @@
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 
 import { firestore } from '.'
 import { createUserObject } from './user'
