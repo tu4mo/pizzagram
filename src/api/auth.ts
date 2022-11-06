@@ -10,8 +10,6 @@ import {
 
 import { auth, firestore } from '.'
 
-import md5 from 'md5'
-
 export const sendPasswordResetEmail = (email: string) =>
   firebaseSendPasswordResetEmail(auth, email)
 
@@ -45,6 +43,8 @@ export const signUp = async (
   email: string,
   password: string
 ) => {
+  const md5 = (await import('md5')).default
+
   isSigningUp = true
 
   const docRef = doc(firestore, 'users', username)
