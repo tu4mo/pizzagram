@@ -26,14 +26,14 @@
 
   const route = useRoute()
   const router = useRouter()
-  const postId = route.params.postId as string
+  const postId = route.params.postId
   const singlePost = ref<Post | undefined>(undefined)
   const isMe = computed(() => getIsMe(singlePost.value?.userId))
 
   watch(
-    () => route.params.postId as string,
+    () => route.params.postId,
     async (postId) => {
-      if (postId) {
+      if (postId && typeof postId === 'string') {
         singlePost.value = undefined
         singlePost.value = await getPost(postId)
 
@@ -44,7 +44,7 @@
   )
 
   const onRemoveClick = () => {
-    if (postId) {
+    if (postId && typeof postId === 'string') {
       removePost(postId)
       router.go(-1)
     }
