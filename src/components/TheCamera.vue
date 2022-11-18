@@ -22,7 +22,7 @@
 
   const onChange = (event: Event) => {
     const target = event.target as HTMLInputElement
-    const file: File = (target.files as FileList)[0]
+    const file = target.files?.[0]
     if (file) {
       fileStore.file = file
     }
