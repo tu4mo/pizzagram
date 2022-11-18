@@ -34,6 +34,7 @@
 
 <style scoped>
   .input {
+    appearance: none;
     background-color: var(--color-background);
     border: 1px solid var(--color-light);
     border-radius: 0.25rem;
@@ -42,7 +43,6 @@
     line-height: 1;
     padding: 1rem;
     width: 100%;
-    -webkit-appearance: none;
   }
 
   .input--borderless {
