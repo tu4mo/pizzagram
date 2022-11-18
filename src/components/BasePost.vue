@@ -60,10 +60,6 @@
 
   const emit = defineEmits(['remove-click'])
 
-  const postPath = computed(
-    () => `${window.location.origin}/post/${props.post.id}`
-  )
-
   const user = ref<User | undefined>(undefined)
   watch(
     () => props.post,
@@ -92,7 +88,7 @@
       await navigator.share({
         title: 'Pizzagram',
         text: props.post.caption,
-        url: postPath as any,
+        url: `${window.location.origin}/post/${props.post.id}`,
       })
     } catch (e) {
       //
