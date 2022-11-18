@@ -51,18 +51,18 @@
   const user = ref<User | undefined>(undefined)
 
   const fetchUserData = async () => {
-    const username = route.params.username as string
+    const username = route.params.username
 
-    if (username) {
+    if (username && typeof username === 'string') {
       user.value = await fetchUserByUsername(username)
       await fetchPostsForUser(username)
     }
   }
 
   watch(
-    () => route.params.username as string,
+    () => route.params.username,
     (username) => {
-      if (username) {
+      if (username && typeof username === 'string') {
         fetchUserData()
         setTitle(username, true)
       }
