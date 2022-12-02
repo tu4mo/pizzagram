@@ -6,12 +6,8 @@
         { 'default-layout__top--border': hasScrolled },
       ]"
     >
-      <div class="default-layout__back">
-        <BaseButton
-          v-if="canGoBack"
-          class="default-layout__back-link"
-          @click="$router.go(-1)"
-        >
+      <div v-if="canGoBack" class="default-layout__back">
+        <BaseButton class="default-layout__back-link" @click="$router.go(-1)">
           <BaseIcon name="chevronLeft" />
         </BaseButton>
       </div>
