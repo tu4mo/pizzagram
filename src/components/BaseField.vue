@@ -1,10 +1,10 @@
 <template>
-  <div class="field">
+  <p class="field">
     <component :is="as">
       <div class="field__label">{{ label }}</div>
       <slot />
     </component>
-  </div>
+  </p>
 </template>
 
 <script setup lang="ts">
