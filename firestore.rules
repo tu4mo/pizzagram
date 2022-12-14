@@ -49,6 +49,7 @@ service cloud.firestore {
       allow read;
       allow update: if resource.data.id == null && isAllowedUsername(user);
       allow create: if request.auth == null && isAllowedUsername(user);
+      allow delete: if resource.data.id == null;
     }
   }
 }

@@ -1,4 +1,11 @@
-import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 
 import type { User } from 'firebase/auth'
 import {
@@ -48,6 +55,11 @@ export const signUp = async (
   isSigningUp = true
 
   const docRef = doc(firestore, 'users', username)
+  const docSnap = await getDoc(docRef)
+
+  if (docSnap.exists()) {
+    throw new Error('Username already exists.')
+  }
 
   await setDoc(docRef, {
     createdAt: serverTimestamp(),
@@ -55,7 +67,12 @@ export const signUp = async (
     name: username,
   })
 
-  await createUserWithEmailAndPassword(auth, email, password)
+  try {
+    await createUserWithEmailAndPassword(auth, email, password)
+  } catch (error) {
+    await deleteDoc(docRef)
+    throw error
+  }
 
   const gravatar = md5(email.toLowerCase())
 
