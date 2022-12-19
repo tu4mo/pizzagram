@@ -64,7 +64,7 @@ export const fetchPosts = async ({
     where('published', '==', true),
     userId ? where('userId', '==', userId) : limit(QUERY_LIMIT),
     after ? startAfter(after) : undefined,
-  ].filter((item): item is QueryConstraint => !!item)
+  ].filter(Boolean) as QueryConstraint[]
 
   const posts: Post[] = []
 
