@@ -15,9 +15,9 @@
   "dependencies": {
     "@google-cloud/storage": "^6.8.0",
     "@types/sharp": "^0.31.0",
-    "firebase-admin": "^11.4.0",
+    "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
-    "sharp": "^0.31.2"
+    "sharp": "^0.31.3"
   },
   "private": true
 }
