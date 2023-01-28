@@ -2,6 +2,6 @@
 /dist
 /functions/lib
 /functions/node_modules
-/functions/shell/service-account-key.json
+/functions/shell/serviceAccountKey.json
 /node_modules
 firebase-debug.log
