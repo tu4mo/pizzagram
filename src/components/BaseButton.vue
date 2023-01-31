@@ -41,12 +41,17 @@
     line-height: 3rem;
     text-align: center;
     text-decoration: none;
+    transition: transform var(--transition-fast);
     width: 100%;
     -webkit-tap-highlight-color: transparent;
   }
 
   .button:disabled {
     opacity: 0.5;
+  }
+
+  .button:active {
+    transform: scale(0.9);
   }
 
   .button--inline {

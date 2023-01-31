@@ -38,6 +38,11 @@
     color: var(--color-secondary);
     padding: 0.5rem;
     position: relative;
+    transition: transform var(--transition-fast);
+  }
+
+  .nav-item:active {
+    transform: scale(0.9);
   }
 
   .nav-item--active {
