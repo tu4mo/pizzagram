@@ -29,7 +29,6 @@ export type Notification = {
 }
 
 export const subscribeToNotifications = (
-  // eslint-disable-next-line no-unused-vars
   callback: (notifications: Notification[]) => void
 ) => {
   const user = currentUser()

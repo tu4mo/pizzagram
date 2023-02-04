@@ -37,10 +37,7 @@ export type Post = {
   userId: string
 }
 
-export const subscribeToPosts = (
-  // eslint-disable-next-line no-unused-vars
-  callback: (posts: Post[]) => void
-) => {
+export const subscribeToPosts = (callback: (posts: Post[]) => void) => {
   const q = query(
     postsCollection,
     orderBy('createdAt', 'desc'),
@@ -83,7 +80,6 @@ export const fetchPost = async (id: string) => {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createPostObject = (doc: DocumentSnapshot<any>): Post => {
   const data = doc.data()
 

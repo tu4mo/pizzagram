@@ -17,6 +17,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
 
+  reportUnusedDisableDirectives: true,
+
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
