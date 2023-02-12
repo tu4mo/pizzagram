@@ -7,6 +7,7 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: true,
   },
+  esbuild: { legalComments: 'none' },
   plugins: [vue()],
   resolve: {
     alias: [
