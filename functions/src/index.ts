@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions'
 
 import addNotification, { NotificationType } from './add-notification'
 import resizeImage from './resize-image'
-import removePost from './remove-post'
+import { onDeletePost } from './on-delete-post'
 import { updateLikes } from './update-likes'
 import updatePost from './update-post'
 import { onDeleteUser } from './on-delete-user'
@@ -13,9 +13,9 @@ admin.initializeApp()
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-exports.removePost = functions.firestore
+exports.onDeletePost = functions.firestore
   .document('posts/{postId}')
-  .onDelete(removePost(db))
+  .onDelete((snapshot) => onDeletePost(snapshot, db))
 
 exports.updatePost = functions.firestore
   .document('posts/{postId}')
