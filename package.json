@@ -7,7 +7,7 @@
     "deploy": "npm run build && firebase deploy",
     "dev": "vite",
     "format": "prettier --write .",
-    "lint": "eslint --ext .js,.ts,.vue src",
+    "lint": "eslint --ext .js,.ts,.vue .",
     "serve": "vite preview",
     "type-check": "vue-tsc --noEmit"
   },
