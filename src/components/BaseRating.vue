@@ -29,6 +29,8 @@
       type: Number,
     },
   })
+
+  defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>
