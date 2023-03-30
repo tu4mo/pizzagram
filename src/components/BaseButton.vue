@@ -2,29 +2,21 @@
   <component
     :is="component"
     v-bind="$attrs"
-    :class="[
-      'button',
-      { [`button--secondary`]: secondary, [`button--${variant}`]: variant },
-    ]"
+    :class="['button', { [`button--secondary`]: secondary }]"
   >
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
-  defineProps({
-    secondary: {
-      default: false,
-      type: Boolean,
-    },
-    component: {
-      default: 'button',
-      type: String,
-    },
-    variant: {
-      default: null,
-      type: String,
-    },
+  type Props = {
+    secondary: boolean
+    component: string
+  }
+
+  withDefaults(defineProps<Props>(), {
+    secondary: false,
+    component: 'button',
   })
 </script>
 
@@ -52,13 +44,6 @@
 
   .button:active {
     transform: scale(0.9);
-  }
-
-  .button--inline {
-    display: inline;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
   }
 
   .button--secondary {
