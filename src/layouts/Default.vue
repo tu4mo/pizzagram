@@ -40,19 +40,16 @@
   import { authStore } from '@/store/auth'
   import { useRoute } from 'vue-router'
 
-  defineProps({
-    maxWidth: {
-      default: false,
-      type: Boolean,
-    },
-    title: {
-      default: null,
-      type: String,
-    },
-    fromTop: {
-      default: false,
-      type: Boolean,
-    },
+  type Props = {
+    fromTop: boolean
+    maxWidth: boolean
+    title: string
+  }
+
+  withDefaults(defineProps<Props>(), {
+    fromTop: false,
+    maxWidth: false,
+    title: undefined,
   })
 
   const route = useRoute()

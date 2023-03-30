@@ -42,20 +42,18 @@
   import type { User } from '@/api/user'
   import { fetchUser } from '@/api/user'
   import { toggleLike } from '@/store/posts'
+  import type { Post } from '@/api/posts'
+  import type { RouterLinkProps } from 'vue-router'
 
-  const props = defineProps({
-    imageTo: {
-      default: null,
-      type: Object,
-    },
-    isRemovable: {
-      default: false,
-      type: Boolean,
-    },
-    post: {
-      required: true,
-      type: Object,
-    },
+  type Props = {
+    imageTo?: RouterLinkProps['to']
+    isRemovable: boolean
+    post: Post
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    imageTo: undefined,
+    isRemovable: false,
   })
 
   const emit = defineEmits(['remove-click'])
