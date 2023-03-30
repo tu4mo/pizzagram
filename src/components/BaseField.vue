@@ -8,15 +8,13 @@
 </template>
 
 <script setup lang="ts">
-  defineProps({
-    as: {
-      default: 'label',
-      type: String,
-    },
-    label: {
-      required: true,
-      type: String,
-    },
+  type Props = {
+    as: string
+    label: string
+  }
+
+  withDefaults(defineProps<Props>(), {
+    as: 'label',
   })
 </script>
 
