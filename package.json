@@ -5,7 +5,7 @@
   "scripts": {
     "build": "vite build",
     "deploy": "npm run build && firebase deploy",
-    "dev": "vite",
+    "dev": "vite --open",
     "format": "prettier --write .",
     "lint": "eslint --ext .js,.ts,.vue .",
     "serve": "vite preview",
