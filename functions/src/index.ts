@@ -7,6 +7,7 @@ import { onDeletePost } from './on-delete-post'
 import { updateLikes } from './update-likes'
 import updatePost from './update-post'
 import { onDeleteUser } from './on-delete-user'
+import { verifyImage } from './verify-image'
 
 admin.initializeApp()
 
@@ -43,3 +44,5 @@ exports.generateResizedImages = functions.storage
   .onFinalize((object) =>
     Promise.all([resizeImage(object, true), resizeImage(object, false)])
   )
+
+exports.verifyImage = functions.https.onCall(verifyImage)
