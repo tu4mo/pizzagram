@@ -47,7 +47,7 @@
 
   type Props = {
     imageTo?: RouterLinkProps['to']
-    isRemovable: boolean
+    isRemovable?: boolean
     post: Post
   }
 

@@ -10,8 +10,8 @@
 
 <script setup lang="ts">
   type Props = {
-    secondary: boolean
-    component: string
+    secondary?: boolean
+    component?: string
   }
 
   withDefaults(defineProps<Props>(), {

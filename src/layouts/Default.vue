@@ -41,9 +41,9 @@
   import { useRoute } from 'vue-router'
 
   type Props = {
-    fromTop: boolean
-    maxWidth: boolean
-    title: string
+    fromTop?: boolean
+    maxWidth?: boolean
+    title?: string
   }
 
   withDefaults(defineProps<Props>(), {
