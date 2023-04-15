@@ -1,12 +1,13 @@
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import * as tf from '@tensorflow/tfjs-node'
+import type { CallableRequest } from 'firebase-functions/v2/https'
 
 type Data = {
   image: string
 }
 
-export const verifyImage = async (data: Data) => {
-  const base64Image = data.image
+export const verifyImage = async (callableRequest: CallableRequest<Data>) => {
+  const base64Image = callableRequest.data.image
   const imageBuffer = Buffer.from(base64Image, 'base64')
   const imgTensor = tf.node.decodeImage(new Uint8Array(imageBuffer), 3)
 

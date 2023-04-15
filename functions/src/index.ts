@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
+import * as functionsV2 from 'firebase-functions/v2'
 
 import addNotification, { NotificationType } from './add-notification'
 import resizeImage from './resize-image'
@@ -45,4 +46,4 @@ exports.generateResizedImages = functions.storage
     Promise.all([resizeImage(object, true), resizeImage(object, false)])
   )
 
-exports.verifyImage = functions.https.onCall(verifyImage)
+exports.verifyImage = functionsV2.https.onCall({ cors: true }, verifyImage)
