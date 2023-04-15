@@ -33,7 +33,7 @@
   import BaseInput from '@/components/BaseInput.vue'
   import PostImage from '@/components/PostImage.vue'
 
-  import { sharePost } from '@/api/posts'
+  import { sharePost, verifyImage } from '@/api/posts'
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
@@ -57,18 +57,8 @@
 
     nextTick(async () => {
       try {
-        await import('@tensorflow/tfjs-backend-cpu')
-        await import('@tensorflow/tfjs-backend-webgl')
-
-        const cocoSsd = await import('@tensorflow-models/coco-ssd')
-        const model = await cocoSsd.load()
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const image = imageContainer.value!.querySelector('img')!
-        const predictions = await model.detect(image)
-
-        const isPizza = predictions.some(
-          (prediction) => prediction.class === 'pizza'
-        )
+        const imageAsBase64 = imageUrl.value.split(',')[1]
+        const { data: isPizza } = await verifyImage(imageAsBase64)
 
         if (!isPizza) {
           alert(

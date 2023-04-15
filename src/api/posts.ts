@@ -17,12 +17,22 @@ import {
   where,
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  httpsCallable,
+} from 'firebase/functions'
 
 import { firestore, storage } from '.'
 import { currentUser } from './auth'
 
+const functions = getFunctions()
 const storageRef = ref(storage)
 const postsCollection = collection(firestore, 'posts')
+
+if (import.meta.env.DEV) {
+  connectFunctionsEmulator(functions, 'localhost', 5001)
+}
 
 export const QUERY_LIMIT = 9
 
@@ -148,4 +158,13 @@ export const toggleLike = async (postId: string) => {
   } else {
     await setDoc(likeDoc, { postId, userId: user.uid })
   }
+}
+
+export const verifyImage = async (image: string) => {
+  const verifyImage = httpsCallable<{ image: string }, boolean>(
+    functions,
+    'verifyImage'
+  )
+  const result = await verifyImage({ image })
+  return result
 }

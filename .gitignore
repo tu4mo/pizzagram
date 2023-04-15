@@ -3,5 +3,6 @@
 /functions/lib
 /functions/node_modules
 /functions/shell/serviceAccountKey.json
+/functions/ui-debug.log
 /node_modules
 firebase-debug.log

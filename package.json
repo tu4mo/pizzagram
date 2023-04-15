@@ -14,8 +14,6 @@
   "dependencies": {
     "@sentry/tracing": "^7.47.0",
     "@sentry/vue": "^7.47.0",
-    "@tensorflow-models/coco-ssd": "^2.2.2",
-    "@tensorflow/tfjs": "^3.21.0",
     "feather-icons": "^4.29.0",
     "firebase": "^9.19.1",
     "md5": "^2.3.0",
