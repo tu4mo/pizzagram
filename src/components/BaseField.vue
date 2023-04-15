@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
   type Props = {
-    as: string
+    as?: string
     label: string
   }
 
