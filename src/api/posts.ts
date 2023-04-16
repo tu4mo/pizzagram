@@ -163,7 +163,7 @@ export const toggleLike = async (postId: string) => {
 export const verifyImage = async (image: string) => {
   const verifyImage = httpsCallable<{ image: string }, boolean>(
     functions,
-    'verifyimage'
+    'verify-image'
   )
   const result = await verifyImage({ image })
   return result

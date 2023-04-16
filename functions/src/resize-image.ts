@@ -1,4 +1,4 @@
-import type * as functions from 'firebase-functions'
+import type * as functions from 'firebase-functions/v2'
 import { Storage } from '@google-cloud/storage'
 import * as path from 'path'
 import * as sharp from 'sharp'
@@ -6,12 +6,15 @@ import * as sharp from 'sharp'
 const storage = new Storage()
 
 export default async (
-  object: functions.storage.ObjectMetadata,
+  event: functions.storage.StorageEvent,
   isThumbnail: boolean
 ) => {
-  const fileBucket = object.bucket
-  const filePath = object.name
-  const contentType = object.contentType
+  const {
+    bucket: fileBucket,
+    name: filePath,
+    contentType,
+    metadata,
+  } = event.data
 
   if (!filePath) {
     return
@@ -24,7 +27,7 @@ export default async (
     return
   }
 
-  if (object.metadata && object.metadata.resized) {
+  if (metadata && metadata.resized) {
     console.log(`${name}: Already resized`)
     return
   }
