@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import * as Sentry from '@sentry/vue'
-import { BrowserTracing } from '@sentry/tracing'
 
 import App from './App.vue'
 import { router } from './router'
@@ -15,7 +14,7 @@ if (process.env.NODE_ENV !== 'development') {
     app,
     dsn: 'https://7f76df6d0d9e4d4a84a7f3676a5d4e46@sentry.io/1319696',
     integrations: [
-      new BrowserTracing({
+      new Sentry.BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),
         tracingOrigins: ['localhost', 'pizzagram.cc', /^\//],
       }),
