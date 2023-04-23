@@ -33,7 +33,7 @@
   import BaseInput from '@/components/BaseInput.vue'
   import PostImage from '@/components/PostImage.vue'
 
-  import { sharePost, verifyImage } from '@/api/posts'
+  import { cropImage, sharePost, verifyImage } from '@/api/posts'
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
@@ -50,10 +50,15 @@
   const imageContainer = ref<HTMLDivElement>()
   const fileReader = new FileReader()
 
-  const onFileLoad = () => {
-    isLoading.value = true
+  const onFileLoad = async () => {
+    const result = fileReader.result as string
 
-    imageUrl.value = fileReader.result as string
+    if (!result) {
+      return
+    }
+
+    isLoading.value = true
+    imageUrl.value = await cropImage(result, 1024)
 
     nextTick(async () => {
       try {
