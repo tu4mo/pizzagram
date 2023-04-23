@@ -70,6 +70,11 @@
         isLoading.value = false
       } catch (error) {
         console.error(error)
+
+        alert('Something went wrong. Please, try again later.')
+
+        isLoading.value = false
+        imageUrl.value = ''
       }
     })
   }

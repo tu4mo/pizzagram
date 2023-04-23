@@ -46,4 +46,7 @@ exports.generateResizedImages = functions.storage
     Promise.all([resizeImage(object, true), resizeImage(object, false)])
   )
 
-exports.verifyimage = functionsV2.https.onCall({ cors: true }, verifyImage)
+exports.verifyimage = functionsV2.https.onCall(
+  { cors: true, memory: '1GiB' },
+  verifyImage
+)
