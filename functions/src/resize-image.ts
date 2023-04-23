@@ -19,12 +19,12 @@ export default async (
 
   const { name } = path.parse(filePath)
 
-  if (!contentType || !contentType.startsWith('image/')) {
+  if (!contentType?.startsWith('image/')) {
     console.log(`${name}: Not an image`)
     return
   }
 
-  if (object.metadata && object.metadata.resized) {
+  if (object.metadata?.resized) {
     console.log(`${name}: Already resized`)
     return
   }

@@ -93,9 +93,7 @@
     }
   }
 
-  const hasLiked = computed(
-    () => props.post.likes && props.post.likes.includes(authStore.userId)
-  )
+  const hasLiked = computed(() => props.post.likes?.includes(authStore.userId))
 </script>
 
 <style scoped>

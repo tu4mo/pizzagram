@@ -31,7 +31,7 @@
   ])
   const username = computed(() => (props.user ? props.user.username : ''))
   const profileUrl = computed(() =>
-    props.user && props.user.gravatar
+    props.user?.gravatar
       ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`
       : undefined
   )

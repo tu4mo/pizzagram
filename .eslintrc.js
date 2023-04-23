@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/prefer-optional-chain': 'error',
     'vue/multi-word-component-names': 'off',
   },
 }
