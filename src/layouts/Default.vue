@@ -7,7 +7,7 @@
       ]"
     >
       <div v-if="canGoBack" class="default-layout__back">
-        <BaseButton class="default-layout__back-link" @click="$router.go(-1)">
+        <BaseButton class="default-layout__back-link" @click="router.go(-1)">
           <BaseIcon name="chevronLeft" />
         </BaseButton>
       </div>
@@ -38,7 +38,7 @@
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
   import { authStore } from '@/store/auth'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
   type Props = {
     fromTop?: boolean
@@ -53,6 +53,7 @@
   })
 
   const route = useRoute()
+  const router = useRouter()
   const hasScrolled = ref(false)
 
   const canGoBack = computed(

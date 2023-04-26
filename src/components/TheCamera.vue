@@ -1,5 +1,10 @@
 <template>
-  <div :class="['camera', { 'camera--active': $route.name === 'upload' }]">
+  <div
+    :class="[
+      'camera',
+      { 'camera--active': router.currentRoute.value.name === 'upload' },
+    ]"
+  >
     <label class="camera__label">
       <input
         accept="image/*; capture=camera"
