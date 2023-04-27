@@ -3,6 +3,7 @@
   "extends": ["config:base"],
   "packageRules": [
     {
+      "groupName": "Patches",
       "matchUpdateTypes": ["patch"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
