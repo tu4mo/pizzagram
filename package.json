@@ -24,7 +24,7 @@
     "@types/md5": "2.3.2",
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
-    "@vitejs/plugin-vue": "4.1.0",
+    "@vitejs/plugin-vue": "4.2.1",
     "@vue/runtime-dom": "3.2.45",
     "autoprefixer": "10.4.14",
     "eslint": "8.38.0",
