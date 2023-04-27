@@ -17,7 +17,7 @@
     "feather-icons": "4.29.0",
     "firebase": "9.20.0",
     "md5": "2.3.0",
-    "vue": "3.2.37",
+    "vue": "3.2.47",
     "vue-router": "4.1.6"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
     "@vitejs/plugin-vue": "4.2.1",
-    "@vue/runtime-dom": "3.2.45",
+    "@vue/runtime-dom": "3.2.47",
     "autoprefixer": "10.4.14",
     "eslint": "8.39.0",
     "eslint-config-prettier": "8.8.0",
