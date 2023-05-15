@@ -21,22 +21,17 @@
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
   import user from 'feather-icons/dist/icons/user.svg?raw'
 
-  const props = defineProps({
-    fill: {
-      default: false,
-      type: Boolean,
-    },
-    name: {
-      required: true,
-      type: String,
-    },
-    size: {
-      default: 'md',
-      type: String,
-    },
-  })
+  export type IconName = keyof typeof ICONS
 
-  const ICONS: { [key: string]: string } = {
+  type Props = {
+    fill?: boolean
+    name: IconName
+    size?: 'sm' | 'md'
+  }
+
+  const props = defineProps<Props>()
+
+  const ICONS = {
     bell,
     camera,
     chevronLeft,
@@ -47,7 +42,7 @@
     star,
     trash2,
     user,
-  }
+  } as const
 
   const icon = computed(() => ICONS[props.name])
 </script>

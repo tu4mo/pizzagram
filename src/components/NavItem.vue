@@ -11,26 +11,17 @@
 </template>
 
 <script setup lang="ts">
-  import BaseIcon from './BaseIcon.vue'
+  import { type RouterLinkProps } from 'vue-router'
+  import BaseIcon, { type IconName } from './BaseIcon.vue'
 
-  defineProps({
-    badge: {
-      default: null,
-      type: [Number, String],
-    },
-    exact: {
-      default: false,
-      type: Boolean,
-    },
-    icon: {
-      required: true,
-      type: String,
-    },
-    to: {
-      required: true,
-      type: Object,
-    },
-  })
+  type Props = {
+    badge?: number | string
+    exact?: boolean
+    icon: IconName
+    to: RouterLinkProps['to']
+  }
+
+  defineProps<Props>()
 </script>
 
 <style scoped>
