@@ -4,9 +4,10 @@ const storage = new Storage()
 import * as path from 'path'
 import * as sharp from 'sharp'
 
-export default (size: number) => {
+export default () => {
+  const size = 256
   const fileBucket = 'gs://pizzagram-cc.appspot.com'
-  const filePath = 'posts/uQ5vp9zECuus72fbofnp.jpg'
+  const filePath = 'posts/3U0qy2bulkWxJWPXSElt.jpg'
   const contentType = 'image/jpeg'
 
   const bucket = storage.bucket(fileBucket)
