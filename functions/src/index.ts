@@ -40,8 +40,9 @@ exports.onDeleteUser = functions.auth
   .user()
   .onDelete((user) => onDeleteUser(user, db))
 
-exports.generateResizedImages = functionsV2.storage.onObjectFinalized((event) =>
-  Promise.all([resizeImage(event, true), resizeImage(event, false)])
+exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
+  { memory: '1GiB' },
+  (event) => Promise.all([resizeImage(event, true), resizeImage(event, false)])
 )
 
 exports.verifyimage = functionsV2.https.onCall(
