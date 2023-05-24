@@ -7,8 +7,7 @@
   >
     <label class="camera__label">
       <input
-        accept="image/*"
-        capture="environment"
+        accept="image/*; capture=camera"
         class="camera__input"
         type="file"
         @change="onChange"
