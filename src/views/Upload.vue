@@ -9,12 +9,12 @@
           <PostImage :image-url="imageUrl" rounded />
         </div>
         <div class="upload__form">
-          <BaseSpacer mb2>
+          <BaseSpacer gap="2">
             <BaseField label="Caption">
               <BaseInput v-model.trim="form.caption" maxlength="100" />
             </BaseField>
+            <BaseButton @click="onShareClick">Share</BaseButton>
           </BaseSpacer>
-          <BaseButton @click="onShareClick">Share</BaseButton>
         </div>
       </template>
       <BaseSpinner v-if="isLoading" cover />

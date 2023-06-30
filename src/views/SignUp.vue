@@ -2,46 +2,45 @@
   <WelcomeLayout>
     <BaseSpinner v-if="isLoading" cover />
     <form class="signup" @submit.prevent="submit">
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model.trim="username"
-          pattern="[0-9A-Za-z_]{3,15}"
-          placeholder="Username"
-          required
-          name="username"
-        />
-      </BaseSpacer>
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model.trim="email"
-          name="email"
-          placeholder="E-mail"
-          required
-          type="email"
-        />
-      </BaseSpacer>
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model="password"
-          name="password"
-          placeholder="Password"
-          required
-          type="password"
-        />
-      </BaseSpacer>
-      <BaseButton :disabled="!username || !email || !password" type="submit">
-        Sign Up
-      </BaseButton>
-      <BaseSpacer v-if="error" my1>
-        <p>
-          {{ error }}
-        </p>
-      </BaseSpacer>
-      <BaseSpacer my1>
-        <p>
-          Already have an account?
-          <BaseLink :to="{ name: 'login' }">Log In</BaseLink>
-        </p>
+      <BaseSpacer gap="1">
+        <BaseSpacer gap="1">
+          <BaseInput
+            v-model.trim="username"
+            pattern="[0-9A-Za-z_]{3,15}"
+            placeholder="Username"
+            required
+            name="username"
+          />
+          <BaseInput
+            v-model.trim="email"
+            name="email"
+            placeholder="E-mail"
+            required
+            type="email"
+          />
+          <BaseInput
+            v-model="password"
+            name="password"
+            placeholder="Password"
+            required
+            type="password"
+          />
+          <BaseButton
+            :disabled="!username || !email || !password"
+            type="submit"
+          >
+            Sign Up
+          </BaseButton>
+        </BaseSpacer>
+        <BaseSpacer gap="1">
+          <p v-if="error">
+            {{ error }}
+          </p>
+          <p>
+            Already have an account?
+            <BaseLink :to="{ name: 'login' }">Log In</BaseLink>
+          </p>
+        </BaseSpacer>
       </BaseSpacer>
     </form>
   </WelcomeLayout>

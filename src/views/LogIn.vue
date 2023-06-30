@@ -2,36 +2,34 @@
   <WelcomeLayout>
     <BaseSpinner v-if="isLoading" cover />
     <form class="login" @submit.prevent="submit">
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model.trim="email"
-          name="email"
-          placeholder="E-mail"
-          type="email"
-        />
-      </BaseSpacer>
-      <BaseSpacer mb1>
-        <BaseInput
-          v-model="password"
-          name="password"
-          placeholder="Password"
-          type="password"
-        />
-      </BaseSpacer>
-      <BaseButton :disabled="!email || !password" type="submit">
-        Log In
-      </BaseButton>
-      <BaseSpacer my1>
-        <p>
-          Don't have an account?
-          <BaseLink :to="{ name: 'signup' }">Sign Up</BaseLink>
-        </p>
-      </BaseSpacer>
-      <BaseSpacer my1>
-        <p>
-          Forgot your password?
-          <BaseLink :to="{ name: 'reset-password' }">Reset Password</BaseLink>
-        </p>
+      <BaseSpacer gap="1">
+        <BaseSpacer gap="1">
+          <BaseInput
+            v-model.trim="email"
+            name="email"
+            placeholder="E-mail"
+            type="email"
+          />
+          <BaseInput
+            v-model="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+          <BaseButton :disabled="!email || !password" type="submit">
+            Log In
+          </BaseButton>
+        </BaseSpacer>
+        <BaseSpacer gap="1">
+          <p>
+            Don't have an account?
+            <BaseLink :to="{ name: 'signup' }">Sign Up</BaseLink>
+          </p>
+          <p>
+            Forgot your password?
+            <BaseLink :to="{ name: 'reset-password' }">Reset Password</BaseLink>
+          </p>
+        </BaseSpacer>
       </BaseSpacer>
     </form>
   </WelcomeLayout>

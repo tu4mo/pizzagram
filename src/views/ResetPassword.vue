@@ -2,18 +2,16 @@
   <WelcomeLayout>
     <BaseSpinner v-if="isLoading" cover />
     <form class="reset" @submit.prevent="submit">
-      <BaseSpacer mb1>
+      <BaseSpacer gap="1">
         <BaseInput
           v-model.trim="email"
           :disabled="hasSentMail"
           placeholder="E-mail"
           type="email"
         />
-      </BaseSpacer>
-      <BaseButton :disabled="!email || hasSentMail" type="submit">
-        Reset Password
-      </BaseButton>
-      <BaseSpacer my1>
+        <BaseButton :disabled="!email || hasSentMail" type="submit">
+          Reset Password
+        </BaseButton>
         <p v-if="hasSentMail">
           Password reset email sent.
           <BaseLink :to="{ name: 'login' }">Log In</BaseLink>
