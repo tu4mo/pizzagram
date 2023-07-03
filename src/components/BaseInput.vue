@@ -11,13 +11,12 @@
 
 <script setup lang="ts">
   type Props = {
-    borderless: boolean
+    borderless?: boolean
     modelValue: string
   }
 
   withDefaults(defineProps<Props>(), {
     borderless: false,
-    modelValue: '',
   })
 
   defineEmits<{ (event: 'update:modelValue', value: string): void }>()

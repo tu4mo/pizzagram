@@ -27,5 +27,7 @@ module.exports = {
     'vue/define-emits-declaration': 'error',
     'vue/define-macros-order': 'error',
     'vue/define-props-declaration': 'error',
+    'vue/no-required-prop-with-default': 'error',
+    'vue/no-undef-components': 'error',
   },
 }
