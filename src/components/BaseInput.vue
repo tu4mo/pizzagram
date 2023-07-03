@@ -10,20 +10,19 @@
 </template>
 
 <script setup lang="ts">
-  defineOptions({ inheritAttrs: false })
+  type Props = {
+    borderless: boolean
+    modelValue: string
+  }
 
-  defineProps({
-    borderless: {
-      default: false,
-      type: Boolean,
-    },
-    modelValue: {
-      default: '',
-      type: String,
-    },
+  withDefaults(defineProps<Props>(), {
+    borderless: false,
+    modelValue: '',
   })
 
-  defineEmits(['update:modelValue'])
+  defineEmits<{ (event: 'update:modelValue', value: string): void }>()
+
+  defineOptions({ inheritAttrs: false })
 </script>
 
 <style scoped>

@@ -56,7 +56,7 @@
     isRemovable: false,
   })
 
-  const emit = defineEmits(['remove-click'])
+  const emit = defineEmits<{ (event: 'remove-click'): void }>()
 
   const user = ref<User | undefined>(undefined)
   watch(

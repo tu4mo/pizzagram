@@ -21,14 +21,6 @@
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
   import user from 'feather-icons/dist/icons/user.svg?raw'
 
-  export type IconName = keyof typeof ICONS
-
-  type Props = {
-    fill?: boolean
-    name: IconName
-    size?: 'sm' | 'md'
-  }
-
   const props = defineProps<Props>()
 
   const ICONS = {
@@ -43,6 +35,12 @@
     trash2,
     user,
   } as const
+
+  type Props = {
+    fill?: boolean
+    name: keyof typeof ICONS
+    size?: 'sm' | 'md'
+  }
 
   const icon = computed(() => ICONS[props.name])
 </script>

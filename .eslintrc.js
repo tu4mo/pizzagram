@@ -24,5 +24,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/prefer-optional-chain': 'error',
     'vue/multi-word-component-names': 'off',
+    'vue/define-emits-declaration': 'error',
+    'vue/define-macros-order': 'error',
+    'vue/define-props-declaration': 'error',
   },
 }

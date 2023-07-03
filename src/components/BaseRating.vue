@@ -23,14 +23,15 @@
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
 
-  defineProps({
-    modelValue: {
-      default: 0,
-      type: Number,
-    },
+  type Props = {
+    modelValue: number
+  }
+
+  withDefaults(defineProps<Props>(), {
+    modelValue: 0,
   })
 
-  defineEmits(['update:modelValue'])
+  defineEmits<{ (event: 'update:modelValue', value: number): void }>()
 </script>
 
 <style scoped>

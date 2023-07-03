@@ -12,12 +12,12 @@
 
 <script setup lang="ts">
   import { type RouterLinkProps } from 'vue-router'
-  import BaseIcon, { type IconName } from './BaseIcon.vue'
+  import BaseIcon from './BaseIcon.vue'
 
   type Props = {
     badge?: number | string
     exact?: boolean
-    icon: IconName
+    icon: InstanceType<typeof BaseIcon>['$props']['name']
     to: RouterLinkProps['to']
   }
 

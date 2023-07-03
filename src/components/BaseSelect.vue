@@ -38,24 +38,17 @@
 
   import BaseInput from './BaseInput.vue'
 
-  defineProps({
-    name: {
-      required: true,
-      type: String,
-    },
-    options: {
-      type: Array as () => { label?: string; value?: string }[],
-      default: () => [],
-    },
-    value: {
-      required: true,
-      type: String,
-    },
-  })
+  type Props = {
+    name: string
+    options: { label?: string; value?: string }[]
+    value: string
+  }
+
+  defineProps<Props>()
+
+  const emit = defineEmits<{ (event: 'change', value: string): void }>()
 
   const customItem = ref('')
-
-  const emit = defineEmits(['change'])
 
   watch(customItem, (value) => {
     emit('change', value)
