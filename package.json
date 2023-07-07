@@ -32,7 +32,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-vue": "9.15.1",
     "firebase-tools": "12.4.2",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "rollup-plugin-visualizer": "5.9.2",
     "typescript": "5.1.6",
     "vite": "4.3.9",
