@@ -67,7 +67,7 @@
         setTitle(username, true)
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   const posts = computed(() => getPostsByFeed(user.value?.username))

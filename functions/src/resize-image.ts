@@ -7,7 +7,7 @@ const storage = new Storage()
 
 export default async (
   event: functionsV2.storage.StorageEvent,
-  isThumbnail: boolean
+  isThumbnail: boolean,
 ) => {
   const fileBucket = event.data.bucket
   const filePath = event.data.name
@@ -53,7 +53,7 @@ export default async (
   bucket.file(filePath).createReadStream().pipe(pipeline)
 
   await new Promise((resolve, reject) =>
-    resizedUploadStream.on('finish', resolve).on('error', reject)
+    resizedUploadStream.on('finish', resolve).on('error', reject),
   )
 
   console.log(`${resizedFileName}: Created successfully`)

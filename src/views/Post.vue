@@ -40,7 +40,7 @@
         setTitle(singlePost.value?.caption, true)
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   const onRemoveClick = () => {

@@ -29,7 +29,7 @@ export type Notification = {
 }
 
 export const subscribeToNotifications = (
-  callback: (notifications: Notification[]) => void
+  callback: (notifications: Notification[]) => void,
 ) => {
   const user = currentUser()
 
@@ -43,7 +43,7 @@ export const subscribeToNotifications = (
     notifications,
     orderBy('createdAt', 'desc'),
     where('userId', '==', user.uid),
-    where('createdAt', '>=', new Date(beginningDate))
+    where('createdAt', '>=', new Date(beginningDate)),
   )
 
   return onSnapshot(q, async (querySnapshot) => {
@@ -75,8 +75,8 @@ export const markNotificationsAsRead = async () => {
     query(
       notifications,
       where('userId', '==', user.uid),
-      where('read', '==', false)
-    )
+      where('read', '==', false),
+    ),
   )
 
   const batch = writeBatch(firestore)

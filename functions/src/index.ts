@@ -29,7 +29,7 @@ exports.onCreateLike = functions.firestore
     Promise.all([
       addNotification(snapshot, db, NotificationType.Like),
       updateLikes(snapshot, db, true),
-    ])
+    ]),
   )
 
 exports.onDeleteLike = functions.firestore
@@ -42,10 +42,10 @@ exports.onDeleteUser = functions.auth
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   { memory: '1GiB' },
-  (event) => Promise.all([resizeImage(event, true), resizeImage(event, false)])
+  (event) => Promise.all([resizeImage(event, true), resizeImage(event, false)]),
 )
 
 exports.verifyimage = functionsV2.https.onCall(
   { cors: true, memory: '1GiB' },
-  verifyImage
+  verifyImage,
 )

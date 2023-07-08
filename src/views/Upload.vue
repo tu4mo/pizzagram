@@ -67,7 +67,7 @@
 
         if (!isPizza) {
           alert(
-            "Sorry, that's no good. Make sure there's a pizza and only a pizza in the photo. Please, try another one."
+            "Sorry, that's no good. Make sure there's a pizza and only a pizza in the photo. Please, try another one.",
           )
           imageUrl.value = ''
         }
@@ -93,7 +93,7 @@
         imageUrl.value = ''
         fileReader.readAsDataURL(newFile)
       }
-    }
+    },
   )
 
   const resetForm = () => {

@@ -52,7 +52,7 @@ export const subscribeToPosts = (callback: (posts: Post[]) => void) => {
     postsCollection,
     orderBy('createdAt', 'desc'),
     where('published', '==', true),
-    limit(QUERY_LIMIT)
+    limit(QUERY_LIMIT),
   )
 
   return onSnapshot(q, async (querySnapshot) => {
@@ -126,7 +126,7 @@ export const sharePost = async ({
 
   const uploadTask = await uploadBytes(
     ref(storageRef, `posts/${docRef.id}.jpg`),
-    file
+    file,
   )
 
   const downloadUrl = await getDownloadURL(uploadTask.ref)
@@ -163,7 +163,7 @@ export const toggleLike = async (postId: string) => {
 export const verifyImage = async (image: string) => {
   const verifyImage = httpsCallable<{ image: string }, boolean>(
     functions,
-    'verifyimage'
+    'verifyimage',
   )
   const result = await verifyImage({ image })
   return result
@@ -171,7 +171,7 @@ export const verifyImage = async (image: string) => {
 
 export const cropImage = (
   fileResult: string,
-  outputSize: number
+  outputSize: number,
 ): Promise<string> =>
   new Promise((resolve, reject) => {
     const image = new Image()

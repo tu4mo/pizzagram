@@ -33,7 +33,7 @@
   const profileUrl = computed(() =>
     props.user?.gravatar
       ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`
-      : undefined
+      : undefined,
   )
 </script>
 

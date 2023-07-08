@@ -57,7 +57,7 @@
   const hasScrolled = ref(false)
 
   const canGoBack = computed(
-    () => route.name !== 'home' && window.history.length > 1
+    () => route.name !== 'home' && window.history.length > 1,
   )
 
   const onScroll = () => {

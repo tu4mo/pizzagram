@@ -5,7 +5,7 @@ const storage = new Storage()
 
 export const onDeletePost = async (
   snap: admin.firestore.DocumentSnapshot,
-  db: admin.firestore.Firestore
+  db: admin.firestore.Firestore,
 ) => {
   const { id } = snap
   const postData = snap.data()
@@ -45,7 +45,7 @@ export const onDeletePost = async (
     await deleteBatch.commit()
 
     console.log(
-      `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`
+      `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
     const usersSnapshot = await usersCollection

@@ -64,7 +64,7 @@
     async () => {
       user.value = await fetchUser(props.post.userId)
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   const onLikeClick = async () => {

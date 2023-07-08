@@ -49,7 +49,7 @@ export const initializeAuthCallback = () =>
         unsubscribeToNotifications = subscribeToNotifications(
           (notifications) => {
             notificationsStore.notifications = notifications
-          }
+          },
         )
       } catch (e) {
         // Sign out if there's an error getting user

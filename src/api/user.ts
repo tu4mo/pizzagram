@@ -33,7 +33,7 @@ export const fetchUser = async (id: string) => {
   if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
     try {
       const querySnapshot = await getDocs(
-        query(collection(firestore, 'users'), where('id', '==', id), limit(1))
+        query(collection(firestore, 'users'), where('id', '==', id), limit(1)),
       )
 
       const doc = querySnapshot.docs[0]

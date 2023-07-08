@@ -7,7 +7,11 @@ import userCache from './user-cache'
 export const fetchTopPosters = async () => {
   try {
     const querySnapshot = await getDocs(
-      query(collection(firestore, 'users'), orderBy('posts', 'desc'), limit(10))
+      query(
+        collection(firestore, 'users'),
+        orderBy('posts', 'desc'),
+        limit(10),
+      ),
     )
 
     const users = []

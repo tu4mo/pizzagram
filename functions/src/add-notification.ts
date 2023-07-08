@@ -7,7 +7,7 @@ export enum NotificationType {
 export default async (
   snap: admin.firestore.QueryDocumentSnapshot,
   db: admin.firestore.Firestore,
-  notificationType: NotificationType
+  notificationType: NotificationType,
 ) => {
   const notifications = db.collection('notifications')
 

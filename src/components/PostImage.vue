@@ -37,7 +37,7 @@
   })
 
   const actualUrl = computed(() =>
-    props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl
+    props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl,
   )
 </script>
 

@@ -31,7 +31,7 @@ auth.onAuthStateChanged(async (user) => {
 })
 
 export const setOnAuthStateChangedCallback = (
-  callback: (user: User | null) => Promise<void>
+  callback: (user: User | null) => Promise<void>,
 ) => {
   onAuthStateChangedCallback = callback
 }
@@ -46,7 +46,7 @@ export const initializeAuth = () =>
 export const signUp = async (
   username: string,
   email: string,
-  password: string
+  password: string,
 ) => {
   const md5 = (await import('md5')).default
 

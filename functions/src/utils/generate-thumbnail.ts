@@ -33,7 +33,7 @@ export default () => {
   bucket.file(filePath).createReadStream().pipe(pipeline)
 
   const streamAsPromise = new Promise((resolve, reject) =>
-    resizedUploadStream.on('finish', resolve).on('error', reject)
+    resizedUploadStream.on('finish', resolve).on('error', reject),
   )
 
   return streamAsPromise.then(() => {
