@@ -12,8 +12,8 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@sentry/tracing": "7.58.0",
-    "@sentry/vue": "7.58.0",
+    "@sentry/tracing": "7.58.1",
+    "@sentry/vue": "7.58.1",
     "feather-icons": "4.29.0",
     "firebase": "10.0.0",
     "md5": "2.3.0",
@@ -31,7 +31,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-vue": "9.15.1",
-    "firebase-tools": "12.4.3",
+    "firebase-tools": "12.4.4",
     "prettier": "3.0.0",
     "rollup-plugin-visualizer": "5.9.2",
     "typescript": "5.1.6",
