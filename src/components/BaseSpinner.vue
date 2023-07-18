@@ -11,16 +11,12 @@
 <script setup lang="ts">
   import { computed } from 'vue'
 
-  const props = defineProps({
-    cover: {
-      default: false,
-      type: Boolean,
-    },
-    inline: {
-      default: false,
-      type: Boolean,
-    },
-  })
+  type Props = {
+    cover?: boolean
+    inline?: boolean
+  }
+
+  const props = defineProps<Props>()
 
   const classes = computed(() => [
     'spinner',

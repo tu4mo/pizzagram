@@ -24,7 +24,7 @@
   import BaseIcon from './BaseIcon.vue'
 
   type Props = {
-    modelValue: number
+    modelValue?: number
   }
 
   withDefaults(defineProps<Props>(), {

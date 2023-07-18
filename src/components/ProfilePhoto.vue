@@ -9,20 +9,18 @@
 </template>
 
 <script setup lang="ts">
+  import type { User } from '@/api/user'
   import { computed } from 'vue'
 
-  const props = defineProps({
-    asLink: {
-      type: Boolean,
-    },
-    size: {
-      default: 'small',
-      type: String,
-    },
-    user: {
-      default: undefined,
-      type: Object,
-    },
+  type Props = {
+    asLink?: boolean
+    size?: string
+    user?: User | null
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    size: 'small',
+    user: null,
   })
 
   const classes = computed(() => [

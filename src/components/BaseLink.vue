@@ -5,16 +5,14 @@
 </template>
 
 <script setup lang="ts">
-  defineProps({
-    activeClass: {
-      default: null,
-      type: String,
-    },
-    to: {
-      required: true,
-      type: Object,
-    },
-  })
+  import type { RouteLocationRaw } from 'vue-router'
+
+  type Props = {
+    activeClass?: string
+    to: RouteLocationRaw
+  }
+
+  defineProps<Props>()
 </script>
 
 <style scoped>

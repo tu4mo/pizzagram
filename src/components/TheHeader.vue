@@ -8,12 +8,11 @@
 <script setup lang="ts">
   import TheLogo from './TheLogo.vue'
 
-  defineProps({
-    title: {
-      default: null,
-      type: String,
-    },
-  })
+  type Props = {
+    title?: string
+  }
+
+  defineProps<Props>()
 </script>
 
 <style scoped>

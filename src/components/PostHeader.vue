@@ -3,7 +3,7 @@
     <component
       :is="isUserLoaded ? 'RouterLink' : 'div'"
       :to="
-        isUserLoaded
+        isUserLoaded && user
           ? { name: 'profile', params: { username: user.username } }
           : null
       "
@@ -22,17 +22,14 @@
   import { computed } from 'vue'
 
   import ProfilePhoto from './ProfilePhoto.vue'
+  import type { User } from '@/api/user'
 
-  const props = defineProps({
-    createdAt: {
-      required: true,
-      type: Date,
-    },
-    user: {
-      default: () => ({}),
-      type: Object,
-    },
-  })
+  type Props = {
+    createdAt: Date
+    user?: User | null
+  }
+
+  const props = withDefaults(defineProps<Props>(), { user: null })
 
   const createdDate = computed(() => props.createdAt.toLocaleDateString())
   const isUserLoaded = computed(
