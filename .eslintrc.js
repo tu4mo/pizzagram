@@ -14,7 +14,9 @@ module.exports = {
 
   parser: 'vue-eslint-parser',
   parserOptions: {
+    extraFileExtensions: ['.vue'],
     parser: '@typescript-eslint/parser',
+    project: true,
   },
 
   reportUnusedDisableDirectives: true,
@@ -23,11 +25,15 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/prefer-optional-chain': 'error',
-    'vue/multi-word-component-names': 'off',
+    'vue/component-name-in-template-casing': 'error',
     'vue/define-emits-declaration': 'error',
     'vue/define-macros-order': 'error',
     'vue/define-props-declaration': 'error',
+    'vue/multi-word-component-names': 'off',
     'vue/no-required-prop-with-default': 'error',
-    'vue/no-undef-components': 'error',
+    'vue/no-undef-components': [
+      'error',
+      { ignorePatterns: ['RouterLink', 'RouterView'] },
+    ],
   },
 }
