@@ -16,25 +16,16 @@
 
 <script setup lang="ts">
   import { computed } from 'vue'
+  import type { RouteLocationRaw } from 'vue-router'
 
-  const props = defineProps({
-    imageUrl: {
-      default: null,
-      type: String,
-    },
-    rounded: {
-      default: false,
-      type: Boolean,
-    },
-    thumbnail: {
-      default: false,
-      type: Boolean,
-    },
-    to: {
-      default: null,
-      type: [String, Object],
-    },
-  })
+  type Props = {
+    imageUrl: string
+    rounded?: boolean
+    thumbnail?: boolean
+    to?: RouteLocationRaw
+  }
+
+  const props = defineProps<Props>()
 
   const actualUrl = computed(() =>
     props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl,

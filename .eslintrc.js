@@ -36,4 +36,11 @@ module.exports = {
       { ignorePatterns: ['RouterLink', 'RouterView'] },
     ],
   },
+
+  overrides: [
+    {
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      files: ['./**/*.js'],
+    },
+  ],
 }
