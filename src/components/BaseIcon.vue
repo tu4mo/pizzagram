@@ -1,9 +1,6 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <div
-    :class="['icon', `icon--${size}`, { 'icon--fill': fill }]"
-    v-html="icon"
-  />
+  <div :class="['icon', { 'icon--fill': fill }]" v-html="icon" />
   <!-- eslint-enable -->
 </template>
 
@@ -39,7 +36,6 @@
   type Props = {
     fill?: boolean
     name: keyof typeof ICONS
-    size?: 'sm' | 'md'
   }
 
   const icon = computed(() => ICONS[props.name])
@@ -56,15 +52,5 @@
 
   .icon--fill:deep(svg) {
     fill: currentColor;
-  }
-
-  .icon--md:deep(svg) {
-    height: 1.5rem;
-    width: 1.5rem;
-  }
-
-  .icon--sm:deep(svg) {
-    height: 1rem;
-    width: 1rem;
   }
 </style>

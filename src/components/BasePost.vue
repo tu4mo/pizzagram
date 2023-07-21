@@ -114,12 +114,14 @@
   }
 
   .post__info {
+    display: flex;
     flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .post__likes {
     font-weight: bold;
-    margin-bottom: 0.25rem;
   }
 
   .post__caption {
