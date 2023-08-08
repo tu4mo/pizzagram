@@ -38,7 +38,7 @@ export default async (
   const resizedUploadStream = bucket.file(resizedFilePath).createWriteStream({
     metadata: {
       contentType: contentType,
-      metadata: { resized: true },
+      metadata: { resized: 'true' },
     },
   })
 
