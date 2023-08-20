@@ -14,7 +14,7 @@
   "dependencies": {
     "@sentry/tracing": "7.64.0",
     "@sentry/vue": "7.64.0",
-    "feather-icons": "4.29.0",
+    "feather-icons": "4.29.1",
     "firebase": "10.2.0",
     "md5": "2.3.0",
     "vue": "3.3.4",
