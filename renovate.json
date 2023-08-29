@@ -11,7 +11,7 @@
     {
       "matchPackagePatterns": ["^@tensorflow"],
       "groupName": "tensorflow"
-    },
+    }
   ],
   "schedule": ["every weekend"]
 }
