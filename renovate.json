@@ -9,8 +9,8 @@
       "automerge": true
     },
     {
-      "matchPackagePatterns": ["^@tensorflow.*$"],
-      "groupName": "@tensorflow"
+      "matchPackagePatterns": ["^@tensorflow"],
+      "groupName": "tensorflow"
     },
   ],
   "schedule": ["every weekend"]
