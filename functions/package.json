@@ -14,7 +14,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@google-cloud/storage": "7.0.1",
+    "@google-cloud/storage": "7.1.0",
     "@tensorflow-models/coco-ssd": "2.2.2",
     "@tensorflow/tfjs-node": "3.21.1",
     "@types/sharp": "0.31.1",
