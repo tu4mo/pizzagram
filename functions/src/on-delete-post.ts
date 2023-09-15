@@ -1,20 +1,25 @@
 import type * as admin from 'firebase-admin'
 import { Storage } from '@google-cloud/storage'
+import type {
+  FirestoreEvent,
+  QueryDocumentSnapshot,
+} from 'firebase-functions/v2/firestore'
 
 const storage = new Storage()
 
 export const onDeletePost = async (
-  snap: admin.firestore.DocumentSnapshot,
+  event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
   db: admin.firestore.Firestore,
 ) => {
-  const { id } = snap
-  const postData = snap.data()
+  const snap = event.data
 
-  if (!postData) {
+  if (!snap) {
     return
   }
 
-  const { userId } = postData
+  const { id } = snap
+  const { userId } = snap.data()
+
   const likes = db.collection('likes')
   const notifications = db.collection('notifications')
 
@@ -22,7 +27,7 @@ export const onDeletePost = async (
   const photoFile = bucket.file(`posts/${id}.jpg`)
   const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
 
-  const usersCollection = db.collection('users')
+  const users = db.collection('users')
 
   try {
     await photoFile.delete()
@@ -48,14 +53,11 @@ export const onDeletePost = async (
       `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
-    const usersSnapshot = await usersCollection
-      .where('id', '==', userId)
-      .limit(1)
-      .get()
+    const usersSnapshot = await users.where('id', '==', userId).limit(1).get()
 
     usersSnapshot.forEach(async (userRef) => {
       const posts = userRef.data().posts - 1
-      await usersCollection.doc(userRef.id).update({ posts })
+      await users.doc(userRef.id).update({ posts })
       console.log(`Decreasing ${userRef.id}'s posts count to ${posts}`)
     })
   } catch (error) {

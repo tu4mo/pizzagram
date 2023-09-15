@@ -15,9 +15,10 @@ admin.initializeApp()
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-exports.onDeletePost = functions.firestore
-  .document('posts/{postId}')
-  .onDelete((snapshot) => onDeletePost(snapshot, db))
+exports.onDeletePost = functionsV2.firestore.onDocumentDeleted(
+  'posts/{postId}',
+  (snapshot) => onDeletePost(snapshot, db),
+)
 
 exports.updatePost = functions.firestore
   .document('posts/{postId}')
