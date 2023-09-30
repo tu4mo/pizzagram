@@ -21,9 +21,9 @@
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@types/md5": "2.3.2",
-    "@typescript-eslint/eslint-plugin": "6.7.2",
-    "@typescript-eslint/parser": "6.7.2",
+    "@types/md5": "2.3.3",
+    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/parser": "6.7.3",
     "@vitejs/plugin-vue": "4.3.4",
     "@vue/runtime-dom": "3.3.4",
     "autoprefixer": "10.4.16",
@@ -36,7 +36,7 @@
     "rollup-plugin-visualizer": "5.9.2",
     "typescript": "5.2.2",
     "vite": "4.4.9",
-    "vue-tsc": "1.8.13"
+    "vue-tsc": "1.8.15"
   },
   "browserslist": [
     "defaults"
