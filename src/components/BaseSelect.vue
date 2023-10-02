@@ -40,7 +40,7 @@
 
   type Props = {
     name: string
-    options: { label?: string; value?: string }[]
+    options: { label?: string; value: string }[]
     value: string
   }
 
