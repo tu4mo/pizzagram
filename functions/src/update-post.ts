@@ -24,7 +24,7 @@ export const updatePost = async (
     .get()
 
   usersSnapshot.forEach(async (doc) => {
-    const posts = doc.data().posts + 1 || 1
+    const posts = Number(doc.data().posts) + 1 || 1
 
     console.log(`Increasing ${doc.id}'s posts count to ${posts}`)
 
