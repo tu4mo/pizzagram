@@ -6,7 +6,7 @@ import addNotification, { NotificationType } from './add-notification'
 import resizeImage from './resize-image'
 import { onDeletePost } from './on-delete-post'
 import { updateLikes } from './update-likes'
-import updatePost from './update-post'
+import { updatePost } from './update-post'
 import { onDeleteUser } from './on-delete-user'
 import { verifyImage } from './verify-image'
 
@@ -20,9 +20,10 @@ exports.onDeletePost = functionsV2.firestore.onDocumentDeleted(
   (snapshot) => onDeletePost(snapshot, db),
 )
 
-exports.updatePost = functions.firestore
-  .document('posts/{postId}')
-  .onUpdate(updatePost(db))
+exports.updatePost = functionsV2.firestore.onDocumentUpdated(
+  'posts/{postId}',
+  (snapshot) => updatePost(snapshot, db),
+)
 
 exports.onCreateLike = functions.firestore
   .document('likes/{likeId}')
