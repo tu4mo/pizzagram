@@ -4,7 +4,7 @@ const storage = new Storage()
 import * as path from 'path'
 import * as sharp from 'sharp'
 
-export default () => {
+export default async function () {
   const size = 256
   const fileBucket = 'gs://pizzagram-cc.appspot.com'
   const filePath = 'posts/3U0qy2bulkWxJWPXSElt.jpg'

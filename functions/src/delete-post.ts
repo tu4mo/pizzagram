@@ -7,10 +7,10 @@ import type {
 
 const storage = new Storage()
 
-export const onDeletePost = async (
+export async function deletePost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
   db: admin.firestore.Firestore,
-) => {
+) {
   const snap = event.data
 
   if (!snap) {

@@ -3,10 +3,10 @@ import { Storage } from '@google-cloud/storage'
 const storage = new Storage()
 const bucket = storage.bucket('gs://pizzagram-cc.appspot.com')
 
-export const onDeleteUser = async (
+export async function deleteUser(
   user: admin.auth.UserRecord,
   db: admin.firestore.Firestore,
-) => {
+) {
   const { uid, email } = user
   const deleteBatch = db.batch()
 

@@ -2,12 +2,12 @@ import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import * as functionsV2 from 'firebase-functions/v2'
 
-import addNotification, { NotificationType } from './add-notification'
-import resizeImage from './resize-image'
-import { onDeletePost } from './on-delete-post'
+import { addNotification, NotificationType } from './add-notification'
+import { resizeImage } from './resize-image'
+import { deletePost } from './delete-post'
 import { updateLikes } from './update-likes'
 import { updatePost } from './update-post'
-import { onDeleteUser } from './on-delete-user'
+import { deleteUser } from './delete-user'
 import { verifyImage } from './verify-image'
 
 admin.initializeApp()
@@ -15,9 +15,9 @@ admin.initializeApp()
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-exports.onDeletePost = functionsV2.firestore.onDocumentDeleted(
+exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
-  (snapshot) => onDeletePost(snapshot, db),
+  (snapshot) => deletePost(snapshot, db),
 )
 
 exports.updatePost = functionsV2.firestore.onDocumentUpdated(
@@ -34,13 +34,13 @@ exports.onCreateLike = functions.firestore
     ]),
   )
 
-exports.onDeleteLike = functions.firestore
+exports.deleteLike = functions.firestore
   .document('likes/{likeId}')
   .onDelete((snapshot) => updateLikes(snapshot, db, false))
 
-exports.onDeleteUser = functions.auth
+exports.deleteUser = functions.auth
   .user()
-  .onDelete((user) => onDeleteUser(user, db))
+  .onDelete((user) => deleteUser(user, db))
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   { memory: '1GiB' },

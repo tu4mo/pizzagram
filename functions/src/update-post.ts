@@ -5,10 +5,10 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-export const updatePost = async (
+export async function updatePost(
   event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>,
   db: admin.firestore.Firestore,
-) => {
+) {
   const snap = event.data
 
   if (!snap) {

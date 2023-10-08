@@ -1,10 +1,10 @@
 import * as admin from 'firebase-admin'
 
-export const updateLikes = async (
+export async function updateLikes(
   snapshot: admin.firestore.QueryDocumentSnapshot,
   db: admin.firestore.Firestore,
   add: boolean,
-) => {
+) {
   const like = snapshot.data()
   const post = await db.collection('posts').doc(like.postId).get()
 

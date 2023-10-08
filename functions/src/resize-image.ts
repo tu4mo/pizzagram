@@ -5,10 +5,10 @@ import * as sharp from 'sharp'
 
 const storage = new Storage()
 
-export default async (
+export async function resizeImage(
   event: functionsV2.storage.StorageEvent,
   isThumbnail: boolean,
-) => {
+) {
   const fileBucket = event.data.bucket
   const filePath = event.data.name
   const contentType = event.data.contentType

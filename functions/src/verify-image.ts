@@ -6,7 +6,7 @@ type Data = {
   image: string
 }
 
-export const verifyImage = async (callableRequest: CallableRequest<Data>) => {
+export async function verifyImage(callableRequest: CallableRequest<Data>) {
   const base64Image = callableRequest.data.image
   const imageBuffer = Buffer.from(base64Image, 'base64')
   const imgTensor = tf.node.decodeImage(new Uint8Array(imageBuffer), 3)
