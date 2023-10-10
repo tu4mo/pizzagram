@@ -2,12 +2,13 @@ import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import * as functionsV2 from 'firebase-functions/v2'
 
+import { addComment } from './add-comment'
 import { addNotification, NotificationType } from './add-notification'
-import { resizeImage } from './resize-image'
 import { deletePost } from './delete-post'
+import { deleteUser } from './delete-user'
+import { resizeImage } from './resize-image'
 import { updateLikes } from './update-likes'
 import { updatePost } from './update-post'
-import { deleteUser } from './delete-user'
 import { verifyImage } from './verify-image'
 
 admin.initializeApp()
@@ -23,6 +24,11 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
 exports.updatePost = functionsV2.firestore.onDocumentUpdated(
   'posts/{postId}',
   (snapshot) => updatePost(snapshot, db),
+)
+
+exports.createComment = functionsV2.firestore.onDocumentCreated(
+  'comments/{commentId}',
+  (snapshot) => addComment(snapshot, db),
 )
 
 exports.onCreateLike = functions.firestore
