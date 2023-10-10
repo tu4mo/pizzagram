@@ -33,7 +33,11 @@ export async function addComment(
   await postDoc.update({
     comments: [
       ...lastThreeComments,
-      { [commentData.userId]: commentData.comment },
+      {
+        comment: commentData.comment,
+        id: snap.id,
+        userId: [commentData.userId],
+      },
     ],
   })
 }

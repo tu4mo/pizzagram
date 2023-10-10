@@ -36,8 +36,11 @@ if (import.meta.env.DEV) {
 
 export const QUERY_LIMIT = 9
 
+export type PostComment = { comment: string; id: string; userId: string }
+
 export type Post = {
   caption: string
+  comments?: PostComment[]
   createdAt: Date
   doc: DocumentSnapshot<any>
   id: string
