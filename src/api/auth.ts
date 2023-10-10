@@ -62,7 +62,6 @@ export const signUp = async (
   await setDoc(docRef, {
     createdAt: serverTimestamp(),
     id: null,
-    name: username,
   })
 
   try {

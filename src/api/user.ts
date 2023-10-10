@@ -16,7 +16,6 @@ export type User = {
   createdAt: Date
   gravatar: string
   id: string
-  name: string
   posts: number
   username: string
 }
