@@ -8,11 +8,15 @@ service cloud.firestore {
 
     match /comments/{commentId} {
       allow read;
+      allow create: if request.resource.data.size() == 3
+        && request.resource.data.comment is string
+        && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
+        && request.auth.uid == request.resource.data.userId;
     }
 
     match /likes/{likeId} {
       allow read;
-      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId 
+      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId
         && request.resource.data.size() == 2
         && request.resource.data.postId is string
         && request.resource.data.userId is string;
