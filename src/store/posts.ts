@@ -23,13 +23,9 @@ export const getPost = async (id: string, force = false) => {
   const post = await api.fetchPost(id)
 
   if (post) {
-    postsStore.posts = {
-      ...postsStore.posts,
-      [post.id]: post,
-    }
+    postsStore.posts[post.id] = post
+    return postsStore.posts[post.id]
   }
-
-  return post
 }
 
 export const getPostsByFeed = (feed?: string) => {
@@ -93,10 +89,10 @@ export const toggleLike = async (postId: string) => {
   const userId = authStore.userId
 
   if (likes.includes(userId)) {
-    postsStore.posts[postId].likes = likes.filter((userId) => userId !== userId)
+    postsStore.posts[postId].likes = likes.filter((like) => like !== userId)
+    await api.dislikePost(postId)
   } else {
     postsStore.posts[postId].likes = [...likes, userId]
+    await api.likePost(postId)
   }
-
-  await api.toggleLike(postId)
 }

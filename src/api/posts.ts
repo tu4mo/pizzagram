@@ -146,7 +146,18 @@ export const removePost = async (id: string) => {
   await deleteDoc(doc(postsCollection, id))
 }
 
-export const toggleLike = async (postId: string) => {
+export const likePost = async (postId: string) => {
+  const user = currentUser()
+
+  if (!user) {
+    return
+  }
+
+  const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+  await setDoc(likeDoc, { postId, userId: user.uid })
+}
+
+export const dislikePost = async (postId: string) => {
   const user = currentUser()
 
   if (!user) {
@@ -158,8 +169,6 @@ export const toggleLike = async (postId: string) => {
 
   if (snapshot.exists()) {
     await deleteDoc(likeDoc)
-  } else {
-    await setDoc(likeDoc, { postId, userId: user.uid })
   }
 }
 

@@ -1,10 +1,10 @@
 <template>
-  <BaseSpinner v-if="!singlePost" />
+  <BaseSpinner v-if="!post" />
   <DefaultLayout v-else>
     <div class="post-view">
       <BasePost
         :is-removable="isMe"
-        :post="singlePost"
+        :post="post"
         @remove-click="onRemoveClick"
       />
     </div>
@@ -18,34 +18,36 @@
   import BaseSpinner from '@/components/BaseSpinner.vue'
 
   import { getIsMe } from '@/store/auth'
-  import { computed, ref, watch } from 'vue'
-  import type { Post } from '@/api/posts'
+  import { postsStore } from '@/store/posts'
+  import { computed, watch } from 'vue'
   import { getPost, removePost } from '@/store/posts'
   import { useRoute, useRouter } from 'vue-router'
   import { setTitle } from '@/title'
 
   const route = useRoute()
   const router = useRouter()
-  const postId = route.params.postId
-  const singlePost = ref<Post | undefined>(undefined)
-  const isMe = computed(() => getIsMe(singlePost.value?.userId))
+  const postId = computed(() =>
+    typeof route.params.postId === 'string' ? route.params.postId : undefined,
+  )
+  const post = computed(() =>
+    postId.value ? postsStore.posts[postId.value] : undefined,
+  )
+  const isMe = computed(() => getIsMe(post.value?.userId))
 
   watch(
     () => route.params.postId,
     async (postId) => {
-      if (postId && typeof postId === 'string') {
-        singlePost.value = undefined
-        singlePost.value = await getPost(postId)
-
-        setTitle(singlePost.value?.caption, true)
+      if (typeof postId === 'string') {
+        const post = await getPost(postId)
+        setTitle(post?.caption, true)
       }
     },
     { immediate: true },
   )
 
   const onRemoveClick = () => {
-    if (postId && typeof postId === 'string') {
-      removePost(postId)
+    if (postId.value && typeof postId.value === 'string') {
+      removePost(postId.value)
       router.go(-1)
     }
   }
