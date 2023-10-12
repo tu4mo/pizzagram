@@ -79,7 +79,7 @@
 
   const onShareClick = async () => {
     if (!navigator.share) {
-      alert("Sorry, you're browser doesn't seem to support Web Share.")
+      alert("Sorry, your browser doesn't seem to support Web Share.")
     }
 
     try {
