@@ -36,7 +36,8 @@ export async function addComment(
       {
         comment: commentData.comment,
         id: snap.id,
-        userId: [commentData.userId],
+        userId: commentData.userId,
+        username: commentData.username,
       },
     ],
   })
