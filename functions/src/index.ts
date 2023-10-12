@@ -54,6 +54,6 @@ exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
 )
 
 exports.verifyimage = functionsV2.https.onCall(
-  { cors: true, memory: '1GiB' },
+  { cors: [/pizzagram\.cc$/, 'pizzagram.cc'], memory: '1GiB' },
   verifyImage,
 )
