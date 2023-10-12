@@ -11,7 +11,7 @@ service cloud.firestore {
       allow create: if request.resource.data.size() == 3
         && request.resource.data.comment is string
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
-        && request.auth.uid == get(/databases/$(database)/documents/users/$(request.resource.username)).id;
+        && request.auth.uid == request.resource.data.userId;
     }
 
     match /likes/{likeId} {
