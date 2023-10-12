@@ -27,6 +27,18 @@ export async function addComment(
     return
   }
 
+  const users = await db
+    .collection('users')
+    .where('id', '==', commentData.userId)
+    .limit(1)
+    .get()
+
+  if (users.empty) {
+    return
+  }
+
+  const username = users.docs[0].id
+
   console.log(`Updating comments on post ${commentData.postId}`)
 
   const lastThreeComments = (postData.comments ?? []).slice(-2)
@@ -37,7 +49,7 @@ export async function addComment(
         comment: commentData.comment,
         id: snap.id,
         userId: commentData.userId,
-        username: commentData.username,
+        username,
       },
     ],
   })
