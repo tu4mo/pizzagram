@@ -28,11 +28,12 @@
   .input {
     appearance: none;
     background-color: var(--color-background);
-    border: 1px solid var(--color-light);
     border-radius: 0.25rem;
+    border: 1px solid var(--color-light);
     display: block;
     font-size: var(--font-size-md);
     line-height: 1;
+    outline-color: var(--color-secondary);
     padding: 1rem;
     width: 100%;
   }
@@ -40,5 +41,9 @@
   .input--borderless {
     border: 0;
     padding: 0;
+  }
+
+  .input:disabled {
+    background-color: var(--color-light);
   }
 </style>
