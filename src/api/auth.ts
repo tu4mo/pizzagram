@@ -13,6 +13,7 @@ import {
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth'
 
 import { auth, firestore } from '.'
@@ -78,6 +79,8 @@ export const signUp = async (
   if (!user) {
     return
   }
+
+  await updateProfile(user, { displayName: username })
 
   await updateDoc(docRef, { gravatar, id: user.uid })
 
