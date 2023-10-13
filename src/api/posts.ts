@@ -17,16 +17,11 @@ import {
   where,
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  httpsCallable,
-} from 'firebase/functions'
+import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
 
-import { firestore, storage } from '.'
+import { firestore, functions, storage } from '.'
 import { currentUser } from './auth'
 
-const functions = getFunctions()
 const storageRef = ref(storage)
 const postsCollection = collection(firestore, 'posts')
 
