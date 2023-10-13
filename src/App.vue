@@ -53,13 +53,7 @@
 
   body {
     background-color: var(--color-background);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     line-height: 1.5;
-  }
-
-  @media (min-width: 640px) {
-    body {
-      font-size: var(--font-size-md);
-    }
   }
 </style>

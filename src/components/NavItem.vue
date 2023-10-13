@@ -63,6 +63,10 @@
     color: var(--color-primary);
   }
 
+  .nav-item__icon {
+    position: relative;
+  }
+
   .nav-item__badge {
     align-items: center;
     background-color: var(--color-primary);
@@ -76,8 +80,8 @@
     min-width: 1rem;
     padding: 0 0.25rem;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: -0.25rem;
+    top: -0.25rem;
   }
 
   .nav-item__title {
