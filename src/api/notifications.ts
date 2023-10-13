@@ -52,6 +52,7 @@ export const subscribeToNotifications = (
     for await (const doc of querySnapshot.docs) {
       const data = doc.data()
       const from = await fetchUser(data.fromUserId)
+
       notifications.push({
         ...data,
         createdAt: data.createdAt.toDate(),
