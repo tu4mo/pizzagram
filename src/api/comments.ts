@@ -1,6 +1,14 @@
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore'
 
 import { firestore } from '.'
+import { currentUser } from './auth'
 
 const commentsCollection = collection(firestore, 'comments')
 
@@ -11,9 +19,7 @@ export type Comment = {
   userId: string
 }
 
-export const fetchComments = async (postId: string) => {
-  const comments: Comment[] = []
-
+export async function fetchComments(postId: string) {
   const querySnapshot = await getDocs(
     query(
       commentsCollection,
@@ -22,7 +28,25 @@ export const fetchComments = async (postId: string) => {
     ),
   )
 
-  querySnapshot.docs.forEach((doc) => comments.push(doc.data() as Comment))
+  return querySnapshot.docs.map((doc) => doc.data() as Comment)
+}
 
-  return comments
+export async function addComment({
+  comment,
+  postId,
+}: {
+  comment: string
+  postId: string
+}) {
+  const user = currentUser()
+
+  if (!user) {
+    return
+  }
+
+  await addDoc(commentsCollection, {
+    comment,
+    postId,
+    userId: user.uid,
+  })
 }
