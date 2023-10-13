@@ -27,7 +27,8 @@
 
   const handleScroll = async () => {
     if (
-      window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+      window.innerHeight + Math.round(window.scrollY) >=
+        document.body.offsetHeight &&
       !postsStore.isLastPostReached &&
       !postsStore.isLoading
     ) {
