@@ -36,7 +36,12 @@ if (import.meta.env.DEV) {
 
 export const QUERY_LIMIT = 9
 
-export type PostComment = { comment: string; id: string; userId: string }
+export type PostComment = {
+  comment: string
+  id: string
+  userId: string
+  username: string
+}
 
 export type Post = {
   caption: string
@@ -59,9 +64,7 @@ export const subscribeToPosts = (callback: (posts: Post[]) => void) => {
   )
 
   return onSnapshot(q, async (querySnapshot) => {
-    const posts: Post[] = []
-    querySnapshot.forEach((doc) => posts.push(createPostObject(doc)))
-    callback(posts)
+    callback(querySnapshot.docs.map(createPostObject))
   })
 }
 
@@ -76,12 +79,8 @@ export const fetchPosts = async ({
     after ? startAfter(after) : undefined,
   ].filter(Boolean) as QueryConstraint[]
 
-  const posts: Post[] = []
-
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
-  querySnapshot.docs.forEach((doc) => posts.push(createPostObject(doc)))
-
-  return posts
+  return querySnapshot.docs.map(createPostObject)
 }
 
 export const fetchPost = async (id: string) => {
