@@ -15,7 +15,7 @@
     "@sentry/tracing": "7.73.0",
     "@sentry/vue": "7.73.0",
     "feather-icons": "4.29.1",
-    "firebase": "10.4.0",
+    "firebase": "10.5.0",
     "md5": "2.3.0",
     "vue": "3.3.4",
     "vue-router": "4.2.5"
