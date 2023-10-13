@@ -1,39 +1,62 @@
 <template>
   <RouterLink
+    v-if="!custom"
     :exact="exact"
     :to="to"
     active-class="nav-item--active"
     class="nav-item"
   >
-    <BaseIcon :name="icon" />
-    <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
+    <div class="nav-item__icon">
+      <BaseIcon :name="icon" />
+      <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
+    </div>
+    <div class="nav-item__title">{{ title }}</div>
   </RouterLink>
+  <template v-else>
+    <label
+      :class="['nav-item', { 'nav-item--active': route.name === to.name }]"
+    >
+      <div class="nav-item__icon">
+        <BaseIcon :name="icon" />
+      </div>
+      <div class="nav-item__title">{{ title }}</div>
+      <slot />
+    </label>
+  </template>
 </template>
 
 <script setup lang="ts">
-  import { type RouterLinkProps } from 'vue-router'
+  import { type RouteLocationNamedRaw, useRoute } from 'vue-router'
   import BaseIcon from './BaseIcon.vue'
 
   type Props = {
     badge?: number | string
+    custom?: boolean
     exact?: boolean
     icon: InstanceType<typeof BaseIcon>['$props']['name']
-    to: RouterLinkProps['to']
+    title: string
+    to: RouteLocationNamedRaw
   }
 
   defineProps<Props>()
+
+  const route = useRoute()
 </script>
 
 <style scoped>
   .nav-item {
     color: var(--color-secondary);
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
     padding: 0.5rem;
     position: relative;
+    text-decoration: none;
     transition: transform var(--transition-fast);
   }
 
   .nav-item:active {
-    transform: scale(0.9);
+    transform: var(--button-scale);
   }
 
   .nav-item--active {
@@ -55,5 +78,14 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+
+  .nav-item__title {
+    display: none;
+    font-weight: bold;
+
+    @media (min-width: 1024px) {
+      display: block;
+    }
   }
 </style>

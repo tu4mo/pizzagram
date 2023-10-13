@@ -43,7 +43,7 @@
   }
 
   .button:active {
-    transform: scale(0.9);
+    transform: var(--button-scale);
   }
 
   .button--secondary {

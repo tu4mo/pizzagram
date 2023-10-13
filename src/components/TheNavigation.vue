@@ -7,28 +7,27 @@
           class="navigation__item"
           exact
           icon="home"
-        >
-          Home
+          title="Home"
+        />
+        <NavItem icon="camera" :to="{ name: 'upload' }" custom title="Upload">
+          <TheCamera class="navigation__item" />
         </NavItem>
-        <TheCamera class="navigation__item" />
         <NavItem
           v-if="isDevelopment"
           :to="{ name: 'top' }"
           class="navigation__item"
           exact
           icon="star"
-        >
-          Top Posts
-        </NavItem>
+          title="Top Posts"
+        />
         <NavItem
           :badge="notifications"
           :to="{ name: 'notifications' }"
           class="navigation__item"
           exact
           icon="bell"
-        >
-          Notifications
-        </NavItem>
+          title="Notifications"
+        />
         <NavItem
           :to="{
             name: 'profile',
@@ -37,9 +36,8 @@
           class="navigation__item"
           exact
           icon="user"
-        >
-          Profile
-        </NavItem>
+          title="Profile"
+        />
       </template>
       <template v-else>
         <NavItem
@@ -47,9 +45,8 @@
           class="navigation__item"
           exact
           icon="user"
-        >
-          Log In
-        </NavItem>
+          title="Log In"
+        />
       </template>
     </div>
   </nav>

@@ -8,6 +8,8 @@
 
 <style>
   :root {
+    --button-scale: scale(0.94);
+
     --color-background: #fff;
     --color-background-rgb: 255, 255, 255;
     --color-gray: #aaa;
@@ -41,7 +43,7 @@
 
   html {
     box-sizing: border-box;
-    font-family: 'Comfortaa', Helvetica, Arial, sans-serif;
+    font-family: 'DM Sans', Helvetica, Arial, sans-serif;
     touch-action: manipulation;
     user-select: none;
     -webkit-font-smoothing: antialiased;
