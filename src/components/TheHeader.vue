@@ -42,7 +42,7 @@
     }
 
     .header__title {
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .header--has-title .header__logo {
