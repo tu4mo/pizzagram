@@ -35,23 +35,14 @@
 <style scoped>
   .post-image {
     display: block;
-    position: relative;
     transition: transform 0.2s ease;
   }
 
-  .post-image::before {
-    content: '';
-    display: block;
-    padding-top: 100%;
-  }
-
   .post-image__image {
+    aspect-ratio: 1 / 1;
     background-color: var(--color-light);
-    height: 100%;
-    left: 0;
+    display: block;
     object-fit: cover;
-    position: absolute;
-    top: 0;
     width: 100%;
   }
 
