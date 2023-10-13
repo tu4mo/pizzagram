@@ -11,7 +11,6 @@ import type { User } from 'firebase/auth'
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
@@ -21,7 +20,10 @@ import { auth, firestore } from '.'
 export const sendPasswordResetEmail = (email: string) =>
   firebaseSendPasswordResetEmail(auth, email)
 
-export const currentUser = () => auth.currentUser
+export const currentUser = async () => {
+  await auth.authStateReady()
+  return auth.currentUser
+}
 
 let isSigningUp = false
 
@@ -36,13 +38,6 @@ export const setOnAuthStateChangedCallback = (
 ) => {
   onAuthStateChangedCallback = callback
 }
-
-export const initializeAuth = () =>
-  new Promise<User | null>((resolve) => {
-    onAuthStateChanged(auth, (user) => {
-      resolve(user)
-    })
-  })
 
 export const signUp = async (
   username: string,
@@ -74,7 +69,7 @@ export const signUp = async (
 
   const gravatar = md5(email.toLowerCase())
 
-  const user = currentUser()
+  const user = await currentUser()
 
   if (!user) {
     return

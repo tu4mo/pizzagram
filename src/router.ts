@@ -11,26 +11,10 @@ const SignUp = () => import('./views/SignUp.vue')
 const Top = () => import('./views/Top.vue')
 const Upload = () => import('./views/Upload.vue')
 
-import { currentUser, initializeAuth } from './api/auth'
-
-let firstCheck = true
+import { currentUser } from './api/auth'
 
 const checkAutentication: NavigationGuard = async (to, from, next) => {
-  if (firstCheck) {
-    firstCheck = false
-
-    const user = await initializeAuth()
-
-    if (user) {
-      next()
-    } else {
-      next({ name: 'login' })
-    }
-
-    return
-  }
-
-  if (currentUser()) {
+  if (await currentUser()) {
     next()
   } else {
     next({ name: 'login' })
@@ -38,9 +22,7 @@ const checkAutentication: NavigationGuard = async (to, from, next) => {
 }
 
 const disallowLoggedUser: NavigationGuard = async (to, from, next) => {
-  const user = await initializeAuth()
-
-  if (user) {
+  if (await currentUser()) {
     next({ name: 'home' })
   } else {
     next()

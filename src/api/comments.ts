@@ -38,7 +38,7 @@ export async function addComment({
   comment: string
   postId: string
 }) {
-  const user = currentUser()
+  const user = await currentUser()
 
   if (!user) {
     return

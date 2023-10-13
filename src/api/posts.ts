@@ -112,7 +112,7 @@ export const sharePost = async ({
   caption: string
   file: File
 }) => {
-  const user = currentUser()
+  const user = await currentUser()
 
   if (!user) {
     return
@@ -146,7 +146,7 @@ export const removePost = async (id: string) => {
 }
 
 export const likePost = async (postId: string) => {
-  const user = currentUser()
+  const user = await currentUser()
 
   if (!user) {
     return
@@ -157,7 +157,7 @@ export const likePost = async (postId: string) => {
 }
 
 export const dislikePost = async (postId: string) => {
-  const user = currentUser()
+  const user = await currentUser()
 
   if (!user) {
     return

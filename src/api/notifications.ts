@@ -28,10 +28,10 @@ export type Notification = {
   userId: string
 }
 
-export const subscribeToNotifications = (
+export async function subscribeToNotifications(
   callback: (notifications: Notification[]) => void,
-) => {
-  const user = currentUser()
+) {
+  const user = await currentUser()
 
   if (!user) {
     return
@@ -65,8 +65,8 @@ export const subscribeToNotifications = (
   })
 }
 
-export const markNotificationsAsRead = async () => {
-  const user = currentUser()
+export async function markNotificationsAsRead() {
+  const user = await currentUser()
 
   if (!user) {
     return
