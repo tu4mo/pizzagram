@@ -1,11 +1,21 @@
 import * as admin from 'firebase-admin'
+import type {
+  FirestoreEvent,
+  QueryDocumentSnapshot,
+} from 'firebase-functions/v2/firestore'
 
 export async function updateLikes(
-  snapshot: admin.firestore.QueryDocumentSnapshot,
+  event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
   db: admin.firestore.Firestore,
   add: boolean,
 ) {
-  const like = snapshot.data()
+  const snap = event.data
+
+  if (!snap) {
+    return
+  }
+
+  const like = snap.data()
   const post = await db.collection('posts').doc(like.postId).get()
 
   if (!post.exists) {

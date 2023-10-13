@@ -31,18 +31,19 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
   (snapshot) => addComment(snapshot, db),
 )
 
-exports.onCreateLike = functions.firestore
-  .document('likes/{likeId}')
-  .onCreate((snapshot) =>
+exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
+  'likes/{likeId}',
+  (snapshot) =>
     Promise.all([
       addNotification(snapshot, db, NotificationType.Like),
       updateLikes(snapshot, db, true),
     ]),
-  )
+)
 
-exports.deleteLike = functions.firestore
-  .document('likes/{likeId}')
-  .onDelete((snapshot) => updateLikes(snapshot, db, false))
+exports.deleteLike = functionsV2.firestore.onDocumentDeleted(
+  'likes/{likeId}',
+  (snapshot) => updateLikes(snapshot, db, false),
+)
 
 exports.deleteUser = functions.auth
   .user()
@@ -53,7 +54,4 @@ exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   (event) => Promise.all([resizeImage(event, true), resizeImage(event, false)]),
 )
 
-exports.verifyimage = functionsV2.https.onCall(
-  { cors: [/pizzagram\.cc$/, 'pizzagram.cc'], memory: '1GiB' },
-  verifyImage,
-)
+exports.verifyimage = functionsV2.https.onCall({ memory: '1GiB' }, verifyImage)

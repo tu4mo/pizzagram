@@ -1,14 +1,24 @@
 import type * as admin from 'firebase-admin'
+import type {
+  FirestoreEvent,
+  QueryDocumentSnapshot,
+} from 'firebase-functions/v2/firestore'
 
 export enum NotificationType {
   Like = 'LIKE',
 }
 
 export async function addNotification(
-  snap: admin.firestore.QueryDocumentSnapshot,
+  event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
   db: admin.firestore.Firestore,
   notificationType: NotificationType,
 ) {
+  const snap = event.data
+
+  if (!snap) {
+    return
+  }
+
   const notifications = db.collection('notifications')
 
   if (notificationType === NotificationType.Like) {
