@@ -46,7 +46,7 @@ export const initializeAuthCallback = () =>
           })
         })
 
-        unsubscribeToNotifications = subscribeToNotifications(
+        unsubscribeToNotifications = await subscribeToNotifications(
           (notifications) => {
             notificationsStore.notifications = notifications
           },
