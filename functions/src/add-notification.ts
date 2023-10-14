@@ -45,15 +45,18 @@ export async function addNotification(
       return
     }
 
-    const notification = await notifications
-      .where('fromUserId', '==', userId)
-      .where('postId', '==', postId)
-      .where('type', '==', notificationType)
-      .where('userId', '==', postData.userId)
-      .get()
+    // Don't send multiple like notifications for the same post
+    if (notificationType === NotificationType.Like) {
+      const notification = await notifications
+        .where('fromUserId', '==', userId)
+        .where('postId', '==', postId)
+        .where('type', '==', notificationType)
+        .where('userId', '==', postData.userId)
+        .get()
 
-    if (!notification.empty) {
-      return
+      if (!notification.empty) {
+        return
+      }
     }
 
     await notifications.add({
@@ -62,7 +65,7 @@ export async function addNotification(
       imageUrl: postData.imageUrl,
       postId,
       read: false,
-      type: NotificationType.Like,
+      type: notificationType,
       userId: postData.userId,
     })
 
