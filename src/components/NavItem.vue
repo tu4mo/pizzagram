@@ -87,8 +87,10 @@
   .nav-item__title {
     display: none;
     font-weight: bold;
+  }
 
-    @media (min-width: 1024px) {
+  @media (min-width: 1024px) {
+    .nav-item__title {
       display: block;
     }
   }
