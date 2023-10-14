@@ -4,7 +4,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-export async function addComment(
+export async function addCommentToPost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
   db: admin.firestore.Firestore,
 ) {

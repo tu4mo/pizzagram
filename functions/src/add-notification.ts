@@ -22,7 +22,10 @@ export async function addNotification(
 
   const notifications = db.collection('notifications')
 
-  if (notificationType === NotificationType.Like) {
+  if (
+    notificationType === NotificationType.Like ||
+    notificationType === NotificationType.Comment
+  ) {
     const data = snap.data()
 
     if (!data) {
