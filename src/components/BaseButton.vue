@@ -42,7 +42,7 @@
     opacity: 0.5;
   }
 
-  .button:active {
+  .button:not(:disabled):active {
     transform: var(--button-scale);
   }
 

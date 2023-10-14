@@ -23,16 +23,14 @@
         <BaseButton secondary @click="onShareClick">
           <BaseIcon name="share" />
         </BaseButton>
-        <BaseButton :secondary="!hasLiked" @click="onLikeClick">
-          <BaseIcon :fill="hasLiked" name="heart" />
-        </BaseButton>
+        <PostLike :post="post" />
       </div>
     </footer>
   </article>
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue'
+  import { ref, watch } from 'vue'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
@@ -41,9 +39,9 @@
   import { authStore } from '@/store/auth'
   import type { User } from '@/api/user'
   import { fetchUser } from '@/api/user'
-  import { toggleLike } from '@/store/posts'
   import type { Post } from '@/api/posts'
   import type { RouterLinkProps } from 'vue-router'
+  import PostLike from './PostLike.vue'
 
   type Props = {
     imageTo?: RouterLinkProps['to']
@@ -67,10 +65,6 @@
     { immediate: true },
   )
 
-  const onLikeClick = async () => {
-    await toggleLike(props.post.id)
-  }
-
   const onRemoveClick = () => {
     if (confirm('Are you sure you want to remove this post?')) {
       emit('remove-click')
@@ -92,8 +86,6 @@
       //
     }
   }
-
-  const hasLiked = computed(() => props.post.likes?.includes(authStore.userId))
 </script>
 
 <style scoped>
