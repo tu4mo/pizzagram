@@ -59,6 +59,6 @@ exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
 )
 
 exports.verifyimage = functionsV2.https.onCall(
-  { enforceAppCheck: true, memory: '1GiB' },
+  { cors: true, enforceAppCheck: true, memory: '1GiB' },
   verifyImage,
 )
