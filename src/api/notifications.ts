@@ -16,6 +16,8 @@ import { fetchUser } from './user'
 
 const notifications = collection(firestore, 'notifications')
 
+export type NotificationType = 'COMMENT' | 'LIKE'
+
 export type Notification = {
   createdAt: Date
   from: User
@@ -24,7 +26,7 @@ export type Notification = {
   imageUrl: string
   postId: string
   read: boolean
-  type: 'LIKE'
+  type: NotificationType
   userId: string
 }
 

@@ -8,7 +8,10 @@
         v-for="(notification, index) in notificationsStore.notifications"
         :key="index"
       >
-        <li v-if="notification.type === 'LIKE'" class="notification">
+        <li
+          v-if="notification.type === 'LIKE' || notification.type === 'COMMENT'"
+          class="notification"
+        >
           <ProfilePhoto
             as-link
             class="notification__profile"
@@ -29,7 +32,7 @@
             >
               {{ notification.from.username }}
             </BaseLink>
-            liked your
+            {{ getNotificationVerb(notification.type) }} your
             <BaseLink
               :to="{ name: 'post', params: { postId: notification.postId } }"
             >
@@ -59,7 +62,10 @@
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
 
-  import { markNotificationsAsRead } from '@/api/notifications'
+  import {
+    markNotificationsAsRead,
+    type NotificationType,
+  } from '@/api/notifications'
   import {
     getUnreadNotificationsCount,
     notificationsStore,
@@ -73,6 +79,17 @@
       await markNotificationsAsRead()
     }
   })
+
+  const getNotificationVerb = (notificationType: NotificationType) => {
+    switch (notificationType) {
+      case 'COMMENT':
+        return 'commented on'
+      case 'LIKE':
+        return 'liked'
+      default:
+        return ''
+    }
+  }
 </script>
 
 <style scoped>

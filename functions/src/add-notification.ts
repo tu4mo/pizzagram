@@ -35,10 +35,13 @@ export async function addNotification(
     const { postId, userId } = data
 
     const post = await db.collection('posts').doc(postId).get()
-
     const postData = post.data()
 
-    if (!postData || postData.userId === userId) {
+    if (
+      !postData ||
+      // If the post was created by the user, don't send a notification
+      postData.userId === userId
+    ) {
       return
     }
 
