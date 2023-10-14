@@ -5,6 +5,7 @@ import type {
 } from 'firebase-functions/v2/firestore'
 
 export enum NotificationType {
+  Comment = 'COMMENT',
   Like = 'LIKE',
 }
 

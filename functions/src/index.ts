@@ -28,7 +28,11 @@ exports.updatePost = functionsV2.firestore.onDocumentUpdated(
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
-  (snapshot) => addComment(snapshot, db),
+  (snapshot) =>
+    Promise.all([
+      addComment(snapshot, db),
+      addNotification(snapshot, db, NotificationType.Comment),
+    ]),
 )
 
 exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
