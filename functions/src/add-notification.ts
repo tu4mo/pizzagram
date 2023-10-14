@@ -45,7 +45,7 @@ export async function addNotification(
     const notification = await notifications
       .where('fromUserId', '==', userId)
       .where('postId', '==', postId)
-      .where('type', '==', NotificationType.Like)
+      .where('type', '==', notificationType)
       .where('userId', '==', postData.userId)
       .get()
 
