@@ -18,6 +18,11 @@ const app = initializeApp({
   appId: '1:393669371775:web:7334a83ecef631ecea9c4a',
 })
 
+if (import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN) {
+  ;(self as any).FIREBASE_APPCHECK_DEBUG_TOKEN =
+    import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN
+}
+
 initializeAppCheck(app, {
   provider: new ReCaptchaEnterpriseProvider(
     '6Le45JcoAAAAANUxNTA8_81bzHFYX1hOdUFs0SGV',

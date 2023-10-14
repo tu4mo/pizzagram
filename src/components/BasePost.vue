@@ -3,7 +3,9 @@
     <div class="post__header">
       <PostHeader :created-at="post.createdAt" :user="user" />
     </div>
-    <PostImage :image-url="post.imageUrl" :to="imageTo" />
+    <div class="post__image">
+      <PostImage :image-url="post.imageUrl" :to="imageTo" rounded />
+    </div>
     <footer class="post__footer">
       <div class="post__info">
         <div
@@ -134,6 +136,10 @@
 
     .post__header {
       padding: 2rem;
+    }
+
+    .post__image {
+      margin: 0 2rem;
     }
 
     .post__footer {
