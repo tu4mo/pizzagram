@@ -9,15 +9,9 @@ import {
 
 import { firestore } from '.'
 import { currentUser } from './auth'
+import type { Comment } from './types'
 
 const commentsCollection = collection(firestore, 'comments')
-
-export type Comment = {
-  comment: string
-  createdAt: Date
-  postId: string
-  userId: string
-}
 
 export async function fetchComments(postId: string) {
   const querySnapshot = await getDocs(
