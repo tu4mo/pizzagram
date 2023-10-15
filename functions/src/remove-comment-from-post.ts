@@ -33,7 +33,7 @@ export async function removeCommentFromPost(
     (postComment) => postComment.id === commentId,
   )
 
-  if (postComment) {
+  if (!postComment) {
     console.log('No comment to remove from post')
     return
   }
@@ -41,9 +41,7 @@ export async function removeCommentFromPost(
   await db
     .collection('posts')
     .doc(post.id)
-    .update({
-      comments: admin.firestore.FieldValue.arrayRemove(postComment),
-    })
+    .update({ comments: admin.firestore.FieldValue.arrayRemove(postComment) })
 
   console.log(`Comment removed`)
 }
