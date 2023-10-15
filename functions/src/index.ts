@@ -10,6 +10,7 @@ import { resizeImage } from './resize-image'
 import { updateLikes } from './update-likes'
 import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
+import { removeCommentFromPost } from './remove-comment-from-post'
 
 admin.initializeApp()
 
@@ -33,6 +34,11 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
       addCommentToPost(snapshot, db),
       addNotification(snapshot, db, NotificationType.Comment),
     ]),
+)
+
+exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
+  'comments/{commentId}',
+  (snapshot) => removeCommentFromPost(snapshot, db),
 )
 
 exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
