@@ -3,7 +3,10 @@ import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
-import { type Comment } from '../../src/api/comments'
+
+type Comment = {
+  userId: string
+}
 
 export async function removeCommentFromPost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
