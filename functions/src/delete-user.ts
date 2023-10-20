@@ -1,4 +1,4 @@
-import type * as admin from 'firebase-admin'
+import * as admin from 'firebase-admin'
 import { Storage } from '@google-cloud/storage'
 const storage = new Storage()
 const bucket = storage.bucket('gs://pizzagram-cc.appspot.com')
@@ -12,6 +12,8 @@ export async function deleteUser(
 
   console.log(`Removing ${email} (${uid})...`)
 
+  const postsCollection = db.collection('posts')
+
   // Remove comments
   const commentsCollection = db.collection('comments')
   const comments = await commentsCollection.where('userId', '==', uid).get()
@@ -24,6 +26,16 @@ export async function deleteUser(
   const likes = await likesCollection.where('userId', '==', uid).get()
   likes.forEach((doc) => {
     deleteBatch.delete(likesCollection.doc(doc.id))
+  })
+
+  // Remove likes from posts
+  const postsWithLikes = await postsCollection
+    .where(`likes.${uid}`, '==', true)
+    .get()
+  postsWithLikes.forEach((doc) => {
+    deleteBatch.update(postsCollection.doc(doc.id), {
+      [`likes.${uid}`]: admin.firestore.FieldValue.delete(),
+    })
   })
 
   // Remove notifications to user
@@ -42,7 +54,6 @@ export async function deleteUser(
   })
 
   // Remove posts
-  const postsCollection = db.collection('posts')
   const posts = await postsCollection.where('userId', '==', uid).get()
 
   const files: Promise<any>[] = []
