@@ -85,7 +85,7 @@ export const removePost = async (id: string) => {
 }
 
 export const toggleLike = async (postId: string) => {
-  const likes = postsStore.posts[postId].likes || {}
+  const likes = postsStore.posts[postId]?.likes ?? {}
   const userId = authStore.userId
 
   if (userId in likes) {
