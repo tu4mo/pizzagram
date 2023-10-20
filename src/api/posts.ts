@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -149,6 +150,9 @@ export const likePost = async (postId: string) => {
 
   const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
   await setDoc(likeDoc, { postId, userId: user.uid })
+
+  const postDoc = doc(firestore, 'posts', postId)
+  await updateDoc(postDoc, { [`likes.${user.uid}`]: true })
 }
 
 export const dislikePost = async (postId: string) => {
@@ -164,6 +168,9 @@ export const dislikePost = async (postId: string) => {
   if (snapshot.exists()) {
     await deleteDoc(likeDoc)
   }
+
+  const postDoc = doc(firestore, 'posts', postId)
+  await updateDoc(postDoc, { [`likes.${user.uid}`]: deleteField() })
 }
 
 export const verifyImage = async (image: string) => {

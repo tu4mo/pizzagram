@@ -50,8 +50,8 @@ service cloud.firestore {
         && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption']));
 
       allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
-        && request.resource.data.likes.keys().hasOnly([request.auth.uid])
-        && request.resource.data.likes[request.auth.uid] == true;
+        && request.resource.data.likes.diff(resource.data.likes).affectedKeys().hasOnly([request.auth.uid])
+        && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes));
    
       allow delete: if request.auth.uid == resource.data.userId;
     }

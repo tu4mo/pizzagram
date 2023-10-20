@@ -7,7 +7,6 @@ import { addNotification, NotificationType } from './add-notification'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
 import { resizeImage } from './resize-image'
-import { updateLikes } from './update-likes'
 import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
 import { removeCommentFromPost } from './remove-comment-from-post'
@@ -43,16 +42,7 @@ exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
 
 exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
   'likes/{likeId}',
-  (snapshot) =>
-    Promise.all([
-      addNotification(snapshot, db, NotificationType.Like),
-      updateLikes(snapshot, db, true),
-    ]),
-)
-
-exports.deleteLike = functionsV2.firestore.onDocumentDeleted(
-  'likes/{likeId}',
-  (snapshot) => updateLikes(snapshot, db, false),
+  (snapshot) => addNotification(snapshot, db, NotificationType.Like),
 )
 
 exports.deleteUser = functions.auth
