@@ -11,9 +11,17 @@ export async function verifyImage(callableRequest: CallableRequest<Data>) {
   const imageBuffer = Buffer.from(base64Image, 'base64')
   const imgTensor = tf.node.decodeImage(new Uint8Array(imageBuffer), 3)
 
-  const model = await cocoSsd.load()
-  const predictions = await model.detect(imgTensor as any)
-  const isPizza = predictions.some((prediction) => prediction.class === 'pizza')
+  try {
+    const model = await cocoSsd.load()
+    const predictions = await model.detect(imgTensor as any)
+    const isPizza = predictions.some(
+      (prediction) => prediction.class === 'pizza',
+    )
 
-  return isPizza
+    return isPizza
+  } catch (error) {
+    console.error(error)
+  }
+
+  return false
 }
