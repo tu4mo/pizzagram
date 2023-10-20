@@ -42,10 +42,17 @@ service cloud.firestore {
       allow create: if request.resource.data.userId == request.auth.uid
         && request.resource.data.published == false
         && !('likes' in request.resource.data);
+
       allow read: if resource.data.published == true
         || request.auth.uid == resource.data.userId;
+
       allow update: if request.auth.uid == resource.data.userId
         && (resource.data.published == false || request.resource.data.keys().hasOnly(['caption']));
+
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+        && request.resource.data.likes.keys().hasOnly([request.auth.uid])
+        && request.resource.data.likes[request.auth.uid] == true;
+   
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
