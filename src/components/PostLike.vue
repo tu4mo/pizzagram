@@ -9,26 +9,27 @@
 </template>
 
 <script setup lang="ts">
-  import type { Post } from '@/api/posts'
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
   import { computed, ref } from 'vue'
-  import { toggleLike } from '@/store/posts'
+  import { postsStore, toggleLike } from '@/store/posts'
   import { authStore } from '@/store/auth'
 
   type Props = {
-    post: Post
+    postId: string
   }
 
-  const { post } = defineProps<Props>()
+  const { postId } = defineProps<Props>()
 
   const isLikeClicked = ref(false)
 
   const onLikeClick = async () => {
     isLikeClicked.value = true
-    await toggleLike(post.id)
+    await toggleLike(postId)
     isLikeClicked.value = false
   }
 
-  const hasLiked = computed(() => post.likes?.includes(authStore.userId))
+  const hasLiked = computed(
+    () => authStore.userId in postsStore.posts[postId].likes,
+  )
 </script>

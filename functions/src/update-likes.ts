@@ -26,14 +26,14 @@ export async function updateLikes(
     await db
       .collection('posts')
       .doc(post.id)
-      .update({ likes: admin.firestore.FieldValue.arrayUnion(like.userId) })
+      .update({ [`likes.${like.userId}`]: true })
 
     console.log(`Added ${like.userId} to ${post.id} likes`)
   } else {
     await db
       .collection('posts')
       .doc(post.id)
-      .update({ likes: admin.firestore.FieldValue.arrayRemove(like.userId) })
+      .update({ [`likes.${like.userId}`]: admin.firestore.FieldValue.delete() })
 
     console.log(`Removed ${like.userId} from ${post.id} likes`)
   }

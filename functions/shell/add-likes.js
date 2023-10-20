@@ -1,5 +1,5 @@
 const admin = require('firebase-admin')
-const serviceAccount = require('./service-account-key.json')
+const serviceAccount = require('./serviceAccountKey.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -16,10 +16,10 @@ const addLikesCountToPosts = async () => {
       .where('postId', '==', post.id)
       .get()
 
-    let userIds = []
+    let userIds = {}
 
     for (const doc of likes.docs) {
-      userIds.push(doc.data().userId)
+      userIds[doc.data().userId] = true
     }
 
     await db.collection('posts').doc(post.id).update({ likes: userIds })

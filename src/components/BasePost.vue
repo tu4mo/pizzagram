@@ -8,11 +8,8 @@
     </div>
     <footer class="post__footer">
       <div class="post__info">
-        <div
-          v-if="Array.isArray(post.likes) && post.likes.length > 0"
-          class="post__likes"
-        >
-          {{ post.likes.length }} like{{ post.likes.length !== 1 ? 's' : '' }}
+        <div v-if="likes > 0" class="post__likes">
+          {{ likes }} like{{ likes !== 1 ? 's' : '' }}
         </div>
         <div v-if="post.caption" class="post__caption">
           {{ post.caption }}
@@ -25,14 +22,14 @@
         <BaseButton secondary @click="onShareClick">
           <BaseIcon name="share" />
         </BaseButton>
-        <PostLike :post="post" />
+        <PostLike :post-id="post.id" />
       </div>
     </footer>
   </article>
 </template>
 
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
@@ -57,6 +54,10 @@
   })
 
   const emit = defineEmits<{ (event: 'remove-click'): void }>()
+
+  const likes = computed(() =>
+    props.post.likes ? Object.keys(props.post.likes).length : 0,
+  )
 
   const user = ref<User | undefined>(undefined)
   watch(

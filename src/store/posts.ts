@@ -85,14 +85,14 @@ export const removePost = async (id: string) => {
 }
 
 export const toggleLike = async (postId: string) => {
-  const likes = postsStore.posts[postId].likes || []
+  const likes = postsStore.posts[postId].likes || {}
   const userId = authStore.userId
 
-  if (likes.includes(userId)) {
-    postsStore.posts[postId].likes = likes.filter((like) => like !== userId)
+  if (userId in likes) {
+    delete likes[userId]
     await api.dislikePost(postId)
   } else {
-    postsStore.posts[postId].likes = [...likes, userId]
+    postsStore.posts[postId].likes[userId] = true
     await api.likePost(postId)
   }
 }
