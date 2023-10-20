@@ -11,8 +11,8 @@ import {
   onSnapshot,
   orderBy,
   query,
+  runTransaction,
   serverTimestamp,
-  setDoc,
   startAfter,
   updateDoc,
   where,
@@ -148,11 +148,13 @@ export const likePost = async (postId: string) => {
     return
   }
 
-  const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
-  await setDoc(likeDoc, { postId, userId: user.uid })
+  await runTransaction(firestore, async (transaction) => {
+    const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+    transaction.set(likeDoc, { postId, userId: user.uid })
 
-  const postDoc = doc(firestore, 'posts', postId)
-  await updateDoc(postDoc, { [`likes.${user.uid}`]: true })
+    const postDoc = doc(firestore, 'posts', postId)
+    transaction.update(postDoc, { [`likes.${user.uid}`]: true })
+  })
 }
 
 export const dislikePost = async (postId: string) => {
@@ -162,15 +164,17 @@ export const dislikePost = async (postId: string) => {
     return
   }
 
-  const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
-  const snapshot = await getDoc(likeDoc)
+  await runTransaction(firestore, async (transaction) => {
+    const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+    const snapshot = await transaction.get(likeDoc)
 
-  if (snapshot.exists()) {
-    await deleteDoc(likeDoc)
-  }
+    if (snapshot.exists()) {
+      transaction.delete(likeDoc)
+    }
 
-  const postDoc = doc(firestore, 'posts', postId)
-  await updateDoc(postDoc, { [`likes.${user.uid}`]: deleteField() })
+    const postDoc = doc(firestore, 'posts', postId)
+    transaction.update(postDoc, { [`likes.${user.uid}`]: deleteField() })
+  })
 }
 
 export const verifyImage = async (image: string) => {
