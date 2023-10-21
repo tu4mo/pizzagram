@@ -5,8 +5,7 @@
     {
       "groupName": "patches",
       "matchUpdateTypes": ["patch"],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true
+      "matchCurrentVersion": "!/^0/"
     },
     {
       "matchPackagePatterns": ["^@tensorflow"],
