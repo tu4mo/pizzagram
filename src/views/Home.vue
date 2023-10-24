@@ -25,7 +25,7 @@
 
   setTitle()
 
-  const handleScroll = async () => {
+  async function handleScroll() {
     if (
       window.innerHeight + Math.round(window.scrollY) >=
         document.body.offsetHeight &&

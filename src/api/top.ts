@@ -4,7 +4,7 @@ import { firestore } from '.'
 import { createUserObject } from './user'
 import userCache from './user-cache'
 
-export const fetchTopPosters = async () => {
+export async function fetchTopPosters() {
   try {
     const querySnapshot = await getDocs(
       query(

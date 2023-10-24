@@ -27,7 +27,9 @@
     'profile-photo',
     `profile-photo--${props.size}`,
   ])
+
   const username = computed(() => (props.user ? props.user.username : ''))
+
   const profileUrl = computed(() =>
     props.user?.gravatar
       ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`

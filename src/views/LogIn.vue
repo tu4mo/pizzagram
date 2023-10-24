@@ -57,7 +57,7 @@
   const isLoading = ref(false)
   const password = ref('')
 
-  const submit = async () => {
+  async function submit() {
     isLoading.value = true
 
     try {

@@ -6,7 +6,7 @@ export const feedsStore = reactive<{
   feeds: {},
 })
 
-export const addToFeed = (feed: string, postId: string) => {
+export function addToFeed(feed: string, postId: string) {
   feedsStore.feeds = {
     ...feedsStore.feeds,
     [feed]: {

@@ -32,6 +32,7 @@
   const props = withDefaults(defineProps<Props>(), { user: null })
 
   const createdDate = computed(() => props.createdAt.toLocaleDateString())
+
   const isUserLoaded = computed(
     () => props.user && Object.keys(props.user).length > 0,
   )

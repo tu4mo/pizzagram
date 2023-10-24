@@ -23,7 +23,7 @@
 
   const isLikeClicked = ref(false)
 
-  const onLikeClick = async () => {
+  async function onLikeClick() {
     isLikeClicked.value = true
     await toggleLike(postId)
     isLikeClicked.value = false

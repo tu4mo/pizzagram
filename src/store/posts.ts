@@ -15,7 +15,7 @@ export const postsStore = reactive<{
   posts: {},
 })
 
-export const getPost = async (id: string, force = false) => {
+export async function getPost(id: string, force = false) {
   if (postsStore.posts[id] && !force) {
     return postsStore.posts[id]
   }
@@ -28,7 +28,7 @@ export const getPost = async (id: string, force = false) => {
   }
 }
 
-export const getPostsByFeed = (feed?: string) => {
+export function getPostsByFeed(feed?: string) {
   if (!feed) {
     return []
   }
@@ -40,7 +40,7 @@ export const getPostsByFeed = (feed?: string) => {
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 }
 
-export const fetchPostsForHome = async () => {
+export async function fetchPostsForHome() {
   postsStore.isLoading = true
 
   const postsInHome = getPostsByFeed('home')
@@ -63,7 +63,7 @@ export const fetchPostsForHome = async () => {
   }
 }
 
-export const fetchPostsForUser = async (username: string) => {
+export async function fetchPostsForUser(username: string) {
   const user = await fetchUserByUsername(username)
   if (Object.keys(user).length) {
     const posts = await api.fetchPosts({ userId: user.id })
@@ -74,7 +74,7 @@ export const fetchPostsForUser = async (username: string) => {
   }
 }
 
-export const removePost = async (id: string) => {
+export async function removePost(id: string) {
   await api.removePost(id)
 
   delete postsStore.posts[id]
@@ -84,7 +84,7 @@ export const removePost = async (id: string) => {
   })
 }
 
-export const toggleLike = async (postId: string) => {
+export async function toggleLike(postId: string) {
   const likes = postsStore.posts[postId]?.likes ?? {}
   const userId = authStore.userId
 

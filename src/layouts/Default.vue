@@ -60,7 +60,7 @@
     () => route.name !== 'home' && window.history.length > 1,
   )
 
-  const onScroll = () => {
+  function onScroll() {
     hasScrolled.value = window.scrollY > 0
   }
 

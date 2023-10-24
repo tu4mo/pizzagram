@@ -23,7 +23,7 @@ export const getIsMe = (userId: string | undefined) =>
 let unsubscribeToPosts: Unsubscribe = () => undefined
 let unsubscribeToNotifications: Unsubscribe | undefined = () => undefined
 
-export const initializeAuthCallback = () =>
+export function initializeAuthCallback() {
   setOnAuthStateChangedCallback(async (user) => {
     if (user) {
       try {
@@ -65,3 +65,4 @@ export const initializeAuthCallback = () =>
       authStore.userId = ''
     }
   })
+}

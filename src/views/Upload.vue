@@ -50,7 +50,7 @@
   const imageContainer = ref<HTMLDivElement>()
   const fileReader = new FileReader()
 
-  const onFileLoad = async () => {
+  async function onFileLoad() {
     const result = fileReader.result as string
 
     if (!result) {
@@ -96,11 +96,11 @@
     },
   )
 
-  const resetForm = () => {
+  function resetForm() {
     form.caption = ''
   }
 
-  const onShareClick = async () => {
+  async function onShareClick() {
     if (!fileStore.file) {
       return
     }

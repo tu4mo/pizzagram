@@ -1,6 +1,6 @@
 import type { User } from './user'
 
-const userCache = () => {
+function userCache() {
   const cache: { [key: string]: User } = {}
 
   return {

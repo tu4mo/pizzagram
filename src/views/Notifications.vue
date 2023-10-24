@@ -80,7 +80,7 @@
     }
   })
 
-  const getNotificationVerb = (notificationType: NotificationType) => {
+  function getNotificationVerb(notificationType: NotificationType) {
     switch (notificationType) {
       case 'COMMENT':
         return 'commented on'

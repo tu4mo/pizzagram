@@ -45,7 +45,7 @@
     { immediate: true },
   )
 
-  const onRemoveClick = () => {
+  function onRemoveClick() {
     if (postId.value && typeof postId.value === 'string') {
       removePost(postId.value)
       router.go(-1)

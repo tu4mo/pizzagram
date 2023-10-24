@@ -71,7 +71,7 @@
   const password = ref('')
   const username = ref('')
 
-  const submit = async () => {
+  async function submit() {
     error.value = ''
     isLoading.value = true
 

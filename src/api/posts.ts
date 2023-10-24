@@ -51,7 +51,7 @@ export type Post = {
   userId: string
 }
 
-export const subscribeToPosts = (callback: (posts: Post[]) => void) => {
+export function subscribeToPosts(callback: (posts: Post[]) => void) {
   const q = query(
     postsCollection,
     orderBy('createdAt', 'desc'),
@@ -64,10 +64,10 @@ export const subscribeToPosts = (callback: (posts: Post[]) => void) => {
   })
 }
 
-export const fetchPosts = async ({
+export async function fetchPosts({
   userId,
   after,
-}: { userId?: string; after?: DocumentSnapshot<unknown> } = {}) => {
+}: { userId?: string; after?: DocumentSnapshot<unknown> } = {}) {
   const queryOperators = [
     orderBy('createdAt', 'desc'),
     where('published', '==', true),
@@ -79,7 +79,7 @@ export const fetchPosts = async ({
   return querySnapshot.docs.map(createPostObject)
 }
 
-export const fetchPost = async (id: string) => {
+export async function fetchPost(id: string) {
   try {
     const docRef = await getDoc(doc(firestore, 'posts', id))
     return createPostObject(docRef)
@@ -88,7 +88,7 @@ export const fetchPost = async (id: string) => {
   }
 }
 
-const createPostObject = (doc: DocumentSnapshot<any>): Post => {
+function createPostObject(doc: DocumentSnapshot<any>): Post {
   const data = doc.data()
 
   return data
@@ -101,13 +101,13 @@ const createPostObject = (doc: DocumentSnapshot<any>): Post => {
     : data
 }
 
-export const sharePost = async ({
+export async function sharePost({
   caption,
   file,
 }: {
   caption: string
   file: File
-}) => {
+}) {
   const user = await currentUser()
 
   if (!user) {
@@ -141,7 +141,7 @@ export const removePost = async (id: string) => {
   await deleteDoc(doc(postsCollection, id))
 }
 
-export const likePost = async (postId: string) => {
+export async function likePost(postId: string) {
   const user = await currentUser()
 
   if (!user) {
@@ -157,7 +157,7 @@ export const likePost = async (postId: string) => {
   })
 }
 
-export const dislikePost = async (postId: string) => {
+export async function dislikePost(postId: string) {
   const user = await currentUser()
 
   if (!user) {
@@ -177,7 +177,7 @@ export const dislikePost = async (postId: string) => {
   })
 }
 
-export const verifyImage = async (image: string) => {
+export async function verifyImage(image: string) {
   const verifyImage = httpsCallable<{ image: string }, boolean>(
     functions,
     'verifyimage',
@@ -186,11 +186,11 @@ export const verifyImage = async (image: string) => {
   return result
 }
 
-export const cropImage = (
+export async function cropImage(
   fileResult: string,
   outputSize: number,
-): Promise<string> =>
-  new Promise((resolve, reject) => {
+): Promise<string> {
+  return new Promise((resolve, reject) => {
     const image = new Image()
 
     image.onload = () => {
@@ -230,3 +230,4 @@ export const cropImage = (
     image.onerror = (err) => reject(err)
     image.src = fileResult
   })
+}

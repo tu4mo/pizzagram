@@ -8,6 +8,8 @@ export const notificationsStore = reactive<{
   notifications: [],
 })
 
-export const getUnreadNotificationsCount = () =>
-  notificationsStore.notifications.filter((notification) => !notification.read)
-    .length
+export function getUnreadNotificationsCount() {
+  return notificationsStore.notifications.filter(
+    (notification) => !notification.read,
+  ).length
+}

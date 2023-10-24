@@ -68,13 +68,13 @@
     { immediate: true },
   )
 
-  const onRemoveClick = () => {
+  function onRemoveClick() {
     if (confirm('Are you sure you want to remove this post?')) {
       emit('remove-click')
     }
   }
 
-  const onShareClick = async () => {
+  async function onShareClick() {
     if (!navigator.share) {
       alert("Sorry, your browser doesn't seem to support Web Share.")
     }

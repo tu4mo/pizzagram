@@ -13,7 +13,7 @@
 
   const router = useRouter()
 
-  const onChange = (event: Event) => {
+  function onChange(event: Event) {
     const target = event.target as HTMLInputElement
     const file = target.files?.[0]
     if (file) {
@@ -21,7 +21,7 @@
     }
   }
 
-  const onClick = () => {
+  function onClick() {
     fileStore.file = null
 
     if (router.currentRoute.value.name !== 'upload') {

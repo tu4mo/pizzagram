@@ -41,7 +41,7 @@
   const hasSentMail = ref(false)
   const isLoading = ref(false)
 
-  const submit = async () => {
+  async function submit() {
     isLoading.value = true
     hasSentMail.value = false
 

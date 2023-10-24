@@ -20,7 +20,7 @@ import { auth, firestore } from '.'
 export const sendPasswordResetEmail = (email: string) =>
   firebaseSendPasswordResetEmail(auth, email)
 
-export const currentUser = async () => {
+export async function currentUser() {
   await auth.authStateReady()
   return auth.currentUser
 }
@@ -39,11 +39,11 @@ export const setOnAuthStateChangedCallback = (
   onAuthStateChangedCallback = callback
 }
 
-export const signUp = async (
+export async function signUp(
   username: string,
   email: string,
   password: string,
-) => {
+) {
   const md5 = (await import('md5')).default
 
   isSigningUp = true
@@ -84,10 +84,10 @@ export const signUp = async (
   isSigningUp = false
 }
 
-export const signIn = async (email: string, password: string) => {
+export async function signIn(email: string, password: string) {
   await signInWithEmailAndPassword(auth, email, password)
 }
 
-export const signOut = async () => {
+export async function signOut() {
   await auth.signOut()
 }

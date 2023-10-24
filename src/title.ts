@@ -1,16 +1,16 @@
 import { onActivated } from 'vue'
 
-const documentTitle = (title?: string) => {
+function setDocumentTitle(title?: string) {
   document.title = title ? `${title} - Pizzagram` : 'Pizzagram'
 }
 
-export const setTitle = (title?: string, skipLifecycle = false) => {
+export function setTitle(title?: string, skipLifecycle = false) {
   if (skipLifecycle) {
-    documentTitle(title)
+    setDocumentTitle(title)
     return
   }
 
   onActivated(() => {
-    documentTitle(title)
+    setDocumentTitle(title)
   })
 }

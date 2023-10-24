@@ -50,7 +50,7 @@
   const router = useRouter()
   const user = ref<User | undefined>(undefined)
 
-  const fetchUserData = async () => {
+  async function fetchUserData() {
     const username = route.params.username
 
     if (username && typeof username === 'string') {
@@ -73,7 +73,7 @@
   const posts = computed(() => getPostsByFeed(user.value?.username))
   const isMe = computed(() => getIsMe(user.value?.id))
 
-  const onLogOutClick = async () => {
+  async function onLogOutClick() {
     await signOut()
     router.push({ name: 'login' })
   }
