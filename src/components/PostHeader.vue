@@ -22,6 +22,7 @@
   import { computed } from 'vue'
 
   import ProfilePhoto from './ProfilePhoto.vue'
+
   import type { User } from '@/api/user'
 
   type Props = {

@@ -7,8 +7,9 @@ import {
   where,
 } from 'firebase/firestore'
 
-import { firestore } from '.'
 import { currentUser } from './auth'
+
+import { firestore } from '.'
 
 const commentsCollection = collection(firestore, 'comments')
 

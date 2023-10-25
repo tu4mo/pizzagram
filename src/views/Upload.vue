@@ -23,23 +23,22 @@
 </template>
 
 <script setup lang="ts">
-  import DefaultLayout from '@/layouts/Default.vue'
+  import { nextTick, reactive, ref, watch } from 'vue'
+  import { useRouter } from 'vue-router'
 
+  import { cropImage, sharePost, verifyImage } from '@/api/posts'
   import BaseButton from '@/components/BaseButton.vue'
   import BaseEmpty from '@/components/BaseEmpty.vue'
   import BaseField from '@/components/BaseField.vue'
+  import BaseInput from '@/components/BaseInput.vue'
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
-  import BaseInput from '@/components/BaseInput.vue'
   import PostImage from '@/components/PostImage.vue'
-
-  import { cropImage, sharePost, verifyImage } from '@/api/posts'
+  import DefaultLayout from '@/layouts/Default.vue'
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
-  import { setTitle } from '@/title'
   import { fetchPostsForHome } from '@/store/posts'
-  import { nextTick, reactive, ref, watch } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { setTitle } from '@/title'
 
   setTitle('Upload')
 

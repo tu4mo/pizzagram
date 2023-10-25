@@ -27,13 +27,12 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
 
-  import DefaultLayout from '@/layouts/Default.vue'
-
-  import BaseLink from '@/components/BaseLink.vue'
-  import ProfilePhoto from '@/components/ProfilePhoto.vue'
-  import { setTitle } from '@/title'
   import { fetchTopPosters } from '@/api/top'
   import type { User } from '@/api/user'
+  import BaseLink from '@/components/BaseLink.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import DefaultLayout from '@/layouts/Default.vue'
+  import { setTitle } from '@/title'
 
   setTitle('Top 10')
 

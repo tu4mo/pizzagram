@@ -1,6 +1,7 @@
 import path from 'path'
-import { defineConfig } from 'vite'
+
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({

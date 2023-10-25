@@ -1,8 +1,9 @@
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 
-import { firestore } from '.'
 import { createUserObject } from './user'
 import userCache from './user-cache'
+
+import { firestore } from '.'
 
 export async function fetchTopPosters() {
   try {

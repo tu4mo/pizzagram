@@ -1,14 +1,14 @@
-import { reactive } from 'vue'
 import type { Unsubscribe } from 'firebase/firestore'
+import { reactive } from 'vue'
+
+import { addToFeed } from './feeds'
+import { notificationsStore } from './notifications'
+import { postsStore } from './posts'
 
 import { setOnAuthStateChangedCallback, signOut } from '@/api/auth'
+import { subscribeToNotifications } from '@/api/notifications'
 import { subscribeToPosts } from '@/api/posts'
 import { fetchUser } from '@/api/user'
-
-import { subscribeToNotifications } from '@/api/notifications'
-import { notificationsStore } from './notifications'
-import { addToFeed } from './feeds'
-import { postsStore } from './posts'
 
 export const authStore = reactive({
   isAuthenticated: false,

@@ -1,9 +1,10 @@
 import { reactive } from 'vue'
 
-import * as api from '@/api/posts'
-import { addToFeed, feedsStore } from './feeds'
-import { fetchUserByUsername } from '@/api/user'
 import { authStore } from './auth'
+import { addToFeed, feedsStore } from './feeds'
+
+import * as api from '@/api/posts'
+import { fetchUserByUsername } from '@/api/user'
 
 export const postsStore = reactive<{
   isLoading: boolean

@@ -57,6 +57,7 @@
 
   import NavItem from './NavItem.vue'
   import TheCamera from './TheCamera.vue'
+
   import { authStore } from '@/store/auth'
   import { getUnreadNotificationsCount } from '@/store/notifications'
 

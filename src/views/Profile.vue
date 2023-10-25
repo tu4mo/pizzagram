@@ -30,21 +30,18 @@
 
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
 
-  import DefaultLayout from '@/layouts/Default.vue'
-
+  import { signOut } from '@/api/auth'
+  import { fetchUserByUsername, type User } from '@/api/user'
   import BaseButton from '@/components/BaseButton.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
-
+  import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
-  import type { User } from '@/api/user'
-  import { fetchUserByUsername } from '@/api/user'
-  import { setTitle } from '@/title'
-  import { signOut } from '@/api/auth'
   import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'
-  import { useRoute, useRouter } from 'vue-router'
+  import { setTitle } from '@/title'
 
   const route = useRoute()
   const router = useRouter()

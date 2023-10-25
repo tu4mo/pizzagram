@@ -6,10 +6,10 @@ import { addCommentToPost } from './add-comment-to-post'
 import { addNotification, NotificationType } from './add-notification'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
+import { removeCommentFromPost } from './remove-comment-from-post'
 import { resizeImage } from './resize-image'
 import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
-import { removeCommentFromPost } from './remove-comment-from-post'
 
 admin.initializeApp()
 

@@ -12,16 +12,14 @@
 </template>
 
 <script setup lang="ts">
-  import DefaultLayout from '@/layouts/Default.vue'
+  import { computed, watch } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
 
   import BasePost from '@/components/BasePost.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
-
+  import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
-  import { postsStore } from '@/store/posts'
-  import { computed, watch } from 'vue'
-  import { getPost, removePost } from '@/store/posts'
-  import { useRoute, useRouter } from 'vue-router'
+  import { postsStore, getPost, removePost } from '@/store/posts'
   import { setTitle } from '@/title'
 
   const route = useRoute()

@@ -1,4 +1,11 @@
 import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail as firebaseSendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  updateProfile,
+  type User,
+} from 'firebase/auth'
+import {
   deleteDoc,
   doc,
   getDoc,
@@ -6,14 +13,6 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore'
-
-import type { User } from 'firebase/auth'
-import {
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail as firebaseSendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth'
 
 import { auth, firestore } from '.'
 

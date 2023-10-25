@@ -9,6 +9,8 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:prettier/recommended',
   ],
 
@@ -25,6 +27,17 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/prefer-optional-chain': 'error',
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          orderImportKind: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
     'vue/component-name-in-template-casing': 'error',
     'vue/define-emits-declaration': 'error',
     'vue/define-macros-order': 'error',
@@ -35,6 +48,12 @@ module.exports = {
       'error',
       { ignorePatterns: ['RouterLink', 'RouterView'] },
     ],
+  },
+
+  settings: {
+    'import/resolver': {
+      typescript: true,
+    },
   },
 
   overrides: [

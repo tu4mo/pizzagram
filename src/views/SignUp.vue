@@ -48,18 +48,16 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
 
-  import WelcomeLayout from '@/layouts/Welcome.vue'
-
+  import { signUp } from '@/api/auth'
   import BaseButton from '@/components/BaseButton.vue'
   import BaseInput from '@/components/BaseInput.vue'
   import BaseLink from '@/components/BaseLink.vue'
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
-
-  import { signUp } from '@/api/auth'
+  import WelcomeLayout from '@/layouts/Welcome.vue'
   import { setTitle } from '@/title'
-  import { useRouter } from 'vue-router'
 
   setTitle('Sign Up')
 

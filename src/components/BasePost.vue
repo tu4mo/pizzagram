@@ -30,17 +30,18 @@
 
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue'
+  import type { RouterLinkProps } from 'vue-router'
 
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
-  import { authStore } from '@/store/auth'
+  import PostLike from './PostLike.vue'
+
+  import type { Post } from '@/api/posts'
   import type { User } from '@/api/user'
   import { fetchUser } from '@/api/user'
-  import type { Post } from '@/api/posts'
-  import type { RouterLinkProps } from 'vue-router'
-  import PostLike from './PostLike.vue'
+  import { authStore } from '@/store/auth'
 
   type Props = {
     imageTo?: RouterLinkProps['to']

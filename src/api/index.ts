@@ -1,12 +1,12 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
-import { getFunctions } from 'firebase/functions'
-import { getStorage } from 'firebase/storage'
 import {
   initializeAppCheck,
   ReCaptchaEnterpriseProvider,
 } from 'firebase/app-check'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
+import { getStorage } from 'firebase/storage'
 
 const app = initializeApp({
   apiKey: 'AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg',

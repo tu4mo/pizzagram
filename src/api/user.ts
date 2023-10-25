@@ -9,8 +9,9 @@ import {
   where,
 } from 'firebase/firestore'
 
-import { firestore } from '.'
 import userCache from './user-cache'
+
+import { firestore } from '.'
 
 export type User = {
   createdAt: Date

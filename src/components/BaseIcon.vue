@@ -5,8 +5,6 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
-
   import bell from 'feather-icons/dist/icons/bell.svg?raw'
   import camera from 'feather-icons/dist/icons/camera.svg?raw'
   import chevronLeft from 'feather-icons/dist/icons/chevron-left.svg?raw'
@@ -17,6 +15,7 @@
   import star from 'feather-icons/dist/icons/star.svg?raw'
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
   import user from 'feather-icons/dist/icons/user.svg?raw'
+  import { computed } from 'vue'
 
   const props = defineProps<Props>()
 

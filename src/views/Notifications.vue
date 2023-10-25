@@ -55,17 +55,15 @@
 <script setup lang="ts">
   import { onDeactivated } from 'vue'
 
-  import DefaultLayout from '@/layouts/Default.vue'
-
-  import BaseEmpty from '@/components/BaseEmpty.vue'
-  import BaseLink from '@/components/BaseLink.vue'
-  import PostImage from '@/components/PostImage.vue'
-  import ProfilePhoto from '@/components/ProfilePhoto.vue'
-
   import {
     markNotificationsAsRead,
     type NotificationType,
   } from '@/api/notifications'
+  import BaseEmpty from '@/components/BaseEmpty.vue'
+  import BaseLink from '@/components/BaseLink.vue'
+  import PostImage from '@/components/PostImage.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import DefaultLayout from '@/layouts/Default.vue'
   import {
     getUnreadNotificationsCount,
     notificationsStore,

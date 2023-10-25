@@ -15,11 +15,9 @@
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted } from 'vue'
 
-  import DefaultLayout from '@/layouts/Default.vue'
-
   import BasePost from '@/components/BasePost.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
-
+  import DefaultLayout from '@/layouts/Default.vue'
   import { fetchPostsForHome, getPostsByFeed, postsStore } from '@/store/posts'
   import { setTitle } from '@/title'
 

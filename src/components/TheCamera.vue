@@ -8,8 +8,9 @@
 </template>
 
 <script setup lang="ts">
-  import { fileStore } from '@/store/file'
   import { useRouter } from 'vue-router'
+
+  import { fileStore } from '@/store/file'
 
   const router = useRouter()
 

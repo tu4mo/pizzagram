@@ -24,15 +24,13 @@
 <script setup lang="ts">
   import { ref } from 'vue'
 
-  import WelcomeLayout from '@/layouts/Welcome.vue'
-
+  import { sendPasswordResetEmail } from '@/api/auth'
   import BaseButton from '@/components/BaseButton.vue'
   import BaseInput from '@/components/BaseInput.vue'
   import BaseLink from '@/components/BaseLink.vue'
   import BaseSpacer from '@/components/BaseSpacer.vue'
   import BaseSpinner from '@/components/BaseSpinner.vue'
-
-  import { sendPasswordResetEmail } from '@/api/auth'
+  import WelcomeLayout from '@/layouts/Welcome.vue'
   import { setTitle } from '@/title'
 
   setTitle('Reset Password')

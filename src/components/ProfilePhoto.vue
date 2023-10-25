@@ -9,8 +9,9 @@
 </template>
 
 <script setup lang="ts">
-  import type { User } from '@/api/user'
   import { computed } from 'vue'
+
+  import type { User } from '@/api/user'
 
   type Props = {
     asLink?: boolean

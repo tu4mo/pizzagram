@@ -9,11 +9,13 @@
 </template>
 
 <script setup lang="ts">
+  import { computed, ref } from 'vue'
+
   import BaseButton from './BaseButton.vue'
   import BaseIcon from './BaseIcon.vue'
-  import { computed, ref } from 'vue'
-  import { postsStore, toggleLike } from '@/store/posts'
+
   import { authStore } from '@/store/auth'
+  import { postsStore, toggleLike } from '@/store/posts'
 
   type Props = {
     postId: string

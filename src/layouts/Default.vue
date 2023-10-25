@@ -32,13 +32,13 @@
 
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted, ref } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
 
   import BaseButton from '@/components/BaseButton.vue'
   import BaseIcon from '@/components/BaseIcon.vue'
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
   import { authStore } from '@/store/auth'
-  import { useRoute, useRouter } from 'vue-router'
 
   type Props = {
     fromTop?: boolean

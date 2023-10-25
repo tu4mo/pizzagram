@@ -9,10 +9,11 @@ import {
   writeBatch,
 } from 'firebase/firestore'
 
-import { firestore } from '.'
 import { currentUser } from './auth'
 import type { User } from './user'
 import { fetchUser } from './user'
+
+import { firestore } from '.'
 
 const notifications = collection(firestore, 'notifications')
 

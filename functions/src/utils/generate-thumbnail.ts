@@ -1,8 +1,9 @@
-import { Storage } from '@google-cloud/storage'
-const storage = new Storage()
-
 import * as path from 'path'
+
+import { Storage } from '@google-cloud/storage'
 import * as sharp from 'sharp'
+
+const storage = new Storage()
 
 export default async function () {
   const size = 256

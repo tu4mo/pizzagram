@@ -1,5 +1,5 @@
-import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import * as tf from '@tensorflow/tfjs-node'
+import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import type { CallableRequest } from 'firebase-functions/v2/https'
 
 type Data = {

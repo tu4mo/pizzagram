@@ -17,11 +17,12 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+
+import { currentUser } from './auth'
 
 import { firestore, functions, storage } from '.'
-import { currentUser } from './auth'
 
 const storageRef = ref(storage)
 const postsCollection = collection(firestore, 'posts')

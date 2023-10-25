@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
   import { type RouteLocationNamedRaw, useRoute } from 'vue-router'
+
   import BaseIcon from './BaseIcon.vue'
 
   type Props = {
