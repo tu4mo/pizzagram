@@ -52,7 +52,23 @@ service cloud.firestore {
       allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
         && request.resource.data.likes.diff(resource.data.likes).affectedKeys().hasOnly([request.auth.uid])
         && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes));
-   
+
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['comments'])
+        && (
+          !('comments' in resource.data)
+          || (
+            request.resource.data.comments.size() == resource.data.comments.size() + 1
+              && resource.data.comments == request.resource.data.comments[0:resource.data.comments.size()]
+          )
+        )
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].keys().hasOnly(
+          ['comment', 'id', 'userId', 'username']
+        )
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].comment is string
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].id is string
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].userId == request.auth.uid
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].username is string;
+
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
