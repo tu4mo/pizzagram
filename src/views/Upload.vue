@@ -125,11 +125,6 @@
     margin: 0 auto;
   }
 
-  .upload__canvas {
-    display: none;
-    width: 100%;
-  }
-
   .upload__form {
     padding: 1rem;
   }
