@@ -16,8 +16,9 @@ import {
 
 import { auth, firestore } from '.'
 
-export const sendPasswordResetEmail = (email: string) =>
-  firebaseSendPasswordResetEmail(auth, email)
+export function sendPasswordResetEmail(email: string) {
+  return firebaseSendPasswordResetEmail(auth, email)
+}
 
 export async function currentUser() {
   await auth.authStateReady()
@@ -32,9 +33,9 @@ auth.onAuthStateChanged(async (user) => {
   !isSigningUp && onAuthStateChangedCallback(user)
 })
 
-export const setOnAuthStateChangedCallback = (
+export function setOnAuthStateChangedCallback(
   callback: (user: User | null) => Promise<void>,
-) => {
+) {
   onAuthStateChangedCallback = callback
 }
 

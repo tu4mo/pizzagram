@@ -138,7 +138,7 @@ export async function sharePost({
   return docRef.id
 }
 
-export const removePost = async (id: string) => {
+export async function removePost(id: string) {
   await deleteDoc(doc(postsCollection, id))
 }
 
