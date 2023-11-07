@@ -67,7 +67,7 @@ service cloud.firestore {
         && request.resource.data.comments[request.resource.data.comments.size() - 1].comment is string
         && request.resource.data.comments[request.resource.data.comments.size() - 1].id is string
         && request.resource.data.comments[request.resource.data.comments.size() - 1].userId == request.auth.uid
-        && request.resource.data.comments[request.resource.data.comments.size() - 1].username is string;
+        && get(/databases/$(database)/documents/users/$(request.resource.data.comments[request.resource.data.comments.size() - 1].username)).data.id == request.auth.uid;
 
       allow delete: if request.auth.uid == resource.data.userId;
     }
