@@ -62,10 +62,10 @@ service cloud.firestore {
           )
         )
         && request.resource.data.comments[request.resource.data.comments.size() - 1].keys().hasOnly(
-          ['comment', 'id', 'userId', 'username']
+          ['comment', 'createdAt', 'userId', 'username']
         )
         && request.resource.data.comments[request.resource.data.comments.size() - 1].comment is string
-        && request.resource.data.comments[request.resource.data.comments.size() - 1].id is string
+        && request.resource.data.comments[request.resource.data.comments.size() - 1].createdAt is timestamp
         && request.resource.data.comments[request.resource.data.comments.size() - 1].userId == request.auth.uid
         && get(/databases/$(database)/documents/users/$(request.resource.data.comments[request.resource.data.comments.size() - 1].username)).data.id == request.auth.uid;
 
