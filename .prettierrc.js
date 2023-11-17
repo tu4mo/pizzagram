@@ -1,5 +1,5 @@
 /** @type {import("prettier").Config} */
-module.exports = {
+export default {
   htmlWhitespaceSensitivity: 'ignore',
   semi: false,
   singleQuote: true,
