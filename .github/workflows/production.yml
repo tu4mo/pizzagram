@@ -38,4 +38,5 @@ jobs:
         run: npx firebase functions:delete verifyimage --force --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Deploy
+        if: always()
         run: npx firebase deploy --force --token ${{ secrets.FIREBASE_TOKEN }}
