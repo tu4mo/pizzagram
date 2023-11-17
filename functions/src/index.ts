@@ -1,4 +1,3 @@
-import * as admin from 'firebase-admin'
 import * as functionsV2 from 'firebase-functions/v2'
 
 import { addCommentToPost } from './add-comment-to-post'
@@ -10,8 +9,6 @@ import { removeCommentFromPost } from './remove-comment-from-post'
 import { resizeImage } from './resize-image'
 import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
-
-admin.initializeApp()
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
