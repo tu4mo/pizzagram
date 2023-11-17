@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
 import * as functionsV2 from 'firebase-functions/v2'
 
 import { addCommentToPost } from './add-comment-to-post'
 import { addNotification, NotificationType } from './add-notification'
+import { db } from './db'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
 import { removeCommentFromPost } from './remove-comment-from-post'
@@ -12,9 +12,6 @@ import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
 
 admin.initializeApp()
-
-const db = admin.firestore()
-db.settings({ timestampsInSnapshots: true })
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
@@ -45,9 +42,7 @@ exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
   (snapshot) => addNotification(snapshot, db, NotificationType.Like),
 )
 
-exports.deleteUser = functions.auth
-  .user()
-  .onDelete((user) => deleteUser(user, db))
+exports.deleteUser = deleteUser
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   { memory: '1GiB' },
