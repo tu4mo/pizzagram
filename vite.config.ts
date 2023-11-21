@@ -2,7 +2,6 @@ import path from 'path'
 
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-// import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
   build: {
@@ -14,16 +13,7 @@ export default defineConfig({
     __SENTRY_TRACING__: JSON.stringify(false),
   },
   esbuild: { legalComments: 'none' },
-  plugins: [
-    vue(),
-    // visualizer({
-    //   template: 'treemap',
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    //   filename: 'analice.html',
-    // }),
-  ],
+  plugins: [vue()],
   resolve: {
     alias: [
       {
