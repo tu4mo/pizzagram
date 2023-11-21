@@ -21,7 +21,7 @@ jobs:
           cache: 'npm'
 
       - name: Install
-        run: npm ci
+        run: npm install
 
       - name: Check types
         run: npm run type-check
