@@ -35,7 +35,6 @@
   }
 
   onMounted(async () => {
-    await fetchPostsForHome()
     window.addEventListener('scroll', handleScroll)
   })
 
