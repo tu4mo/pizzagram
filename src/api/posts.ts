@@ -107,6 +107,7 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
         comments,
         doc,
         id: doc.id,
+        likes: data.likes ?? {},
       }
     : data
 }

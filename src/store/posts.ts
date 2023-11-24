@@ -93,7 +93,12 @@ export async function toggleLike(postId: string) {
     delete likes[userId]
     await api.dislikePost(postId)
   } else {
-    postsStore.posts[postId].likes[userId] = true
-    await api.likePost(postId)
+    try {
+      postsStore.posts[postId].likes[userId] = true
+      await api.likePost(postId)
+    } catch (error) {
+      postsStore.posts[postId].likes[userId] = false
+      console.error(error)
+    }
   }
 }

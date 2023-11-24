@@ -31,9 +31,7 @@
     isLikeClicked.value = false
   }
 
-  const hasLiked = computed(() =>
-    postsStore.posts[postId]?.likes
-      ? authStore.userId in postsStore.posts[postId].likes
-      : false,
+  const hasLiked = computed(
+    () => !!postsStore.posts[postId]?.likes[authStore.userId],
   )
 </script>
