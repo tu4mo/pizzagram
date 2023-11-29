@@ -6,6 +6,7 @@
   },
   "packageRules": [
     {
+      "automerge": true,
       "groupName": "patches",
       "matchUpdateTypes": ["patch"],
       "matchCurrentVersion": "!/^0/"
