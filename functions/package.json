@@ -17,7 +17,6 @@
     "@google-cloud/storage": "7.7.0",
     "@tensorflow-models/coco-ssd": "2.2.3",
     "@tensorflow/tfjs-node": "4.14.0",
-    "@types/sharp": "0.31.1",
     "firebase-admin": "11.11.1",
     "firebase-functions": "4.5.0",
     "sharp": "0.32.6"
