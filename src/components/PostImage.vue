@@ -7,10 +7,10 @@
       { 'post-image--rounded': rounded, 'post-image--thumbnail': thumbnail },
     ]"
   >
-    <img :src="actualUrl" alt="" class="post-image__image" loading="lazy" />
+    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
   </RouterLink>
   <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
-    <img :src="actualUrl" alt="" class="post-image__image" loading="lazy" />
+    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
   </div>
 </template>
 
@@ -19,13 +19,14 @@
   import type { RouteLocationRaw } from 'vue-router'
 
   type Props = {
+    alt?: string
     imageUrl: string
     rounded?: boolean
     thumbnail?: boolean
     to?: RouteLocationRaw
   }
 
-  const props = defineProps<Props>()
+  const props = withDefaults(defineProps<Props>(), { alt: '', to: undefined })
 
   const actualUrl = computed(() =>
     props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl,

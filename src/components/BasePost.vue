@@ -4,7 +4,12 @@
       <PostHeader :created-at="post.createdAt" :user="user" />
     </div>
     <div class="post__image">
-      <PostImage :image-url="post.imageUrl" :to="imageTo" rounded />
+      <PostImage
+        :alt="post.caption"
+        :image-url="post.imageUrl"
+        :to="imageTo"
+        rounded
+      />
     </div>
     <footer class="post__footer">
       <div class="post__info">
@@ -16,10 +21,14 @@
         </div>
       </div>
       <div v-if="authStore.isAuthenticated" class="post__buttons">
-        <BaseButton v-if="isRemovable" @click="onRemoveClick">
+        <BaseButton
+          v-if="isRemovable"
+          aria-label="Remove"
+          @click="onRemoveClick"
+        >
           <BaseIcon name="trash2" />
         </BaseButton>
-        <BaseButton secondary @click="onShareClick">
+        <BaseButton secondary aria-label="Share" @click="onShareClick">
           <BaseIcon name="share" />
         </BaseButton>
         <PostLike :post-id="post.id" />

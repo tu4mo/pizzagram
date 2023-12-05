@@ -2,6 +2,7 @@
   <BaseButton
     :disabled="isLikeClicked"
     :secondary="!hasLiked"
+    :aria-label="hasLiked ? 'Unlike' : 'Like'"
     @click="onLikeClick"
   >
     <BaseIcon :fill="hasLiked" name="heart" />
