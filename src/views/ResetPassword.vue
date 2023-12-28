@@ -1,22 +1,22 @@
 <template>
   <WelcomeLayout>
-    <BaseSpinner v-if="isLoading" cover />
+    <Spinner v-if="isLoading" cover />
     <form class="reset" @submit.prevent="submit">
-      <BaseSpacer gap="1">
-        <BaseInput
+      <Spacer gap="1">
+        <Input
           v-model.trim="email"
           :disabled="hasSentMail"
           placeholder="E-mail"
           type="email"
         />
-        <BaseButton :disabled="!email || hasSentMail" type="submit">
+        <Button :disabled="!email || hasSentMail" type="submit">
           Reset Password
-        </BaseButton>
+        </Button>
         <p v-if="hasSentMail">
           Password reset email sent.
-          <BaseLink :to="{ name: 'login' }">Log In</BaseLink>
+          <Link :to="{ name: 'login' }">Log In</Link>
         </p>
-      </BaseSpacer>
+      </Spacer>
     </form>
   </WelcomeLayout>
 </template>
@@ -25,11 +25,11 @@
   import { ref } from 'vue'
 
   import { sendPasswordResetEmail } from '@/api/auth'
-  import BaseButton from '@/components/BaseButton.vue'
-  import BaseInput from '@/components/BaseInput.vue'
-  import BaseLink from '@/components/BaseLink.vue'
-  import BaseSpacer from '@/components/BaseSpacer.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Button from '@/components/Button.vue'
+  import Input from '@/components/Input.vue'
+  import Link from '@/components/Link.vue'
+  import Spacer from '@/components/Spacer.vue'
+  import Spinner from '@/components/Spinner.vue'
   import WelcomeLayout from '@/layouts/Welcome.vue'
   import { setTitle } from '@/title'
 

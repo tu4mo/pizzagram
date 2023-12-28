@@ -1,19 +1,19 @@
 <template>
-  <BaseButton
+  <Button
     :disabled="isLikeClicked"
     :secondary="!hasLiked"
     :aria-label="hasLiked ? 'Unlike' : 'Like'"
     @click="onLikeClick"
   >
-    <BaseIcon :fill="hasLiked" name="heart" />
-  </BaseButton>
+    <Icon :fill="hasLiked" name="heart" />
+  </Button>
 </template>
 
 <script setup lang="ts">
   import { computed, ref } from 'vue'
 
-  import BaseButton from './BaseButton.vue'
-  import BaseIcon from './BaseIcon.vue'
+  import Button from './Button.vue'
+  import Icon from './Icon.vue'
 
   import { authStore } from '@/store/auth'
   import { postsStore, toggleLike } from '@/store/posts'

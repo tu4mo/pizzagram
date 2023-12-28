@@ -1,23 +1,23 @@
 <template>
   <DefaultLayout max-width title="Upload">
     <div class="upload">
-      <BaseEmpty v-if="!fileStore.file || !imageUrl">
+      <Empty v-if="!fileStore.file || !imageUrl">
         Use the Camera icon to upload a photo
-      </BaseEmpty>
+      </Empty>
       <template v-else>
         <div ref="imageContainer" class="upload__image">
           <PostImage :image-url="imageUrl" rounded />
         </div>
         <div class="upload__form">
-          <BaseSpacer gap="2">
-            <BaseField label="Caption">
-              <BaseInput v-model.trim="form.caption" maxlength="100" />
-            </BaseField>
-            <BaseButton @click="onShareClick">Share</BaseButton>
-          </BaseSpacer>
+          <Spacer gap="2">
+            <Field label="Caption">
+              <Input v-model.trim="form.caption" maxlength="100" />
+            </Field>
+            <Button @click="onShareClick">Share</Button>
+          </Spacer>
         </div>
       </template>
-      <BaseSpinner v-if="isLoading" cover />
+      <Spinner v-if="isLoading" cover />
     </div>
   </DefaultLayout>
 </template>
@@ -27,13 +27,13 @@
   import { useRouter } from 'vue-router'
 
   import { cropImage, sharePost, verifyImage } from '@/api/posts'
-  import BaseButton from '@/components/BaseButton.vue'
-  import BaseEmpty from '@/components/BaseEmpty.vue'
-  import BaseField from '@/components/BaseField.vue'
-  import BaseInput from '@/components/BaseInput.vue'
-  import BaseSpacer from '@/components/BaseSpacer.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Button from '@/components/Button.vue'
+  import Empty from '@/components/Empty.vue'
+  import Field from '@/components/Field.vue'
+  import Input from '@/components/Input.vue'
   import PostImage from '@/components/PostImage.vue'
+  import Spacer from '@/components/Spacer.vue'
+  import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'

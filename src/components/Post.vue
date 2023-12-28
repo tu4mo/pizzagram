@@ -21,16 +21,12 @@
         </div>
       </div>
       <div v-if="authStore.isAuthenticated" class="post__buttons">
-        <BaseButton
-          v-if="isRemovable"
-          aria-label="Remove"
-          @click="onRemoveClick"
-        >
-          <BaseIcon name="trash2" />
-        </BaseButton>
-        <BaseButton secondary aria-label="Share" @click="onShareClick">
-          <BaseIcon name="share" />
-        </BaseButton>
+        <Button v-if="isRemovable" aria-label="Remove" @click="onRemoveClick">
+          <Icon name="trash2" />
+        </Button>
+        <Button secondary aria-label="Share" @click="onShareClick">
+          <Icon name="share" />
+        </Button>
         <PostLike :post-id="post.id" />
       </div>
     </footer>
@@ -41,8 +37,8 @@
   import { computed, ref, watch } from 'vue'
   import type { RouterLinkProps } from 'vue-router'
 
-  import BaseButton from './BaseButton.vue'
-  import BaseIcon from './BaseIcon.vue'
+  import Button from './Button.vue'
+  import Icon from './Icon.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
   import PostLike from './PostLike.vue'

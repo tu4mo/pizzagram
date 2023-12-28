@@ -1,5 +1,5 @@
 <template>
-  <BaseSpinner v-if="!user" />
+  <Spinner v-if="!user" />
   <DefaultLayout v-else from-top :title="user.username">
     <div class="profile">
       <div
@@ -22,7 +22,7 @@
         </li>
       </ul>
       <div v-if="isMe" class="profile__footer">
-        <BaseButton @click="onLogOutClick">Log Out</BaseButton>
+        <Button @click="onLogOutClick">Log Out</Button>
       </div>
     </div>
   </DefaultLayout>
@@ -34,10 +34,10 @@
 
   import { signOut } from '@/api/auth'
   import { fetchUserByUsername, type User } from '@/api/user'
-  import BaseButton from '@/components/BaseButton.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Button from '@/components/Button.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
   import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'

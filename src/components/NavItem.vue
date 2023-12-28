@@ -7,7 +7,7 @@
     class="nav-item"
   >
     <div class="nav-item__icon">
-      <BaseIcon :name="icon" />
+      <Icon :name="icon" />
       <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
     </div>
     <div class="nav-item__title">{{ title }}</div>
@@ -17,7 +17,7 @@
       :class="['nav-item', { 'nav-item--active': route.name === to.name }]"
     >
       <div class="nav-item__icon">
-        <BaseIcon :name="icon" />
+        <Icon :name="icon" />
       </div>
       <div class="nav-item__title">{{ title }}</div>
       <slot />
@@ -28,13 +28,13 @@
 <script setup lang="ts">
   import { type RouteLocationNamedRaw, useRoute } from 'vue-router'
 
-  import BaseIcon from './BaseIcon.vue'
+  import Icon from './Icon.vue'
 
   type Props = {
     badge?: number | string
     custom?: boolean
     exact?: boolean
-    icon: InstanceType<typeof BaseIcon>['$props']['name']
+    icon: InstanceType<typeof Icon>['$props']['name']
     title: string
     to: RouteLocationNamedRaw
   }

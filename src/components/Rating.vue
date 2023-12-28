@@ -1,6 +1,6 @@
 <template>
   <div class="rating" role="radiogroup">
-    <BaseButton
+    <Button
       v-for="rating in [1, 2, 3, 4, 5]"
       :key="rating"
       :aria-label="`Rating: ${rating}`"
@@ -14,14 +14,14 @@
         $emit('update:modelValue', rating === modelValue ? 0 : rating)
       "
     >
-      <BaseIcon name="star" />
-    </BaseButton>
+      <Icon name="star" />
+    </Button>
   </div>
 </template>
 
 <script setup lang="ts">
-  import BaseButton from './BaseButton.vue'
-  import BaseIcon from './BaseIcon.vue'
+  import Button from './Button.vue'
+  import Icon from './Icon.vue'
 
   type Props = {
     modelValue?: number

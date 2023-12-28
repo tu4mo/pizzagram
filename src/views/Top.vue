@@ -2,7 +2,7 @@
   <DefaultLayout title="Top 10">
     <ul class="top">
       <li v-for="(user, index) in topPosters" :key="user.id" class="top__row">
-        <BaseLink
+        <Link
           :to="{
             name: 'profile',
             params: { username: user.username },
@@ -17,7 +17,7 @@
               {{ user.posts === 1 ? 'post' : 'posts' }}
             </div>
           </div>
-        </BaseLink>
+        </Link>
         <div class="top__rank">{{ index + 1 }}.</div>
       </li>
     </ul>
@@ -29,7 +29,7 @@
 
   import { fetchTopPosters } from '@/api/top'
   import type { User } from '@/api/user'
-  import BaseLink from '@/components/BaseLink.vue'
+  import Link from '@/components/Link.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { setTitle } from '@/title'

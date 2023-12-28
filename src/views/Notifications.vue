@@ -1,8 +1,8 @@
 <template>
   <DefaultLayout max-width title="Notifications">
-    <BaseEmpty v-if="notificationsStore.notifications.length === 0">
+    <Empty v-if="notificationsStore.notifications.length === 0">
       No notifications.
-    </BaseEmpty>
+    </Empty>
     <template v-else>
       <ul
         v-for="(notification, index) in notificationsStore.notifications"
@@ -24,20 +24,20 @@
               </div>
               <div v-if="!notification.read" class="notification__unread" />
             </div>
-            <BaseLink
+            <Link
               :to="{
                 name: 'profile',
                 params: { username: notification.from.username },
               }"
             >
               {{ notification.from.username }}
-            </BaseLink>
+            </Link>
             {{ getNotificationVerb(notification.type) }} your
-            <BaseLink
+            <Link
               :to="{ name: 'post', params: { postId: notification.postId } }"
             >
               photo
-            </BaseLink>
+            </Link>
           </div>
           <PostImage
             v-if="notification.imageUrl"
@@ -59,8 +59,8 @@
     markNotificationsAsRead,
     type NotificationType,
   } from '@/api/notifications'
-  import BaseEmpty from '@/components/BaseEmpty.vue'
-  import BaseLink from '@/components/BaseLink.vue'
+  import Empty from '@/components/Empty.vue'
+  import Link from '@/components/Link.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import DefaultLayout from '@/layouts/Default.vue'

@@ -1,12 +1,8 @@
 <template>
-  <BaseSpinner v-if="!post" />
+  <Spinner v-if="!post" />
   <DefaultLayout v-else>
     <div class="post-view">
-      <BasePost
-        :is-removable="isMe"
-        :post="post"
-        @remove-click="onRemoveClick"
-      />
+      <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
     </div>
   </DefaultLayout>
 </template>
@@ -15,8 +11,8 @@
   import { computed, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
-  import BasePost from '@/components/BasePost.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Post from '@/components/Post.vue'
+  import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
   import { postsStore, getPost, removePost } from '@/store/posts'

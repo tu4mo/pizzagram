@@ -7,9 +7,9 @@
       ]"
     >
       <div v-if="canGoBack" class="default-layout__back">
-        <BaseButton class="default-layout__back-link" @click="router.go(-1)">
-          <BaseIcon name="chevronLeft" />
-        </BaseButton>
+        <Button class="default-layout__back-link" @click="router.go(-1)">
+          <Icon name="chevronLeft" />
+        </Button>
       </div>
       <div class="default-layout__header"><TheHeader :title="title" /></div>
     </div>
@@ -34,8 +34,8 @@
   import { computed, onMounted, onUnmounted, ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
-  import BaseButton from '@/components/BaseButton.vue'
-  import BaseIcon from '@/components/BaseIcon.vue'
+  import Button from '@/components/Button.vue'
+  import Icon from '@/components/Icon.vue'
   import TheHeader from '@/components/TheHeader.vue'
   import TheNavigation from '@/components/TheNavigation.vue'
   import { authStore } from '@/store/auth'

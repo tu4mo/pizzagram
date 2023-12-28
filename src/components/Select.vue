@@ -23,11 +23,7 @@
           type="radio"
           @change="$emit('change', customItem)"
         />
-        <BaseInput
-          v-model="customItem"
-          borderless
-          placeholder="Add new location"
-        />
+        <Input v-model="customItem" borderless placeholder="Add new location" />
       </label>
     </li>
   </ul>
@@ -36,7 +32,7 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
 
-  import BaseInput from './BaseInput.vue'
+  import Input from './Input.vue'
 
   type Props = {
     name: string

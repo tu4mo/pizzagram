@@ -1,13 +1,13 @@
 <template>
   <DefaultLayout max-width>
     <div class="home">
-      <BasePost
+      <Post
         v-for="post in posts"
         :key="post.id"
         :image-to="{ name: 'post', params: { postId: post.id } }"
         :post="post"
       />
-      <BaseSpinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
+      <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
     </div>
   </DefaultLayout>
 </template>
@@ -15,8 +15,8 @@
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted } from 'vue'
 
-  import BasePost from '@/components/BasePost.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Post from '@/components/Post.vue'
+  import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { fetchPostsForHome, getPostsByFeed, postsStore } from '@/store/posts'
   import { setTitle } from '@/title'

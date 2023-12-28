@@ -1,36 +1,34 @@
 <template>
   <WelcomeLayout>
-    <BaseSpinner v-if="isLoading" cover />
+    <Spinner v-if="isLoading" cover />
     <form class="login" @submit.prevent="submit">
-      <BaseSpacer gap="1">
-        <BaseSpacer gap="1">
-          <BaseInput
+      <Spacer gap="1">
+        <Spacer gap="1">
+          <Input
             v-model.trim="email"
             name="email"
             placeholder="E-mail"
             type="email"
           />
-          <BaseInput
+          <Input
             v-model="password"
             name="password"
             placeholder="Password"
             type="password"
           />
-          <BaseButton :disabled="!email || !password" type="submit">
-            Log In
-          </BaseButton>
-        </BaseSpacer>
-        <BaseSpacer gap="1">
+          <Button :disabled="!email || !password" type="submit">Log In</Button>
+        </Spacer>
+        <Spacer gap="1">
           <p>
             Don't have an account?
-            <BaseLink :to="{ name: 'signup' }">Sign Up</BaseLink>
+            <Link :to="{ name: 'signup' }">Sign Up</Link>
           </p>
           <p>
             Forgot your password?
-            <BaseLink :to="{ name: 'reset-password' }">Reset Password</BaseLink>
+            <Link :to="{ name: 'reset-password' }">Reset Password</Link>
           </p>
-        </BaseSpacer>
-      </BaseSpacer>
+        </Spacer>
+      </Spacer>
     </form>
   </WelcomeLayout>
 </template>
@@ -40,11 +38,11 @@
   import { useRouter } from 'vue-router'
 
   import { signIn } from '@/api/auth'
-  import BaseButton from '@/components/BaseButton.vue'
-  import BaseInput from '@/components/BaseInput.vue'
-  import BaseLink from '@/components/BaseLink.vue'
-  import BaseSpacer from '@/components/BaseSpacer.vue'
-  import BaseSpinner from '@/components/BaseSpinner.vue'
+  import Button from '@/components/Button.vue'
+  import Input from '@/components/Input.vue'
+  import Link from '@/components/Link.vue'
+  import Spacer from '@/components/Spacer.vue'
+  import Spinner from '@/components/Spinner.vue'
   import WelcomeLayout from '@/layouts/Welcome.vue'
   import { setTitle } from '@/title'
 
