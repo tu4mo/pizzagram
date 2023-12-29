@@ -10,7 +10,7 @@
           title="Home"
         />
         <NavItem icon="camera" :to="{ name: 'upload' }" custom title="Upload">
-          <TheCamera class="navigation__item" />
+          <Camera class="navigation__item" />
         </NavItem>
         <NavItem
           v-if="isDevelopment"
@@ -55,8 +55,8 @@
 <script setup lang="ts">
   import { computed } from 'vue'
 
+  import Camera from './Camera.vue'
   import NavItem from './NavItem.vue'
-  import TheCamera from './TheCamera.vue'
 
   import { authStore } from '@/store/auth'
   import { getUnreadNotificationsCount } from '@/store/notifications'

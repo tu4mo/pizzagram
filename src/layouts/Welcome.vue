@@ -1,12 +1,12 @@
 <template>
   <div class="welcome-layout">
-    <div class="welcome-layout__header"><TheHeader /></div>
+    <div class="welcome-layout__header"><Header /></div>
     <main class="welcome-layout__main"><slot /></main>
   </div>
 </template>
 
 <script setup lang="ts">
-  import TheHeader from '@/components/TheHeader.vue'
+  import Header from '@/components/Header.vue'
 </script>
 
 <style scoped>

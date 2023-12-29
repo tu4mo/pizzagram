@@ -1,12 +1,12 @@
 <template>
   <header :class="['header', { 'header--has-title': !!title }]">
-    <TheLogo class="header__logo" />
+    <Logo class="header__logo" />
     <div v-if="title" class="header__title">{{ title }}</div>
   </header>
 </template>
 
 <script setup lang="ts">
-  import TheLogo from './TheLogo.vue'
+  import Logo from './Logo.vue'
 
   type Props = {
     title?: string

@@ -11,10 +11,10 @@
           <Icon name="chevronLeft" />
         </Button>
       </div>
-      <div class="default-layout__header"><TheHeader :title="title" /></div>
+      <div class="default-layout__header"><Header :title="title" /></div>
     </div>
     <div v-if="authStore.isInitialized" class="default-layout__navigation">
-      <TheNavigation />
+      <Navigation />
     </div>
     <main
       :class="[
@@ -35,9 +35,9 @@
   import { useRoute, useRouter } from 'vue-router'
 
   import Button from '@/components/Button.vue'
+  import Header from '@/components/Header.vue'
   import Icon from '@/components/Icon.vue'
-  import TheHeader from '@/components/TheHeader.vue'
-  import TheNavigation from '@/components/TheNavigation.vue'
+  import Navigation from '@/components/Navigation.vue'
   import { authStore } from '@/store/auth'
 
   type Props = {
