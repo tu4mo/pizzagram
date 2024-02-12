@@ -16,7 +16,10 @@ export async function addCommentToPost(
 
   console.log(`Adding "createdAt" to comment ${snap.id}`)
 
-  db.collection('comments').doc(snap.id).update({ createdAt: snap.createTime })
+  await db
+    .collection('comments')
+    .doc(snap.id)
+    .update({ createdAt: snap.createTime })
 
   const commentData = snap.data()
   const postDoc = db.collection('posts').doc(commentData.postId)
