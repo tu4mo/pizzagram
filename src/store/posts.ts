@@ -18,6 +18,13 @@ export const postsStore = reactive<{
   posts: {},
 })
 
+api.subscribeToPosts((posts) => {
+  posts.forEach((post) => {
+    postsStore.posts[post.id] = post
+    addToFeed('home', post.id)
+  })
+})
+
 export async function getPost(id: string, force = false) {
   if (postsStore.posts[id] && !force) {
     return postsStore.posts[id]
