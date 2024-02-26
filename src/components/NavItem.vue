@@ -1,11 +1,5 @@
 <template>
-  <RouterLink
-    v-if="!custom"
-    :exact="exact"
-    :to="to"
-    active-class="nav-item--active"
-    class="nav-item"
-  >
+  <RouterLink v-if="!custom" :exact="exact" :to="to" class="nav-item">
     <div class="nav-item__icon">
       <Icon :name="icon" />
       <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
@@ -14,7 +8,8 @@
   </RouterLink>
   <template v-else>
     <label
-      :class="['nav-item', { 'nav-item--active': route.name === to.name }]"
+      class="nav-item"
+      :aria-current="route.name === to.name ? 'page' : undefined"
     >
       <div class="nav-item__icon">
         <Icon :name="icon" />
@@ -60,7 +55,7 @@
     transform: var(--button-scale);
   }
 
-  .nav-item--active {
+  [aria-current='page'] {
     color: var(--color-primary);
   }
 
