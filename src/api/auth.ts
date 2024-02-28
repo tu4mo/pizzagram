@@ -20,7 +20,7 @@ export function sendPasswordResetEmail(email: string) {
   return firebaseSendPasswordResetEmail(auth, email)
 }
 
-export async function currentUser() {
+export async function getCurrentUser() {
   await auth.authStateReady()
   return auth.currentUser
 }
@@ -69,7 +69,7 @@ export async function signUp(
 
   const gravatar = md5(email.toLowerCase())
 
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return

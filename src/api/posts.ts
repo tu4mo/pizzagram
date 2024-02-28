@@ -22,7 +22,7 @@ import {
 import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
-import { currentUser } from './auth'
+import { getCurrentUser } from './auth'
 
 import { firestore, functions, storage } from '.'
 
@@ -119,7 +119,7 @@ export async function sharePost({
   caption: string
   file: File
 }) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return
@@ -153,7 +153,7 @@ export async function removePost(id: string) {
 }
 
 export async function likePost(postId: string) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return
@@ -169,7 +169,7 @@ export async function likePost(postId: string) {
 }
 
 export async function dislikePost(postId: string) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return
@@ -195,7 +195,7 @@ export async function addComment({
   comment: string
   postId: string
 }) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user?.displayName) {
     return

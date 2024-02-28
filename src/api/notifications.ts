@@ -9,7 +9,7 @@ import {
   writeBatch,
 } from 'firebase/firestore'
 
-import { currentUser } from './auth'
+import { getCurrentUser } from './auth'
 import type { User } from './user'
 import { fetchUser } from './user'
 
@@ -34,7 +34,7 @@ export type Notification = {
 export async function subscribeToNotifications(
   callback: (notifications: Notification[]) => void,
 ) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return
@@ -69,7 +69,7 @@ export async function subscribeToNotifications(
 }
 
 export async function markNotificationsAsRead() {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return

@@ -7,7 +7,7 @@ import {
   where,
 } from 'firebase/firestore'
 
-import { currentUser } from './auth'
+import { getCurrentUser } from './auth'
 
 import { firestore } from '.'
 
@@ -39,7 +39,7 @@ export async function addComment({
   comment: string
   postId: string
 }) {
-  const user = await currentUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     return
