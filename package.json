@@ -15,9 +15,9 @@
   "dependencies": {
     "@sentry/vue": "7.104.0",
     "feather-icons": "4.29.1",
-    "firebase": "10.8.0",
+    "firebase": "10.8.1",
     "md5": "2.3.0",
-    "vue": "3.4.19",
+    "vue": "3.4.21",
     "vue-router": "4.3.0"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@typescript-eslint/parser": "7.0.2",
     "@vitejs/plugin-vue": "5.0.4",
-    "@vue/runtime-dom": "3.4.19",
+    "@vue/runtime-dom": "3.4.21",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
