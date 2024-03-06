@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "@types/md5": "2.3.5",
-    "@typescript-eslint/eslint-plugin": "7.1.0",
-    "@typescript-eslint/parser": "7.1.0",
+    "@typescript-eslint/eslint-plugin": "7.1.1",
+    "@typescript-eslint/parser": "7.1.1",
     "@vitejs/plugin-vue": "5.0.4",
     "@vue/runtime-dom": "3.4.21",
     "eslint": "8.57.0",
@@ -35,8 +35,8 @@
     "firebase-tools": "13.4.0",
     "prettier": "3.2.5",
     "typescript": "5.4.2",
-    "vite": "5.1.4",
-    "vue-tsc": "2.0.4"
+    "vite": "5.1.5",
+    "vue-tsc": "2.0.5"
   },
   "browserslist": [
     "defaults"
