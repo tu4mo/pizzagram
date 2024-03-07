@@ -1,5 +1,5 @@
 <template>
-  <div class="spacer" :style="{ '--gap': `${gap}rem` }"><slot /></div>
+  <div class="spacer" :style="{ gap: `${gap}rem` }"><slot /></div>
 </template>
 
 <script setup lang="ts">
@@ -14,6 +14,5 @@
   .spacer {
     display: flex;
     flex-direction: column;
-    gap: var(--gap);
   }
 </style>
