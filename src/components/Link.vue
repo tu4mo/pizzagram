@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :active-class="activeClass" :to="to" class="link">
+  <RouterLink :to="to" class="link">
     <slot />
   </RouterLink>
 </template>
@@ -8,7 +8,6 @@
   import type { RouteLocationRaw } from 'vue-router'
 
   type Props = {
-    activeClass?: string
     to: RouteLocationRaw
   }
 
