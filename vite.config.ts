@@ -9,6 +9,7 @@ export default defineConfig({
     sourcemap: true,
   },
   define: {
+    // https://docs.sentry.io/platforms/javascript/configuration/tree-shaking/
     __SENTRY_DEBUG__: JSON.stringify(false),
     __SENTRY_TRACING__: JSON.stringify(false),
   },
