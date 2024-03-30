@@ -60,7 +60,7 @@ export async function addNotification(
       }
     }
 
-    await notifications.add({
+    const notification = await notifications.add({
       createdAt: new Date(),
       fromUserId: userId,
       imageUrl: postData.imageUrl,
@@ -70,6 +70,6 @@ export async function addNotification(
       userId: postData.userId,
     })
 
-    console.log('Notification added')
+    console.log(`Notification ${notification.id} added.`)
   }
 }
