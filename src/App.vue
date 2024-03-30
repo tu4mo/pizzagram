@@ -6,6 +6,16 @@
   </RouterView>
 </template>
 
+<script setup lang="ts">
+  import { onMounted } from 'vue'
+
+  import { initializeAuthCallback } from './store/auth'
+
+  onMounted(() => {
+    initializeAuthCallback()
+  })
+</script>
+
 <style>
   :root {
     --button-scale: scale(0.94);
