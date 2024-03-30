@@ -2,7 +2,7 @@ import * as path from 'path'
 
 import { Storage } from '@google-cloud/storage'
 import type * as functionsV2 from 'firebase-functions/v2'
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 
 const storage = new Storage()
 

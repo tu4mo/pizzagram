@@ -1,7 +1,7 @@
 import * as path from 'path'
 
 import { Storage } from '@google-cloud/storage'
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 
 const storage = new Storage()
 
