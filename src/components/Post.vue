@@ -27,7 +27,7 @@
         <Button secondary aria-label="Share" @click="onShareClick">
           <Icon name="share" />
         </Button>
-        <PostLike :post-id="post.id" />
+        <PostLike :post="post" />
       </div>
     </footer>
   </article>

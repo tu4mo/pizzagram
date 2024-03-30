@@ -93,7 +93,7 @@ export async function fetchPost(id: string) {
 }
 
 function createPostObject(doc: DocumentSnapshot<any>): Post {
-  const data = doc.data()
+  const data = doc.data() ?? {}
 
   const comments =
     data.comments?.map((comment: any) => ({
@@ -101,16 +101,14 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
       createdAt: comment.createdAt.toDate(),
     })) ?? []
 
-  return data
-    ? {
-        ...data,
-        createdAt: data.createdAt.toDate(),
-        comments,
-        doc,
-        id: doc.id,
-        likes: data.likes ?? {},
-      }
-    : data
+  return {
+    ...data,
+    createdAt: data.createdAt.toDate(),
+    comments,
+    doc,
+    id: doc.id,
+    likes: data.likes ?? {},
+  }
 }
 
 export async function sharePost({

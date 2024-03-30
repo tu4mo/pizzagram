@@ -15,24 +15,23 @@
   import Button from './Button.vue'
   import Icon from './Icon.vue'
 
+  import type { Post } from '@/api/posts'
   import { authStore } from '@/store/auth'
-  import { postsStore, toggleLike } from '@/store/posts'
+  import { toggleLike } from '@/store/posts'
 
   type Props = {
-    postId: string
+    post: Post
   }
 
-  const { postId } = defineProps<Props>()
+  const props = defineProps<Props>()
 
   const isLikeClicked = ref(false)
 
   async function onLikeClick() {
     isLikeClicked.value = true
-    await toggleLike(postId)
+    await toggleLike(props.post.id)
     isLikeClicked.value = false
   }
 
-  const hasLiked = computed(
-    () => !!postsStore.posts[postId]?.likes[authStore.userId],
-  )
+  const hasLiked = computed(() => !!props.post.likes[authStore.userId])
 </script>
