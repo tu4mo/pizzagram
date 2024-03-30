@@ -38,6 +38,7 @@ export const QUERY_LIMIT = 9
 export type PostComment = {
   comment: string
   createdAt: Date
+  id: string
   userId: string
   username: string
 }

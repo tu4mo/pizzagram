@@ -1,4 +1,5 @@
-import * as admin from 'firebase-admin'
+import type * as admin from 'firebase-admin'
+import { FieldValue } from 'firebase-admin/firestore'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
@@ -29,7 +30,8 @@ export async function removeCommentFromPost(
     return
   }
 
-  const postComment = ((post.get('comments') || []) as Comment[]).find(
+  const postComments = (post.get('comments') ?? []) as Comment[]
+  const postComment = postComments.find(
     (postComment) => postComment.id === commentId,
   )
 
@@ -41,7 +43,7 @@ export async function removeCommentFromPost(
   await db
     .collection('posts')
     .doc(post.id)
-    .update({ comments: admin.firestore.FieldValue.arrayRemove(postComment) })
+    .update({ comments: FieldValue.arrayRemove(postComment) })
 
   console.log(`Comment removed`)
 }

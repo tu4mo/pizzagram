@@ -35,12 +35,17 @@
     line-height: 1;
     outline-color: var(--color-secondary);
     padding: 1rem;
+    transition: border-color 0.1s ease-in-out;
     width: 100%;
   }
 
   .input--borderless {
     border: 0;
     padding: 0;
+  }
+
+  .input:hover {
+    border-color: var(--color-gray);
   }
 
   .input:disabled {
