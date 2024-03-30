@@ -30,17 +30,12 @@ export async function addCommentToPost(
     return
   }
 
-  const users = await db
-    .collection('users')
-    .where('id', '==', commentData.userId)
-    .limit(1)
-    .get()
+  const docSnap = await db.collection('users_2').doc(commentData.userId).get()
+  const username = docSnap.data()?.username
 
-  if (users.empty) {
+  if (!username) {
     return
   }
-
-  const username = users.docs[0].id
 
   console.log(`Updating comments on post ${commentData.postId}`)
 

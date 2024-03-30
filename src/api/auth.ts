@@ -51,11 +51,7 @@ export async function signUp(
   const md5 = (await import('md5')).default
 
   const querySnapshot = await getCountFromServer(
-    query(
-      collection(firestore, 'users_2'),
-      where('username', '==', username),
-      limit(1),
-    ),
+    query(collection(firestore, 'users_2'), where('username', '==', username)),
   )
 
   if (querySnapshot.data().count > 0) {
