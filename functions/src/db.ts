@@ -1,9 +1,10 @@
-import * as admin from 'firebase-admin'
+import { initializeApp } from 'firebase-admin/app'
+import { getFirestore } from 'firebase-admin/firestore'
 
-admin.initializeApp()
+initializeApp()
 
-const db = admin.firestore()
+const defaultFirestore = getFirestore()
 
-db.settings({ timestampsInSnapshots: true })
+defaultFirestore.settings({ timestampsInSnapshots: true })
 
-export { db }
+export { defaultFirestore as db }

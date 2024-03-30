@@ -1,4 +1,4 @@
-import type * as admin from 'firebase-admin'
+import type { Firestore } from 'firebase-admin/firestore'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
@@ -11,7 +11,7 @@ export enum NotificationType {
 
 export async function addNotification(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
-  db: admin.firestore.Firestore,
+  db: Firestore,
   notificationType: NotificationType,
 ) {
   const snap = event.data
@@ -52,9 +52,10 @@ export async function addNotification(
         .where('postId', '==', postId)
         .where('type', '==', notificationType)
         .where('userId', '==', postData.userId)
+        .count()
         .get()
 
-      if (!notification.empty) {
+      if (notification.data().count > 0) {
         return
       }
     }
