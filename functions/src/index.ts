@@ -5,6 +5,7 @@ import { addNotification, NotificationType } from './add-notification'
 import { db } from './db'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
+import { registerUser } from './register-user'
 import { removeCommentFromPost } from './remove-comment-from-post'
 import { resizeImage } from './resize-image'
 import { updatePost } from './update-post'
@@ -39,6 +40,7 @@ exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
   (snapshot) => addNotification(snapshot, db, NotificationType.Like),
 )
 
+exports.registerUser = registerUser
 exports.deleteUser = deleteUser
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
