@@ -1,4 +1,5 @@
 import type * as admin from 'firebase-admin'
+import { FieldValue } from 'firebase-admin/firestore'
 import type {
   Change,
   FirestoreEvent,
@@ -17,17 +18,10 @@ export async function updatePost(
 
   const { userId } = snap.after.data()
 
-  const usersSnapshot = await db
-    .collection('users')
-    .where('id', '==', userId)
-    .limit(1)
-    .get()
+  await db
+    .collection('users_2')
+    .doc(userId)
+    .update({ posts: FieldValue.increment(1) })
 
-  usersSnapshot.forEach(async (doc) => {
-    const posts = Number(doc.data().posts) + 1 || 1
-
-    console.log(`Increasing ${doc.id}'s posts count to ${posts}`)
-
-    await db.collection('users').doc(doc.id).update({ posts })
-  })
+  console.log(`Increasing ${userId}'s posts count by 1`)
 }

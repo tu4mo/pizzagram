@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage'
 import type * as admin from 'firebase-admin'
+import { FieldValue } from 'firebase-admin/firestore'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
@@ -27,7 +28,7 @@ export async function deletePost(
   const photoFile = bucket.file(`posts/${id}.jpg`)
   const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
 
-  const users = db.collection('users')
+  const users = db.collection('users_2')
 
   try {
     await photoFile.delete()
@@ -53,13 +54,8 @@ export async function deletePost(
       `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
-    const usersSnapshot = await users.where('id', '==', userId).limit(1).get()
-
-    usersSnapshot.forEach(async (userRef) => {
-      const posts = userRef.data().posts - 1
-      await users.doc(userRef.id).update({ posts })
-      console.log(`Decreasing ${userRef.id}'s posts count to ${posts}`)
-    })
+    await users.doc(userId).update({ posts: FieldValue.increment(-1) })
+    console.log(`Decreasing ${userId}'s posts count by 1`)
   } catch (error) {
     console.log(`Failed to completely remove post (${error}).`)
   }

@@ -6,12 +6,14 @@ import {
   type User,
 } from 'firebase/auth'
 import {
-  deleteDoc,
+  collection,
   doc,
-  getDoc,
+  getCountFromServer,
+  limit,
+  query,
   serverTimestamp,
   setDoc,
-  updateDoc,
+  where,
 } from 'firebase/firestore'
 
 import { auth, firestore } from '.'
@@ -44,42 +46,40 @@ export async function signUp(
   email: string,
   password: string,
 ) {
-  const md5 = (await import('md5')).default
-
   isSigningUp = true
 
-  const docRef = doc(firestore, 'users', username)
-  const docSnap = await getDoc(docRef)
+  const md5 = (await import('md5')).default
 
-  if (docSnap.exists()) {
+  const querySnapshot = await getCountFromServer(
+    query(
+      collection(firestore, 'users_2'),
+      where('username', '==', username),
+      limit(1),
+    ),
+  )
+
+  if (querySnapshot.data().count > 0) {
     throw new Error('Username already exists.')
   }
 
+  const userCredentials = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  )
+
+  await updateProfile(userCredentials.user, { displayName: username })
+
+  const docRef = doc(firestore, 'users_2', userCredentials.user.uid)
+
   await setDoc(docRef, {
     createdAt: serverTimestamp(),
-    id: null,
+    gravatar: md5(email.toLowerCase()),
+    id: userCredentials.user.uid,
+    username,
   })
 
-  try {
-    await createUserWithEmailAndPassword(auth, email, password)
-  } catch (error) {
-    await deleteDoc(docRef)
-    throw error
-  }
-
-  const gravatar = md5(email.toLowerCase())
-
-  const user = await getCurrentUser()
-
-  if (!user) {
-    return
-  }
-
-  await updateProfile(user, { displayName: username })
-
-  await updateDoc(docRef, { gravatar, id: user.uid })
-
-  onAuthStateChangedCallback(user)
+  onAuthStateChangedCallback(userCredentials.user)
 
   isSigningUp = false
 }

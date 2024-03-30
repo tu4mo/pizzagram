@@ -67,12 +67,8 @@ async function onDelete(user: admin.auth.UserRecord) {
   await Promise.all(files)
 
   // Remove user
-  const usersCollection = db.collection('users')
-  const users = await usersCollection.where('id', '==', uid).limit(1).get()
-  users.forEach((doc) => {
-    deleteBatch.delete(usersCollection.doc(doc.id))
-    console.log(`Removed user ${doc.id}.`)
-  })
+  deleteBatch.delete(db.collection('users_2').doc(uid))
+  console.log(`Removed user ${uid}.`)
 
   await deleteBatch.commit()
 
