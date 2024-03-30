@@ -11,6 +11,8 @@ type Data = {
   username: string
 }
 
+const usersCollection = db.collection('users_2')
+
 async function onCreate(callableRequest: CallableRequest<Data>) {
   const {
     auth,
@@ -18,14 +20,23 @@ async function onCreate(callableRequest: CallableRequest<Data>) {
   } = callableRequest
 
   if (!auth) {
-    return
+    return false
   }
 
   console.log(`Registering user "${username}" (${auth.uid})...`)
 
+  const querySnapshot = await usersCollection
+    .where('username', '==', username)
+    .count()
+    .get()
+
+  if (querySnapshot.data().count > 0) {
+    console.log('Username already exists.')
+    return false
+  }
+
   const user = await authService.getUser(auth.uid)
 
-  const usersCollection = db.collection('users_2')
   usersCollection.doc(user.uid).set({
     createdAt: new Date(),
     gravatar: md5(user.email || ''),
@@ -34,6 +45,8 @@ async function onCreate(callableRequest: CallableRequest<Data>) {
   })
 
   console.log(`User ${username} registered`)
+
+  return true
 }
 
 export const registerUser = functionsV2.https.onCall(
