@@ -4,6 +4,7 @@ import {
   getDocs,
   orderBy,
   query,
+  serverTimestamp,
   where,
 } from 'firebase/firestore'
 
@@ -47,6 +48,7 @@ export async function addComment({
 
   await addDoc(commentsCollection, {
     comment,
+    createdAt: serverTimestamp(),
     postId,
     userId: user.uid,
   })

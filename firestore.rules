@@ -8,8 +8,9 @@ service cloud.firestore {
 
     match /comments/{commentId} {
       allow read;
-      allow create: if request.resource.data.size() == 3
+      allow create: if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId'])
         && request.resource.data.comment is string
+        && request.resource.data.createdAt is timestamp
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
         && request.auth.uid == request.resource.data.userId;
     }
