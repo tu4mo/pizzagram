@@ -2,7 +2,7 @@ import type { UserRecord } from 'firebase-admin/auth'
 import { getAuth } from 'firebase-admin/auth'
 import * as functionsV2 from 'firebase-functions/v2'
 import type { CallableRequest } from 'firebase-functions/v2/https'
-import md5 = require('md5')
+import md5 from 'md5'
 
 import { db } from './db'
 
@@ -53,7 +53,7 @@ async function _registerUser(callableRequest: CallableRequest<Data>) {
     username,
   })
 
-  console.log(`User ${username} registered`)
+  console.log(`User "${username}" (${user.uid}) registered`)
 
   return user
 }

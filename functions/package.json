@@ -22,5 +22,8 @@
     "md5": "2.3.0",
     "sharp": "0.33.3"
   },
+  "devDependencies": {
+    "@types/md5": "2.3.5"
+  },
   "private": true
 }
