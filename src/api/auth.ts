@@ -1,21 +1,11 @@
 import {
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   signInWithEmailAndPassword,
-  updateProfile,
   type User,
 } from 'firebase/auth'
-import {
-  collection,
-  doc,
-  getCountFromServer,
-  query,
-  serverTimestamp,
-  setDoc,
-  where,
-} from 'firebase/firestore'
+import { httpsCallable } from 'firebase/functions'
 
-import { auth, firestore } from '.'
+import { auth, functions } from '.'
 
 export function sendPasswordResetEmail(email: string) {
   return firebaseSendPasswordResetEmail(auth, email)
@@ -26,12 +16,15 @@ export async function getCurrentUser() {
   return auth.currentUser
 }
 
-let isSigningUp = false
+const registerUser = httpsCallable<
+  { email: string; username: string; password: string },
+  User | null
+>(functions, 'registerUser')
 
 let onAuthStateChangedCallback: (user: User | null) => void = () => undefined
 
 auth.onAuthStateChanged(async (user) => {
-  !isSigningUp && onAuthStateChangedCallback(user)
+  onAuthStateChangedCallback(user)
 })
 
 export function setOnAuthStateChangedCallback(
@@ -45,38 +38,13 @@ export async function signUp(
   email: string,
   password: string,
 ) {
-  isSigningUp = true
+  const user = await registerUser({ email, username, password })
 
-  const md5 = (await import('md5')).default
-
-  const querySnapshot = await getCountFromServer(
-    query(collection(firestore, 'users_2'), where('username', '==', username)),
-  )
-
-  if (querySnapshot.data().count > 0) {
-    throw new Error('Username already exists.')
+  if (!user.data) {
+    throw new Error('Unable to register user')
   }
 
-  const userCredentials = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password,
-  )
-
-  await updateProfile(userCredentials.user, { displayName: username })
-
-  const docRef = doc(firestore, 'users_2', userCredentials.user.uid)
-
-  await setDoc(docRef, {
-    createdAt: serverTimestamp(),
-    gravatar: md5(email.toLowerCase()),
-    id: userCredentials.user.uid,
-    username,
-  })
-
-  onAuthStateChangedCallback(userCredentials.user)
-
-  isSigningUp = false
+  await signIn(email, password)
 }
 
 export async function signIn(email: string, password: string) {

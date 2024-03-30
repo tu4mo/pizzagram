@@ -75,24 +75,8 @@ service cloud.firestore {
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
-    match /users/{user} {
-      allow read;
-      allow update: if resource.data.id == null && isAllowedUsername(user);
-      allow create: if request.auth == null && isAllowedUsername(user);
-      allow delete: if resource.data.id == null;
-    }
-
     match /users_2/{userId} {
       allow read;
-
-      allow create: if request.auth.uid == userId
-        && isAllowedUsername(request.resource.data.username)
-        && request.resource.data.keys().hasOnly(['createdAt', 'gravatar', 'id', 'username'])
-        && request.resource.data.createdAt is timestamp
-        && request.resource.data.gravatar is string
-        && request.resource.data.id == request.auth.uid;
-
-      allow delete: if resource.data.id == null;
     }
   }
 }
