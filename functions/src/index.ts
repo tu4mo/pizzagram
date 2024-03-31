@@ -22,8 +22,9 @@ exports.createPost = functionsV2.firestore.onDocumentCreated(
   (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      updatePostsCount(userId)
+      return updatePostsCount(userId)
     }
+    return
   },
 )
 
