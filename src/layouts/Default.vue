@@ -115,6 +115,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    top: env(safe-area-inset-top);
   }
 
   @media (min-width: 640px) {
@@ -154,6 +155,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    top: env(safe-area-inset-top);
   }
 
   @media (min-width: 640px) {
