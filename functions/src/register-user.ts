@@ -1,6 +1,5 @@
 import type { UserRecord } from 'firebase-admin/auth'
 import { getAuth } from 'firebase-admin/auth'
-import * as functionsV2 from 'firebase-functions/v2'
 import type { CallableRequest } from 'firebase-functions/v2/https'
 import md5 from 'md5'
 
@@ -16,7 +15,7 @@ type Data = {
 
 const usersCollection = db.collection('users_2')
 
-async function _registerUser(callableRequest: CallableRequest<Data>) {
+export async function registerUser(callableRequest: CallableRequest<Data>) {
   const {
     data: { email, username, password },
   } = callableRequest
@@ -57,8 +56,3 @@ async function _registerUser(callableRequest: CallableRequest<Data>) {
 
   return user
 }
-
-export const registerUser = functionsV2.https.onCall(
-  { enforceAppCheck: true },
-  _registerUser,
-)

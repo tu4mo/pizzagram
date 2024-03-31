@@ -1,3 +1,4 @@
+import * as functionsV1 from 'firebase-functions'
 import * as functionsV2 from 'firebase-functions/v2'
 
 import { addCommentCountToPost } from './add-comment-count-to-post'
@@ -40,8 +41,12 @@ exports.onCreateLike = functionsV2.firestore.onDocumentCreated(
   (snapshot) => addNotification(snapshot, db, NotificationType.Like),
 )
 
-exports.registerUser = registerUser
-exports.deleteUser = deleteUser
+exports.registerUser = functionsV2.https.onCall(
+  { enforceAppCheck: true },
+  registerUser,
+)
+
+exports.deleteUser = functionsV1.auth.user().onDelete(deleteUser)
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   { memory: '1GiB' },
