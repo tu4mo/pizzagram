@@ -1,8 +1,6 @@
 import type { DocumentSnapshot, QueryConstraint } from 'firebase/firestore'
 import {
-  Timestamp,
   addDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   deleteField,
@@ -34,14 +32,6 @@ if (import.meta.env.DEV) {
 }
 
 export const QUERY_LIMIT = 9
-
-export type PostComment = {
-  comment: string
-  createdAt: Date
-  id: string
-  userId: string
-  username: string
-}
 
 export type Post = {
   caption: string
@@ -181,35 +171,6 @@ export async function dislikePost(postId: string) {
 
     const postDoc = doc(firestore, 'posts', postId)
     transaction.update(postDoc, { [`likes.${user.uid}`]: deleteField() })
-  })
-}
-
-export async function addComment({
-  comment,
-  postId,
-}: {
-  comment: string
-  postId: string
-}) {
-  const user = await getCurrentUser()
-
-  if (!user?.displayName) {
-    return
-  }
-
-  const post = doc(firestore, 'posts', postId)
-
-  const newComment = {
-    comment,
-    createdAt: Timestamp.now(),
-    userId: user.uid,
-    username: user.displayName,
-  }
-
-  console.log(newComment)
-
-  await updateDoc(post, {
-    comments: arrayUnion(newComment),
   })
 }
 

@@ -12,23 +12,33 @@
       />
     </div>
     <footer class="post__footer">
-      <div class="post__info">
-        <div v-if="likes > 0" class="post__likes">
-          {{ likes }} like{{ likes !== 1 ? 's' : '' }}
+      <div class="post__details">
+        <div class="post__info">
+          <div class="post__meta">
+            <div v-if="likes > 0">
+              {{ likes }} like{{ likes !== 1 ? 's' : '' }}
+            </div>
+            <div v-if="isDevelopment && post.commentsCount > 0">
+              {{ post.commentsCount }} comment{{
+                post.commentsCount !== 1 ? 's' : ''
+              }}
+            </div>
+          </div>
+          <div v-if="post.caption" class="post__caption">
+            {{ post.caption }}
+          </div>
         </div>
-        <div v-if="post.caption" class="post__caption">
-          {{ post.caption }}
+        <div v-if="authStore.isAuthenticated" class="post__actions">
+          <Button v-if="isRemovable" aria-label="Remove" @click="onRemoveClick">
+            <Icon name="trash2" />
+          </Button>
+          <Button secondary aria-label="Share" @click="onShareClick">
+            <Icon name="share" />
+          </Button>
+          <PostLike :post="post" />
         </div>
       </div>
-      <div v-if="authStore.isAuthenticated" class="post__buttons">
-        <Button v-if="isRemovable" aria-label="Remove" @click="onRemoveClick">
-          <Icon name="trash2" />
-        </Button>
-        <Button secondary aria-label="Share" @click="onShareClick">
-          <Icon name="share" />
-        </Button>
-        <PostLike :post="post" />
-      </div>
+      <PostComments v-if="isDevelopment" :post-id="post.id" />
     </footer>
   </article>
 </template>
@@ -39,6 +49,7 @@
 
   import Button from './Button.vue'
   import Icon from './Icon.vue'
+  import PostComments from './PostComments.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
   import PostLike from './PostLike.vue'
@@ -95,6 +106,8 @@
       //
     }
   }
+
+  const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
 
 <style scoped>
@@ -108,10 +121,16 @@
   }
 
   .post__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .post__details {
     align-items: flex-start;
     display: flex;
     gap: 1.5rem;
-    padding: 1rem;
   }
 
   .post__info {
@@ -121,15 +140,17 @@
     gap: 0.25rem;
   }
 
-  .post__likes {
+  .post__meta {
+    display: flex;
     font-weight: bold;
+    gap: 1rem;
   }
 
   .post__caption {
     color: var(--color-gray);
   }
 
-  .post__buttons {
+  .post__actions {
     display: grid;
     grid-auto-flow: column;
     gap: 1.5rem;

@@ -17,8 +17,10 @@ const commentsCollection = collection(firestore, 'comments')
 export type Comment = {
   comment: string
   createdAt: Date
+  id: string
   postId: string
   userId: string
+  username: string
 }
 
 export async function fetchComments(postId: string) {
@@ -30,7 +32,20 @@ export async function fetchComments(postId: string) {
     ),
   )
 
-  return querySnapshot.docs.map((doc) => doc.data() as Comment)
+  return querySnapshot.docs.map((doc) => {
+    const data = doc.data()
+
+    const comment: Comment = {
+      comment: data.comment ?? '',
+      createdAt: data.createdAt.toDate(),
+      id: doc.id,
+      postId: data.postId ?? '',
+      userId: data.userId ?? '',
+      username: data.username ?? '',
+    }
+
+    return comment
+  })
 }
 
 export async function addComment({
