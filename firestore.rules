@@ -38,7 +38,7 @@ service cloud.firestore {
         )
         && request.resource.data.caption is string
         && request.resource.data.createdAt is timestamp
-        && request.resource.data.imageUrl is null
+        && request.resource.data.imageUrl == null
         && request.resource.data.published == false
         && request.resource.data.userId == request.auth.uid;
 
