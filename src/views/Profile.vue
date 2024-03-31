@@ -78,18 +78,13 @@
 
 <style scoped>
   .profile__header {
+    aspect-ratio: 16 / 9;
     background-attachment: fixed;
     background-position: 50% 50%;
     background-size: cover;
     max-height: 16rem;
     position: relative;
-  }
-
-  .profile__header::after {
-    content: '';
-    display: block;
-    padding-top: 50%;
-    pointer-events: none;
+    width: 100%;
   }
 
   .profile__header::before {
