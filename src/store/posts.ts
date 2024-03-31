@@ -3,7 +3,6 @@
 import { reactive } from 'vue'
 
 import { authStore } from './auth'
-import { addToFeed, feedsStore } from './feeds'
 
 import * as api from '@/api/posts'
 import { fetchUserByUsername } from '@/api/user'
@@ -21,7 +20,6 @@ export const postsStore = reactive<{
 api.subscribeToPosts((posts) => {
   posts.forEach((post) => {
     postsStore.posts[post.id] = post
-    addToFeed('home', post.id)
   })
 })
 
@@ -38,22 +36,21 @@ export async function getPost(id: string, force = false) {
   }
 }
 
-export function getPostsByFeed(feed?: string) {
-  if (!feed) {
-    return []
-  }
-
-  const postIds = Object.keys(feedsStore.feeds[feed] || {})
-  return postIds
+export function getPosts(userId?: string) {
+  const postIds = Object.keys(postsStore.posts)
+  const posts = postIds
     .map((postId) => postsStore.posts[postId])
-    .filter(Boolean)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
+
+  return userId === undefined
+    ? posts
+    : posts.filter((post) => post.userId === userId)
 }
 
 export async function fetchPostsForHome() {
   postsStore.isLoading = true
 
-  const postsInHome = getPostsByFeed('home')
+  const postsInHome = getPosts()
   const lastPost =
     postsInHome.length > 0 ? postsInHome[postsInHome.length - 1].doc : undefined
 
@@ -63,7 +60,6 @@ export async function fetchPostsForHome() {
 
   posts.forEach((post) => {
     postsStore.posts = { ...postsStore.posts, [post.id]: post }
-    addToFeed('home', post.id)
   })
 
   postsStore.isLoading = false
@@ -79,19 +75,13 @@ export async function fetchPostsForUser(username: string) {
     const posts = await api.fetchPosts({ userId: user.id })
     posts.forEach((post) => {
       postsStore.posts = { ...postsStore.posts, [post.id]: post }
-      addToFeed(username, post.id)
     })
   }
 }
 
 export async function removePost(id: string) {
   await api.removePost(id)
-
   delete postsStore.posts[id]
-
-  Object.keys(feedsStore.feeds).forEach((feed) => {
-    delete feedsStore.feeds[feed][id]
-  })
 }
 
 export async function toggleLike(postId: string) {

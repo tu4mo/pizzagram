@@ -34,7 +34,7 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'
+  import { fetchPostsForUser, getPosts } from '@/store/posts'
   import { setTitle } from '@/title'
 
   const route = useRoute()
@@ -60,7 +60,9 @@
     { immediate: true },
   )
 
-  const posts = computed(() => getPostsByFeed(user.value?.username))
+  const posts = computed(() => {
+    return user.value?.id ? getPosts(user.value.id) : []
+  })
 </script>
 
 <style scoped>

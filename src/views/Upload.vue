@@ -35,9 +35,7 @@
   import Spacer from '@/components/Spacer.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { feedsStore } from '@/store/feeds'
   import { fileStore } from '@/store/file'
-  import { fetchPostsForHome } from '@/store/posts'
   import { setTitle } from '@/title'
 
   setTitle('Upload')
@@ -108,9 +106,6 @@
 
     await sharePost({ file: fileStore.file, ...form })
     fileStore.file = null
-
-    feedsStore.feeds.home = {}
-    await fetchPostsForHome()
 
     resetForm()
 

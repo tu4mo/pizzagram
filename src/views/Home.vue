@@ -18,7 +18,7 @@
   import Post from '@/components/Post.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { fetchPostsForHome, getPostsByFeed, postsStore } from '@/store/posts'
+  import { fetchPostsForHome, getPosts, postsStore } from '@/store/posts'
   import { setTitle } from '@/title'
 
   setTitle()
@@ -42,7 +42,7 @@
     window.removeEventListener('scroll', handleScroll)
   })
 
-  const posts = computed(() => getPostsByFeed('home'))
+  const posts = computed(() => getPosts())
 </script>
 
 <style scoped>
