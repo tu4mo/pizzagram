@@ -27,7 +27,6 @@
     if (
       window.innerHeight + Math.round(window.scrollY) >=
         document.body.offsetHeight &&
-      !postsStore.isLastPostReached &&
       !postsStore.isLoading
     ) {
       await fetchPostsForHome()

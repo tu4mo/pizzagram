@@ -48,6 +48,10 @@ export function getPosts(userId?: string) {
 }
 
 export async function fetchPostsForHome() {
+  if (postsStore.isLastPostReached) {
+    return
+  }
+
   postsStore.isLoading = true
 
   const postsInHome = getPosts()
