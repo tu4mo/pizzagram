@@ -45,7 +45,7 @@ export type PostComment = {
 
 export type Post = {
   caption: string
-  comments: PostComment[]
+  commentsCount: number
   createdAt: Date
   doc: DocumentSnapshot<any>
   id: string
@@ -95,19 +95,16 @@ export async function fetchPost(id: string) {
 function createPostObject(doc: DocumentSnapshot<any>): Post {
   const data = doc.data() ?? {}
 
-  const comments =
-    data.comments?.map((comment: any) => ({
-      ...comment,
-      createdAt: comment.createdAt.toDate(),
-    })) ?? []
-
   return {
-    ...data,
+    caption: data.caption ?? '',
+    commentsCount: data.commentsCount ?? 0,
     createdAt: data.createdAt.toDate(),
-    comments,
     doc,
     id: doc.id,
+    imageUrl: data.imageUrl ?? '',
     likes: data.likes ?? {},
+    published: data.published ?? false,
+    userId: data.userId ?? '',
   }
 }
 

@@ -1,6 +1,6 @@
 import * as functionsV2 from 'firebase-functions/v2'
 
-import { addCommentToPost } from './add-comment-to-post'
+import { addCommentCountToPost } from './add-comment-count-to-post'
 import { addNotification, NotificationType } from './add-notification'
 import { db } from './db'
 import { deletePost } from './delete-post'
@@ -25,7 +25,7 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
   (snapshot) =>
     Promise.all([
-      addCommentToPost(snapshot, db),
+      addCommentCountToPost(snapshot, db),
       addNotification(snapshot, db, NotificationType.Comment),
     ]),
 )
