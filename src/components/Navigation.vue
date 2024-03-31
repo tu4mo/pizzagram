@@ -1,45 +1,34 @@
 <template>
   <nav class="navigation">
     <div class="navigation__items">
-      <template v-if="authStore.isAuthenticated">
-        <NavItem
-          :to="{ name: 'home' }"
-          class="navigation__item"
-          exact
-          icon="home"
-          title="Home"
-        />
-        <NavItem icon="camera" :to="{ name: 'upload' }" custom title="Upload">
-          <Camera class="navigation__item" />
-        </NavItem>
-        <NavItem
-          :badge="notifications"
-          :to="{ name: 'notifications' }"
-          class="navigation__item"
-          exact
-          icon="bell"
-          title="Notifications"
-        />
-        <NavItem
-          :to="{
-            name: 'profile',
-            params: { username: authStore.username || null },
-          }"
-          class="navigation__item"
-          exact
-          icon="user"
-          title="Profile"
-        />
-      </template>
-      <template v-else>
-        <NavItem
-          :to="{ name: 'login' }"
-          class="navigation__item"
-          exact
-          icon="user"
-          title="Log In"
-        />
-      </template>
+      <NavItem
+        :to="{ name: 'home' }"
+        class="navigation__item"
+        exact
+        icon="home"
+        title="Home"
+      />
+      <NavItem icon="camera" :to="{ name: 'upload' }" custom title="Upload">
+        <Camera class="navigation__item" />
+      </NavItem>
+      <NavItem
+        :badge="notifications"
+        :to="{ name: 'notifications' }"
+        class="navigation__item"
+        exact
+        icon="bell"
+        title="Notifications"
+      />
+      <NavItem
+        :to="{
+          name: 'profile',
+          params: { username: authStore.username || null },
+        }"
+        class="navigation__item"
+        exact
+        icon="user"
+        title="Profile"
+      />
     </div>
   </nav>
 </template>

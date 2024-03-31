@@ -16,7 +16,7 @@
         <Menu />
       </div>
     </div>
-    <div v-if="authStore.isInitialized" class="default-layout__navigation">
+    <div v-if="authStore.isAuthenticated" class="default-layout__navigation">
       <Navigation />
     </div>
     <main

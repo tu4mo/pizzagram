@@ -9,7 +9,12 @@
       <Icon name="menu" />
     </Button>
     <div v-if="isOpen" ref="menu" class="menu">
-      <button class="menu__item" @click="onLogOutClick">Log Out</button>
+      <template v-if="authStore.isAuthenticated">
+        <button class="menu__item" @click="onLogOutClick">Log Out</button>
+      </template>
+      <template v-else>
+        <button class="menu__item" @click="onLogInClick">Log In</button>
+      </template>
     </div>
   </div>
 </template>
@@ -21,6 +26,7 @@
   import { signOut } from '@/api/auth'
   import Button from '@/components/Button.vue'
   import Icon from '@/components/Icon.vue'
+  import { authStore } from '@/store/auth'
 
   const isOpen = ref(false)
   const container = ref<HTMLDivElement | null>(null)
@@ -41,6 +47,11 @@
   async function onLogOutClick() {
     isOpen.value = false
     await signOut()
+    router.push({ name: 'home' })
+  }
+
+  async function onLogInClick() {
+    isOpen.value = false
     router.push({ name: 'login' })
   }
 </script>

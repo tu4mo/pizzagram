@@ -38,7 +38,10 @@
           <PostLike :post="post" />
         </div>
       </div>
-      <PostComments v-if="isDevelopment" :post-id="post.id" />
+      <PostComments
+        v-if="isDevelopment && authStore.isAuthenticated"
+        :post-id="post.id"
+      />
     </footer>
   </article>
 </template>
