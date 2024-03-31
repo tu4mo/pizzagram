@@ -1,26 +1,12 @@
-import type { Firestore } from 'firebase-admin/firestore'
 import { FieldValue } from 'firebase-admin/firestore'
-import type {
-  FirestoreEvent,
-  QueryDocumentSnapshot,
-} from 'firebase-functions/v2/firestore'
 
-export async function increasePostsCount(
-  event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
-  db: Firestore,
-) {
-  const snap = event.data
+import { db } from './db'
 
-  if (!snap) {
-    return
-  }
-
-  const { userId } = snap.data()
-
+export async function increasePostsCount(userId: string) {
   await db
     .collection('users_2')
     .doc(userId)
     .update({ postsCount: FieldValue.increment(1) })
 
-  console.log(`Increasing ${userId}'s posts count by 1`)
+  console.log(`Increased ${userId}'s posts count by 1`)
 }

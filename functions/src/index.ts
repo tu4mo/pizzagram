@@ -19,7 +19,12 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
 
 exports.createPost = functionsV2.firestore.onDocumentCreated(
   'posts/{postId}',
-  (snapshot) => increasePostsCount(snapshot, db),
+  (snapshot) => {
+    const { userId } = snapshot.data?.data() ?? {}
+    if (typeof userId === 'string') {
+      increasePostsCount(userId)
+    }
+  },
 )
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
