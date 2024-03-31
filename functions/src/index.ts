@@ -6,10 +6,10 @@ import { addNotification, NotificationType } from './add-notification'
 import { db } from './db'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
-import { increasePostsCount } from './increase-posts-count'
 import { registerUser } from './register-user'
 import { removeCommentFromPost } from './remove-comment-from-post'
 import { resizeImage } from './resize-image'
+import { updatePostsCount } from './update-posts-count'
 import { verifyImage } from './verify-image'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
@@ -22,7 +22,7 @@ exports.createPost = functionsV2.firestore.onDocumentCreated(
   (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      increasePostsCount(userId)
+      updatePostsCount(userId)
     }
   },
 )

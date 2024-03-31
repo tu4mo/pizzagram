@@ -1,10 +1,11 @@
 import { Storage } from '@google-cloud/storage'
 import type * as admin from 'firebase-admin'
-import { FieldValue } from 'firebase-admin/firestore'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
+
+import { updatePostsCount } from './update-posts-count'
 
 const storage = new Storage()
 
@@ -27,8 +28,6 @@ export async function deletePost(
   const bucket = storage.bucket('pizzagram-cc.appspot.com')
   const photoFile = bucket.file(`posts/${id}.jpg`)
   const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
-
-  const users = db.collection('users_2')
 
   try {
     await photoFile.delete()
@@ -54,8 +53,7 @@ export async function deletePost(
       `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
-    await users.doc(userId).update({ postsCount: FieldValue.increment(-1) })
-    console.log(`Decreasing ${userId}'s posts count by 1`)
+    await updatePostsCount(userId)
   } catch (error) {
     console.log(`Failed to completely remove post (${error}).`)
   }
