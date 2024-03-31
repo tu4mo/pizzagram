@@ -26,14 +26,13 @@
   import Input from './Input.vue'
 
   import { addComment } from '@/api/comments'
-  import { postsStore } from '@/store/posts'
 
   type Props = {
     postId: string
   }
 
   const { postId } = defineProps<Props>()
-  const comments = computed(() => postsStore.posts[postId]?.comments ?? [])
+  const comments = computed(() => [])
   const newComment = ref('')
   const isLoading = ref(false)
 
