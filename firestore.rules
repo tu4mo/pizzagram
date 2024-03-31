@@ -32,9 +32,15 @@ service cloud.firestore {
     }
 
     match /posts/{postId} {
-      allow create: if request.resource.data.userId == request.auth.uid
+      allow create:
+        if request.resource.data.keys().hasOnly(
+          ['caption', 'createdAt', 'imageUrl', 'published', 'userId']
+        )
+        && request.resource.data.caption is string
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.imageUrl is null
         && request.resource.data.published == false
-        && !('likes' in request.resource.data);
+        && request.resource.data.userId == request.auth.uid;
 
       allow read: if resource.data.published == true
         || request.auth.uid == resource.data.userId;

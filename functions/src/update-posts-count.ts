@@ -3,7 +3,7 @@ import { db } from './db'
 export async function updatePostsCount(userId: string) {
   const documentData = await db
     .collection('posts')
-    .where('published', '==', true)
+    .where('imageUrl', '!=', null)
     .where('userId', '==', userId)
     .count()
     .get()

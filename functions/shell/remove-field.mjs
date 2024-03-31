@@ -1,19 +1,23 @@
 import admin from 'firebase-admin'
 import serviceAccount from './serviceAccountKey.json' assert { type: 'json' }
 
+const collection = 'users_2'
+const obsoleteField = 'posts'
+
+console.log('Removing field: ', obsoleteField)
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
 
 const db = admin.firestore()
-
-const usersSnapshot = await db.collection('users').get()
+const usersSnapshot = await db.collection(collection).get()
 
 usersSnapshot.forEach(async (userRef) => {
   await db
-    .collection('users')
+    .collection(collection)
     .doc(userRef.id)
-    .update({ name: admin.firestore.FieldValue.delete() })
+    .update({ [obsoleteField]: admin.firestore.FieldValue.delete() })
 
   console.log(userRef.id)
 })
