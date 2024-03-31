@@ -23,8 +23,8 @@ api.subscribeToPosts((posts) => {
   })
 })
 
-export async function getPost(id: string, force = false) {
-  if (postsStore.posts[id] && !force) {
+export async function getPost(id: string) {
+  if (postsStore.posts[id]) {
     return postsStore.posts[id]
   }
 
