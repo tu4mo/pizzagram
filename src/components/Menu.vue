@@ -67,6 +67,7 @@
     background-color: transparent;
     border: 0;
     border-radius: var(--radius-sm);
+    color: var(--color-secondary);
     cursor: pointer;
     font-weight: bold;
     padding: 0.5rem 1rem;
@@ -78,6 +79,7 @@
   }
 
   .menu__item:active {
-    background-color: var(--color-gray);
+    background-color: var(--color-primary);
+    color: var(--color-background);
   }
 </style>
