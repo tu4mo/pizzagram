@@ -54,7 +54,7 @@ export async function deletePost(
       `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
-    await users.doc(userId).update({ posts: FieldValue.increment(-1) })
+    await users.doc(userId).update({ postsCount: FieldValue.increment(-1) })
     console.log(`Decreasing ${userId}'s posts count by 1`)
   } catch (error) {
     console.log(`Failed to completely remove post (${error}).`)

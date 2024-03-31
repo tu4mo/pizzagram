@@ -17,14 +17,22 @@ export type User = {
   createdAt: Date
   gravatar: string
   id: string
-  posts: number
+  postsCount: number
   username: string
 }
 
-export function createUserObject(doc: QueryDocumentSnapshot<any>): User {
-  const data = doc.data()
+export function createUserObject(doc: QueryDocumentSnapshot<any>) {
+  const data = doc.data() ?? {}
 
-  return data ? { ...data, createdAt: data.createdAt.toDate() } : data
+  const user: User = {
+    createdAt: data.createdAt.toDate(),
+    gravatar: data.gravatar ?? '',
+    id: doc.id,
+    postsCount: data.postsCount ?? 0,
+    username: data.username ?? '',
+  }
+
+  return user
 }
 
 export async function fetchUser(id: string) {

@@ -13,8 +13,8 @@
           <div class="top__user">
             <div class="top__username">{{ user.username }}</div>
             <div class="top__posts">
-              {{ user.posts }}
-              {{ user.posts === 1 ? 'post' : 'posts' }}
+              {{ user.postsCount }}
+              {{ user.postsCount === 1 ? 'post' : 'posts' }}
             </div>
           </div>
         </Link>

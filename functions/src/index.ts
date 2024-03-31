@@ -6,10 +6,10 @@ import { addNotification, NotificationType } from './add-notification'
 import { db } from './db'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
+import { increasePostsCount } from './increase-posts-count'
 import { registerUser } from './register-user'
 import { removeCommentFromPost } from './remove-comment-from-post'
 import { resizeImage } from './resize-image'
-import { updatePost } from './update-post'
 import { verifyImage } from './verify-image'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
@@ -17,9 +17,9 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   (snapshot) => deletePost(snapshot, db),
 )
 
-exports.updatePost = functionsV2.firestore.onDocumentUpdated(
+exports.createPost = functionsV2.firestore.onDocumentCreated(
   'posts/{postId}',
-  (snapshot) => updatePost(snapshot, db),
+  (snapshot) => increasePostsCount(snapshot, db),
 )
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
