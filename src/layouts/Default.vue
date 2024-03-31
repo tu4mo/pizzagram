@@ -7,7 +7,7 @@
       ]"
     >
       <div v-if="canGoBack" class="default-layout__back">
-        <Button class="default-layout__back-link" @click="router.go(-1)">
+        <Button class="default-layout__button" secondary @click="router.go(-1)">
           <Icon name="chevronLeft" />
         </Button>
       </div>
@@ -111,7 +111,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    top: env(safe-area-inset-top);
   }
 
   @media (min-width: 640px) {
@@ -120,7 +119,7 @@
     }
   }
 
-  .default-layout__back-link {
+  .default-layout__button {
     padding: 1rem;
   }
 
