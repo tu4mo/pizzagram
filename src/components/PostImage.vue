@@ -57,7 +57,7 @@
     }
 
     .post-image--rounded .post-image__image {
-      border-radius: 1rem;
+      border-radius: var(--radius-md);
     }
   }
 </style>

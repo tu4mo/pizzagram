@@ -33,6 +33,11 @@
     --font-size-sm: 0.75rem;
     --font-size-md: 1rem;
 
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 2rem;
+
     --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.1);
 
     --transition-fast: 200ms ease;

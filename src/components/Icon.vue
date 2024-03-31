@@ -11,6 +11,7 @@
   import heart from 'feather-icons/dist/icons/heart.svg?raw'
   import home from 'feather-icons/dist/icons/home.svg?raw'
   import mapPin from 'feather-icons/dist/icons/map-pin.svg?raw'
+  import menu from 'feather-icons/dist/icons/menu.svg?raw'
   import share from 'feather-icons/dist/icons/share.svg?raw'
   import star from 'feather-icons/dist/icons/star.svg?raw'
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
@@ -26,6 +27,7 @@
     heart,
     home,
     mapPin,
+    menu,
     share,
     star,
     trash2,

@@ -13,14 +13,6 @@
           <Camera class="navigation__item" />
         </NavItem>
         <NavItem
-          v-if="isDevelopment"
-          :to="{ name: 'top' }"
-          class="navigation__item"
-          exact
-          icon="star"
-          title="Top Posts"
-        />
-        <NavItem
           :badge="notifications"
           :to="{ name: 'notifications' }"
           class="navigation__item"
@@ -65,8 +57,6 @@
     const unreadNotificationsCount = getUnreadNotificationsCount()
     return unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined
   })
-
-  const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
 
 <style scoped>

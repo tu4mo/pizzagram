@@ -21,30 +21,23 @@
           />
         </li>
       </ul>
-      <div v-if="isMe" class="profile__footer">
-        <Button @click="onLogOutClick">Log Out</Button>
-      </div>
     </div>
   </DefaultLayout>
 </template>
 
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute } from 'vue-router'
 
-  import { signOut } from '@/api/auth'
   import { fetchUserByUsername, type User } from '@/api/user'
-  import Button from '@/components/Button.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { getIsMe } from '@/store/auth'
   import { fetchPostsForUser, getPostsByFeed } from '@/store/posts'
   import { setTitle } from '@/title'
 
   const route = useRoute()
-  const router = useRouter()
   const user = ref<User | undefined>(undefined)
 
   async function fetchUserData() {
@@ -68,12 +61,6 @@
   )
 
   const posts = computed(() => getPostsByFeed(user.value?.username))
-  const isMe = computed(() => getIsMe(user.value?.id))
-
-  async function onLogOutClick() {
-    await signOut()
-    router.push({ name: 'login' })
-  }
 </script>
 
 <style scoped>
@@ -122,10 +109,6 @@
     margin: 0 auto;
     margin-top: 2rem;
     list-style: none;
-  }
-
-  .profile__footer {
-    margin: 1rem 0;
   }
 
   @media (min-width: 640px) {

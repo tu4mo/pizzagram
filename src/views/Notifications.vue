@@ -113,13 +113,13 @@
 
   .notification__unread {
     background-color: var(--color-primary);
-    border-radius: 0.25rem;
+    border-radius: var(--radius-xs);
     height: 0.5rem;
     width: 0.5rem;
   }
 
   .notification__image {
-    border-radius: 0.25rem;
+    border-radius: var(--radius-xs);
     flex: 0 0 auto;
     margin-left: auto;
     overflow: hidden;

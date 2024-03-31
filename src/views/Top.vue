@@ -68,7 +68,7 @@
 
   .top__rank {
     background-color: var(--color-primary);
-    border-radius: 0.25rem;
+    border-radius: var(--radius-xs);
     color: #fff;
     font-weight: bold;
     margin-left: 1rem;

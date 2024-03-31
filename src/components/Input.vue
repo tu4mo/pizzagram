@@ -28,7 +28,7 @@
   .input {
     appearance: none;
     background-color: var(--color-background);
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--color-light);
     display: block;
     font-size: var(--font-size-md);

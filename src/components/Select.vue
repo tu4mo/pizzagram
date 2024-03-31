@@ -55,7 +55,7 @@
   .select {
     background-color: var(--color-background);
     border: 1px solid var(--color-light);
-    border-radius: 0.25rem;
+    border-radius: var(--radius-xs);
     display: block;
     font-size: var(--font-size-md);
     list-style-type: none;

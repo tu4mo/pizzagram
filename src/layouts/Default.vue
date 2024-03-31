@@ -12,6 +12,9 @@
         </Button>
       </div>
       <div class="default-layout__header"><Header :title="title" /></div>
+      <div v-if="authStore.isInitialized" class="default-layout__menu">
+        <Menu />
+      </div>
     </div>
     <div v-if="authStore.isInitialized" class="default-layout__navigation">
       <Navigation />
@@ -37,6 +40,7 @@
   import Button from '@/components/Button.vue'
   import Header from '@/components/Header.vue'
   import Icon from '@/components/Icon.vue'
+  import Menu from '@/components/Menu.vue'
   import Navigation from '@/components/Navigation.vue'
   import { authStore } from '@/store/auth'
 
@@ -143,6 +147,21 @@
     flex: 1 1 auto;
   }
 
+  .default-layout__menu {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .default-layout__menu {
+      right: 1rem;
+    }
+  }
+
   .default-layout__navigation {
     align-items: center;
     background-color: rgba(var(--color-background-rgb), 0.8);
@@ -163,9 +182,8 @@
       border-top: 0;
       bottom: auto;
       left: auto;
-      margin-right: 2rem;
       position: fixed;
-      right: 0;
+      right: 5.5rem;
       top: 0.25rem;
     }
   }

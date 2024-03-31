@@ -66,7 +66,7 @@
   .nav-item__badge {
     align-items: center;
     background-color: var(--color-primary);
-    border-radius: 1rem;
+    border-radius: var(--radius-md);
     color: #fff;
     display: flex;
     font-size: var(--font-size-sm);

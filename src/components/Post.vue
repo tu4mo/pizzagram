@@ -159,7 +159,7 @@
 
   @media (min-width: 640px) {
     .post {
-      border-radius: 2rem;
+      border-radius: var(--radius-lg);
     }
 
     .post__header {

@@ -24,7 +24,7 @@
   .button {
     background-color: transparent;
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     color: var(--color-primary);
     cursor: pointer;
     font-size: var(--font-size-md);
