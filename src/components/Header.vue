@@ -1,10 +1,3 @@
-<template>
-  <header :class="['header', { 'header--has-title': !!title }]">
-    <Logo class="header__logo" />
-    <div v-if="title" class="header__title">{{ title }}</div>
-  </header>
-</template>
-
 <script setup lang="ts">
   import Logo from './Logo.vue'
 
@@ -14,6 +7,13 @@
 
   defineProps<Props>()
 </script>
+
+<template>
+  <header :class="['header', { 'header--has-title': !!title }]">
+    <Logo class="header__logo" />
+    <div v-if="title" class="header__title">{{ title }}</div>
+  </header>
+</template>
 
 <style scoped>
   .header {

@@ -1,3 +1,41 @@
+<script setup lang="ts">
+  import { onDeactivated } from 'vue'
+
+  import {
+    markNotificationsAsRead,
+    type NotificationType,
+  } from '@/api/notifications'
+  import Empty from '@/components/Empty.vue'
+  import Link from '@/components/Link.vue'
+  import PostImage from '@/components/PostImage.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import DefaultLayout from '@/layouts/Default.vue'
+  import {
+    getUnreadNotificationsCount,
+    notificationsStore,
+  } from '@/store/notifications'
+  import { setTitle } from '@/title'
+
+  setTitle('Notifications')
+
+  onDeactivated(async () => {
+    if (getUnreadNotificationsCount() > 0) {
+      await markNotificationsAsRead()
+    }
+  })
+
+  function getNotificationVerb(notificationType: NotificationType) {
+    switch (notificationType) {
+      case 'COMMENT':
+        return 'commented on'
+      case 'LIKE':
+        return 'liked'
+      default:
+        return ''
+    }
+  }
+</script>
+
 <template>
   <DefaultLayout max-width title="Notifications">
     <Empty v-if="notificationsStore.notifications.length === 0">
@@ -51,44 +89,6 @@
     </template>
   </DefaultLayout>
 </template>
-
-<script setup lang="ts">
-  import { onDeactivated } from 'vue'
-
-  import {
-    markNotificationsAsRead,
-    type NotificationType,
-  } from '@/api/notifications'
-  import Empty from '@/components/Empty.vue'
-  import Link from '@/components/Link.vue'
-  import PostImage from '@/components/PostImage.vue'
-  import ProfilePhoto from '@/components/ProfilePhoto.vue'
-  import DefaultLayout from '@/layouts/Default.vue'
-  import {
-    getUnreadNotificationsCount,
-    notificationsStore,
-  } from '@/store/notifications'
-  import { setTitle } from '@/title'
-
-  setTitle('Notifications')
-
-  onDeactivated(async () => {
-    if (getUnreadNotificationsCount() > 0) {
-      await markNotificationsAsRead()
-    }
-  })
-
-  function getNotificationVerb(notificationType: NotificationType) {
-    switch (notificationType) {
-      case 'COMMENT':
-        return 'commented on'
-      case 'LIKE':
-        return 'liked'
-      default:
-        return ''
-    }
-  }
-</script>
 
 <style scoped>
   .notification {

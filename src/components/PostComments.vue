@@ -1,25 +1,3 @@
-<template>
-  <div class="comments">
-    <ol
-      v-for="{ id, username, comment } in comments"
-      :key="id"
-      class="comments__list"
-    >
-      <li>
-        <strong>{{ username }}</strong>
-        &nbsp; {{ comment }}
-      </li>
-    </ol>
-    <form @submit.prevent="submit">
-      <Input
-        v-model.trim="newComment"
-        :disabled="isLoading"
-        placeholder="Add a comment…"
-      />
-    </form>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { computed, ref } from 'vue'
 
@@ -50,6 +28,28 @@
     isLoading.value = false
   }
 </script>
+
+<template>
+  <div class="comments">
+    <ol
+      v-for="{ id, username, comment } in comments"
+      :key="id"
+      class="comments__list"
+    >
+      <li>
+        <strong>{{ username }}</strong>
+        &nbsp; {{ comment }}
+      </li>
+    </ol>
+    <form @submit.prevent="submit">
+      <Input
+        v-model.trim="newComment"
+        :disabled="isLoading"
+        placeholder="Add a comment…"
+      />
+    </form>
+  </div>
+</template>
 
 <style scoped>
   .comments {

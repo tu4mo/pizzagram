@@ -1,13 +1,13 @@
+<script setup lang="ts">
+  import Header from '@/components/Header.vue'
+</script>
+
 <template>
   <div class="welcome-layout">
     <div class="welcome-layout__header"><Header /></div>
     <main class="welcome-layout__main"><slot /></main>
   </div>
 </template>
-
-<script setup lang="ts">
-  import Header from '@/components/Header.vue'
-</script>
 
 <style scoped>
   .welcome-layout {

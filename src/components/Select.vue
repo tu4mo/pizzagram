@@ -1,3 +1,25 @@
+<script setup lang="ts">
+  import { ref, watch } from 'vue'
+
+  import Input from './Input.vue'
+
+  type Props = {
+    name: string
+    options: { label?: string; value: string }[]
+    value: string
+  }
+
+  defineProps<Props>()
+
+  const emit = defineEmits<{ (event: 'change', value: string): void }>()
+
+  const customItem = ref('')
+
+  watch(customItem, (value) => {
+    emit('change', value)
+  })
+</script>
+
 <template>
   <ul class="select">
     <li v-for="option in options" :key="option.value" class="select__item">
@@ -28,28 +50,6 @@
     </li>
   </ul>
 </template>
-
-<script setup lang="ts">
-  import { ref, watch } from 'vue'
-
-  import Input from './Input.vue'
-
-  type Props = {
-    name: string
-    options: { label?: string; value: string }[]
-    value: string
-  }
-
-  defineProps<Props>()
-
-  const emit = defineEmits<{ (event: 'change', value: string): void }>()
-
-  const customItem = ref('')
-
-  watch(customItem, (value) => {
-    emit('change', value)
-  })
-</script>
 
 <style scoped>
   .select {

@@ -1,38 +1,3 @@
-<template>
-  <div class="default-layout">
-    <div
-      :class="[
-        'default-layout__top',
-        { 'default-layout__top--border': hasScrolled },
-      ]"
-    >
-      <div v-if="canGoBack" class="default-layout__back">
-        <Button class="default-layout__button" secondary @click="router.go(-1)">
-          <Icon name="chevronLeft" />
-        </Button>
-      </div>
-      <div class="default-layout__header"><Header :title="title" /></div>
-      <div class="default-layout__menu">
-        <Menu />
-      </div>
-    </div>
-    <div v-if="authStore.isAuthenticated" class="default-layout__navigation">
-      <Navigation />
-    </div>
-    <main
-      :class="[
-        'default-layout__main',
-        {
-          'default-layout__main--from-top': fromTop,
-          'default-layout__main--max-width': maxWidth,
-        },
-      ]"
-    >
-      <slot />
-    </main>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted, ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
@@ -76,6 +41,41 @@
     window.removeEventListener('scroll', onScroll)
   })
 </script>
+
+<template>
+  <div class="default-layout">
+    <div
+      :class="[
+        'default-layout__top',
+        { 'default-layout__top--border': hasScrolled },
+      ]"
+    >
+      <div v-if="canGoBack" class="default-layout__back">
+        <Button class="default-layout__button" secondary @click="router.go(-1)">
+          <Icon name="chevronLeft" />
+        </Button>
+      </div>
+      <div class="default-layout__header"><Header :title="title" /></div>
+      <div class="default-layout__menu">
+        <Menu />
+      </div>
+    </div>
+    <div v-if="authStore.isAuthenticated" class="default-layout__navigation">
+      <Navigation />
+    </div>
+    <main
+      :class="[
+        'default-layout__main',
+        {
+          'default-layout__main--from-top': fromTop,
+          'default-layout__main--max-width': maxWidth,
+        },
+      ]"
+    >
+      <slot />
+    </main>
+  </div>
+</template>
 
 <style scoped>
   .default-layout {

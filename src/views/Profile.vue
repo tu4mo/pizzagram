@@ -1,30 +1,3 @@
-<template>
-  <Spinner v-if="!user" />
-  <DefaultLayout v-else from-top :title="user.username">
-    <div class="profile">
-      <div
-        :style="{
-          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`,
-        }"
-        class="profile__header"
-      />
-      <div class="profile__user">
-        <ProfilePhoto :user="user" class="profile__photo" size="large" />
-      </div>
-      <ul class="profile__posts">
-        <li v-for="post in posts" :key="post.id">
-          <PostImage
-            :image-url="post.imageUrl"
-            :to="{ name: 'post', params: { postId: post.id } }"
-            rounded
-            thumbnail
-          />
-        </li>
-      </ul>
-    </div>
-  </DefaultLayout>
-</template>
-
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
@@ -64,6 +37,33 @@
     return user.value?.id ? getPosts(user.value.id) : []
   })
 </script>
+
+<template>
+  <Spinner v-if="!user" />
+  <DefaultLayout v-else from-top :title="user.username">
+    <div class="profile">
+      <div
+        :style="{
+          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`,
+        }"
+        class="profile__header"
+      />
+      <div class="profile__user">
+        <ProfilePhoto :user="user" class="profile__photo" size="large" />
+      </div>
+      <ul class="profile__posts">
+        <li v-for="post in posts" :key="post.id">
+          <PostImage
+            :image-url="post.imageUrl"
+            :to="{ name: 'post', params: { postId: post.id } }"
+            rounded
+            thumbnail
+          />
+        </li>
+      </ul>
+    </div>
+  </DefaultLayout>
+</template>
 
 <style scoped>
   .profile__header {

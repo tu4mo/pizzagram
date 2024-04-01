@@ -1,3 +1,37 @@
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+
+  import { signIn } from '@/api/auth'
+  import Button from '@/components/Button.vue'
+  import Input from '@/components/Input.vue'
+  import Link from '@/components/Link.vue'
+  import Spacer from '@/components/Spacer.vue'
+  import Spinner from '@/components/Spinner.vue'
+  import WelcomeLayout from '@/layouts/Welcome.vue'
+  import { setTitle } from '@/title'
+
+  setTitle('Log In')
+
+  const router = useRouter()
+  const email = ref('')
+  const isLoading = ref(false)
+  const password = ref('')
+
+  async function submit() {
+    isLoading.value = true
+
+    try {
+      await signIn(email.value, password.value)
+      router.push({ name: 'home' })
+    } catch (error) {
+      alert('Unable to sign in.')
+    }
+
+    isLoading.value = false
+  }
+</script>
+
 <template>
   <WelcomeLayout>
     <Spinner v-if="isLoading" cover />
@@ -32,40 +66,6 @@
     </form>
   </WelcomeLayout>
 </template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-
-  import { signIn } from '@/api/auth'
-  import Button from '@/components/Button.vue'
-  import Input from '@/components/Input.vue'
-  import Link from '@/components/Link.vue'
-  import Spacer from '@/components/Spacer.vue'
-  import Spinner from '@/components/Spinner.vue'
-  import WelcomeLayout from '@/layouts/Welcome.vue'
-  import { setTitle } from '@/title'
-
-  setTitle('Log In')
-
-  const router = useRouter()
-  const email = ref('')
-  const isLoading = ref(false)
-  const password = ref('')
-
-  async function submit() {
-    isLoading.value = true
-
-    try {
-      await signIn(email.value, password.value)
-      router.push({ name: 'home' })
-    } catch (error) {
-      alert('Unable to sign in.')
-    }
-
-    isLoading.value = false
-  }
-</script>
 
 <style scoped>
   .login {

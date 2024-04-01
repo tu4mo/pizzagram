@@ -1,9 +1,3 @@
-<template>
-  <!-- eslint-disable vue/no-v-html -->
-  <div :class="['icon', { 'icon--fill': fill }]" v-html="icon" />
-  <!-- eslint-enable -->
-</template>
-
 <script setup lang="ts">
   import bell from 'feather-icons/dist/icons/bell.svg?raw'
   import camera from 'feather-icons/dist/icons/camera.svg?raw'
@@ -41,6 +35,12 @@
 
   const icon = computed(() => ICONS[props.name])
 </script>
+
+<template>
+  <!-- eslint-disable vue/no-v-html -->
+  <div :class="['icon', { 'icon--fill': fill }]" v-html="icon" />
+  <!-- eslint-enable -->
+</template>
 
 <style scoped>
   .icon {

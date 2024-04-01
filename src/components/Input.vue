@@ -1,14 +1,3 @@
-<template>
-  <input
-    v-bind="$attrs"
-    :class="['input', { 'input--borderless': borderless }]"
-    :value="modelValue"
-    @input="
-      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-    "
-  />
-</template>
-
 <script setup lang="ts">
   type Props = {
     borderless?: boolean
@@ -23,6 +12,17 @@
 
   defineOptions({ inheritAttrs: false })
 </script>
+
+<template>
+  <input
+    v-bind="$attrs"
+    :class="['input', { 'input--borderless': borderless }]"
+    :value="modelValue"
+    @input="
+      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+    "
+  />
+</template>
 
 <style scoped>
   .input {

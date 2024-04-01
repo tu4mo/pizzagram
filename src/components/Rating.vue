@@ -1,3 +1,18 @@
+<script setup lang="ts">
+  import Button from './Button.vue'
+  import Icon from './Icon.vue'
+
+  type Props = {
+    modelValue?: number
+  }
+
+  withDefaults(defineProps<Props>(), {
+    modelValue: 0,
+  })
+
+  defineEmits<{ (event: 'update:modelValue', value: number): void }>()
+</script>
+
 <template>
   <div class="rating" role="radiogroup">
     <Button
@@ -18,21 +33,6 @@
     </Button>
   </div>
 </template>
-
-<script setup lang="ts">
-  import Button from './Button.vue'
-  import Icon from './Icon.vue'
-
-  type Props = {
-    modelValue?: number
-  }
-
-  withDefaults(defineProps<Props>(), {
-    modelValue: 0,
-  })
-
-  defineEmits<{ (event: 'update:modelValue', value: number): void }>()
-</script>
 
 <style scoped>
   .rating {

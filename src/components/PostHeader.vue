@@ -1,23 +1,3 @@
-<template>
-  <header class="post-header">
-    <component
-      :is="isUserLoaded ? 'RouterLink' : 'div'"
-      :to="
-        isUserLoaded && user
-          ? { name: 'profile', params: { username: user.username } }
-          : null
-      "
-      class="post-header__user"
-    >
-      <div class="post-header__profile">
-        <ProfilePhoto :user="user" />
-      </div>
-      <div class="post-header__username">{{ user ? user.username : null }}</div>
-    </component>
-    <div class="post-header__created-date">{{ createdDate }}</div>
-  </header>
-</template>
-
 <script setup lang="ts">
   import { computed } from 'vue'
 
@@ -38,6 +18,26 @@
     () => props.user && Object.keys(props.user).length > 0,
   )
 </script>
+
+<template>
+  <header class="post-header">
+    <component
+      :is="isUserLoaded ? 'RouterLink' : 'div'"
+      :to="
+        isUserLoaded && user
+          ? { name: 'profile', params: { username: user.username } }
+          : null
+      "
+      class="post-header__user"
+    >
+      <div class="post-header__profile">
+        <ProfilePhoto :user="user" />
+      </div>
+      <div class="post-header__username">{{ user ? user.username : null }}</div>
+    </component>
+    <div class="post-header__created-date">{{ createdDate }}</div>
+  </header>
+</template>
 
 <style scoped>
   .post-header {

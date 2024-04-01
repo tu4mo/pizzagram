@@ -1,17 +1,3 @@
-<template>
-  <DefaultLayout max-width>
-    <div class="home">
-      <Post
-        v-for="post in posts"
-        :key="post.id"
-        :image-to="{ name: 'post', params: { postId: post.id } }"
-        :post="post"
-      />
-      <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
-    </div>
-  </DefaultLayout>
-</template>
-
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted } from 'vue'
 
@@ -43,6 +29,20 @@
 
   const posts = computed(() => getPosts())
 </script>
+
+<template>
+  <DefaultLayout max-width>
+    <div class="home">
+      <Post
+        v-for="post in posts"
+        :key="post.id"
+        :image-to="{ name: 'post', params: { postId: post.id } }"
+        :post="post"
+      />
+      <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
+    </div>
+  </DefaultLayout>
+</template>
 
 <style scoped>
   .home {

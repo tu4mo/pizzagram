@@ -1,27 +1,3 @@
-<template>
-  <DefaultLayout max-width title="Upload">
-    <div class="upload">
-      <Empty v-if="!fileStore.file || !imageUrl">
-        Use the Camera icon to upload a photo
-      </Empty>
-      <template v-else>
-        <div ref="imageContainer" class="upload__image">
-          <PostImage :image-url="imageUrl" rounded />
-        </div>
-        <div class="upload__form">
-          <Spacer gap="2">
-            <Field label="Caption">
-              <Input v-model.trim="form.caption" maxlength="100" />
-            </Field>
-            <Button @click="onShareClick">Share</Button>
-          </Spacer>
-        </div>
-      </template>
-      <Spinner v-if="isLoading" cover />
-    </div>
-  </DefaultLayout>
-</template>
-
 <script setup lang="ts">
   import { nextTick, reactive, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
@@ -114,6 +90,30 @@
     router.push({ name: 'home' })
   }
 </script>
+
+<template>
+  <DefaultLayout max-width title="Upload">
+    <div class="upload">
+      <Empty v-if="!fileStore.file || !imageUrl">
+        Use the Camera icon to upload a photo
+      </Empty>
+      <template v-else>
+        <div ref="imageContainer" class="upload__image">
+          <PostImage :image-url="imageUrl" rounded />
+        </div>
+        <div class="upload__form">
+          <Spacer gap="2">
+            <Field label="Caption">
+              <Input v-model.trim="form.caption" maxlength="100" />
+            </Field>
+            <Button @click="onShareClick">Share</Button>
+          </Spacer>
+        </div>
+      </template>
+      <Spinner v-if="isLoading" cover />
+    </div>
+  </DefaultLayout>
+</template>
 
 <style scoped>
   .upload {

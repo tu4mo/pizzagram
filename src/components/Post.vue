@@ -1,48 +1,3 @@
-<template>
-  <article class="post">
-    <div class="post__header">
-      <PostHeader :created-at="post.createdAt" :user="user" />
-    </div>
-    <div class="post__image">
-      <PostImage
-        :alt="post.caption"
-        :image-url="post.imageUrl"
-        :to="imageTo"
-        rounded
-      />
-      <div v-if="post.caption" class="post__caption">
-        {{ post.caption }}
-      </div>
-    </div>
-    <footer class="post__footer">
-      <div class="post__details">
-        <div class="post__info">
-          <div class="post__meta">
-            <PostLike :post="post" />
-            <div v-if="isDevelopment && post.commentsCount > 0">
-              {{ post.commentsCount }} comment{{
-                post.commentsCount !== 1 ? 's' : ''
-              }}
-            </div>
-          </div>
-        </div>
-        <div v-if="authStore.isAuthenticated" class="post__actions">
-          <Button v-if="isRemovable" aria-label="Remove" @click="onRemoveClick">
-            <Icon name="trash2" />
-          </Button>
-          <Button secondary aria-label="Share" @click="onShareClick">
-            <Icon name="share" />
-          </Button>
-        </div>
-      </div>
-      <PostComments
-        v-if="isDevelopment && authStore.isAuthenticated"
-        :post-id="post.id"
-      />
-    </footer>
-  </article>
-</template>
-
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import type { RouterLinkProps } from 'vue-router'
@@ -105,6 +60,51 @@
 
   const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
+
+<template>
+  <article class="post">
+    <div class="post__header">
+      <PostHeader :created-at="post.createdAt" :user="user" />
+    </div>
+    <div class="post__image">
+      <PostImage
+        :alt="post.caption"
+        :image-url="post.imageUrl"
+        :to="imageTo"
+        rounded
+      />
+      <div v-if="post.caption" class="post__caption">
+        {{ post.caption }}
+      </div>
+    </div>
+    <footer class="post__footer">
+      <div class="post__details">
+        <div class="post__info">
+          <div class="post__meta">
+            <PostLike :post="post" />
+            <div v-if="isDevelopment && post.commentsCount > 0">
+              {{ post.commentsCount }} comment{{
+                post.commentsCount !== 1 ? 's' : ''
+              }}
+            </div>
+          </div>
+        </div>
+        <div v-if="authStore.isAuthenticated" class="post__actions">
+          <Button v-if="isRemovable" aria-label="Remove" @click="onRemoveClick">
+            <Icon name="trash2" />
+          </Button>
+          <Button secondary aria-label="Share" @click="onShareClick">
+            <Icon name="share" />
+          </Button>
+        </div>
+      </div>
+      <PostComments
+        v-if="isDevelopment && authStore.isAuthenticated"
+        :post-id="post.id"
+      />
+    </footer>
+  </article>
+</template>
 
 <style scoped>
   .post {

@@ -1,12 +1,3 @@
-<template>
-  <p class="field">
-    <component :is="as">
-      <div class="field__label">{{ label }}</div>
-      <slot />
-    </component>
-  </p>
-</template>
-
 <script setup lang="ts">
   type Props = {
     as?: string
@@ -17,6 +8,15 @@
     as: 'label',
   })
 </script>
+
+<template>
+  <p class="field">
+    <component :is="as">
+      <div class="field__label">{{ label }}</div>
+      <slot />
+    </component>
+  </p>
+</template>
 
 <style scoped>
   .field__label {

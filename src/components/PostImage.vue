@@ -1,19 +1,3 @@
-<template>
-  <RouterLink
-    v-if="to"
-    :to="to"
-    :class="[
-      'post-image',
-      { 'post-image--rounded': rounded, 'post-image--thumbnail': thumbnail },
-    ]"
-  >
-    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
-  </RouterLink>
-  <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
-    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
-  </div>
-</template>
-
 <script setup lang="ts">
   import { computed } from 'vue'
   import type { RouteLocationRaw } from 'vue-router'
@@ -32,6 +16,22 @@
     props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl,
   )
 </script>
+
+<template>
+  <RouterLink
+    v-if="to"
+    :to="to"
+    :class="[
+      'post-image',
+      { 'post-image--rounded': rounded, 'post-image--thumbnail': thumbnail },
+    ]"
+  >
+    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
+  </RouterLink>
+  <div v-else :class="['post-image', { 'post-image--rounded': rounded }]">
+    <img :src="actualUrl" :alt="alt" class="post-image__image" loading="lazy" />
+  </div>
+</template>
 
 <style scoped>
   .post-image {

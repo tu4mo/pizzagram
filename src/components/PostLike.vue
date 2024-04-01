@@ -1,17 +1,3 @@
-<template>
-  <div class="like">
-    <Button
-      :disabled="isLikeClicked"
-      :secondary="!hasLiked"
-      :aria-label="hasLiked ? 'Unlike' : 'Like'"
-      @click="onLikeClick"
-    >
-      <Icon :fill="hasLiked" name="heart" />
-    </Button>
-    <div v-if="likes > 0">{{ likes }} like{{ likes !== 1 ? 's' : '' }}</div>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { computed, ref } from 'vue'
 
@@ -42,6 +28,20 @@
     props.post.likes ? Object.keys(props.post.likes).length : 0,
   )
 </script>
+
+<template>
+  <div class="like">
+    <Button
+      :disabled="isLikeClicked"
+      :secondary="!hasLiked"
+      :aria-label="hasLiked ? 'Unlike' : 'Like'"
+      @click="onLikeClick"
+    >
+      <Icon :fill="hasLiked" name="heart" />
+    </Button>
+    <div v-if="likes > 0">{{ likes }} like{{ likes !== 1 ? 's' : '' }}</div>
+  </div>
+</template>
 
 <style scoped>
   .like {

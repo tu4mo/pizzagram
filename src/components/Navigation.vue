@@ -1,3 +1,18 @@
+<script setup lang="ts">
+  import { computed } from 'vue'
+
+  import Camera from './Camera.vue'
+  import NavItem from './NavItem.vue'
+
+  import { authStore } from '@/store/auth'
+  import { getUnreadNotificationsCount } from '@/store/notifications'
+
+  const notifications = computed(() => {
+    const unreadNotificationsCount = getUnreadNotificationsCount()
+    return unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined
+  })
+</script>
+
 <template>
   <nav class="navigation">
     <div class="navigation__items">
@@ -32,21 +47,6 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-  import { computed } from 'vue'
-
-  import Camera from './Camera.vue'
-  import NavItem from './NavItem.vue'
-
-  import { authStore } from '@/store/auth'
-  import { getUnreadNotificationsCount } from '@/store/notifications'
-
-  const notifications = computed(() => {
-    const unreadNotificationsCount = getUnreadNotificationsCount()
-    return unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined
-  })
-</script>
 
 <style scoped>
   .navigation {

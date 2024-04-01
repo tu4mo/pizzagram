@@ -1,13 +1,3 @@
-<template>
-  <component
-    :is="component"
-    v-bind="$attrs"
-    :class="['button', { [`button--secondary`]: secondary }]"
-  >
-    <slot />
-  </component>
-</template>
-
 <script setup lang="ts">
   type Props = {
     secondary?: boolean
@@ -19,6 +9,16 @@
     component: 'button',
   })
 </script>
+
+<template>
+  <component
+    :is="component"
+    v-bind="$attrs"
+    :class="['button', { [`button--secondary`]: secondary }]"
+  >
+    <slot />
+  </component>
+</template>
 
 <style scoped>
   .button {

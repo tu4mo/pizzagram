@@ -1,3 +1,22 @@
+<script setup lang="ts">
+  import { type RouteLocationNamedRaw, useRoute } from 'vue-router'
+
+  import Icon from './Icon.vue'
+
+  type Props = {
+    badge?: number | string
+    custom?: boolean
+    exact?: boolean
+    icon: InstanceType<typeof Icon>['$props']['name']
+    title: string
+    to: RouteLocationNamedRaw
+  }
+
+  defineProps<Props>()
+
+  const route = useRoute()
+</script>
+
 <template>
   <RouterLink v-if="!custom" :exact="exact" :to="to" class="nav-item">
     <div class="nav-item__icon">
@@ -19,25 +38,6 @@
     </label>
   </template>
 </template>
-
-<script setup lang="ts">
-  import { type RouteLocationNamedRaw, useRoute } from 'vue-router'
-
-  import Icon from './Icon.vue'
-
-  type Props = {
-    badge?: number | string
-    custom?: boolean
-    exact?: boolean
-    icon: InstanceType<typeof Icon>['$props']['name']
-    title: string
-    to: RouteLocationNamedRaw
-  }
-
-  defineProps<Props>()
-
-  const route = useRoute()
-</script>
 
 <style scoped>
   .nav-item {

@@ -1,13 +1,3 @@
-<template>
-  <RouterLink
-    v-if="asLink"
-    :to="{ name: 'profile', params: { username: username } }"
-  >
-    <img :alt="username" :class="classes" :src="profileUrl" />
-  </RouterLink>
-  <img v-else :alt="username" :class="classes" :src="profileUrl" />
-</template>
-
 <script setup lang="ts">
   import { computed } from 'vue'
 
@@ -37,6 +27,16 @@
       : undefined,
   )
 </script>
+
+<template>
+  <RouterLink
+    v-if="asLink"
+    :to="{ name: 'profile', params: { username: username } }"
+  >
+    <img :alt="username" :class="classes" :src="profileUrl" />
+  </RouterLink>
+  <img v-else :alt="username" :class="classes" :src="profileUrl" />
+</template>
 
 <style scoped>
   .profile-photo {

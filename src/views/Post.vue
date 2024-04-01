@@ -1,12 +1,3 @@
-<template>
-  <Spinner v-if="!post" />
-  <DefaultLayout v-else>
-    <div class="post-view">
-      <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
-    </div>
-  </DefaultLayout>
-</template>
-
 <script setup lang="ts">
   import { computed, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
@@ -46,6 +37,15 @@
     }
   }
 </script>
+
+<template>
+  <Spinner v-if="!post" />
+  <DefaultLayout v-else>
+    <div class="post-view">
+      <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
+    </div>
+  </DefaultLayout>
+</template>
 
 <style scoped>
   .post-view {

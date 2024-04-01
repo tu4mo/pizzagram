@@ -1,12 +1,3 @@
-<template>
-  <input
-    accept="image/*; capture=camera"
-    type="file"
-    @change="onChange"
-    @click="onClick"
-  />
-</template>
-
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
 
@@ -30,6 +21,15 @@
     }
   }
 </script>
+
+<template>
+  <input
+    accept="image/*; capture=camera"
+    type="file"
+    @change="onChange"
+    @click="onClick"
+  />
+</template>
 
 <style scoped>
   input {

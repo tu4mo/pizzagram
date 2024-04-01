@@ -1,26 +1,3 @@
-<template>
-  <WelcomeLayout>
-    <Spinner v-if="isLoading" cover />
-    <form class="reset" @submit.prevent="submit">
-      <Spacer gap="1">
-        <Input
-          v-model.trim="email"
-          :disabled="hasSentMail"
-          placeholder="E-mail"
-          type="email"
-        />
-        <Button :disabled="!email || hasSentMail" type="submit">
-          Reset Password
-        </Button>
-        <p v-if="hasSentMail">
-          Password reset email sent.
-          <Link :to="{ name: 'login' }">Log In</Link>
-        </p>
-      </Spacer>
-    </form>
-  </WelcomeLayout>
-</template>
-
 <script setup lang="ts">
   import { ref } from 'vue'
 
@@ -53,6 +30,29 @@
     isLoading.value = false
   }
 </script>
+
+<template>
+  <WelcomeLayout>
+    <Spinner v-if="isLoading" cover />
+    <form class="reset" @submit.prevent="submit">
+      <Spacer gap="1">
+        <Input
+          v-model.trim="email"
+          :disabled="hasSentMail"
+          placeholder="E-mail"
+          type="email"
+        />
+        <Button :disabled="!email || hasSentMail" type="submit">
+          Reset Password
+        </Button>
+        <p v-if="hasSentMail">
+          Password reset email sent.
+          <Link :to="{ name: 'login' }">Log In</Link>
+        </p>
+      </Spacer>
+    </form>
+  </WelcomeLayout>
+</template>
 
 <style scoped>
   .reset {

@@ -1,24 +1,3 @@
-<template>
-  <div ref="container" class="container">
-    <Button
-      :aria-pressed="isOpen"
-      :secondary="!isOpen"
-      class="button"
-      @click="isOpen = !isOpen"
-    >
-      <Icon name="menu" />
-    </Button>
-    <div v-if="isOpen" ref="menu" class="menu">
-      <template v-if="authStore.isAuthenticated">
-        <button class="menu__item" @click="onLogOutClick">Log Out</button>
-      </template>
-      <template v-else>
-        <button class="menu__item" @click="onLogInClick">Log In</button>
-      </template>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
   import { useRouter } from 'vue-router'
@@ -55,6 +34,27 @@
     router.push({ name: 'login' })
   }
 </script>
+
+<template>
+  <div ref="container" class="container">
+    <Button
+      :aria-pressed="isOpen"
+      :secondary="!isOpen"
+      class="button"
+      @click="isOpen = !isOpen"
+    >
+      <Icon name="menu" />
+    </Button>
+    <div v-if="isOpen" ref="menu" class="menu">
+      <template v-if="authStore.isAuthenticated">
+        <button class="menu__item" @click="onLogOutClick">Log Out</button>
+      </template>
+      <template v-else>
+        <button class="menu__item" @click="onLogInClick">Log In</button>
+      </template>
+    </div>
+  </div>
+</template>
 
 <style scoped>
   .container {

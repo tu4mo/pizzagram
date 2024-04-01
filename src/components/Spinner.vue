@@ -1,13 +1,3 @@
-<template>
-  <div :class="classes">
-    <div class="spinner__rotate">
-      <div class="spinner__pepperoni-1" />
-      <div class="spinner__pepperoni-2" />
-    </div>
-    <div v-if="!!$slots.default" class="spinner__slot"><slot /></div>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { computed } from 'vue'
 
@@ -23,6 +13,16 @@
     { 'spinner--cover': props.cover, 'spinner--inline': props.inline },
   ])
 </script>
+
+<template>
+  <div :class="classes">
+    <div class="spinner__rotate">
+      <div class="spinner__pepperoni-1" />
+      <div class="spinner__pepperoni-2" />
+    </div>
+    <div v-if="!!$slots.default" class="spinner__slot"><slot /></div>
+  </div>
+</template>
 
 <style scoped>
   .spinner {

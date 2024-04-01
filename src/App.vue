@@ -1,12 +1,3 @@
-<template>
-  <Spinner v-if="!authStore.isInitialized" />
-  <RouterView v-else v-slot="{ Component }">
-    <KeepAlive>
-      <component :is="Component" />
-    </KeepAlive>
-  </RouterView>
-</template>
-
 <script setup lang="ts">
   import { onMounted } from 'vue'
 
@@ -17,6 +8,15 @@
     initializeAuthCallback()
   })
 </script>
+
+<template>
+  <Spinner v-if="!authStore.isInitialized" />
+  <RouterView v-else v-slot="{ Component }">
+    <KeepAlive>
+      <component :is="Component" />
+    </KeepAlive>
+  </RouterView>
+</template>
 
 <style>
   :root {

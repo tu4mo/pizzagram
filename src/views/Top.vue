@@ -1,3 +1,22 @@
+<script setup lang="ts">
+  import { onMounted, ref } from 'vue'
+
+  import { fetchTopPosters } from '@/api/top'
+  import type { User } from '@/api/user'
+  import Link from '@/components/Link.vue'
+  import ProfilePhoto from '@/components/ProfilePhoto.vue'
+  import DefaultLayout from '@/layouts/Default.vue'
+  import { setTitle } from '@/title'
+
+  setTitle('Top 10')
+
+  const topPosters = ref<User[] | undefined>(undefined)
+
+  onMounted(async () => {
+    topPosters.value = await fetchTopPosters()
+  })
+</script>
+
 <template>
   <DefaultLayout title="Top 10">
     <ul class="top">
@@ -23,25 +42,6 @@
     </ul>
   </DefaultLayout>
 </template>
-
-<script setup lang="ts">
-  import { onMounted, ref } from 'vue'
-
-  import { fetchTopPosters } from '@/api/top'
-  import type { User } from '@/api/user'
-  import Link from '@/components/Link.vue'
-  import ProfilePhoto from '@/components/ProfilePhoto.vue'
-  import DefaultLayout from '@/layouts/Default.vue'
-  import { setTitle } from '@/title'
-
-  setTitle('Top 10')
-
-  const topPosters = ref<User[] | undefined>(undefined)
-
-  onMounted(async () => {
-    topPosters.value = await fetchTopPosters()
-  })
-</script>
 
 <style scoped>
   .top {
