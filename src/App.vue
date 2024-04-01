@@ -1,5 +1,6 @@
 <template>
-  <RouterView v-slot="{ Component }">
+  <Spinner v-if="!authStore.isInitialized" />
+  <RouterView v-else v-slot="{ Component }">
     <KeepAlive>
       <component :is="Component" />
     </KeepAlive>
@@ -9,7 +10,8 @@
 <script setup lang="ts">
   import { onMounted } from 'vue'
 
-  import { initializeAuthCallback } from './store/auth'
+  import Spinner from './components/Spinner.vue'
+  import { authStore, initializeAuthCallback } from './store/auth'
 
   onMounted(() => {
     initializeAuthCallback()

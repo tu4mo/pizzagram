@@ -12,7 +12,7 @@
         </Button>
       </div>
       <div class="default-layout__header"><Header :title="title" /></div>
-      <div v-if="authStore.isInitialized" class="default-layout__menu">
+      <div class="default-layout__menu">
         <Menu />
       </div>
     </div>
