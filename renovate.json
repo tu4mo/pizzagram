@@ -6,6 +6,10 @@
   },
   "packageRules": [
     {
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "3 days"
+    },
+    {
       "automerge": true,
       "groupName": "patches",
       "matchUpdateTypes": ["patch"],
