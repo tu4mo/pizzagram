@@ -10,22 +10,20 @@
         :to="imageTo"
         rounded
       />
+      <div v-if="post.caption" class="post__caption">
+        {{ post.caption }}
+      </div>
     </div>
     <footer class="post__footer">
       <div class="post__details">
         <div class="post__info">
           <div class="post__meta">
-            <div v-if="likes > 0">
-              {{ likes }} like{{ likes !== 1 ? 's' : '' }}
-            </div>
+            <PostLike :post="post" />
             <div v-if="isDevelopment && post.commentsCount > 0">
               {{ post.commentsCount }} comment{{
                 post.commentsCount !== 1 ? 's' : ''
               }}
             </div>
-          </div>
-          <div v-if="post.caption" class="post__caption">
-            {{ post.caption }}
           </div>
         </div>
         <div v-if="authStore.isAuthenticated" class="post__actions">
@@ -35,7 +33,6 @@
           <Button secondary aria-label="Share" @click="onShareClick">
             <Icon name="share" />
           </Button>
-          <PostLike :post="post" />
         </div>
       </div>
       <PostComments
@@ -47,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue'
+  import { ref, watch } from 'vue'
   import type { RouterLinkProps } from 'vue-router'
 
   import Button from './Button.vue'
@@ -74,10 +71,6 @@
   })
 
   const emit = defineEmits<{ (event: 'remove-click'): void }>()
-
-  const likes = computed(() =>
-    props.post.likes ? Object.keys(props.post.likes).length : 0,
-  )
 
   const user = ref<User | undefined>(undefined)
   watch(
@@ -123,6 +116,25 @@
     padding: 1rem;
   }
 
+  .post__image {
+    position: relative;
+  }
+
+  .post__caption {
+    background-color: rgba(var(--color-background-rgb), 0.9);
+    border-radius: var(--radius-sm);
+    bottom: 0;
+    color: var(--color-secondary);
+    left: 0;
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+    overflow: hidden;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .post__footer {
     display: flex;
     flex-direction: column;
@@ -140,17 +152,13 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
   }
 
   .post__meta {
     display: flex;
     font-weight: bold;
     gap: 1rem;
-  }
-
-  .post__caption {
-    color: var(--color-gray);
   }
 
   .post__actions {
