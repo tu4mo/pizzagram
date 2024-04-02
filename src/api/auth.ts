@@ -18,7 +18,7 @@ export async function getCurrentUser() {
 
 const registerUser = httpsCallable<
   { email: string; username: string; password: string },
-  User | null
+  { user: User; error: null } | { user: null; error: string }
 >(functions, 'registerUser')
 
 export function setOnAuthStateChangedCallback(
@@ -32,10 +32,12 @@ export async function signUp(
   email: string,
   password: string,
 ) {
-  const user = await registerUser({ email, username, password })
+  const {
+    data: { error },
+  } = await registerUser({ email, username, password })
 
-  if (!user.data) {
-    throw new Error('Unable to register user')
+  if (error) {
+    throw new Error(error)
   }
 
   await signIn(email, password)

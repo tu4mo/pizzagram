@@ -25,7 +25,7 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
     username.length > 15 ||
     !/^[0-9A-Za-z_]+$/.test(username)
   ) {
-    return null
+    return { user: null, error: 'Invalid username' }
   }
 
   console.log(`Registering user "${username}"...`)
@@ -37,7 +37,7 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
 
   if (querySnapshot.data().count > 0) {
     console.log('Username already exists.')
-    return null
+    return { user: null, error: 'Username already exists' }
   }
 
   let user: UserRecord | null = null
@@ -50,7 +50,7 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
     })
   } catch (error) {
     console.log('Error creating user')
-    return null
+    return { user: null, error: 'Error creating user' }
   }
 
   await usersCollection.doc(user.uid).set({
@@ -62,5 +62,5 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
 
   console.log(`User "${username}" (${user.uid}) registered`)
 
-  return user
+  return { user, error: null }
 }
