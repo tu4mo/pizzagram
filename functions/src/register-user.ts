@@ -20,8 +20,6 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
     data: { email, username, password },
   } = callableRequest
 
-  // return user.size() > 2 && user.size() < 16 && user.matches('[0-9A-Za-z_]+') == true;
-
   if (
     username.length < 3 ||
     username.length > 15 ||
