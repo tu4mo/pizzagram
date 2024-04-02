@@ -11,7 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/strict',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:prettier/recommended',
+    'prettier',
   ],
 
   parser: 'vue-eslint-parser',
@@ -38,6 +38,7 @@ module.exports = {
         },
       },
     ],
+    'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
     'vue/component-name-in-template-casing': 'error',
     'vue/define-emits-declaration': 'error',
     'vue/define-macros-order': 'error',
