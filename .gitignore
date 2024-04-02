@@ -6,5 +6,6 @@
 /functions/ui-debug.log
 /node_modules
 .env.local
+.eslintcache
 analice.html
 firebase-debug.log
