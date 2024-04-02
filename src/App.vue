@@ -2,10 +2,10 @@
   import { onMounted } from 'vue'
 
   import Spinner from './components/Spinner.vue'
-  import { authStore, initializeAuthCallback } from './store/auth'
+  import { authStore, initializeAuth } from './store/auth'
 
   onMounted(() => {
-    initializeAuthCallback()
+    initializeAuth()
   })
 </script>
 

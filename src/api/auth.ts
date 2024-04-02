@@ -21,16 +21,10 @@ const registerUser = httpsCallable<
   User | null
 >(functions, 'registerUser')
 
-let onAuthStateChangedCallback: (user: User | null) => void = () => undefined
-
-auth.onAuthStateChanged(async (user) => {
-  onAuthStateChangedCallback(user)
-})
-
 export function setOnAuthStateChangedCallback(
   callback: (user: User | null) => Promise<void>,
 ) {
-  onAuthStateChangedCallback = callback
+  auth.onAuthStateChanged(callback)
 }
 
 export async function signUp(

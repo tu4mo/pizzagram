@@ -19,7 +19,7 @@ export const getIsMe = (userId: string | undefined) =>
 
 let unsubscribeToNotifications: Unsubscribe | undefined = () => undefined
 
-export function initializeAuthCallback() {
+export function initializeAuth() {
   setOnAuthStateChangedCallback(async (user) => {
     if (user) {
       authStore.isAuthenticated = true
