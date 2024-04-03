@@ -13,8 +13,8 @@
   const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
 
-<template v-if="isDevelopment">
-  <div class="comment">
+<template>
+  <div v-if="isDevelopment" class="comment">
     <Button aria-label="Comment" secondary>
       <Icon name="messageCircle" />
     </Button>
