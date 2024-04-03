@@ -65,7 +65,20 @@
     padding: 1rem;
   }
 
+  @keyframes show {
+    0% {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .menu {
+    animation: show var(--transition-fast);
     background-color: var(--color-background);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
