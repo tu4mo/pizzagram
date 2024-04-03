@@ -9,6 +9,8 @@
   }
 
   const props = defineProps<Props>()
+
+  const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
 
 <template v-if="isDevelopment">
