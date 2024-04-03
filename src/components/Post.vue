@@ -4,6 +4,7 @@
 
   import Button from './Button.vue'
   import Icon from './Icon.vue'
+  import PostComment from './PostComment.vue'
   import PostComments from './PostComments.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
@@ -82,11 +83,7 @@
         <div class="post__info">
           <div class="post__meta">
             <PostLike :post="post" />
-            <div v-if="isDevelopment && post.commentsCount > 0">
-              {{ post.commentsCount }} comment{{
-                post.commentsCount !== 1 ? 's' : ''
-              }}
-            </div>
+            <PostComment :post="post" />
           </div>
         </div>
         <div v-if="authStore.isAuthenticated" class="post__actions">
@@ -159,6 +156,10 @@
     display: flex;
     font-weight: bold;
     gap: 1rem;
+  }
+
+  .post__meta > * {
+    flex: 0;
   }
 
   .post__actions {
