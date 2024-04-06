@@ -11,7 +11,7 @@
   import { setTitle } from '@/title'
 
   const route = useRoute()
-  const user = ref<User | undefined>(undefined)
+  const user = ref<User | undefined>()
 
   async function fetchUserData() {
     const username = route.params.username
