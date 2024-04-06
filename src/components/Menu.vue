@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue'
+  import { onMounted, onUnmounted, ref } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { signOut } from '@/api/auth'
@@ -11,16 +11,18 @@
   const container = ref<HTMLDivElement | null>(null)
   const router = useRouter()
 
-  onMounted(() => {
-    function closeMenu(event: MouseEvent) {
-      if (!container.value?.contains(event.target as Node)) {
-        isOpen.value = false
-      }
+  function closeMenu(event: MouseEvent) {
+    if (!container.value?.contains(event.target as Node)) {
+      isOpen.value = false
     }
+  }
 
+  onMounted(() => {
     window.addEventListener('click', closeMenu)
+  })
 
-    return () => window.removeEventListener('click', closeMenu)
+  onUnmounted(() => {
+    window.removeEventListener('click', closeMenu)
   })
 
   async function onLogOutClick() {
