@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { computed, onMounted, onUnmounted } from 'vue'
+  import { computed } from 'vue'
 
+  import IntersectionObserver from '@/components/IntersectionObserver.vue'
   import Post from '@/components/Post.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
@@ -8,24 +9,6 @@
   import { setTitle } from '@/title'
 
   setTitle()
-
-  async function handleScroll() {
-    if (
-      window.innerHeight + Math.round(window.scrollY) >=
-        document.body.offsetHeight &&
-      !postsStore.isLoading
-    ) {
-      await fetchPostsForHome()
-    }
-  }
-
-  onMounted(async () => {
-    window.addEventListener('scroll', handleScroll)
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('scroll', handleScroll)
-  })
 
   const posts = computed(() => getPosts())
 </script>
@@ -40,6 +23,10 @@
         :post="post"
       />
       <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
+      <IntersectionObserver
+        :enabled="!postsStore.isLoading && !postsStore.isLastPostReached"
+        @is-intersecting="fetchPostsForHome()"
+      />
     </div>
   </DefaultLayout>
 </template>
