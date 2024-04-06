@@ -177,7 +177,7 @@ export async function dislikePost(postId: string) {
 export async function verifyImage(image: string) {
   const verifyImage = httpsCallable<{ image: string }, boolean>(
     functions,
-    'verifyimage',
+    'verifyImage',
   )
   const result = await verifyImage({ image })
   return result

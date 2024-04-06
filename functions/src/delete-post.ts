@@ -1,17 +1,16 @@
 import { Storage } from '@google-cloud/storage'
-import type * as admin from 'firebase-admin'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
+import { db } from './db'
 import { updatePostsCount } from './update-posts-count'
 
 const storage = new Storage()
 
 export async function deletePost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
-  db: admin.firestore.Firestore,
 ) {
   const snap = event.data
 

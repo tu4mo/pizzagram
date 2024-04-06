@@ -1,8 +1,9 @@
-import type { Firestore } from 'firebase-admin/firestore'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
+
+import { db } from './db'
 
 export enum NotificationType {
   Comment = 'COMMENT',
@@ -11,7 +12,6 @@ export enum NotificationType {
 
 export async function addNotification(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
-  db: Firestore,
   notificationType: NotificationType,
 ) {
   const snap = event.data
