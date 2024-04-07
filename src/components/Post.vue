@@ -155,7 +155,7 @@
   .post__meta {
     display: flex;
     font-weight: bold;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .post__meta > * {
