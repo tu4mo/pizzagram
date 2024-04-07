@@ -3,8 +3,12 @@ import { getFirestore } from 'firebase-admin/firestore'
 
 initializeApp()
 
-const defaultFirestore = getFirestore()
+export const db = getFirestore()
 
-defaultFirestore.settings({ timestampsInSnapshots: true })
+db.settings({ timestampsInSnapshots: true })
 
-export { defaultFirestore as db }
+export const comments = db.collection('comments')
+export const likes = db.collection('likes')
+export const notifications = db.collection('notifications')
+export const posts = db.collection('posts')
+export const users = db.collection('users_2')

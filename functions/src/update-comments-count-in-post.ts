@@ -4,7 +4,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-import { db } from './db'
+import { posts } from './db'
 
 export async function updateCommentsCountInPost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
@@ -17,7 +17,7 @@ export async function updateCommentsCountInPost(
   }
 
   const commentData = snapshot.data()
-  const postDoc = db.collection('posts').doc(commentData.postId)
+  const postDoc = posts.doc(commentData.postId)
   const post = await postDoc.get()
 
   if (!post.exists) {

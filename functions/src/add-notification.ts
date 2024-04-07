@@ -3,7 +3,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-import { db } from './db'
+import { notifications, posts } from './db'
 
 export enum NotificationType {
   Comment = 'COMMENT',
@@ -20,8 +20,6 @@ export async function addNotification(
     return
   }
 
-  const notifications = db.collection('notifications')
-
   if (
     notificationType === NotificationType.Like ||
     notificationType === NotificationType.Comment
@@ -34,7 +32,7 @@ export async function addNotification(
 
     const { postId, userId } = data
 
-    const post = await db.collection('posts').doc(postId).get()
+    const post = await posts.doc(postId).get()
     const postData = post.data()
 
     if (

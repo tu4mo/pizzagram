@@ -3,7 +3,7 @@ import { getAuth } from 'firebase-admin/auth'
 import type { CallableRequest } from 'firebase-functions/v2/https'
 import md5 from 'md5'
 
-import { db } from './db'
+import { users } from './db'
 
 const authService = getAuth()
 
@@ -12,8 +12,6 @@ type Data = {
   username: string
   password: string
 }
-
-const usersCollection = db.collection('users_2')
 
 export async function registerUser(callableRequest: CallableRequest<Data>) {
   const {
@@ -30,7 +28,7 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
 
   console.log(`Registering user "${username}"...`)
 
-  const querySnapshot = await usersCollection
+  const querySnapshot = await users
     .where('username', '==', username)
     .count()
     .get()
@@ -53,7 +51,7 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
     return { user: null, error: 'Error creating user' }
   }
 
-  await usersCollection.doc(user.uid).set({
+  await users.doc(user.uid).set({
     createdAt: new Date(),
     gravatar: md5(user.email || ''),
     id: user.uid,

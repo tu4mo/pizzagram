@@ -1,8 +1,7 @@
-import { db } from './db'
+import { posts, users } from './db'
 
 export async function updatePostsCount(userId: string) {
-  const documentData = await db
-    .collection('posts')
+  const documentData = await posts
     .where('imageUrl', '!=', null)
     .where('userId', '==', userId)
     .count()
@@ -10,7 +9,7 @@ export async function updatePostsCount(userId: string) {
 
   const postsCount = documentData.data().count
 
-  await db.collection('users_2').doc(userId).update({ postsCount })
+  await users.doc(userId).update({ postsCount })
 
   console.log(`Updated user's (${userId}) posts count to ${postsCount}`)
 }

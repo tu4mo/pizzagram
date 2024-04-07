@@ -4,7 +4,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-import { db } from './db'
+import { db, likes, notifications } from './db'
 import { updatePostsCount } from './update-posts-count'
 
 const storage = new Storage()
@@ -20,9 +20,6 @@ export async function deletePost(
 
   const { id } = snap
   const { userId } = snap.data()
-
-  const likes = db.collection('likes')
-  const notifications = db.collection('notifications')
 
   const bucket = storage.bucket('pizzagram-cc.appspot.com')
   const photoFile = bucket.file(`posts/${id}.jpg`)
