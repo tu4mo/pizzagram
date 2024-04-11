@@ -6,7 +6,7 @@ service cloud.firestore {
       allow read;
       allow create: if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId'])
         && request.resource.data.comment is string
-        && request.resource.data.createdAt = request.time
+        && request.resource.data.createdAt == request.time
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
         && request.auth.uid == request.resource.data.userId;
     }
