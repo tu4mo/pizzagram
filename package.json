@@ -29,12 +29,12 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-vue": "9.24.0",
-    "firebase-tools": "13.7.0",
+    "eslint-plugin-vue": "9.24.1",
+    "firebase-tools": "13.7.1",
     "prettier": "3.2.5",
     "typescript": "5.4.4",
     "vite": "5.2.8",
-    "vue-tsc": "2.0.10"
+    "vue-tsc": "2.0.11"
   },
   "browserslist": [
     "defaults"
