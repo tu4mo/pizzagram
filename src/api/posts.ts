@@ -46,12 +46,13 @@ export type Post = {
   userId: string
 }
 
+const sessionStartDate = new Date()
+
 export function subscribeToPosts(callback: (posts: Post[]) => void) {
   const q = query(
     postsCollection,
-    orderBy('createdAt', 'desc'),
     where('published', '==', true),
-    limit(QUERY_LIMIT),
+    where('updatedAt', '>', sessionStartDate),
   )
 
   return onSnapshot(q, async (querySnapshot) => {
