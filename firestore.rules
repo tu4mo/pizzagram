@@ -34,29 +34,32 @@ service cloud.firestore {
 
       allow create:
         if request.resource.data.keys().hasOnly(
-          ['caption', 'createdAt', 'imageUrl', 'published', 'userId']
+          ['caption', 'createdAt', 'imageUrl', 'published', 'updatedAt', 'userId']
         )
         && request.resource.data.caption is string
         && request.resource.data.createdAt == request.time
         && request.resource.data.imageUrl == null
         && request.resource.data.published == false
+        && request.resource.data.updatedAt == request.time
         && request.resource.data.userId == request.auth.uid;
 
       allow update:
         if request.auth.uid == resource.data.userId
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(
-          ['imageUrl', 'published']
+          ['imageUrl', 'published', 'updatedAt']
         )
         && request.resource.data.imageUrl is string
-        && request.resource.data.published == true;
+        && request.resource.data.published == true
+        && request.resource.data.updatedAt == request.time;
 
       allow update:
-        if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+        if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'updatedAt'])
         && (
           !('likes' in resource.data)
           || request.resource.data.likes.diff(resource.data.likes).affectedKeys().hasOnly([request.auth.uid])
         )
-        && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes));
+        && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes))
+        && request.resource.data.updatedAt == request.time;
 
       allow delete:
         if request.auth.uid == resource.data.userId;

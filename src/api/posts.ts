@@ -42,6 +42,7 @@ export type Post = {
   imageUrl: string
   likes: { [key: string]: boolean }
   published: boolean
+  updatedAt: Date
   userId: string
 }
 
@@ -99,12 +100,13 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
   return {
     caption: data.caption ?? '',
     commentsCount: data.commentsCount ?? 0,
-    createdAt: data.createdAt.toDate(),
+    createdAt: data.createdAt?.toDate() ?? new Date(),
     doc,
     id: doc.id,
     imageUrl: data.imageUrl ?? '',
     likes: data.likes ?? {},
     published: data.published ?? false,
+    updatedAt: data.updatedAt?.toDate() ?? new Date(),
     userId: data.userId ?? '',
   }
 }
@@ -127,6 +129,7 @@ export async function sharePost({
     createdAt: serverTimestamp(),
     imageUrl: null,
     published: false,
+    updatedAt: serverTimestamp(),
     userId: user.uid,
   })
 
@@ -140,6 +143,7 @@ export async function sharePost({
   await updateDoc(docRef, {
     imageUrl: downloadUrl,
     published: true,
+    updatedAt: serverTimestamp(),
   })
 
   return docRef.id
@@ -158,10 +162,16 @@ export async function likePost(postId: string) {
 
   await runTransaction(firestore, async (transaction) => {
     const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
-    transaction.set(likeDoc, { postId, userId: user.uid })
+    transaction.set(likeDoc, {
+      postId,
+      userId: user.uid,
+    })
 
     const postDoc = doc(firestore, 'posts', postId)
-    transaction.update(postDoc, { [`likes.${user.uid}`]: true })
+    transaction.update(postDoc, {
+      [`likes.${user.uid}`]: true,
+      updatedAt: serverTimestamp(),
+    })
   })
 }
 
@@ -181,7 +191,10 @@ export async function dislikePost(postId: string) {
     }
 
     const postDoc = doc(firestore, 'posts', postId)
-    transaction.update(postDoc, { [`likes.${user.uid}`]: deleteField() })
+    transaction.update(postDoc, {
+      [`likes.${user.uid}`]: deleteField(),
+      updatedAt: serverTimestamp(),
+    })
   })
 }
 

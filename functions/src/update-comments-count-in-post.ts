@@ -34,5 +34,6 @@ export async function updateCommentsCountInPost(
 
   await postDoc.update({
     commentsCount: FieldValue.increment(increment),
+    updatedAt: FieldValue.serverTimestamp(),
   })
 }
