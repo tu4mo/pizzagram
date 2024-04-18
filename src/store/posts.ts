@@ -9,11 +9,9 @@ import { fetchUserByUsername } from '@/api/user'
 
 export const postsStore = reactive<{
   isLoading: boolean
-  isLastPostReached: boolean
   posts: { [key: string]: api.Post }
 }>({
   isLoading: false,
-  isLastPostReached: false,
   posts: {},
 })
 
@@ -63,10 +61,6 @@ export async function fetchPostsForHome() {
   })
 
   postsStore.isLoading = false
-
-  if (posts.length < api.QUERY_LIMIT) {
-    postsStore.isLastPostReached = true
-  }
 }
 
 export async function fetchPostsForUser(username: string) {

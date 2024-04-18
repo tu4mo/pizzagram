@@ -24,7 +24,7 @@
       />
       <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
       <IntersectionObserver
-        :enabled="!postsStore.isLoading && !postsStore.isLastPostReached"
+        :enabled="!postsStore.isLoading"
         @is-intersecting="fetchPostsForHome()"
       />
     </div>

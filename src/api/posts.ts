@@ -31,7 +31,7 @@ if (import.meta.env.DEV) {
   connectFunctionsEmulator(functions, 'localhost', 5001)
 }
 
-export const QUERY_LIMIT = 9
+const QUERY_LIMIT = 9
 
 export type Post = {
   caption: string
@@ -58,10 +58,16 @@ export function subscribeToPosts(callback: (posts: Post[]) => void) {
   })
 }
 
+const lastPostFetched: { [userId: string]: boolean } = {}
+
 export async function fetchPosts({
   userId,
   after,
 }: { userId?: string; after?: DocumentSnapshot<unknown> } = {}) {
+  if (after && lastPostFetched[userId ?? '']) {
+    return []
+  }
+
   const queryOperators = [
     orderBy('createdAt', 'desc'),
     where('published', '==', true),
@@ -70,6 +76,11 @@ export async function fetchPosts({
   ].filter(Boolean) as QueryConstraint[]
 
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
+
+  if (querySnapshot.size < QUERY_LIMIT) {
+    lastPostFetched[userId ?? ''] = true
+  }
+
   return querySnapshot.docs.map(createPostObject)
 }
 
