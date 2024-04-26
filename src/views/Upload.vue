@@ -35,7 +35,7 @@
 
     nextTick(async () => {
       try {
-        const imageAsBase64 = imageUrl.value.split(',')[1]
+        const imageAsBase64 = imageUrl.value.split(',')[1] ?? ''
         const { data: isPizza } = await verifyImage(imageAsBase64)
 
         if (!isPizza) {

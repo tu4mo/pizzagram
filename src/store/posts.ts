@@ -37,7 +37,7 @@ export async function getPost(id: string) {
 export function getPosts(userId?: string) {
   const postIds = Object.keys(postsStore.posts)
   const posts = postIds
-    .map((postId) => postsStore.posts[postId])
+    .map((postId) => postsStore.posts[postId] as api.Post)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 
   return userId === undefined

@@ -64,10 +64,12 @@ export async function fetchUserByUsername(username: string) {
 
     const docRef = querySnapshot.docs[0]
 
-    const user = createUserObject(docRef)
+    if (docRef) {
+      const user = createUserObject(docRef)
 
-    if (user) {
-      userCache.set(user.username, user)
+      if (user) {
+        userCache.set(user.username, user)
+      }
     }
   }
 
