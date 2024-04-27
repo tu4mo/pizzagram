@@ -82,12 +82,9 @@
       rgba(var(--color-background-rgb), 0.75),
       var(--color-background)
     );
-    bottom: 0;
     content: '';
-    left: 0;
+    inset: 0;
     position: absolute;
-    right: 0;
-    top: 0;
   }
 
   .profile__user {

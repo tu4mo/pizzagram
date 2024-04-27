@@ -11,15 +11,12 @@
 
 <style scoped>
   .welcome-layout {
-    bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    left: 0;
+    inset: 0;
     padding: 2rem;
     position: absolute;
-    right: 0;
-    top: 0;
   }
 
   .welcome-layout__header {

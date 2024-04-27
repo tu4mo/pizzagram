@@ -28,14 +28,11 @@
   .spinner {
     align-items: center;
     animation: animation-show 0.5s;
-    bottom: 0;
     display: flex;
     flex-direction: column;
+    inset: 0;
     justify-content: center;
-    left: 0;
     position: fixed;
-    right: 0;
-    top: 0;
   }
 
   .spinner--cover {
