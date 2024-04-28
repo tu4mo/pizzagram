@@ -8,7 +8,6 @@ const ResetPassword = () => import('./views/ResetPassword.vue')
 const LogIn = () => import('./views/LogIn.vue')
 const Notifications = () => import('./views/Notifications.vue')
 const SignUp = () => import('./views/SignUp.vue')
-const Top = () => import('./views/Top.vue')
 const Upload = () => import('./views/Upload.vue')
 
 import { getCurrentUser } from './api/auth'
@@ -71,18 +70,13 @@ export const router = createRouter({
       beforeEnter: disallowLoggedUser,
     },
     {
-      path: '/top',
-      name: 'top',
-      component: Top,
-    },
-    {
       path: '/upload/:id?',
       name: 'upload',
       component: Upload,
       beforeEnter: checkAutentication,
     },
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
