@@ -16,7 +16,7 @@
   "dependencies": {
     "@sentry/vue": "7.112.2",
     "feather-icons": "4.29.1",
-    "firebase": "10.11.0",
+    "firebase": "10.11.1",
     "vue": "3.4.25",
     "vue-router": "4.3.2"
   },
