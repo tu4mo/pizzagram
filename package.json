@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@sentry/vue": "7.112.2",
-    "feather-icons": "4.29.1",
+    "feather-icons": "4.29.2",
     "firebase": "10.11.1",
     "vue": "3.4.26",
     "vue-router": "4.3.2"
@@ -34,7 +34,7 @@
     "prettier": "3.2.5",
     "typescript": "5.4.5",
     "vite": "5.2.10",
-    "vue-tsc": "2.0.15"
+    "vue-tsc": "2.0.16"
   },
   "browserslist": [
     "defaults"
