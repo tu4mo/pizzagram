@@ -1,7 +1,8 @@
+import { createHash } from 'node:crypto'
+
 import type { UserRecord } from 'firebase-admin/auth'
 import { getAuth } from 'firebase-admin/auth'
 import type { CallableRequest } from 'firebase-functions/v2/https'
-import md5 from 'md5'
 
 import { users } from './db'
 
@@ -53,7 +54,9 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
 
   await users.doc(user.uid).set({
     createdAt: new Date(),
-    gravatar: md5(user.email || ''),
+    gravatar: createHash('sha256')
+      .update(user.email ?? '')
+      .digest('hex'),
     id: user.uid,
     username,
   })
