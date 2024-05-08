@@ -53,25 +53,28 @@ export async function fetchUser(id: string) {
 }
 
 export async function fetchUserByUsername(username: string) {
-  if (!userCache.getAll()[username]) {
-    const querySnapshot = await getDocs(
-      query(
-        collection(firestore, 'users_2'),
-        where('username', '==', username),
-        limit(1),
-      ),
-    )
+  const cachedUsers = userCache.getAll()
 
-    const docRef = querySnapshot.docs[0]
-
-    if (docRef) {
-      const user = createUserObject(docRef)
-
-      if (user) {
-        userCache.set(user.username, user)
-      }
-    }
+  if (username in cachedUsers) {
+    return cachedUsers[username]
   }
 
-  return userCache.getAll()[username]
+  const querySnapshot = await getDocs(
+    query(
+      collection(firestore, 'users_2'),
+      where('username', '==', username),
+      limit(1),
+    ),
+  )
+
+  const docRef = querySnapshot.docs[0]
+
+  if (docRef) {
+    const user = createUserObject(docRef)
+
+    if (user) {
+      userCache.set(user.username, user)
+      return user
+    }
+  }
 }

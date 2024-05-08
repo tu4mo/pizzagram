@@ -65,12 +65,15 @@ export async function fetchPostsForHome() {
 
 export async function fetchPostsForUser(username: string) {
   const user = await fetchUserByUsername(username)
-  if (Object.keys(user).length) {
-    const posts = await api.fetchPosts({ userId: user.id })
-    posts.forEach((post) => {
-      postsStore.posts = { ...postsStore.posts, [post.id]: post }
-    })
+
+  if (!user) {
+    return
   }
+
+  const posts = await api.fetchPosts({ userId: user.id })
+  posts.forEach((post) => {
+    postsStore.posts = { ...postsStore.posts, [post.id]: post }
+  })
 }
 
 export async function removePost(id: string) {
