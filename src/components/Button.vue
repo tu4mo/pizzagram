@@ -42,9 +42,10 @@
     opacity: 0.5;
   }
 
+  /* Disabled due to Chrome bug
   .button:not(:disabled):active {
     transform: var(--button-scale);
-  }
+  } */
 
   .button--secondary {
     color: var(--color-secondary);
