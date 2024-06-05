@@ -74,17 +74,17 @@
     max-height: 16rem;
     position: relative;
     width: 100%;
-  }
 
-  .profile__header::before {
-    background-image: linear-gradient(
-      to bottom,
-      rgba(var(--color-background-rgb), 0.75),
-      var(--color-background)
-    );
-    content: '';
-    inset: 0;
-    position: absolute;
+    &::before {
+      background-image: linear-gradient(
+        to bottom,
+        rgba(var(--color-background-rgb), 0.75),
+        var(--color-background)
+      );
+      content: '';
+      inset: 0;
+      position: absolute;
+    }
   }
 
   .profile__user {

@@ -49,14 +49,14 @@
     position: relative;
     text-decoration: none;
     transition: transform var(--transition-fast);
-  }
 
-  .nav-item:active {
-    transform: var(--button-scale);
-  }
+    &:active {
+      transform: var(--button-scale);
+    }
 
-  [aria-current='page'] {
-    color: var(--color-primary);
+    &[aria-current='page'] {
+      color: var(--color-primary);
+    }
   }
 
   .nav-item__icon {

@@ -98,14 +98,14 @@
     font-weight: bold;
     padding: 0.5rem 1rem;
     white-space: nowrap;
-  }
 
-  .menu__item:hover {
-    background-color: var(--color-light);
-  }
+    &:hover {
+      background-color: var(--color-light);
+    }
 
-  .menu__item:active {
-    background-color: var(--color-primary);
-    color: var(--color-background);
+    &:active {
+      background-color: var(--color-primary);
+      color: var(--color-background);
+    }
   }
 </style>

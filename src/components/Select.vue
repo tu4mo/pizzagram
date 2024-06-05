@@ -63,10 +63,10 @@
 
   .select__item {
     padding: 1rem;
-  }
 
-  .select__item:not(:last-child) {
-    border-bottom: 1px solid var(--color-light);
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-light);
+    }
   }
 
   .select__label {

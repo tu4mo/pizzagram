@@ -45,10 +45,10 @@
   .rating__button {
     color: var(--color-gray);
     width: auto;
-  }
 
-  .rating__button:not(:last-child) {
-    margin-right: 1rem;
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
   }
 
   .rating__button--active {
