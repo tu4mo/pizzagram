@@ -1,16 +1,20 @@
 <script setup lang="ts">
-  import { computed } from 'vue'
+  import { computed, onMounted } from 'vue'
 
   import IntersectionObserver from '@/components/IntersectionObserver.vue'
   import Post from '@/components/Post.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { fetchPostsForHome, getPosts, postsStore } from '@/store/posts'
+  import { fetchPostsForHome, getPostsForHome, postsStore } from '@/store/posts'
   import { setTitle } from '@/title'
 
   setTitle()
 
-  const posts = computed(() => getPosts())
+  onMounted(() => {
+    if (!postsStore.isLoading) fetchPostsForHome()
+  })
+
+  const posts = computed(() => getPostsForHome())
 </script>
 
 <template>
@@ -47,3 +51,4 @@
     }
   }
 </style>
+, onMountedgetPostsForHome,
