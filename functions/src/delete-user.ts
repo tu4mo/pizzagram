@@ -1,10 +1,7 @@
-import { Storage } from '@google-cloud/storage'
 import * as admin from 'firebase-admin'
 
 import { comments, db, likes, notifications, posts, users } from './db'
-
-const storage = new Storage()
-const bucket = storage.bucket('gs://pizzagram-cc.appspot.com')
+import { bucket } from './storage'
 
 export async function deleteUser(user: admin.auth.UserRecord) {
   const { uid, email } = user
@@ -57,6 +54,9 @@ export async function deleteUser(user: admin.auth.UserRecord) {
   })
 
   await Promise.all(files)
+
+  // Remove feed cache
+  await bucket.file(`profile-feed-${uid}.json`).delete({ ignoreNotFound: true })
 
   // Remove user
   deleteBatch.delete(users.doc(uid))
