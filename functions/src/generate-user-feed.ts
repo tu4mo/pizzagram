@@ -19,7 +19,7 @@ export async function generateUserFeed(userId: string) {
   })
 
   await bucket
-    .file(`profile-feed-${userId}.json`)
+    .file(`profile/${userId}.json`)
     .save(JSON.stringify(normalizedPosts))
 
   console.log(`Generated feed for user ${userId}`)

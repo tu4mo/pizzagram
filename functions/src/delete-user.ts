@@ -56,7 +56,7 @@ export async function deleteUser(user: admin.auth.UserRecord) {
   await Promise.all(files)
 
   // Remove feed cache
-  await bucket.file(`profile-feed-${uid}.json`).delete({ ignoreNotFound: true })
+  await bucket.file(`profile/${uid}.json`).delete({ ignoreNotFound: true })
 
   // Remove user
   deleteBatch.delete(users.doc(uid))

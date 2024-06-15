@@ -9,5 +9,9 @@ service firebase.storage {
           && request.resource.contentType.matches('image/.*')
           && firestore.exists(/databases/(default)/documents/posts/$(fileId.replace('.jpg', '')));
     }
+
+    match /profile/{fileId} {
+      allow read;
+    }
   }
 }
