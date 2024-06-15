@@ -7,19 +7,22 @@ import { authStore } from './auth'
 import * as api from '@/api/posts'
 import { fetchUserByUsername } from '@/api/user'
 
+type Post = api.Post & { isHome?: boolean }
+
 export const postsStore = reactive<{
-  homePostIds: string[]
   isLoading: boolean
-  posts: { [key: string]: api.Post }
+  posts: { [key: string]: Post }
 }>({
-  homePostIds: [],
   isLoading: false,
   posts: {},
 })
 
 api.subscribeToPosts((posts) => {
   posts.forEach((post) => {
-    postsStore.posts[post.id] = post
+    postsStore.posts[post.id] = {
+      ...post,
+      isHome: true,
+    }
   })
 })
 
@@ -37,8 +40,10 @@ export async function getPost(id: string) {
 }
 
 export function getPostsForHome() {
-  return postsStore.homePostIds
-    .map((postId) => postsStore.posts[postId] as api.Post)
+  const postIds = Object.keys(postsStore.posts)
+  return postIds
+    .map((postId) => postsStore.posts[postId] as Post)
+    .filter((post) => post.isHome)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 }
 
@@ -61,8 +66,7 @@ export async function fetchPostsForHome() {
   })
 
   posts.forEach((post) => {
-    postsStore.posts = { ...postsStore.posts, [post.id]: post }
-    postsStore.homePostIds.push(post.id)
+    postsStore.posts[post.id] = { ...post, isHome: true }
   })
 
   postsStore.isLoading = false
@@ -77,7 +81,7 @@ export async function fetchPostsForUser(username: string) {
 
   const posts = await api.fetchPosts({ userId: user.id })
   posts.forEach((post) => {
-    postsStore.posts = { ...postsStore.posts, [post.id]: post }
+    postsStore.posts[post.id] = post
   })
 }
 
