@@ -81,7 +81,10 @@ export async function fetchPostsForUser(username: string) {
 
   const posts = await api.fetchPosts({ userId: user.id })
   posts.forEach((post) => {
-    postsStore.posts[post.id] = post
+    postsStore.posts[post.id] = {
+      ...post,
+      isHome: postsStore.posts[post.id]?.isHome ?? false,
+    }
   })
 }
 
