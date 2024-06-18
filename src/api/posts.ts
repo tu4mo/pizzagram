@@ -25,7 +25,9 @@ import { getCurrentUser } from './auth'
 import { firestore, functions, storage } from '.'
 
 const storageRef = ref(storage)
+
 const postsCollection = collection(firestore, 'posts')
+const likesCollection = collection(firestore, 'likes')
 
 if (import.meta.env.DEV) {
   connectFunctionsEmulator(functions, 'localhost', 5001)
@@ -88,7 +90,7 @@ export async function fetchPosts({
 
 export async function fetchPost(id: string) {
   try {
-    const docRef = await getDoc(doc(firestore, 'posts', id))
+    const docRef = await getDoc(doc(postsCollection, id))
     return createPostObject(docRef)
   } catch (error) {
     console.error(error)
@@ -162,13 +164,13 @@ export async function likePost(postId: string) {
   }
 
   await runTransaction(firestore, async (transaction) => {
-    const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+    const likeDoc = doc(likesCollection, `${user.uid}_${postId}`)
     transaction.set(likeDoc, {
       postId,
       userId: user.uid,
     })
 
-    const postDoc = doc(firestore, 'posts', postId)
+    const postDoc = doc(postsCollection, postId)
     transaction.update(postDoc, {
       [`likes.${user.uid}`]: true,
       updatedAt: serverTimestamp(),
@@ -184,14 +186,14 @@ export async function dislikePost(postId: string) {
   }
 
   await runTransaction(firestore, async (transaction) => {
-    const likeDoc = doc(firestore, 'likes', `${user.uid}_${postId}`)
+    const likeDoc = doc(likesCollection, `${user.uid}_${postId}`)
     const snapshot = await transaction.get(likeDoc)
 
     if (snapshot.exists()) {
       transaction.delete(likeDoc)
     }
 
-    const postDoc = doc(firestore, 'posts', postId)
+    const postDoc = doc(postsCollection, postId)
     transaction.update(postDoc, {
       [`likes.${user.uid}`]: deleteField(),
       updatedAt: serverTimestamp(),

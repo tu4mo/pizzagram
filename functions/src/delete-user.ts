@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { comments, db, likes, notifications, posts, users } from './db'
+import { comments, db, feeds, likes, notifications, posts, users } from './db'
 import { bucket } from './storage'
 
 export async function deleteUser(user: admin.auth.UserRecord) {
@@ -55,12 +55,11 @@ export async function deleteUser(user: admin.auth.UserRecord) {
 
   await Promise.all(files)
 
-  // Remove feed cache
-  await bucket.file(`profile/${uid}.json`).delete({ ignoreNotFound: true })
+  // Remove feed
+  deleteBatch.delete(feeds.doc(uid))
 
   // Remove user
   deleteBatch.delete(users.doc(uid))
-  console.log(`Removed user ${uid}.`)
 
   await deleteBatch.commit()
 
@@ -72,4 +71,6 @@ export async function deleteUser(user: admin.auth.UserRecord) {
       } notifications, ` +
       `${postsData.size} posts.`,
   )
+  console.log(`Removed feed ${uid}.`)
+  console.log(`Removed user ${uid}.`)
 }
