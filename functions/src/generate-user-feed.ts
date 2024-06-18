@@ -1,5 +1,4 @@
-import { posts } from './db'
-import { bucket } from './storage'
+import { feeds, posts } from './db'
 
 export async function generateUserFeed(userId: string) {
   const userPosts = await posts
@@ -18,9 +17,7 @@ export async function generateUserFeed(userId: string) {
     }
   })
 
-  await bucket
-    .file(`profile/${userId}.json`)
-    .save(JSON.stringify(normalizedPosts))
+  await feeds.doc(userId).set({ json: JSON.stringify(normalizedPosts) })
 
-  console.log(`Generated feed for user ${userId}`)
+  console.log(`Feed saved for user ${userId}`)
 }

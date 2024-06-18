@@ -8,6 +8,7 @@ export const db = getFirestore()
 db.settings({ timestampsInSnapshots: true })
 
 export const comments = db.collection('comments')
+export const feeds = db.collection('feeds')
 export const likes = db.collection('likes')
 export const notifications = db.collection('notifications')
 export const posts = db.collection('posts')
