@@ -11,6 +11,10 @@ service cloud.firestore {
         && request.auth.uid == request.resource.data.userId;
     }
 
+    match /feeds/{userId} {
+      allow read;
+    }
+
     match /likes/{likeId} {
       allow read;
       allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId
