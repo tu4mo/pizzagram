@@ -9,11 +9,11 @@ type Data = {
 export async function verifyImage(callableRequest: CallableRequest<Data>) {
   const base64Image = callableRequest.data.image
   const imageBuffer = Buffer.from(base64Image, 'base64')
-  const imgTensor = tf.node.decodeImage(new Uint8Array(imageBuffer), 3)
+  const imgTensor = tf.node.decodeJpeg(new Uint8Array(imageBuffer), 3)
 
   try {
     const model = await cocoSsd.load()
-    const predictions = await model.detect(imgTensor as any)
+    const predictions = await model.detect(imgTensor)
     const isPizza = predictions.some(
       (prediction) => prediction.class === 'pizza',
     )

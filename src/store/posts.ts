@@ -42,7 +42,7 @@ export async function getPost(id: string) {
 export function getPostsForHome() {
   const postIds = Object.keys(postsStore.posts)
   return postIds
-    .map((postId) => postsStore.posts[postId] as Post)
+    .map((postId) => postsStore.posts[postId])
     .filter((post) => post.isHome)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 }
@@ -50,7 +50,7 @@ export function getPostsForHome() {
 export function getPosts(userId: string) {
   const postIds = Object.keys(postsStore.posts)
   const posts = postIds
-    .map((postId) => postsStore.posts[postId] as api.Post)
+    .map((postId) => postsStore.posts[postId])
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 
   return posts.filter((post) => post.userId === userId)

@@ -28,7 +28,7 @@
     star,
     trash2,
     user,
-  } as const
+  }
 
   type Props = {
     fill?: boolean

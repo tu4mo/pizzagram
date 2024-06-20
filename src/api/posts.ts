@@ -1,4 +1,4 @@
-import type { DocumentSnapshot, QueryConstraint } from 'firebase/firestore'
+import type { DocumentSnapshot } from 'firebase/firestore'
 import {
   addDoc,
   collection,
@@ -77,7 +77,7 @@ export async function fetchPosts({
     where('published', '==', true),
     userId ? where('userId', '==', userId) : limit(QUERY_LIMIT),
     after ? startAfter(after) : undefined,
-  ].filter(Boolean) as QueryConstraint[]
+  ].filter((operator) => operator !== undefined)
 
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
 

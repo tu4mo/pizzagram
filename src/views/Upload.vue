@@ -24,9 +24,9 @@
   const fileReader = new FileReader()
 
   async function onFileLoad() {
-    const result = fileReader.result as string
+    const result = fileReader.result
 
-    if (!result) {
+    if (typeof result !== 'string') {
       return
     }
 
