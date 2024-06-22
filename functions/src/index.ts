@@ -5,7 +5,6 @@ import { addNotification, NotificationType } from './add-notification'
 import { addUsernameToComment } from './add-username-to-comment'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
-import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
 import { resizeImage } from './resize-image'
 import { updateCommentsCountInPost } from './update-comments-count-in-post'
@@ -17,7 +16,7 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      return Promise.all([deletePost(snapshot), generateUserFeed(userId)])
+      return deletePost(snapshot)
     }
     return
   },
@@ -28,7 +27,7 @@ exports.createPost = functionsV2.firestore.onDocumentCreated(
   (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      return Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
+      return updatePostsCount(userId)
     }
     return
   },
