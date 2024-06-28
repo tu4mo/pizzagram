@@ -104,7 +104,7 @@
 
   .default-layout__top--border {
     background-color: rgba(var(--color-background-rgb), 0.8);
-    backdrop-filter: blur(24px);
+    backdrop-filter: var(--blur);
     border-color: var(--color-light);
   }
 
@@ -167,7 +167,7 @@
   .default-layout__navigation {
     align-items: center;
     background-color: rgba(var(--color-background-rgb), 0.8);
-    backdrop-filter: blur(24px);
+    backdrop-filter: var(--blur);
     border-top: 1px solid var(--color-light);
     bottom: 0;
     display: flex;

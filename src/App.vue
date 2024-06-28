@@ -22,6 +22,8 @@
   :root {
     --button-scale: scale(0.94);
 
+    --blur: blur(24px);
+
     --color-background: #fff;
     --color-background-rgb: 255, 255, 255;
     --color-gray: #aaa;

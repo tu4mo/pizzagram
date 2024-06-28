@@ -118,10 +118,12 @@
   }
 
   .post__caption {
-    background-color: rgba(var(--color-background-rgb), 0.9);
+    backdrop-filter: var(--blur);
+    background-color: rgba(var(--color-background-rgb), 0.8);
     border-radius: var(--radius-sm);
     bottom: 0;
     color: var(--color-secondary);
+    font-size: var(--font-size-sm);
     left: 0;
     margin: 1rem;
     max-width: calc(100% - 2rem);
