@@ -17,14 +17,14 @@
     "@sentry/vue": "8.18.0",
     "feather-icons": "4.29.2",
     "firebase": "10.12.3",
-    "vue": "3.4.31",
+    "vue": "3.4.32",
     "vue-router": "4.4.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "7.16.1",
     "@typescript-eslint/parser": "7.16.1",
     "@vitejs/plugin-vue": "5.0.5",
-    "@vue/runtime-dom": "3.4.31",
+    "@vue/runtime-dom": "3.4.32",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
