@@ -1,12 +1,6 @@
 <script setup lang="ts">
-  import { onMounted } from 'vue'
-
   import Spinner from './components/Spinner.vue'
-  import { authStore, initializeAuth } from './store/auth'
-
-  onMounted(() => {
-    initializeAuth()
-  })
+  import { authStore } from './store/auth'
 </script>
 
 <template>

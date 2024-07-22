@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import { router } from './router'
+import { initializeAuth } from './store/auth'
+
+initializeAuth()
 
 const app = createApp(App)
 
