@@ -42,6 +42,7 @@
     <Button
       :aria-pressed="isOpen"
       :secondary="!isOpen"
+      aria-label="Menu"
       class="button"
       @click="isOpen = !isOpen"
     >
