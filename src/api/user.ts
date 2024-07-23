@@ -21,6 +21,8 @@ export type User = {
   username: string
 }
 
+const usersCollection = collection(firestore, 'users_2')
+
 export function createUserObject(doc: QueryDocumentSnapshot<any>) {
   const data = doc.data() ?? {}
 
@@ -38,7 +40,7 @@ export function createUserObject(doc: QueryDocumentSnapshot<any>) {
 export async function fetchUser(id: string) {
   if (!Object.values(userCache.getAll()).find((user) => user.id === id)) {
     try {
-      const docRef = await getDoc(doc(firestore, 'users_2', id))
+      const docRef = await getDoc(doc(usersCollection, id))
       const user = createUserObject(docRef)
 
       if (user) {
@@ -60,11 +62,7 @@ export async function fetchUserByUsername(username: string) {
   }
 
   const querySnapshot = await getDocs(
-    query(
-      collection(firestore, 'users_2'),
-      where('username', '==', username),
-      limit(1),
-    ),
+    query(usersCollection, where('username', '==', username), limit(1)),
   )
 
   const docRef = querySnapshot.docs[0]
