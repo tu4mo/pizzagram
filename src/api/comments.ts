@@ -66,5 +66,6 @@ export async function addComment({
     createdAt: serverTimestamp(),
     postId,
     userId: user.uid,
+    username: user.displayName,
   })
 }

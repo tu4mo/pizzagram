@@ -2,7 +2,6 @@ import * as functionsV1 from 'firebase-functions'
 import * as functionsV2 from 'firebase-functions/v2'
 
 import { addNotification, NotificationType } from './add-notification'
-import { addUsernameToComment } from './add-username-to-comment'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
 import { registerUser } from './register-user'
@@ -37,7 +36,6 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
   (snapshot) =>
     Promise.all([
-      addUsernameToComment(snapshot),
       updateCommentsCountInPost(snapshot, 1),
       addNotification(snapshot, NotificationType.Comment),
     ]),

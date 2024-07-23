@@ -4,11 +4,12 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /comments/{commentId} {
       allow read;
-      allow create: if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId'])
+      allow create: if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId', 'username'])
         && request.resource.data.comment is string
         && request.resource.data.createdAt == request.time
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
-        && request.auth.uid == request.resource.data.userId;
+        && request.auth.uid == request.resource.data.userId
+        && request.resource.data.username == get(/databases/$(database)/documents/users_2/$(request.auth.uid)).data.username;
     }
 
     match /feeds/{userId} {
