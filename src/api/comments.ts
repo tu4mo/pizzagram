@@ -28,7 +28,7 @@ export async function fetchComments(postId: string) {
     query(
       commentsCollection,
       where('postId', '==', postId),
-      orderBy('createdAt', 'desc'),
+      orderBy('createdAt', 'asc'),
     ),
   )
 
@@ -58,14 +58,25 @@ export async function addComment({
   const user = await getCurrentUser()
 
   if (!user) {
-    return
+    throw new Error('User is not authenticated')
   }
 
-  await addDoc(commentsCollection, {
+  const docRef = await addDoc(commentsCollection, {
     comment,
     createdAt: serverTimestamp(),
     postId,
     userId: user.uid,
     username: user.displayName,
   })
+
+  const newComment: Comment = {
+    comment,
+    createdAt: new Date(),
+    id: docRef.id,
+    postId,
+    userId: user.uid,
+    username: user.displayName ?? '',
+  }
+
+  return newComment
 }
