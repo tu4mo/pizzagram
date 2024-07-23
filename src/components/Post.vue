@@ -37,6 +37,8 @@
     { immediate: true },
   )
 
+  const showComments = ref(false)
+
   function onRemoveClick() {
     if (confirm('Are you sure you want to remove this post?')) {
       emit('remove-click')
@@ -83,7 +85,11 @@
         <div class="post__info">
           <div class="post__meta">
             <PostLike :post="post" />
-            <PostComment :post="post" />
+            <PostComment
+              v-if="isDevelopment"
+              :post="post"
+              @click="showComments = !showComments"
+            />
           </div>
         </div>
         <div v-if="authStore.isAuthenticated" class="post__actions">
@@ -96,7 +102,7 @@
         </div>
       </div>
       <PostComments
-        v-if="isDevelopment && authStore.isAuthenticated"
+        v-if="isDevelopment && authStore.isAuthenticated && showComments"
         :post-id="post.id"
       />
     </footer>

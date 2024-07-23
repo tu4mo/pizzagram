@@ -9,27 +9,35 @@
   }
 
   const props = defineProps<Props>()
-
-  const isDevelopment = process.env.NODE_ENV === 'development'
+  const emit = defineEmits<{ (event: 'click'): void }>()
 </script>
 
 <template>
-  <div v-if="isDevelopment" class="comment">
-    <Button aria-label="Comment" secondary>
+  <Button aria-label="Comment" secondary @click="emit('click')">
+    <div class="comment">
       <Icon name="messageCircle" />
-    </Button>
-    <div v-if="props.post.commentsCount > 0">
-      {{ props.post.commentsCount }} comment{{
-        props.post.commentsCount !== 1 ? 's' : ''
-      }}
+      <div class="comment__label">
+        {{
+          props.post.commentsCount > 0
+            ? `${props.post.commentsCount} comment${
+                props.post.commentsCount !== 1 ? 's' : ''
+              }`
+            : 'Add a comment'
+        }}
+      </div>
     </div>
-  </div>
+  </Button>
 </template>
 
 <style scoped>
   .comment {
+    align-items: center;
     display: flex;
     gap: 0.5rem;
     white-space: nowrap;
+  }
+
+  .comment__label {
+    line-height: 1;
   }
 </style>
