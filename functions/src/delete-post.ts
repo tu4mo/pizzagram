@@ -4,7 +4,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
-import { db, likes, notifications } from './db'
+import { comments, db, likes, notifications } from './db'
 import { updatePostsCount } from './update-posts-count'
 
 const storage = new Storage()
@@ -33,6 +33,11 @@ export async function deletePost(
 
     const deleteBatch = db.batch()
 
+    const commentsSnapshot = await comments.where('postId', '==', id).get()
+    commentsSnapshot.forEach((doc) => {
+      deleteBatch.delete(comments.doc(doc.id))
+    })
+
     const likesSnapshot = await likes.where('postId', '==', id).get()
     likesSnapshot.forEach((doc) => {
       deleteBatch.delete(likes.doc(doc.id))
@@ -46,7 +51,7 @@ export async function deletePost(
     await deleteBatch.commit()
 
     console.log(
-      `Removed ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
+      `Removed ${commentsSnapshot.size} comments, ${likesSnapshot.size} likes and ${notificationsSnapshot.size} notifications.`,
     )
 
     await updatePostsCount(userId)
