@@ -172,6 +172,7 @@
     bottom: 0;
     display: flex;
     left: 0;
+    padding-bottom: env(safe-area-inset-bottom);
     position: fixed;
     right: 0;
     z-index: var(--z-navigation);
@@ -184,6 +185,7 @@
       border-top: 0;
       bottom: auto;
       left: auto;
+      padding-bottom: 0;
       position: fixed;
       right: 5.5rem;
       top: 0.25rem;
