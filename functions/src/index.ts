@@ -4,6 +4,7 @@ import * as functionsV2 from 'firebase-functions/v2'
 import { addNotification, NotificationType } from './add-notification'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
+import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
 import { resizeImage } from './resize-image'
 import { updateCommentsCountInPost } from './update-comments-count-in-post'
@@ -12,10 +13,11 @@ import { verifyImage } from './verify-image'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
-  (snapshot) => {
+  async (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      return deletePost(snapshot)
+      await deletePost(snapshot)
+      await generateUserFeed(userId)
     }
     return
   },
@@ -26,7 +28,7 @@ exports.createPost = functionsV2.firestore.onDocumentCreated(
   (snapshot) => {
     const { userId } = snapshot.data?.data() ?? {}
     if (typeof userId === 'string') {
-      return updatePostsCount(userId)
+      return Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
     }
     return
   },
