@@ -7,35 +7,38 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
-  import { fetchPostsForUser, getPosts } from '@/store/posts'
+  import { feedsStore, subscribeToFeed } from '@/store/feeds'
   import { setTitle } from '@/title'
 
   const route = useRoute()
   const user = ref<User | undefined>()
 
-  async function fetchUserData() {
+  async function fetchFeed() {
     const username = route.params.username
 
-    if (username && typeof username === 'string') {
+    if (typeof username === 'string') {
       user.value = await fetchUserByUsername(username)
-      await fetchPostsForUser(username)
+
+      if (user.value) {
+        subscribeToFeed(user.value.id)
+      }
     }
   }
 
   watch(
     () => route.params.username,
     (username) => {
-      if (username && typeof username === 'string') {
-        fetchUserData()
+      if (typeof username === 'string') {
+        fetchFeed()
         setTitle(username, true)
       }
     },
     { immediate: true },
   )
 
-  const posts = computed(() => {
-    return user.value?.id ? getPosts(user.value.id) : []
-  })
+  const feed = computed(() =>
+    user.value?.id ? (feedsStore[user.value.id] ?? []) : [],
+  )
 </script>
 
 <template>
@@ -44,7 +47,7 @@
     <div class="profile">
       <div
         :style="{
-          backgroundImage: posts[0] && `url(${posts[0].imageUrl})`,
+          backgroundImage: `url(${feed.at(0)?.imageUrl ?? ''})`,
         }"
         class="profile__header"
       />
@@ -52,8 +55,9 @@
         <ProfilePhoto :user="user" class="profile__photo" size="large" />
       </div>
       <ul class="profile__posts">
-        <li v-for="post in posts" :key="post.id">
+        <li v-for="post in feed" :key="post.id">
           <PostImage
+            :alt="post.caption"
             :image-url="post.imageUrl"
             :to="{ name: 'post', params: { postId: post.id } }"
             rounded

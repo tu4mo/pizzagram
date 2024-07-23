@@ -124,7 +124,7 @@ export async function sharePost({
   const user = await getCurrentUser()
 
   if (!user) {
-    return
+    throw new Error('User not found')
   }
 
   const docRef = await addDoc(postsCollection, {

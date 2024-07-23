@@ -6,6 +6,7 @@
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
+  import { optimisticallyRemovePostFromFeed } from '@/store/feeds'
   import { postsStore, getPost, removePost } from '@/store/posts'
   import { setTitle } from '@/title'
 
@@ -30,9 +31,10 @@
     { immediate: true },
   )
 
-  function onRemoveClick() {
-    if (postId.value && typeof postId.value === 'string') {
-      removePost(postId.value)
+  async function onRemoveClick() {
+    if (typeof postId.value === 'string') {
+      await removePost(postId.value)
+      optimisticallyRemovePostFromFeed(postId.value)
       router.go(-1)
     }
   }

@@ -5,13 +5,10 @@ import { reactive } from 'vue'
 import { authStore } from './auth'
 
 import * as api from '@/api/posts'
-import { fetchUserByUsername } from '@/api/user'
-
-type Post = api.Post & { isHome?: boolean }
 
 export const postsStore = reactive<{
   isLoading: boolean
-  posts: { [key: string]: Post }
+  posts: { [key: string]: api.Post }
 }>({
   isLoading: false,
   posts: {},
@@ -19,10 +16,7 @@ export const postsStore = reactive<{
 
 api.subscribeToPosts((posts) => {
   posts.forEach((post) => {
-    postsStore.posts[post.id] = {
-      ...post,
-      isHome: true,
-    }
+    postsStore.posts[post.id] = post
   })
 })
 
@@ -43,17 +37,7 @@ export function getPostsForHome() {
   const postIds = Object.keys(postsStore.posts)
   return postIds
     .map((postId) => postsStore.posts[postId])
-    .filter((post) => post.isHome)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
-}
-
-export function getPosts(userId: string) {
-  const postIds = Object.keys(postsStore.posts)
-  const posts = postIds
-    .map((postId) => postsStore.posts[postId])
-    .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
-
-  return posts.filter((post) => post.userId === userId)
 }
 
 export async function fetchPostsForHome() {
@@ -66,26 +50,10 @@ export async function fetchPostsForHome() {
   })
 
   posts.forEach((post) => {
-    postsStore.posts[post.id] = { ...post, isHome: true }
+    postsStore.posts[post.id] = post
   })
 
   postsStore.isLoading = false
-}
-
-export async function fetchPostsForUser(username: string) {
-  const user = await fetchUserByUsername(username)
-
-  if (!user) {
-    return
-  }
-
-  const posts = await api.fetchPosts({ userId: user.id })
-  posts.forEach((post) => {
-    postsStore.posts[post.id] = {
-      ...post,
-      isHome: postsStore.posts[post.id]?.isHome ?? false,
-    }
-  })
 }
 
 export async function removePost(id: string) {
