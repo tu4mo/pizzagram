@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <header :class="['header', { 'header--has-title': !!title }]">
+  <header class="header">
     <Logo class="header__logo" />
     <div v-if="title" class="header__title">{{ title }}</div>
   </header>
@@ -32,7 +32,7 @@
     font-size: var(--font-size-md);
   }
 
-  .header--has-title .header__logo {
+  .header:has(.header__title) .header__logo {
     display: none;
   }
 
@@ -45,7 +45,7 @@
       margin-top: 2px;
     }
 
-    .header--has-title .header__logo {
+    .header:has(.header__title) .header__logo {
       display: block;
       margin-right: 1rem;
     }
