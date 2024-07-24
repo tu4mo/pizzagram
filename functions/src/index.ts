@@ -13,10 +13,10 @@ import { verifyImage } from './verify-image'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
-  async (snapshot) => {
-    const { userId } = snapshot.data?.data() ?? {}
+  async (event) => {
+    const { userId } = event.data?.data() ?? {}
     if (typeof userId === 'string') {
-      await deletePost(snapshot)
+      await deletePost(event)
       await generateUserFeed(userId)
     }
     return
@@ -25,8 +25,8 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
 
 exports.createPost = functionsV2.firestore.onDocumentCreated(
   'posts/{postId}',
-  (snapshot) => {
-    const { userId } = snapshot.data?.data() ?? {}
+  (event) => {
+    const { userId } = event.data?.data() ?? {}
     if (typeof userId === 'string') {
       return Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
     }
@@ -36,21 +36,21 @@ exports.createPost = functionsV2.firestore.onDocumentCreated(
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
-  (snapshot) =>
+  (event) =>
     Promise.all([
-      updateCommentsCountInPost(snapshot, 1),
-      addNotification(snapshot, NotificationType.Comment),
+      updateCommentsCountInPost(event, 1),
+      addNotification(event, NotificationType.Comment),
     ]),
 )
 
 exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
   'comments/{commentId}',
-  (snapshot) => updateCommentsCountInPost(snapshot, -1),
+  (event) => updateCommentsCountInPost(event, -1),
 )
 
 exports.createLike = functionsV2.firestore.onDocumentCreated(
   'likes/{likeId}',
-  (snapshot) => addNotification(snapshot, NotificationType.Like),
+  (event) => addNotification(event, NotificationType.Like),
 )
 
 exports.registerUser = functionsV2.https.onCall(
