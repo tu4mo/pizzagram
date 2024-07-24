@@ -15,7 +15,7 @@ import { fetchUser } from './user'
 
 import { firestore } from '.'
 
-const notifications = collection(firestore, 'notifications')
+const notificationsCollection = collection(firestore, 'notifications')
 
 export type NotificationType = 'COMMENT' | 'LIKE'
 
@@ -43,7 +43,7 @@ export async function subscribeToNotifications(
   const beginningDate = Date.now() - 1000 * 60 * 60 * 24 * 90
 
   const q = query(
-    notifications,
+    notificationsCollection,
     orderBy('createdAt', 'desc'),
     where('userId', '==', user.uid),
     where('createdAt', '>=', new Date(beginningDate)),
@@ -77,7 +77,7 @@ export async function markNotificationsAsRead() {
 
   const querySnapshot = await getDocs(
     query(
-      notifications,
+      notificationsCollection,
       where('userId', '==', user.uid),
       where('read', '==', false),
     ),
@@ -86,7 +86,7 @@ export async function markNotificationsAsRead() {
   const batch = writeBatch(firestore)
 
   querySnapshot.forEach(async (docRef) => {
-    const notification = doc(firestore, 'notifications', docRef.id)
+    const notification = doc(notificationsCollection, docRef.id)
     batch.update(notification, { read: true })
   })
 
