@@ -137,7 +137,7 @@
   .post__footer {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     padding: 1rem;
   }
 
@@ -185,6 +185,7 @@
     }
 
     .post__footer {
+      gap: 2rem;
       padding: 2rem;
     }
   }

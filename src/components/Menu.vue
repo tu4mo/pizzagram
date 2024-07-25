@@ -71,12 +71,12 @@
   @keyframes show {
     0% {
       opacity: 0;
-      transform: translateY(-0.5rem);
+      transform: translateY(-0.5rem) scale(0.8);
     }
 
     100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
@@ -88,6 +88,7 @@
     padding: 0.5rem;
     position: absolute;
     right: 0.5rem;
+    transform-origin: top right;
   }
 
   .menu__item {
