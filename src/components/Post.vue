@@ -60,8 +60,6 @@
       //
     }
   }
-
-  const isDevelopment = process.env.NODE_ENV === 'development'
 </script>
 
 <template>
@@ -85,11 +83,7 @@
         <div class="post__info">
           <div class="post__meta">
             <PostLike :post="post" />
-            <PostComment
-              v-if="isDevelopment"
-              :post="post"
-              @click="showComments = !showComments"
-            />
+            <PostComment :post="post" @click="showComments = !showComments" />
           </div>
         </div>
         <div v-if="authStore.isAuthenticated" class="post__actions">
@@ -102,7 +96,7 @@
         </div>
       </div>
       <PostComments
-        v-if="isDevelopment && authStore.isAuthenticated && showComments"
+        v-if="authStore.isAuthenticated && showComments"
         :post-id="post.id"
       />
     </footer>

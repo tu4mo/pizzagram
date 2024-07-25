@@ -40,12 +40,8 @@
 
 <template>
   <div class="comments">
-    <ol
-      v-for="{ id, username, comment } in comments"
-      :key="id"
-      class="comments__list"
-    >
-      <li>
+    <ol class="comments__list">
+      <li v-for="{ id, username, comment } in comments" :key="id">
         <strong>{{ username }}</strong>
         &nbsp; {{ comment }}
       </li>
@@ -64,13 +60,17 @@
   .comments {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 1rem;
   }
 
   .comments__list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 0.5rem;
     list-style: none;
+
+    &:empty {
+      display: none;
+    }
   }
 </style>
