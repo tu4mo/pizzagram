@@ -121,7 +121,6 @@
 
     .profile__posts {
       gap: 1rem;
-      grid-template-columns: repeat(4, 1fr);
       max-width: var(--content-width-lg);
       padding: 2rem;
     }
