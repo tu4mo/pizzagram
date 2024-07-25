@@ -7,7 +7,7 @@ import { deleteUser } from './delete-user'
 import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
 import { resizeImage } from './resize-image'
-import { updateCommentsCountInPost } from './update-comments-count-in-post'
+import { updateCommentsCount } from './update-comments-count'
 import { updatePostsCount } from './update-posts-count'
 import { verifyImage } from './verify-image'
 
@@ -38,14 +38,14 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
   (event) =>
     Promise.all([
-      updateCommentsCountInPost(event, 1),
+      updateCommentsCount(event),
       addNotification(event, NotificationType.Comment),
     ]),
 )
 
 exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
   'comments/{commentId}',
-  (event) => updateCommentsCountInPost(event, -1),
+  (event) => updateCommentsCount(event),
 )
 
 exports.createLike = functionsV2.firestore.onDocumentCreated(
