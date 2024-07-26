@@ -7,6 +7,7 @@
 
   import type { Comment } from '@/api/comments'
   import { addComment, deleteComment, fetchComments } from '@/api/comments'
+  import { authStore } from '@/store/auth'
   import { postsStore } from '@/store/posts'
 
   type Props = {
@@ -71,7 +72,7 @@
         </div>
       </li>
     </ol>
-    <form @submit.prevent="submit">
+    <form v-if="authStore.isAuthenticated" @submit.prevent="submit">
       <Input
         v-model.trim="newComment"
         :disabled="isLoading"
