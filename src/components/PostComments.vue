@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
 
+  import Button from './Button.vue'
+  import Icon from './Icon.vue'
   import Input from './Input.vue'
 
   import type { Comment } from '@/api/comments'
-  import { addComment, fetchComments } from '@/api/comments'
+  import { addComment, deleteComment, fetchComments } from '@/api/comments'
   import { postsStore } from '@/store/posts'
 
   type Props = {
@@ -19,6 +21,13 @@
   onMounted(async () => {
     comments.value = await fetchComments(postId)
   })
+
+  function onRemoveComment(id: string) {
+    if (confirm('Are you sure you want to remove this comment?')) {
+      comments.value = comments.value.filter((comment) => comment.id !== id)
+      deleteComment(id)
+    }
+  }
 
   async function submit() {
     isLoading.value = true
@@ -41,9 +50,25 @@
 <template>
   <div class="comments">
     <ol class="comments__list">
-      <li v-for="{ id, username, comment } in comments" :key="id">
-        <strong>{{ username }}</strong>
-        &nbsp; {{ comment }}
+      <li
+        v-for="{ id, isMe, username, comment } in comments"
+        :key="id"
+        class="comments__item"
+      >
+        <div>
+          <strong>{{ username }}</strong>
+          &nbsp; {{ comment }}
+        </div>
+        <div v-if="isMe">
+          <Button
+            aria-label="Remove comment"
+            icon
+            secondary
+            @click="onRemoveComment(id)"
+          >
+            <Icon name="x" />
+          </Button>
+        </div>
       </li>
     </ol>
     <form @submit.prevent="submit">
@@ -73,5 +98,10 @@
     &:empty {
       display: none;
     }
+  }
+
+  .comments__item {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

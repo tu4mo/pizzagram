@@ -1,6 +1,8 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   orderBy,
   query,
@@ -18,12 +20,15 @@ export type Comment = {
   comment: string
   createdAt: Date
   id: string
+  isMe?: boolean
   postId: string
   userId: string
   username: string
 }
 
 export async function fetchComments(postId: string) {
+  const user = await getCurrentUser()
+
   const querySnapshot = await getDocs(
     query(
       commentsCollection,
@@ -39,6 +44,7 @@ export async function fetchComments(postId: string) {
       comment: data.comment ?? '',
       createdAt: data.createdAt.toDate(),
       id: doc.id,
+      isMe: user?.uid === data.userId,
       postId: data.postId ?? '',
       userId: data.userId ?? '',
       username: data.username ?? '',
@@ -79,4 +85,8 @@ export async function addComment({
   }
 
   return newComment
+}
+
+export async function deleteComment(commentId: string) {
+  return deleteDoc(doc(commentsCollection, commentId))
 }

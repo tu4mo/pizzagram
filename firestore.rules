@@ -12,6 +12,8 @@ service cloud.firestore {
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
         && request.auth.uid == request.resource.data.userId
         && request.resource.data.username == get(/databases/$(database)/documents/users_2/$(request.auth.uid)).data.username;
+
+      allow delete: if request.auth.uid == resource.data.userId;
     }
 
     match /feeds/{userId} {

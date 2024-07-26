@@ -11,6 +11,7 @@
   import star from 'feather-icons/dist/icons/star.svg?raw'
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
   import user from 'feather-icons/dist/icons/user.svg?raw'
+  import x from 'feather-icons/dist/icons/x.svg?raw'
   import { computed } from 'vue'
 
   const props = defineProps<Props>()
@@ -28,6 +29,7 @@
     star,
     trash2,
     user,
+    x,
   }
 
   type Props = {
