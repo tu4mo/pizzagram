@@ -4,8 +4,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /comments/{commentId} {
       allow read;
-      allow create: if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId', 'username'])
-        && request.resource.data.comment is string
+
+      allow create:
+        if request.resource.data.keys().hasOnly(['comment', 'createdAt', 'postId', 'userId', 'username'])
+        && request.resource.data.comment.size() <= 500
         && request.resource.data.createdAt == request.time
         && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
         && request.auth.uid == request.resource.data.userId
@@ -18,16 +20,21 @@ service cloud.firestore {
 
     match /likes/{likeId} {
       allow read;
-      allow create: if request.resource.id == request.auth.uid + '_' + request.resource.data.postId
-        && request.resource.data.size() == 2
-        && request.resource.data.postId is string
-        && request.resource.data.userId is string;
+
+      allow create:
+        if request.resource.id == request.auth.uid + '_' + request.resource.data.postId
+        && request.resource.data.keys().hasOnly(['postId', 'userId'])
+        && exists(/databases/$(database)/documents/posts/$(request.resource.data.postId))
+        && exists(/databases/$(database)/documents/users_2/$(request.resource.data.userId));
+
       allow delete: if request.auth.uid == resource.data.userId;
     }
 
     match /notifications/{notificationId} {
       allow read: if request.auth.uid == resource.data.userId;
-      allow update: if request.auth.uid == resource.data.userId
+
+      allow update:
+        if request.auth.uid == resource.data.userId
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
         && request.resource.data.read is bool;
     }
@@ -41,7 +48,7 @@ service cloud.firestore {
         if request.resource.data.keys().hasOnly(
           ['caption', 'createdAt', 'imageUrl', 'published', 'updatedAt', 'userId']
         )
-        && request.resource.data.caption is string
+        && request.resource.data.caption.size() <= 100
         && request.resource.data.createdAt == request.time
         && request.resource.data.imageUrl == null
         && request.resource.data.published == false
@@ -72,6 +79,7 @@ service cloud.firestore {
 
     match /users_2/{userId} {
       allow get;
+
       allow list: if request.query.limit == 1;
     }
   }

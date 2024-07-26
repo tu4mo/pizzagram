@@ -51,6 +51,7 @@
         v-model.trim="newComment"
         :disabled="isLoading"
         placeholder="Add a comment…"
+        maxlength="500"
       />
     </form>
   </div>
