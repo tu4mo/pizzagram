@@ -4,6 +4,7 @@ import { reactive } from 'vue'
 
 import { authStore } from './auth'
 
+import { dislikePost, likePost } from '@/api/likes'
 import * as api from '@/api/posts'
 
 export const postsStore = reactive<{
@@ -67,11 +68,11 @@ export async function toggleLike(postId: string) {
 
   if (userId in likes) {
     delete likes[userId]
-    await api.dislikePost(postId)
+    await dislikePost(postId)
   } else {
     try {
       postsStore.posts[postId].likes[userId] = true
-      await api.likePost(postId)
+      await likePost(postId)
     } catch (error) {
       postsStore.posts[postId].likes[userId] = false
       console.error(error)

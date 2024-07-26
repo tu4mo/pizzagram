@@ -3,7 +3,6 @@ import {
   addDoc,
   collection,
   deleteDoc,
-  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -11,7 +10,6 @@ import {
   onSnapshot,
   orderBy,
   query,
-  runTransaction,
   serverTimestamp,
   startAfter,
   updateDoc,
@@ -24,10 +22,7 @@ import { getCurrentUser } from './auth'
 
 import { firestore, functions, storage } from '.'
 
-const storageRef = ref(storage)
-
-const postsCollection = collection(firestore, 'posts')
-const likesCollection = collection(firestore, 'likes')
+export const postsCollection = collection(firestore, 'posts')
 
 if (import.meta.env.DEV) {
   connectFunctionsEmulator(functions, 'localhost', 5001)
@@ -137,7 +132,7 @@ export async function sharePost({
   })
 
   const uploadTask = await uploadBytes(
-    ref(storageRef, `posts/${docRef.id}.jpg`),
+    ref(storage, `posts/${docRef.id}.jpg`),
     file,
   )
 
@@ -154,51 +149,6 @@ export async function sharePost({
 
 export async function removePost(id: string) {
   await deleteDoc(doc(postsCollection, id))
-}
-
-export async function likePost(postId: string) {
-  const user = await getCurrentUser()
-
-  if (!user) {
-    return
-  }
-
-  await runTransaction(firestore, async (transaction) => {
-    const likeDoc = doc(likesCollection, `${user.uid}_${postId}`)
-    transaction.set(likeDoc, {
-      postId,
-      userId: user.uid,
-    })
-
-    const postDoc = doc(postsCollection, postId)
-    transaction.update(postDoc, {
-      [`likes.${user.uid}`]: true,
-      updatedAt: serverTimestamp(),
-    })
-  })
-}
-
-export async function dislikePost(postId: string) {
-  const user = await getCurrentUser()
-
-  if (!user) {
-    return
-  }
-
-  await runTransaction(firestore, async (transaction) => {
-    const likeDoc = doc(likesCollection, `${user.uid}_${postId}`)
-    const snapshot = await transaction.get(likeDoc)
-
-    if (snapshot.exists()) {
-      transaction.delete(likeDoc)
-    }
-
-    const postDoc = doc(postsCollection, postId)
-    transaction.update(postDoc, {
-      [`likes.${user.uid}`]: deleteField(),
-      updatedAt: serverTimestamp(),
-    })
-  })
 }
 
 export async function verifyImage(image: string) {
