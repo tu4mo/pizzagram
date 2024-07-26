@@ -50,18 +50,27 @@ export async function subscribeToNotifications(
   )
 
   return onSnapshot(q, async (querySnapshot) => {
-    const notifications = []
+    const notifications: Notification[] = []
 
     for await (const doc of querySnapshot.docs) {
       const data = doc.data()
       const from = await fetchUser(data.fromUserId)
 
+      if (!from) {
+        continue
+      }
+
       notifications.push({
-        ...data,
-        createdAt: data.createdAt.toDate(),
-        id: doc.id,
+        createdAt: data.createdAt?.toDate() || new Date(),
         from,
-      } as Notification)
+        fromUserId: data.fromUserId ?? '',
+        id: doc.id,
+        imageUrl: data.imageUrl ?? '',
+        postId: data.postId ?? '',
+        read: data.read ?? false,
+        type: data.type,
+        userId: data.userId ?? '',
+      })
     }
 
     callback(notifications)
