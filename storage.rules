@@ -3,7 +3,7 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     match /posts/{fileId} {
-      allow read;
+      allow get;
       allow create:
         if request.auth != null
           && request.resource.contentType.matches('image/.*')
