@@ -15,6 +15,7 @@
   }
 
   const { postId } = defineProps<Props>()
+
   const comments = ref<Comment[]>([])
   const newComment = ref('')
   const isLoading = ref(false)
@@ -26,6 +27,7 @@
   function onRemoveComment(id: string) {
     if (confirm('Are you sure you want to remove this comment?')) {
       comments.value = comments.value.filter((comment) => comment.id !== id)
+      postsStore.posts[postId].commentsCount--
       deleteComment(id)
     }
   }
@@ -36,7 +38,7 @@
     try {
       const comment = await addComment({ comment: newComment.value, postId })
 
-      comments.value.push(comment)
+      comments.value.push({ ...comment, isMe: true })
       postsStore.posts[postId].commentsCount++
       newComment.value = ''
     } catch (err: any) {
