@@ -1,4 +1,4 @@
-import type { DocumentSnapshot } from 'firebase/firestore'
+import type { DocumentData, DocumentSnapshot } from 'firebase/firestore'
 import {
   addDoc,
   collection,
@@ -57,27 +57,24 @@ export function subscribeToPosts(callback: (posts: Post[]) => void) {
   })
 }
 
-const lastPostFetched: { [userId: string]: boolean } = {}
+let isLastPostFetched = false
 
-export async function fetchPosts({
-  userId,
-  after,
-}: { userId?: string; after?: DocumentSnapshot<unknown> } = {}) {
-  if (after && lastPostFetched[userId ?? '']) {
+export async function fetchPosts(after?: DocumentSnapshot<unknown>) {
+  if (after && isLastPostFetched) {
     return []
   }
 
   const queryOperators = [
     orderBy('createdAt', 'desc'),
     where('published', '==', true),
-    userId ? where('userId', '==', userId) : limit(QUERY_LIMIT),
+    limit(QUERY_LIMIT),
     after ? startAfter(after) : undefined,
   ].filter((operator) => operator !== undefined)
 
   const querySnapshot = await getDocs(query(postsCollection, ...queryOperators))
 
   if (querySnapshot.size < QUERY_LIMIT) {
-    lastPostFetched[userId ?? ''] = true
+    isLastPostFetched = true
   }
 
   return querySnapshot.docs.map(createPostObject)
@@ -93,7 +90,7 @@ export async function fetchPost(id: string) {
 }
 
 function createPostObject(doc: DocumentSnapshot<any>): Post {
-  const data = doc.data() ?? {}
+  const data: DocumentData = doc.data() ?? {}
 
   return {
     caption: data.caption ?? '',

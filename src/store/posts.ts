@@ -45,10 +45,7 @@ export async function fetchPostsForHome() {
   postsStore.isLoading = true
 
   const lastPostInHome = getPostsForHome().at(-1)?.doc ?? undefined
-
-  const posts = await api.fetchPosts({
-    after: lastPostInHome,
-  })
+  const posts = await api.fetchPosts(lastPostInHome)
 
   posts.forEach((post) => {
     postsStore.posts[post.id] = post
