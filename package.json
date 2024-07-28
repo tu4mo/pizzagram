@@ -33,8 +33,8 @@
     "firebase-tools": "13.14.1",
     "prettier": "3.3.3",
     "typescript": "5.5.4",
-    "vite": "5.3.4",
-    "vue-tsc": "2.0.28"
+    "vite": "5.3.5",
+    "vue-tsc": "2.0.29"
   },
   "browserslist": [
     "defaults"
