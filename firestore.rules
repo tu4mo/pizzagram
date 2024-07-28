@@ -17,7 +17,7 @@ service cloud.firestore {
     }
 
     match /feeds/{userId} {
-      allow read;
+      allow get;
     }
 
     match /likes/{likeId} {
