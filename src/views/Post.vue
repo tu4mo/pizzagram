@@ -1,7 +1,9 @@
 <script setup lang="ts">
-  import { computed, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
+  import type { User } from '@/api/user'
+  import { fetchUser } from '@/api/user'
   import Post from '@/components/Post.vue'
   import Spinner from '@/components/Spinner.vue'
   import DefaultLayout from '@/layouts/Default.vue'
@@ -19,6 +21,7 @@
     postId.value ? postsStore.posts[postId.value] : undefined,
   )
   const isMe = computed(() => getIsMe(post.value?.userId))
+  const user = ref<User | undefined>()
 
   watch(
     () => route.params.postId,
@@ -26,6 +29,10 @@
       if (typeof postId === 'string') {
         const post = await getPost(postId)
         setTitle(post?.caption, true)
+
+        if (post?.userId) {
+          user.value = await fetchUser(post.userId)
+        }
       }
     },
     { immediate: true },
@@ -42,7 +49,7 @@
 
 <template>
   <Spinner v-if="!post" />
-  <DefaultLayout v-else>
+  <DefaultLayout v-else :title="user?.username">
     <div class="post-view">
       <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
     </div>
