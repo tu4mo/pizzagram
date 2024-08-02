@@ -56,7 +56,7 @@
         text: props.post.caption,
         url: `${window.location.origin}/post/${props.post.id}`,
       })
-    } catch (e) {
+    } catch {
       //
     }
   }

@@ -47,8 +47,8 @@ export async function registerUser(callableRequest: CallableRequest<Data>) {
       email,
       password,
     })
-  } catch (error) {
-    console.log('Error creating user')
+  } catch {
+    console.error('Error creating user')
     return { user: null, error: 'Error creating user' }
   }
 
