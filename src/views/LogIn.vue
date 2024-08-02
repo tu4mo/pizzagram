@@ -24,7 +24,7 @@
     try {
       await signIn(email.value, password.value)
       router.push({ name: 'home' })
-    } catch (error) {
+    } catch {
       alert('Unable to sign in.')
     }
 

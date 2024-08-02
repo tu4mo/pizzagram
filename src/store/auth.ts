@@ -41,7 +41,7 @@ export function initializeAuth() {
             notificationsStore.notifications = notifications
           },
         )
-      } catch (e) {
+      } catch {
         // Sign out if there's an error getting user
         await signOut()
       }
