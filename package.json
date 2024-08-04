@@ -16,14 +16,14 @@
   "dependencies": {
     "@sentry/vue": "8.22.0",
     "feather-icons": "4.29.2",
-    "firebase": "10.12.4",
+    "firebase": "10.12.5",
     "vue": "3.4.35",
     "vue-router": "4.4.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "8.0.0",
     "@typescript-eslint/parser": "8.0.0",
-    "@vitejs/plugin-vue": "5.1.1",
+    "@vitejs/plugin-vue": "5.1.2",
     "@vue/runtime-dom": "3.4.35",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
