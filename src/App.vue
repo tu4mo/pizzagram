@@ -69,4 +69,10 @@
     font-size: var(--font-size-md);
     line-height: 1.5;
   }
+
+  @media (display-mode: standalone) {
+    html {
+      -webkit-touch-callout: none;
+    }
+  }
 </style>
