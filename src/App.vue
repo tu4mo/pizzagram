@@ -75,7 +75,8 @@
       -webkit-touch-callout: none;
     }
 
-    a, img {
+    a,
+    img {
       -webkit-user-drag: none;
     }
   }
