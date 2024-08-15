@@ -73,9 +73,6 @@
   @media (display-mode: standalone) {
     html {
       -webkit-touch-callout: none;
-    }
-
-    a {
       -webkit-user-drag: none;
     }
   }
