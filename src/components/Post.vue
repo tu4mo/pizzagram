@@ -116,7 +116,7 @@
 
   .post__caption {
     backdrop-filter: var(--blur);
-    background-color: rgba(var(--color-background-rgb), 0.8);
+    background-color: rgba(var(--color-background-rgb) / 0.8);
     border-radius: var(--radius-sm);
     bottom: 0;
     color: var(--color-secondary);

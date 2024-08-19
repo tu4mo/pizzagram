@@ -103,7 +103,7 @@
   }
 
   .default-layout__top--border {
-    background-color: rgba(var(--color-background-rgb), 0.8);
+    background-color: rgba(var(--color-background-rgb) / 0.8);
     backdrop-filter: var(--blur);
     border-color: var(--color-light);
   }

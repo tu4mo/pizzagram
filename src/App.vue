@@ -19,7 +19,7 @@
     --blur: blur(24px);
 
     --color-background: #fff;
-    --color-background-rgb: 255, 255, 255;
+    --color-background-rgb: 255 255 255;
     --color-gray: #aaa;
     --color-light: #eee;
     --color-primary: #df0054;
@@ -36,7 +36,7 @@
     --radius-md: 1rem;
     --radius-lg: 2rem;
 
-    --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 1rem 3rem rgba(0 0 0 / 0.1);
 
     --transition-fast: 200ms ease;
 
