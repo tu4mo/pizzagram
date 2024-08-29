@@ -83,7 +83,11 @@
         <div class="post__info">
           <div class="post__meta">
             <PostLike v-if="authStore.isAuthenticated" :post="post" />
-            <PostComment :post="post" @click="showComments = !showComments" />
+            <PostComment
+              v-if="authStore.isAuthenticated"
+              :post="post"
+              @click="showComments = !showComments"
+            />
           </div>
         </div>
         <div v-if="authStore.isAuthenticated" class="post__actions">
