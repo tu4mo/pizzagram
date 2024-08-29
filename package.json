@@ -27,7 +27,7 @@
     "@vue/runtime-dom": "3.4.38",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-import-resolver-typescript": "3.6.3",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-vue": "9.27.0",
     "firebase-tools": "13.15.4",
