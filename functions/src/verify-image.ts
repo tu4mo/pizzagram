@@ -1,6 +1,7 @@
 import * as tf from '@tensorflow/tfjs-node'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import type { CallableRequest } from 'firebase-functions/v2/https'
+import sharp from 'sharp'
 
 type Data = {
   image: string
@@ -9,7 +10,9 @@ type Data = {
 export async function verifyImage(request: CallableRequest<Data>) {
   const base64Image = request.data.image
   const imageBuffer = Buffer.from(base64Image, 'base64')
-  const imgTensor = tf.node.decodeJpeg(new Uint8Array(imageBuffer), 3)
+
+  const jpeg = await sharp(imageBuffer).toFormat('jpeg').toBuffer()
+  const imgTensor = tf.node.decodeJpeg(new Uint8Array(jpeg), 3)
 
   try {
     const model = await cocoSsd.load()

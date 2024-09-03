@@ -194,7 +194,7 @@ export async function cropImage(
 
       ctx.drawImage(image, xOffset, yOffset, newWidth, newHeight)
 
-      const croppedImage = canvas.toDataURL('image/jpeg')
+      const croppedImage = canvas.toDataURL('image/webp')
       resolve(croppedImage)
     }
 
