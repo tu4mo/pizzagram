@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { nextTick, reactive, ref, watch } from 'vue'
+  import { reactive, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { cropImage, sharePost, verifyImage } from '@/api/posts'
@@ -30,31 +30,7 @@
       return
     }
 
-    isLoading.value = true
     imageUrl.value = await cropImage(result, 1024)
-
-    nextTick(async () => {
-      try {
-        const imageAsBase64 = imageUrl.value.split(',')[1] ?? ''
-        const { data: isPizza } = await verifyImage(imageAsBase64)
-
-        if (!isPizza) {
-          alert(
-            "Sorry, that's no good. Make sure there's a pizza and only a pizza in the photo. Please, try another one.",
-          )
-          imageUrl.value = ''
-        }
-
-        isLoading.value = false
-      } catch (error) {
-        console.error(error)
-
-        alert('Something went wrong. Please, try again later.')
-
-        isLoading.value = false
-        imageUrl.value = ''
-      }
-    })
   }
 
   fileReader.addEventListener('load', onFileLoad)
@@ -80,14 +56,37 @@
 
     isLoading.value = true
 
-    await sharePost({ file: fileStore.file, ...form })
-    fileStore.file = null
+    try {
+      const imageAsBase64 = imageUrl.value.split(',')[1] ?? ''
+      const { data: isPizza } = await verifyImage(imageAsBase64)
 
-    resetForm()
+      if (!isPizza) {
+        alert(
+          "Sorry, that's no good. Make sure there's a pizza and only a pizza in the photo. Please, try another one.",
+        )
 
-    isLoading.value = false
+        fileStore.file = null
+        isLoading.value = false
 
-    router.push({ name: 'home' })
+        return
+      }
+
+      await sharePost({ file: fileStore.file, ...form })
+      fileStore.file = null
+
+      resetForm()
+
+      isLoading.value = false
+
+      router.push({ name: 'home' })
+    } catch (error) {
+      console.error(error)
+
+      alert('Something went wrong. Please, try again later.')
+
+      isLoading.value = false
+      fileStore.file = null
+    }
   }
 </script>
 
