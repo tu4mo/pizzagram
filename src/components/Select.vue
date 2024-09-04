@@ -3,13 +3,11 @@
 
   import Input from './Input.vue'
 
-  type Props = {
+  defineProps<{
     name: string
     options: { label?: string; value: string }[]
     value: string
-  }
-
-  defineProps<Props>()
+  }>()
 
   const emit = defineEmits<{ (event: 'change', value: string): void }>()
 

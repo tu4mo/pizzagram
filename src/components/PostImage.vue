@@ -2,18 +2,22 @@
   import { computed } from 'vue'
   import type { RouteLocationRaw } from 'vue-router'
 
-  type Props = {
+  const {
+    alt = '',
+    imageUrl,
+    rounded,
+    thumbnail,
+    to = undefined,
+  } = defineProps<{
     alt?: string
     imageUrl: string
     rounded?: boolean
     thumbnail?: boolean
     to?: RouteLocationRaw
-  }
-
-  const props = withDefaults(defineProps<Props>(), { alt: '', to: undefined })
+  }>()
 
   const actualUrl = computed(() =>
-    props.thumbnail ? props.imageUrl.replace('.jpg', '_t.jpg') : props.imageUrl,
+    thumbnail ? imageUrl.replace('.jpg', '_t.jpg') : imageUrl,
   )
 </script>
 

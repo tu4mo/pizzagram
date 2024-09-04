@@ -5,18 +5,14 @@
 
   import type { User } from '@/api/user'
 
-  type Props = {
+  const { createdAt, user = null } = defineProps<{
     createdAt: Date
     user?: User | null
-  }
+  }>()
 
-  const props = withDefaults(defineProps<Props>(), { user: null })
+  const createdDate = computed(() => createdAt.toLocaleDateString())
 
-  const createdDate = computed(() => props.createdAt.toLocaleDateString())
-
-  const isUserLoaded = computed(
-    () => props.user && Object.keys(props.user).length > 0,
-  )
+  const isUserLoaded = computed(() => user && Object.keys(user).length > 0)
 </script>
 
 <template>

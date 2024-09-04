@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  type Props = {
+  const { borderless = false, modelValue } = defineProps<{
     borderless?: boolean
     modelValue: string
-  }
-
-  withDefaults(defineProps<Props>(), {
-    borderless: false,
-  })
+  }>()
 
   defineEmits<{ (event: 'update:modelValue', value: string): void }>()
 

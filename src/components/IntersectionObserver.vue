@@ -1,9 +1,7 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from 'vue'
 
-  const props = defineProps<{
-    enabled: boolean
-  }>()
+  const { enabled } = defineProps<{ enabled: boolean }>()
 
   const emit = defineEmits<{ (event: 'is-intersecting'): void }>()
 
@@ -15,7 +13,7 @@
 
     observer.value = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && props.enabled) {
+        if (entry.isIntersecting && enabled) {
           emit('is-intersecting')
         }
       })

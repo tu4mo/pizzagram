@@ -1,13 +1,8 @@
 <script setup lang="ts">
-  type Props = {
+  const { component = 'button', secondary = false } = defineProps<{
     secondary?: boolean
     component?: string
-  }
-
-  withDefaults(defineProps<Props>(), {
-    secondary: false,
-    component: 'button',
-  })
+  }>()
 </script>
 
 <template>

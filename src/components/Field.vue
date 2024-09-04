@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  type Props = {
+  const { as = 'label', label } = defineProps<{
     as?: string
     label: string
-  }
-
-  withDefaults(defineProps<Props>(), {
-    as: 'label',
-  })
+  }>()
 </script>
 
 <template>

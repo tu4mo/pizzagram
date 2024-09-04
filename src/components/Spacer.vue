@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  type Props = {
-    gap: '1' | '2'
-  }
-
-  defineProps<Props>()
+  defineProps<{ gap: '1' | '2' }>()
 </script>
 
 <template>

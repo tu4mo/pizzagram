@@ -8,24 +8,20 @@
   import { authStore } from '@/store/auth'
   import { toggleLike } from '@/store/posts'
 
-  type Props = {
-    post: Post
-  }
-
-  const props = defineProps<Props>()
+  const { post } = defineProps<{ post: Post }>()
 
   const isLikeClicked = ref(false)
 
   async function onLikeClick() {
     isLikeClicked.value = true
-    await toggleLike(props.post.id)
+    await toggleLike(post.id)
     isLikeClicked.value = false
   }
 
-  const hasLiked = computed(() => !!props.post.likes[authStore.userId])
+  const hasLiked = computed(() => !!post.likes[authStore.userId])
 
   const likes = computed(() =>
-    props.post.likes ? Object.keys(props.post.likes).length : 0,
+    post.likes ? Object.keys(post.likes).length : 0,
   )
 </script>
 

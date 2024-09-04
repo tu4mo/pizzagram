@@ -10,11 +10,7 @@
   import { authStore } from '@/store/auth'
   import { postsStore } from '@/store/posts'
 
-  type Props = {
-    postId: string
-  }
-
-  const { postId } = defineProps<Props>()
+  const { postId } = defineProps<{ postId: string }>()
 
   const comments = ref<Comment[]>([])
   const newComment = ref('')

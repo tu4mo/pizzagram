@@ -4,11 +4,8 @@
 
   import type { Post } from '@/api/posts'
 
-  type Props = {
-    post: Post
-  }
+  defineProps<{ post: Post }>()
 
-  const props = defineProps<Props>()
   const emit = defineEmits<{ (event: 'click'): void }>()
 </script>
 
@@ -18,9 +15,9 @@
       <Icon name="messageCircle" />
       <div class="comment__label">
         {{
-          props.post.commentsCount > 0
-            ? `${props.post.commentsCount} comment${
-                props.post.commentsCount !== 1 ? 's' : ''
+          post.commentsCount > 0
+            ? `${post.commentsCount} comment${
+                post.commentsCount !== 1 ? 's' : ''
               }`
             : 'Add a comment'
         }}

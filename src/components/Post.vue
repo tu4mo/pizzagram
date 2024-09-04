@@ -15,24 +15,23 @@
   import { fetchUser } from '@/api/user'
   import { authStore } from '@/store/auth'
 
-  type Props = {
+  const {
+    imageTo = undefined,
+    isRemovable = false,
+    post,
+  } = defineProps<{
     imageTo?: RouterLinkProps['to']
     isRemovable?: boolean
     post: Post
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
-    imageTo: undefined,
-    isRemovable: false,
-  })
+  }>()
 
   const emit = defineEmits<{ (event: 'remove-click'): void }>()
 
   const user = ref<User | undefined>(undefined)
   watch(
-    () => props.post,
+    () => post,
     async () => {
-      user.value = await fetchUser(props.post.userId)
+      user.value = await fetchUser(post.userId)
     },
     { immediate: true },
   )
@@ -53,8 +52,8 @@
     try {
       await navigator.share({
         title: 'Pizzagram',
-        text: props.post.caption,
-        url: `${window.location.origin}/post/${props.post.id}`,
+        text: post.caption,
+        url: `${window.location.origin}/post/${post.id}`,
       })
     } catch {
       //

@@ -9,17 +9,15 @@
   import Navigation from '@/components/Navigation.vue'
   import { authStore } from '@/store/auth'
 
-  type Props = {
+  const {
+    fromTop = false,
+    maxWidth = false,
+    title = undefined,
+  } = defineProps<{
     fromTop?: boolean
     maxWidth?: boolean
     title?: string
-  }
-
-  withDefaults(defineProps<Props>(), {
-    fromTop: false,
-    maxWidth: false,
-    title: undefined,
-  })
+  }>()
 
   const route = useRoute()
   const router = useRouter()

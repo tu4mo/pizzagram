@@ -3,27 +3,23 @@
 
   import type { User } from '@/api/user'
 
-  type Props = {
+  const {
+    asLink,
+    size = 'small',
+    user = null,
+  } = defineProps<{
     asLink?: boolean
     size?: string
     user?: User | null
-  }
+  }>()
 
-  const props = withDefaults(defineProps<Props>(), {
-    size: 'small',
-    user: null,
-  })
+  const classes = computed(() => ['profile-photo', `profile-photo--${size}`])
 
-  const classes = computed(() => [
-    'profile-photo',
-    `profile-photo--${props.size}`,
-  ])
-
-  const username = computed(() => (props.user ? props.user.username : ''))
+  const username = computed(() => (user ? user.username : ''))
 
   const profileUrl = computed(() =>
-    props.user?.gravatar
-      ? `https://www.gravatar.com/avatar/${props.user.gravatar}?d=identicon&s=256`
+    user?.gravatar
+      ? `https://www.gravatar.com/avatar/${user.gravatar}?d=identicon&s=256`
       : undefined,
   )
 </script>

@@ -2,13 +2,7 @@
   import Button from './Button.vue'
   import Icon from './Icon.vue'
 
-  type Props = {
-    modelValue?: number
-  }
-
-  withDefaults(defineProps<Props>(), {
-    modelValue: 0,
-  })
+  const { modelValue = 0 } = defineProps<{ modelValue?: number }>()
 
   defineEmits<{ (event: 'update:modelValue', value: number): void }>()
 </script>

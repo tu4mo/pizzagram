@@ -14,7 +14,10 @@
   import x from 'feather-icons/dist/icons/x.svg?raw'
   import { computed } from 'vue'
 
-  const props = defineProps<Props>()
+  const { fill, name } = defineProps<{
+    fill?: boolean
+    name: keyof typeof ICONS
+  }>()
 
   const ICONS = {
     bell,
@@ -32,12 +35,7 @@
     x,
   }
 
-  type Props = {
-    fill?: boolean
-    name: keyof typeof ICONS
-  }
-
-  const icon = computed(() => ICONS[props.name])
+  const icon = computed(() => ICONS[name])
 </script>
 
 <template>

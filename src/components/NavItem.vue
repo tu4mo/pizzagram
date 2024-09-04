@@ -3,16 +3,14 @@
 
   import Icon from './Icon.vue'
 
-  type Props = {
+  defineProps<{
     badge?: number | string
     custom?: boolean
     exact?: boolean
     icon: InstanceType<typeof Icon>['$props']['name']
     title: string
     to: RouteLocationNamedRaw
-  }
-
-  defineProps<Props>()
+  }>()
 
   const route = useRoute()
 </script>
