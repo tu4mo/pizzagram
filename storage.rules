@@ -4,10 +4,6 @@ service firebase.storage {
   match /b/{bucket}/o {
     match /posts/{fileId} {
       allow get;
-      allow create:
-        if request.auth != null
-          && request.resource.contentType.matches('image/.*')
-          && firestore.exists(/databases/(default)/documents/posts/$(fileId.replace('.jpg', '')));
     }
   }
 }

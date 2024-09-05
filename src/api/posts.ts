@@ -1,6 +1,5 @@
 import type { DocumentData, DocumentSnapshot } from 'firebase/firestore'
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -10,17 +9,12 @@ import {
   onSnapshot,
   orderBy,
   query,
-  serverTimestamp,
   startAfter,
-  updateDoc,
   where,
 } from 'firebase/firestore'
 import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
-import { getCurrentUser } from './auth'
-
-import { firestore, functions, storage } from '.'
+import { firestore, functions } from '.'
 
 export const postsCollection = collection(firestore, 'posts')
 
@@ -106,54 +100,16 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
   }
 }
 
-export async function sharePost({
-  caption,
-  file,
-}: {
-  caption: string
-  file: File
-}) {
-  const user = await getCurrentUser()
-
-  if (!user) {
-    throw new Error('User not found')
-  }
-
-  const docRef = await addDoc(postsCollection, {
-    caption,
-    createdAt: serverTimestamp(),
-    imageUrl: null,
-    published: false,
-    updatedAt: serverTimestamp(),
-    userId: user.uid,
-  })
-
-  const uploadTask = await uploadBytes(
-    ref(storage, `posts/${docRef.id}.jpg`),
-    file,
-  )
-
-  const downloadUrl = await getDownloadURL(uploadTask.ref)
-
-  await updateDoc(docRef, {
-    imageUrl: downloadUrl,
-    published: true,
-    updatedAt: serverTimestamp(),
-  })
-
-  return docRef.id
-}
-
 export async function removePost(id: string) {
   await deleteDoc(doc(postsCollection, id))
 }
 
-export async function verifyImage(image: string) {
-  const verifyImage = httpsCallable<{ image: string }, boolean>(
-    functions,
-    'verifyImage',
-  )
-  const result = await verifyImage({ image })
+export async function verifyImage(image: string, caption: string) {
+  const verifyImage = httpsCallable<
+    { caption: string; image: string },
+    boolean
+  >(functions, 'verifyImage')
+  const result = await verifyImage({ caption, image })
   return result
 }
 

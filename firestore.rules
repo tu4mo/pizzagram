@@ -46,26 +46,6 @@ service cloud.firestore {
         if resource.data.published == true
         || request.auth.uid == resource.data.userId;
 
-      allow create:
-        if request.resource.data.keys().hasOnly(
-          ['caption', 'createdAt', 'imageUrl', 'published', 'updatedAt', 'userId']
-        )
-        && request.resource.data.caption.size() <= 100
-        && request.resource.data.createdAt == request.time
-        && request.resource.data.imageUrl == null
-        && request.resource.data.published == false
-        && request.resource.data.updatedAt == request.time
-        && request.resource.data.userId == request.auth.uid;
-
-      allow update:
-        if request.auth.uid == resource.data.userId
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(
-          ['imageUrl', 'published', 'updatedAt']
-        )
-        && request.resource.data.imageUrl is string
-        && request.resource.data.published == true
-        && request.resource.data.updatedAt == request.time;
-
       allow update:
         if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'updatedAt'])
         && (

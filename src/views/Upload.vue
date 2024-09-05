@@ -2,7 +2,7 @@
   import { reactive, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
 
-  import { cropImage, sharePost, verifyImage } from '@/api/posts'
+  import { cropImage, verifyImage } from '@/api/posts'
   import Button from '@/components/Button.vue'
   import Empty from '@/components/Empty.vue'
   import Field from '@/components/Field.vue'
@@ -58,7 +58,7 @@
 
     try {
       const imageAsBase64 = imageUrl.value.split(',')[1] ?? ''
-      const { data: isPizza } = await verifyImage(imageAsBase64)
+      const { data: isPizza } = await verifyImage(imageAsBase64, form.caption)
 
       if (!isPizza) {
         alert(
@@ -71,11 +71,9 @@
         return
       }
 
-      await sharePost({ file: fileStore.file, ...form })
-      fileStore.file = null
-
       resetForm()
 
+      fileStore.file = null
       isLoading.value = false
 
       router.push({ name: 'home' })
@@ -84,8 +82,8 @@
 
       alert('Something went wrong. Please, try again later.')
 
-      isLoading.value = false
       fileStore.file = null
+      isLoading.value = false
     }
   }
 </script>

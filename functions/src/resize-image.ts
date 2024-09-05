@@ -6,10 +6,7 @@ import sharp from 'sharp'
 
 const storage = new Storage()
 
-export async function resizeImage(
-  event: functionsV2.storage.StorageEvent,
-  isThumbnail: boolean,
-) {
+export async function resizeImage(event: functionsV2.storage.StorageEvent) {
   const fileBucket = event.data.bucket
   const filePath = event.data.name
   const contentType = event.data.contentType
@@ -25,21 +22,21 @@ export async function resizeImage(
     return
   }
 
-  if (event.data.metadata?.resized) {
-    console.log(`${name}: Already resized`)
+  if (event.data.metadata?.isThumbnail) {
+    console.log(`${name}: Is already a thumbnail`)
     return
   }
 
   const bucket = storage.bucket(fileBucket)
 
-  const size = isThumbnail ? 256 : 1024
-  const resizedFileName = isThumbnail ? `${name}_t.jpg` : `${name}.jpg`
+  const size = 256
+  const resizedFileName = `${name}_t.jpg`
   const resizedFilePath = path.join(path.dirname(filePath), resizedFileName)
 
   const resizedUploadStream = bucket.file(resizedFilePath).createWriteStream({
     metadata: {
       contentType: contentType,
-      metadata: { resized: 'true' },
+      metadata: { isThumbnail: 'true' },
     },
   })
 
