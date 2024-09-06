@@ -1,10 +1,9 @@
 import * as path from 'path'
 
-import { Storage } from '@google-cloud/storage'
 import type * as functionsV2 from 'firebase-functions/v2'
 import sharp from 'sharp'
 
-const storage = new Storage()
+import { storage } from './storage'
 
 export async function resizeImage(event: functionsV2.storage.StorageEvent) {
   const fileBucket = event.data.bucket

@@ -1,3 +1,4 @@
 import { getStorage } from 'firebase-admin/storage'
 
-export const bucket = getStorage().bucket('pizzagram-cc.appspot.com')
+export const storage = getStorage()
+export const bucket = storage.bucket('pizzagram-cc.appspot.com')

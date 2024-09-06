@@ -1,13 +1,11 @@
-import { Storage } from '@google-cloud/storage'
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
 } from 'firebase-functions/v2/firestore'
 
 import { comments, db, likes, notifications } from './db'
+import { bucket } from './storage'
 import { updatePostsCount } from './update-posts-count'
-
-const storage = new Storage()
 
 export async function deletePost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
@@ -21,7 +19,6 @@ export async function deletePost(
   const { id } = snap
   const { userId } = snap.data()
 
-  const bucket = storage.bucket('pizzagram-cc.appspot.com')
   const photoFile = bucket.file(`posts/${id}.jpg`)
   const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
 
