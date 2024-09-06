@@ -1,5 +1,3 @@
-import { Storage } from '@google-cloud/storage'
+import { getStorage } from 'firebase-admin/storage'
 
-const storage = new Storage()
-
-export const bucket = storage.bucket('pizzagram-cc.appspot.com')
+export const bucket = getStorage().bucket('pizzagram-cc.appspot.com')

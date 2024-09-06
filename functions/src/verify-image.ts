@@ -1,6 +1,7 @@
 import * as tf from '@tensorflow/tfjs-node'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { FieldValue } from 'firebase-admin/firestore'
+import { getDownloadURL } from 'firebase-admin/storage'
 import type { CallableRequest } from 'firebase-functions/v2/https'
 import sharp from 'sharp'
 
@@ -50,14 +51,13 @@ export async function verifyImage(request: CallableRequest<Data>) {
 
     console.log('Saving image')
 
-    await bucket.file(`posts/${newPost.id}.jpg`).save(jpeg)
+    const file = bucket.file(`posts/${newPost.id}.jpg`)
+    await file.save(jpeg)
 
     console.log('Updating post with public image URL')
 
-    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/posts%2F${newPost.id}.jpg?alt=media`
-
     await posts.doc(newPost.id).update({
-      imageUrl,
+      imageUrl: await getDownloadURL(file),
       published: true,
       updatedAt: FieldValue.serverTimestamp(),
     })
