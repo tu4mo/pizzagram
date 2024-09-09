@@ -1,7 +1,6 @@
 import * as admin from 'firebase-admin'
 
 import { comments, db, feeds, likes, notifications, posts, users } from './db'
-import { bucket } from './storage'
 
 export async function deleteUser(user: admin.auth.UserRecord) {
   const { uid, email } = user
@@ -45,15 +44,9 @@ export async function deleteUser(user: admin.auth.UserRecord) {
 
   // Remove posts
   const postsData = await posts.where('userId', '==', uid).get()
-
-  const files: Promise<any>[] = []
   postsData.forEach((doc) => {
     deleteBatch.delete(posts.doc(doc.id))
-    files.push(bucket.file(`posts/${doc.id}.jpg`).delete())
-    files.push(bucket.file(`posts/${doc.id}_t.jpg`).delete())
   })
-
-  await Promise.all(files)
 
   // Remove feed
   deleteBatch.delete(feeds.doc(uid))
