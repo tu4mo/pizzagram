@@ -26,12 +26,20 @@ export async function deletePost(
   const thumbnailFile = bucket.file(`posts/${filename}_t.${extension}`)
 
   try {
+    console.log(`Removing image ${photoFile.name}...`)
     await photoFile.delete()
-    console.log(`${photoFile.name} removed.`)
+  } catch {
+    console.error(`Failed to remove image.`)
+  }
 
+  try {
+    console.log(`Removing thumbnail ${thumbnailFile.name}...`)
     await thumbnailFile.delete()
-    console.log(`${thumbnailFile.name} removed.`)
+  } catch {
+    console.error(`Failed to remove image.`)
+  }
 
+  try {
     const deleteBatch = db.batch()
 
     const commentsSnapshot = await comments.where('postId', '==', id).get()
@@ -57,6 +65,6 @@ export async function deletePost(
 
     await updatePostsCount(userId)
   } catch (error) {
-    console.log(`Failed to completely remove post (${error}).`)
+    console.error(`Failed to completely remove post (${error}).`)
   }
 }
