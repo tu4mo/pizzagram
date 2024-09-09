@@ -2,7 +2,7 @@
   import { reactive, ref, watch, onMounted, onUnmounted } from 'vue'
   import { useRouter } from 'vue-router'
 
-  import { cropImage, verifyImage } from '@/api/posts'
+  import { cropImage, sharePost } from '@/api/posts'
   import Button from '@/components/Button.vue'
   import Empty from '@/components/Empty.vue'
   import Field from '@/components/Field.vue'
@@ -64,7 +64,7 @@
 
     try {
       const imageAsBase64 = imageUrl.value.split(',')[1] ?? ''
-      const { data: isPizza } = await verifyImage(imageAsBase64, form.caption)
+      const { data: isPizza } = await sharePost(imageAsBase64, form.caption)
 
       if (!isPizza) {
         alert(

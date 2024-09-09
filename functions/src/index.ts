@@ -7,9 +7,9 @@ import { deleteUser } from './delete-user'
 import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
 import { resizeImage } from './resize-image'
+import { sharePost } from './share-post'
 import { updateCommentsCount } from './update-comments-count'
 import { updatePostsCount } from './update-posts-count'
-import { verifyImage } from './verify-image'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
@@ -62,10 +62,10 @@ exports.deleteUser = functionsV1.auth.user().onDelete(deleteUser)
 
 exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
   { memory: '1GiB' },
-  (event) => resizeImage(event),
+  resizeImage,
 )
 
-exports.verifyImage = functionsV2.https.onCall(
+exports.sharePost = functionsV2.https.onCall(
   { enforceAppCheck: true, memory: '1GiB' },
-  verifyImage,
+  sharePost,
 )

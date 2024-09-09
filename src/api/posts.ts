@@ -104,12 +104,12 @@ export async function removePost(id: string) {
   await deleteDoc(doc(postsCollection, id))
 }
 
-export async function verifyImage(image: string, caption: string) {
-  const verifyImage = httpsCallable<
-    { caption: string; image: string },
-    boolean
-  >(functions, 'verifyImage')
-  const result = await verifyImage({ caption, image })
+export async function sharePost(image: string, caption: string) {
+  const sharePost = httpsCallable<{ caption: string; image: string }, boolean>(
+    functions,
+    'sharePost',
+  )
+  const result = await sharePost({ caption, image })
   return result
 }
 

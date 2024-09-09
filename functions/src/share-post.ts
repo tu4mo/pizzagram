@@ -13,7 +13,7 @@ type Data = {
   image: string
 }
 
-export async function verifyImage(request: CallableRequest<Data>) {
+export async function sharePost(request: CallableRequest<Data>) {
   const { image, caption } = request.data
   const imageBuffer = Buffer.from(image, 'base64')
 
