@@ -29,7 +29,6 @@ export async function verifyImage(request: CallableRequest<Data>) {
     console.log('Detecting pizza')
 
     const model = await cocoSsd.load()
-    // @ts-expect-error node and cocoSsd types are not compatible
     const predictions = await model.detect(imgTensor)
     const isPizza = predictions.some(
       (prediction) => prediction.class === 'pizza',
