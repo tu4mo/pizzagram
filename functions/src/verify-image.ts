@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs-node-gpu'
+import * as tf from '@tensorflow/tfjs-node'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { FieldValue } from 'firebase-admin/firestore'
 import { getDownloadURL } from 'firebase-admin/storage'
