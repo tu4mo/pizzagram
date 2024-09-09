@@ -19,7 +19,7 @@ export async function deletePost(
   const { id } = snap
   const { imageUrl, userId } = snap.data()
 
-  const imagePath = /posts%2(.*)\?/.exec(imageUrl)?.at(1) ?? ''
+  const imagePath = /posts%2F(.*)\?/.exec(imageUrl)?.at(1) ?? ''
   const [filename, extension] = imagePath.split('.')
 
   const photoFile = bucket.file(`posts/${imagePath}`)
