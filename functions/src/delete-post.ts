@@ -17,16 +17,20 @@ export async function deletePost(
   }
 
   const { id } = snap
-  const { userId } = snap.data()
+  const { imageUrl, userId } = snap.data()
 
-  const photoFile = bucket.file(`posts/${id}.jpg`)
-  const thumbnailFile = bucket.file(`posts/${id}_t.jpg`)
+  const imagePath = /posts%2(.*)\?/.exec(imageUrl)?.at(1) ?? ''
+  const [filename, extension] = imagePath.split('.')
+
+  const photoFile = bucket.file(`posts/${imagePath}`)
+  const thumbnailFile = bucket.file(`posts/${filename}_t.${extension}`)
 
   try {
     await photoFile.delete()
-    await thumbnailFile.delete()
+    console.log(`${photoFile.name} removed.`)
 
-    console.log(`${photoFile.name} and ${thumbnailFile.name} removed.`)
+    await thumbnailFile.delete()
+    console.log(`${thumbnailFile.name} removed.`)
 
     const deleteBatch = db.batch()
 
