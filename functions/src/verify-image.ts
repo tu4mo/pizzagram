@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs-node'
+import * as tf from '@tensorflow/tfjs-node-gpu'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { FieldValue } from 'firebase-admin/firestore'
 import { getDownloadURL } from 'firebase-admin/storage'
@@ -29,6 +29,7 @@ export async function verifyImage(request: CallableRequest<Data>) {
     console.log('Detecting pizza')
 
     const model = await cocoSsd.load()
+    // @ts-expect-error node and cocoSsd types are not compatible
     const predictions = await model.detect(imgTensor)
     const isPizza = predictions.some(
       (prediction) => prediction.class === 'pizza',
