@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { reactive, ref, watch } from 'vue'
+  import { reactive, ref, watch, onMounted, onUnmounted } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { cropImage, verifyImage } from '@/api/posts'
@@ -33,7 +33,13 @@
     imageUrl.value = await cropImage(result, 1024)
   }
 
-  fileReader.addEventListener('load', onFileLoad)
+  onMounted(() => {
+    fileReader.addEventListener('load', onFileLoad)
+  })
+
+  onUnmounted(() => {
+    fileReader.removeEventListener('load', onFileLoad)
+  })
 
   watch(
     () => fileStore.file,
