@@ -10,10 +10,13 @@ export async function generateUserFeed(userId: string) {
   const normalizedPosts = userPosts.docs.map((doc) => {
     const data = doc.data()
 
+    const extension = /(\.[a-z]+)\?/i.exec(data.imageUrl)?.at(1)
+    const imageUrl = data.imageUrl.replace(extension, `_t${extension}`)
+
     return {
       caption: data.caption,
       id: doc.id,
-      imageUrl: data.imageUrl,
+      imageUrl,
     }
   })
 

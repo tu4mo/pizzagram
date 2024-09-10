@@ -33,6 +33,7 @@ export type Post = {
   imageUrl: string
   likes: { [key: string]: boolean }
   published: boolean
+  thumbnailUrl: string
   updatedAt: Date
   userId: string
 }
@@ -95,6 +96,7 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
     imageUrl: data.imageUrl ?? '',
     likes: data.likes ?? {},
     published: data.published ?? false,
+    thumbnailUrl: data.thumbnailUrl ?? '',
     updatedAt: data.updatedAt?.toDate() ?? new Date(),
     userId: data.userId ?? '',
   }
