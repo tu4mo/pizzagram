@@ -16,7 +16,7 @@ export async function generateUserFeed(userId: string) {
     return {
       caption: data.caption,
       id: doc.id,
-      imageUrl,
+      imageUrl: data.thumbnailUrl || imageUrl,
     }
   })
 
