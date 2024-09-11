@@ -25,27 +25,33 @@ exports.deletePost = functionsV2.firestore.onDocumentDeleted(
 
 exports.createPost = functionsV2.firestore.onDocumentCreated(
   'posts/{postId}',
-  (event) => {
+  async (event) => {
     const { userId } = event.data?.data() ?? {}
     if (typeof userId === 'string') {
-      return Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
+      await Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
     }
-    return
   },
 )
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
   'comments/{commentId}',
-  (event) =>
-    Promise.all([
-      updateCommentsCount(event),
+  async (event) => {
+    const { postId } = event.data?.data() ?? {}
+    await Promise.all([
+      updateCommentsCount(postId),
       addNotification(event, NotificationType.Comment),
-    ]),
+    ])
+  },
 )
 
 exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
   'comments/{commentId}',
-  (event) => updateCommentsCount(event),
+  async (event) => {
+    const { postId } = event.data?.data() ?? {}
+    if (typeof postId === 'string') {
+      await updateCommentsCount(postId)
+    }
+  },
 )
 
 exports.createLike = functionsV2.firestore.onDocumentCreated(

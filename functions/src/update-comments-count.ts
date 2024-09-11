@@ -1,22 +1,9 @@
 import { FieldValue } from 'firebase-admin/firestore'
-import type {
-  FirestoreEvent,
-  QueryDocumentSnapshot,
-} from 'firebase-functions/v2/firestore'
 
 import { comments, posts } from './db'
 
-export async function updateCommentsCount(
-  event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
-) {
-  const snapshot = event.data
-
-  if (!snapshot) {
-    return
-  }
-
-  const commentData = snapshot.data()
-  const postDoc = posts.doc(commentData.postId)
+export async function updateCommentsCount(postId: string) {
+  const postDoc = posts.doc(postId)
   const post = await postDoc.get()
   const postData = post.data()
 
