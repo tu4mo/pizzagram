@@ -14,10 +14,10 @@ type Data = {
 }
 
 export async function sharePost(request: CallableRequest<Data>) {
-  const { image, caption } = request.data
-  const imageBuffer = Buffer.from(image, 'base64')
+  const { image: imageAsString, caption } = request.data
+  const imageBuffer = Buffer.from(imageAsString, 'base64')
 
-  const jpeg = await sharp(imageBuffer)
+  const image = await sharp(imageBuffer)
     .rotate()
     .resize(1024, 1024, { fit: 'inside' })
     .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
@@ -29,7 +29,7 @@ export async function sharePost(request: CallableRequest<Data>) {
     .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
     .toBuffer()
 
-  const imgTensor = tf.node.decodeJpeg(new Uint8Array(jpeg), 3)
+  const imgTensor = tf.node.decodeJpeg(new Uint8Array(image), 3)
 
   try {
     console.log('Detecting pizza')
@@ -59,7 +59,7 @@ export async function sharePost(request: CallableRequest<Data>) {
     console.log('Saving image')
 
     const file = bucket.file(`posts/${newPost.id}.jpg`)
-    await file.save(jpeg)
+    await file.save(image)
 
     const thumbnailFile = bucket.file(`posts/${newPost.id}_t.jpg`)
     await thumbnailFile.save(thumbnail)
