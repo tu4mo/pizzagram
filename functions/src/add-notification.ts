@@ -58,13 +58,10 @@ export async function addNotification(
       }
     }
 
-    const extension = /(\.[a-z]+)\?/i.exec(postData.imageUrl)?.at(1)
-    const imageUrl = postData.imageUrl.replace(extension, `_t${extension}`)
-
     const notification = await notifications.add({
       createdAt: new Date(),
       fromUserId: userId,
-      imageUrl: postData.thumbnailUrl || imageUrl,
+      imageUrl: postData.thumbnailUrl,
       postId,
       read: false,
       type: notificationType,

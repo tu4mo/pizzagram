@@ -1,26 +1,23 @@
-import { feeds, posts } from './db'
+import { feeds, posts as postsCollection } from './db'
 
 export async function generateUserFeed(userId: string) {
-  const userPosts = await posts
+  const posts = await postsCollection
     .where('published', '==', true)
     .where('userId', '==', userId)
     .orderBy('createdAt', 'desc')
     .get()
 
-  const normalizedPosts = userPosts.docs.map((doc) => {
-    const data = doc.data()
-
-    const extension = /(\.[a-z]+)\?/i.exec(data.imageUrl)?.at(1)
-    const imageUrl = data.imageUrl.replace(extension, `_t${extension}`)
+  const feedPosts = posts.docs.map((post) => {
+    const postData = post.data()
 
     return {
-      caption: data.caption,
-      id: doc.id,
-      imageUrl: data.thumbnailUrl || imageUrl,
+      caption: postData.caption,
+      id: post.id,
+      imageUrl: postData.thumbnailUrl,
     }
   })
 
-  await feeds.doc(userId).set({ json: JSON.stringify(normalizedPosts) })
+  await feeds.doc(userId).set({ json: JSON.stringify(feedPosts) })
 
   console.log(`Feed saved for user ${userId}`)
 }
