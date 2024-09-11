@@ -51,6 +51,7 @@ export async function sharePost(request: CallableRequest<Data>) {
       createdAt: FieldValue.serverTimestamp(),
       imageUrl: null,
       published: false,
+      thumbnailUrl: null,
       updatedAt: FieldValue.serverTimestamp(),
       userId: request.auth.uid,
     })
@@ -68,6 +69,7 @@ export async function sharePost(request: CallableRequest<Data>) {
     await posts.doc(newPost.id).update({
       imageUrl: await getDownloadURL(file),
       published: true,
+      thumbnailUrl: await getDownloadURL(thumbnailFile),
       updatedAt: FieldValue.serverTimestamp(),
     })
 
