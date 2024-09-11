@@ -38,6 +38,7 @@ export function getPostsForHome() {
   const postIds = Object.keys(postsStore.posts)
   return postIds
     .map((postId) => postsStore.posts[postId])
+    .filter((post) => post !== undefined)
     .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
 }
 
@@ -68,10 +69,14 @@ export async function toggleLike(postId: string) {
     await dislikePost(postId)
   } else {
     try {
-      postsStore.posts[postId].likes[userId] = true
+      if (postsStore.posts[postId]) {
+        postsStore.posts[postId].likes[userId] = true
+      }
       await likePost(postId)
     } catch (error) {
-      postsStore.posts[postId].likes[userId] = false
+      if (postsStore.posts[postId]) {
+        postsStore.posts[postId].likes[userId] = false
+      }
       console.error(error)
     }
   }

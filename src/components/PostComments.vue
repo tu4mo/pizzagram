@@ -23,7 +23,11 @@
   function onRemoveComment(id: string) {
     if (confirm('Are you sure you want to remove this comment?')) {
       comments.value = comments.value.filter((comment) => comment.id !== id)
-      postsStore.posts[postId].commentsCount--
+
+      if (postsStore.posts[postId]) {
+        postsStore.posts[postId].commentsCount--
+      }
+
       deleteComment(id)
     }
   }
@@ -35,7 +39,11 @@
       const comment = await addComment({ comment: newComment.value, postId })
 
       comments.value.push({ ...comment, isMe: true })
-      postsStore.posts[postId].commentsCount++
+
+      if (postsStore.posts[postId]) {
+        postsStore.posts[postId].commentsCount++
+      }
+
       newComment.value = ''
     } catch (err: any) {
       console.error(err)

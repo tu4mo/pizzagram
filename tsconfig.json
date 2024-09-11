@@ -9,6 +9,7 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
     "paths": { "@/*": ["src/*"] },
     "skipLibCheck": true,
     "strict": true,

@@ -25,6 +25,10 @@ export function subscribeToFeed(userId: string) {
 
 export function optimisticallyRemovePostFromFeed(postId: string) {
   Object.keys(feedsStore).forEach((userId) => {
-    feedsStore[userId] = feedsStore[userId].filter((post) => post.id !== postId)
+    if (feedsStore[userId]) {
+      feedsStore[userId] = feedsStore[userId].filter(
+        (post) => post.id !== postId,
+      )
+    }
   })
 }
