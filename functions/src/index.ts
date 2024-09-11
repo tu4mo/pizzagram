@@ -1,4 +1,4 @@
-import * as functionsV1 from 'firebase-functions'
+import * as functionsV1 from 'firebase-functions/v1'
 import * as functionsV2 from 'firebase-functions/v2'
 
 import { addNotification, NotificationType } from './add-notification'
