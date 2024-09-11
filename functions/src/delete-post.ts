@@ -17,17 +17,17 @@ export async function deletePost(
   }
 
   const { id } = snap
-  const { imageUrl, userId } = snap.data()
+  const { imageUrl, thumbnailUrl, userId } = snap.data()
 
   const imagePath = /posts%2F(.*)\?/.exec(imageUrl)?.at(1) ?? ''
-  const [filename, extension] = imagePath.split('.')
+  const imageFile = bucket.file(`posts/${imagePath}`)
 
-  const photoFile = bucket.file(`posts/${imagePath}`)
-  const thumbnailFile = bucket.file(`posts/${filename}_t.${extension}`)
+  const thumbnailPath = /posts%2F(.*)\?/.exec(thumbnailUrl)?.at(1) ?? ''
+  const thumbnailFile = bucket.file(`posts/${thumbnailPath}`)
 
   try {
-    console.log(`Removing image ${photoFile.name}...`)
-    await photoFile.delete()
+    console.log(`Removing image ${imageFile.name}...`)
+    await imageFile.delete()
   } catch {
     console.error(`Failed to remove image.`)
   }
@@ -36,7 +36,7 @@ export async function deletePost(
     console.log(`Removing thumbnail ${thumbnailFile.name}...`)
     await thumbnailFile.delete()
   } catch {
-    console.error(`Failed to remove image.`)
+    console.error(`Failed to remove thumbnail.`)
   }
 
   try {
