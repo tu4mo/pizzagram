@@ -6,7 +6,6 @@ import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
 import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
-import { resizeImage } from './resize-image'
 import { sharePost } from './share-post'
 import { updateCommentsCount } from './update-comments-count'
 import { updatePostsCount } from './update-posts-count'
@@ -65,11 +64,6 @@ exports.registerUser = functionsV2.https.onCall(
 )
 
 exports.deleteUser = functionsV1.auth.user().onDelete(deleteUser)
-
-exports.generateResizedImages = functionsV2.storage.onObjectFinalized(
-  { memory: '1GiB' },
-  resizeImage,
-)
 
 exports.sharePost = functionsV2.https.onCall(
   { enforceAppCheck: true, memory: '1GiB' },

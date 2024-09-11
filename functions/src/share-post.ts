@@ -19,7 +19,13 @@ export async function sharePost(request: CallableRequest<Data>) {
 
   const jpeg = await sharp(imageBuffer)
     .rotate()
-    .resize(1024, 1024, { fit: 'inside', withoutEnlargement: true })
+    .resize(1024, 1024, { fit: 'inside' })
+    .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
+    .toBuffer()
+
+  const thumbnail = await sharp(imageBuffer)
+    .rotate()
+    .resize(256, 256, { fit: 'inside' })
     .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
     .toBuffer()
 
@@ -53,6 +59,9 @@ export async function sharePost(request: CallableRequest<Data>) {
 
     const file = bucket.file(`posts/${newPost.id}.jpg`)
     await file.save(jpeg)
+
+    const thumbnailFile = bucket.file(`posts/${newPost.id}_t.jpg`)
+    await thumbnailFile.save(thumbnail)
 
     console.log('Updating post with public image URL')
 
