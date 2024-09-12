@@ -7,6 +7,8 @@ import sharp from 'sharp'
 
 import { posts } from './db'
 import { bucket } from './storage'
+import { generateUserFeed } from './utils/generate-user-feed'
+import { updatePostsCount } from './utils/update-posts-count'
 
 type Data = {
   caption: string
@@ -46,6 +48,8 @@ export async function sharePost(request: CallableRequest<Data>) {
 
     console.log('Creating a post')
 
+    const userId = request.auth.uid
+
     const newPost = await posts.add({
       caption,
       createdAt: FieldValue.serverTimestamp(),
@@ -53,7 +57,7 @@ export async function sharePost(request: CallableRequest<Data>) {
       published: false,
       thumbnailUrl: null,
       updatedAt: FieldValue.serverTimestamp(),
-      userId: request.auth.uid,
+      userId,
     })
 
     console.log('Saving image')
@@ -72,6 +76,8 @@ export async function sharePost(request: CallableRequest<Data>) {
       thumbnailUrl: await getDownloadURL(thumbnailFile),
       updatedAt: FieldValue.serverTimestamp(),
     })
+
+    await Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
 
     console.log('Done')
 

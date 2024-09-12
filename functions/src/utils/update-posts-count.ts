@@ -9,6 +9,7 @@ export async function updatePostsCount(userId: string) {
 
   const documentData = await posts
     .where('imageUrl', '!=', null)
+    .where('published', '==', true)
     .where('userId', '==', userId)
     .count()
     .get()

@@ -7,22 +7,10 @@ import { deleteUser } from './delete-user'
 import { registerUser } from './register-user'
 import { sharePost } from './share-post'
 import { updateCommentsCount } from './update-comments-count'
-import { generateUserFeed } from './utils/generate-user-feed'
-import { updatePostsCount } from './utils/update-posts-count'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
   deletePost,
-)
-
-exports.createPost = functionsV2.firestore.onDocumentCreated(
-  'posts/{postId}',
-  async (event) => {
-    const { userId } = event.data?.data() ?? {}
-    if (typeof userId === 'string') {
-      await Promise.all([updatePostsCount(userId), generateUserFeed(userId)])
-    }
-  },
 )
 
 exports.createComment = functionsV2.firestore.onDocumentCreated(
