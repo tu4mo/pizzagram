@@ -5,7 +5,8 @@ import type {
 
 import { comments, db, likes, notifications } from './db'
 import { bucket } from './storage'
-import { updatePostsCount } from './update-posts-count'
+import { generateUserFeed } from './utils/generate-user-feed'
+import { updatePostsCount } from './utils/update-posts-count'
 
 export async function deletePost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
@@ -64,6 +65,7 @@ export async function deletePost(
     )
 
     await updatePostsCount(userId)
+    await generateUserFeed(userId)
   } catch (error) {
     console.error(`Failed to completely remove post (${error}).`)
   }

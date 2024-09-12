@@ -1,6 +1,12 @@
-import { posts, users } from './db'
+import { posts, users } from '../db'
+
+import { verifyUserExists } from './verify-user-exists'
 
 export async function updatePostsCount(userId: string) {
+  if (!verifyUserExists(userId)) {
+    return
+  }
+
   const documentData = await posts
     .where('imageUrl', '!=', null)
     .where('userId', '==', userId)

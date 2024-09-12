@@ -4,22 +4,15 @@ import * as functionsV2 from 'firebase-functions/v2'
 import { addNotification, NotificationType } from './add-notification'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
-import { generateUserFeed } from './generate-user-feed'
 import { registerUser } from './register-user'
 import { sharePost } from './share-post'
 import { updateCommentsCount } from './update-comments-count'
-import { updatePostsCount } from './update-posts-count'
+import { generateUserFeed } from './utils/generate-user-feed'
+import { updatePostsCount } from './utils/update-posts-count'
 
 exports.deletePost = functionsV2.firestore.onDocumentDeleted(
   'posts/{postId}',
-  async (event) => {
-    const { userId } = event.data?.data() ?? {}
-    if (typeof userId === 'string') {
-      await deletePost(event)
-      await generateUserFeed(userId)
-    }
-    return
-  },
+  deletePost,
 )
 
 exports.createPost = functionsV2.firestore.onDocumentCreated(

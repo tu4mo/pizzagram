@@ -1,6 +1,12 @@
-import { feeds, posts as postsCollection } from './db'
+import { feeds, posts as postsCollection } from '../db'
+
+import { verifyUserExists } from './verify-user-exists'
 
 export async function generateUserFeed(userId: string) {
+  if (!verifyUserExists(userId)) {
+    return
+  }
+
   const posts = await postsCollection
     .where('published', '==', true)
     .where('userId', '==', userId)
