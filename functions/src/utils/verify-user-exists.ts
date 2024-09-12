@@ -3,8 +3,7 @@ import { getAuth } from 'firebase-admin/auth'
 export async function verifyUserExists(userId: string) {
   try {
     console.log(`Verifying user ${userId} exists...`)
-    const authService = getAuth()
-    await authService.getUser(userId)
+    await getAuth().getUser(userId)
     return true
   } catch {
     console.error(`User ${userId} does not exist`)
