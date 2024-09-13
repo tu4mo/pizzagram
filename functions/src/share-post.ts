@@ -21,19 +21,19 @@ export async function sharePost(request: CallableRequest<Data>) {
 
   const jpeg = await sharp(imageBuffer)
     .rotate()
-    .resize(1024, 1024, { fit: 'inside' })
+    .resize(1024, 1024)
     .jpeg({ quality: 80 })
     .toBuffer()
 
   const image = await sharp(imageBuffer)
     .rotate()
-    .resize(1024, 1024, { fit: 'inside' })
+    .resize(1024, 1024)
     .webp({ quality: 80 })
     .toBuffer()
 
   const thumbnail = await sharp(imageBuffer)
     .rotate()
-    .resize(256, 256, { fit: 'inside' })
+    .resize(256, 256)
     .webp({ quality: 80 })
     .toBuffer()
 
