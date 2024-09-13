@@ -19,19 +19,25 @@ export async function sharePost(request: CallableRequest<Data>) {
   const { image: imageAsString, caption } = request.data
   const imageBuffer = Buffer.from(imageAsString, 'base64')
 
+  const jpeg = await sharp(imageBuffer)
+    .rotate()
+    .resize(1024, 1024, { fit: 'inside' })
+    .jpeg({ quality: 80 })
+    .toBuffer()
+
   const image = await sharp(imageBuffer)
     .rotate()
     .resize(1024, 1024, { fit: 'inside' })
-    .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
+    .webp({ quality: 80 })
     .toBuffer()
 
   const thumbnail = await sharp(imageBuffer)
     .rotate()
     .resize(256, 256, { fit: 'inside' })
-    .jpeg({ quality: 80, chromaSubsampling: '4:4:4' })
+    .webp({ quality: 80 })
     .toBuffer()
 
-  const imgTensor = tf.node.decodeJpeg(new Uint8Array(image), 3)
+  const imgTensor = tf.node.decodeJpeg(new Uint8Array(jpeg), 3)
 
   try {
     console.log('Detecting pizza')
@@ -62,10 +68,10 @@ export async function sharePost(request: CallableRequest<Data>) {
 
     console.log('Saving image')
 
-    const file = bucket.file(`posts/${newPost.id}.jpg`)
+    const file = bucket.file(`posts/${newPost.id}.webp`)
     await file.save(image)
 
-    const thumbnailFile = bucket.file(`posts/${newPost.id}_t.jpg`)
+    const thumbnailFile = bucket.file(`posts/${newPost.id}_t.webp`)
     await thumbnailFile.save(thumbnail)
 
     console.log('Updating post with public image URL')
