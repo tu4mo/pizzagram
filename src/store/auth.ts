@@ -10,8 +10,8 @@ import { fetchUser } from '@/api/user'
 export const authStore = reactive({
   isAuthenticated: false,
   isInitialized: false,
-  username: '',
   userId: '',
+  username: '',
 })
 
 export const getIsMe = (userId: string | undefined) =>

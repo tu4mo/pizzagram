@@ -3,6 +3,7 @@ export default {
   htmlWhitespaceSensitivity: 'ignore',
   semi: false,
   singleQuote: true,
+  quoteProps: 'consistent',
   vueIndentScriptAndStyle: true,
 
   overrides: [

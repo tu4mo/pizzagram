@@ -34,7 +34,7 @@ export async function signUp(
 ) {
   const {
     data: { error },
-  } = await registerUser({ email, username, password })
+  } = await registerUser({ email, password, username })
 
   if (error) {
     throw new Error(error)

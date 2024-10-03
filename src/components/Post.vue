@@ -51,8 +51,8 @@
 
     try {
       await navigator.share({
-        title: 'Pizzagram',
         text: post.caption,
+        title: 'Pizzagram',
         url: `${window.location.origin}/post/${post.id}`,
       })
     } catch {

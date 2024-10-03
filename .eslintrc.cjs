@@ -1,6 +1,4 @@
 module.exports = {
-  root: true,
-
   env: {
     node: true,
   },
@@ -14,6 +12,13 @@ module.exports = {
     'prettier',
   ],
 
+  overrides: [
+    {
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      files: ['*.js', '*.cjs'],
+    },
+  ],
+
   parser: 'vue-eslint-parser',
   parserOptions: {
     extraFileExtensions: ['.vue'],
@@ -23,6 +28,8 @@ module.exports = {
 
   reportUnusedDisableDirectives: true,
 
+  root: true,
+
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -30,14 +37,15 @@ module.exports = {
     'import/order': [
       'error',
       {
-        'newlines-between': 'always',
-        alphabetize: {
+        'alphabetize': {
+          caseInsensitive: true,
           order: 'asc',
           orderImportKind: 'asc',
-          caseInsensitive: true,
         },
+        'newlines-between': 'always',
       },
     ],
+    'sort-keys': 'error',
     'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
     'vue/component-name-in-template-casing': 'error',
     'vue/define-emits-declaration': 'error',
@@ -49,6 +57,7 @@ module.exports = {
       'error',
       { ignorePatterns: ['RouterLink', 'RouterView'] },
     ],
+    'vue/padding-line-between-blocks': 'error',
   },
 
   settings: {
@@ -56,11 +65,4 @@ module.exports = {
       typescript: true,
     },
   },
-
-  overrides: [
-    {
-      extends: ['plugin:@typescript-eslint/disable-type-checked'],
-      files: ['*.js', '*.cjs'],
-    },
-  ],
 }

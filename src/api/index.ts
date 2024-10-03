@@ -9,12 +9,12 @@ import { getFunctions } from 'firebase/functions'
 
 const app = initializeApp({
   apiKey: 'AIzaSyD2v4grRUlM0uh1OkP55fDvbuy0BcQNycg',
+  appId: '1:393669371775:web:7334a83ecef631ecea9c4a',
   authDomain: 'pizzagram-cc.firebaseapp.com',
   databaseURL: 'https://pizzagram-cc.firebaseio.com',
+  messagingSenderId: '393669371775',
   projectId: 'pizzagram-cc',
   storageBucket: 'pizzagram-cc.appspot.com',
-  messagingSenderId: '393669371775',
-  appId: '1:393669371775:web:7334a83ecef631ecea9c4a',
 })
 
 if (import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN) {
@@ -23,10 +23,10 @@ if (import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN) {
 }
 
 initializeAppCheck(app, {
+  isTokenAutoRefreshEnabled: true,
   provider: new ReCaptchaEnterpriseProvider(
     '6Le45JcoAAAAANUxNTA8_81bzHFYX1hOdUFs0SGV',
   ),
-  isTokenAutoRefreshEnabled: true,
 })
 
 export const auth = getAuth(app)
