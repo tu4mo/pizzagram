@@ -1,9 +1,9 @@
 /** @type {import("prettier").Config} */
 export default {
   htmlWhitespaceSensitivity: 'ignore',
+  quoteProps: 'consistent',
   semi: false,
   singleQuote: true,
-  quoteProps: 'consistent',
   vueIndentScriptAndStyle: true,
 
   overrides: [
