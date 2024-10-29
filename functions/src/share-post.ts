@@ -43,7 +43,6 @@ export async function sharePost(request: CallableRequest<Data>) {
     console.log('Detecting pizza')
 
     const model = await cocoSsd.load()
-    // @ts-expect-error - Types are incorrect
     const predictions = await model.detect(imgTensor)
     const isPizza = predictions.some(
       (prediction) => prediction.class === 'pizza',
