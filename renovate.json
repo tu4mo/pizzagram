@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "lockFileMaintenance": {
     "enabled": true
   },
@@ -16,8 +16,8 @@
       "matchCurrentVersion": "!/^0/"
     },
     {
-      "matchPackagePatterns": ["^@tensorflow"],
-      "groupName": "tensorflow"
+      "groupName": "tensorflow",
+      "matchPackageNames": ["/^@tensorflow/"]
     }
   ],
   "schedule": ["every weekend"]
