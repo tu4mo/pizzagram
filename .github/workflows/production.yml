@@ -37,6 +37,7 @@ jobs:
           npx firebase functions:delete registerUser --force --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Deploy
+        if: always()
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
