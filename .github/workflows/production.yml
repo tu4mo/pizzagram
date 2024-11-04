@@ -38,9 +38,4 @@ jobs:
 
       - name: Deploy
         if: always()
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PIZZAGRAM_CC }}
-          projectId: pizzagram-cc
-          channelId: live
+        run: npx firebase deploy --force --token ${{ secrets.FIREBASE_TOKEN }}
