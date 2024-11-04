@@ -1,3 +1,5 @@
+.env.local
+.eslintcache
 /.firebase
 /dist
 /functions/lib
@@ -5,7 +7,7 @@
 /functions/shell/serviceAccountKey.json
 /functions/ui-debug.log
 /node_modules
-.env.local
-.eslintcache
+/playwright-report
+/test-results
 analice.html
 firebase-debug.log
