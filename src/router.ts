@@ -1,12 +1,13 @@
 import type { NavigationGuard } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 
+const Account = () => import('./views/Account.vue')
 const Home = () => import('./views/Home.vue')
+const LogIn = () => import('./views/LogIn.vue')
+const Notifications = () => import('./views/Notifications.vue')
 const Post = () => import('./views/Post.vue')
 const Profile = () => import('./views/Profile.vue')
 const ResetPassword = () => import('./views/ResetPassword.vue')
-const LogIn = () => import('./views/LogIn.vue')
-const Notifications = () => import('./views/Notifications.vue')
 const SignUp = () => import('./views/SignUp.vue')
 const Upload = () => import('./views/Upload.vue')
 
@@ -35,6 +36,12 @@ export const router = createRouter({
       component: Home,
       name: 'home',
       path: '/',
+    },
+    {
+      beforeEnter: checkAutentication,
+      component: Account,
+      name: 'account',
+      path: '/account',
     },
     {
       component: Profile,

@@ -11,6 +11,7 @@
     "lint": "eslint --cache --ext .js,.ts,.vue .",
     "lint:format": "prettier --check .",
     "serve": "vite preview",
+    "start": "npm run dev",
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {

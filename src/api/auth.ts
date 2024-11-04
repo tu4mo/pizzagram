@@ -1,4 +1,5 @@
 import {
+  deleteUser,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   signInWithEmailAndPassword,
   type User,
@@ -49,4 +50,14 @@ export async function signIn(email: string, password: string) {
 
 export async function signOut() {
   await auth.signOut()
+}
+
+export async function deleteAccount() {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    throw new Error('User is not authenticated')
+  }
+
+  return deleteUser(user)
 }
