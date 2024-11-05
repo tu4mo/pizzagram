@@ -16,7 +16,13 @@
 </script>
 
 <template>
-  <RouterLink v-if="!custom" :exact="exact" :to="to" class="nav-item">
+  <RouterLink
+    v-if="!custom"
+    :aria-label="title"
+    :exact="exact"
+    :to="to"
+    class="nav-item"
+  >
     <div class="nav-item__icon">
       <Icon :name="icon" />
       <div v-if="badge" class="nav-item__badge">{{ badge }}</div>
@@ -27,6 +33,7 @@
     <label
       class="nav-item"
       :aria-current="route.name === to.name ? 'page' : undefined"
+      :aria-label="title"
     >
       <div class="nav-item__icon">
         <Icon :name="icon" />
