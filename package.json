@@ -24,8 +24,8 @@
   "devDependencies": {
     "@playwright/test": "1.49.0",
     "@types/node": "22.10.1",
-    "@typescript-eslint/eslint-plugin": "8.16.0",
-    "@typescript-eslint/parser": "8.16.0",
+    "@typescript-eslint/eslint-plugin": "8.17.0",
+    "@typescript-eslint/parser": "8.17.0",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/runtime-dom": "3.5.13",
     "eslint": "8.57.1",
