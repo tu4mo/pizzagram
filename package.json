@@ -22,7 +22,7 @@
     "vue-router": "4.5.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.0",
+    "@playwright/test": "1.49.1",
     "@types/node": "22.10.1",
     "@typescript-eslint/eslint-plugin": "8.17.0",
     "@typescript-eslint/parser": "8.17.0",
