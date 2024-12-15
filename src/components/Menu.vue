@@ -50,6 +50,8 @@
     </Button>
     <div v-if="isOpen" ref="menu" class="menu">
       <template v-if="authStore.isAuthenticated">
+        <RouterLink class="menu__item" to="/account">Account</RouterLink>
+        <hr />
         <button class="menu__item" @click="onLogOutClick">Log Out</button>
       </template>
       <template v-else>
@@ -97,11 +99,16 @@
     border-radius: var(--radius-sm);
     color: var(--color-secondary);
     cursor: pointer;
+    display: block;
     font-weight: bold;
     padding: 0.5rem 1rem;
+    text-align: left;
+    text-decoration: none;
     white-space: nowrap;
+    width: 100%;
 
-    &:hover {
+    &:hover,
+    &[aria-current='page'] {
       background-color: var(--color-light);
     }
 
@@ -109,5 +116,11 @@
       background-color: var(--color-primary);
       color: var(--color-background);
     }
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-light);
+    margin: 0.5rem 0;
   }
 </style>

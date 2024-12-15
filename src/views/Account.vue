@@ -4,9 +4,8 @@
 
   import { deleteAccount } from '@/api/auth'
   import Button from '@/components/Button.vue'
-  import Spacer from '@/components/Spacer.vue'
   import Spinner from '@/components/Spinner.vue'
-  import WelcomeLayout from '@/layouts/Welcome.vue'
+  import DefaultLayout from '@/layouts/Default.vue'
   import { setTitle } from '@/title'
 
   setTitle('Account')
@@ -28,12 +27,8 @@
 </script>
 
 <template>
-  <WelcomeLayout>
+  <DefaultLayout title="Account">
     <Spinner v-if="isLoading" cover />
-    <Spacer gap="1">
-      <Button type="button" @click="onDeleteAccountClick">
-        Delete Account
-      </Button>
-    </Spacer>
-  </WelcomeLayout>
+    <Button type="button" @click="onDeleteAccountClick">Delete Account</Button>
+  </DefaultLayout>
 </template>
