@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "lint": "eslint --cache --ext .js,.ts,.vue .",
     "lint:format": "prettier --check .",
+    "lint:style": "stylelint \"**/*.vue\"",
     "serve": "vite preview",
     "start": "npm run dev",
     "type-check": "vue-tsc --noEmit"
@@ -34,7 +35,10 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "9.32.0",
     "firebase-tools": "13.29.1",
+    "postcss-html": "^1.7.0",
     "prettier": "3.4.2",
+    "stylelint": "^16.12.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
     "typescript": "5.6.3",
     "vite": "6.0.3",
     "vue-tsc": "2.1.10"
