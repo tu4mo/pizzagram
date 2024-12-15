@@ -94,16 +94,30 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    height: calc-size(auto, size);
+    overflow: hidden;
+    transition: height var(--transition-fast);
+
+    @starting-style {
+      height: 0;
+    }
   }
 
   .comments__list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    height: calc-size(auto, size);
     list-style: none;
+    overflow: hidden;
+    transition: height var(--transition-fast);
 
     &:empty {
       display: none;
+    }
+
+    @starting-style {
+      height: 0;
     }
   }
 
