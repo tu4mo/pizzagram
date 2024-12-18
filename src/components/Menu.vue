@@ -28,12 +28,12 @@
   async function onLogOutClick() {
     isOpen.value = false
     await signOut()
-    router.push({ name: 'home' })
+    await router.push({ name: 'home' })
   }
 
   async function onLogInClick() {
     isOpen.value = false
-    router.push({ name: 'login' })
+    await router.push({ name: 'login' })
   }
 </script>
 

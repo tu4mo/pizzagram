@@ -10,8 +10,10 @@
 
   setTitle()
 
-  onMounted(() => {
-    if (!postsStore.isLoading) fetchPostsForHome()
+  onMounted(async () => {
+    if (!postsStore.isLoading) {
+      await fetchPostsForHome()
+    }
   })
 
   const posts = computed(() => getPostsForHome())

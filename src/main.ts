@@ -8,7 +8,7 @@ initializeAuth()
 
 const app = createApp(App)
 
-;(async function () {
+void (async function () {
   const { initializeSentry } = await import('./sentry')
   initializeSentry(app, router)
 })()

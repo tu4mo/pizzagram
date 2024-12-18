@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-dynamic-delete */
-
 import { reactive } from 'vue'
 
 import { authStore } from './auth'

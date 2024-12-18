@@ -23,7 +23,7 @@
 
     try {
       await signIn(email.value, password.value)
-      router.push({ name: 'home' })
+      await router.push({ name: 'home' })
     } catch {
       alert('Unable to sign in.')
     }

@@ -47,7 +47,7 @@ export function subscribeToPosts(callback: (posts: Post[]) => void) {
     where('updatedAt', '>', sessionStartDate),
   )
 
-  return onSnapshot(q, async (querySnapshot) => {
+  return onSnapshot(q, (querySnapshot) => {
     callback(querySnapshot.docs.map(createPostObject))
   })
 }

@@ -52,7 +52,7 @@ export async function subscribeToNotifications(
   return onSnapshot(q, async (querySnapshot) => {
     const notifications: Notification[] = []
 
-    for await (const doc of querySnapshot.docs) {
+    for (const doc of querySnapshot.docs) {
       const data = doc.data()
       const from = await fetchUser(data.fromUserId)
 
@@ -94,7 +94,7 @@ export async function markNotificationsAsRead() {
 
   const batch = writeBatch(firestore)
 
-  querySnapshot.forEach(async (docRef) => {
+  querySnapshot.forEach((docRef) => {
     const notification = doc(notificationsCollection, docRef.id)
     batch.update(notification, { read: true })
   })

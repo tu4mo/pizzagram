@@ -87,6 +87,6 @@ export async function addComment({
   return newComment
 }
 
-export async function deleteComment(commentId: string) {
+export function deleteComment(commentId: string) {
   return deleteDoc(doc(commentsCollection, commentId))
 }

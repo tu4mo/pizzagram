@@ -27,10 +27,10 @@
 
   watch(
     () => route.params.username,
-    (username) => {
+    async (username) => {
       if (typeof username === 'string') {
-        fetchFeed()
         setTitle(username, true)
+        await fetchFeed()
       }
     },
     { immediate: true },

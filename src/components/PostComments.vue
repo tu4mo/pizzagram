@@ -20,7 +20,7 @@
     comments.value = await fetchComments(postId)
   })
 
-  function onRemoveComment(id: string) {
+  async function onRemoveComment(id: string) {
     if (confirm('Are you sure you want to remove this comment?')) {
       comments.value = comments.value.filter((comment) => comment.id !== id)
 
@@ -28,7 +28,7 @@
         postsStore.posts[postId].commentsCount--
       }
 
-      deleteComment(id)
+      await deleteComment(id)
     }
   }
 

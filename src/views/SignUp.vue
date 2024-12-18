@@ -27,7 +27,7 @@
 
     try {
       await signUp(username.value, email.value, password.value)
-      router.push({ name: 'home' })
+      await router.push({ name: 'home' })
     } catch (err: any) {
       error.value = err.message
     }

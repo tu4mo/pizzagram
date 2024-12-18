@@ -20,7 +20,7 @@ export async function likePost(postId: string) {
     return
   }
 
-  await runTransaction(firestore, async (transaction) => {
+  await runTransaction(firestore, (transaction) => {
     const likeDoc = doc(likesCollection, `${user.uid}_${postId}`)
     transaction.set(likeDoc, {
       postId,
@@ -32,6 +32,8 @@ export async function likePost(postId: string) {
       [`likes.${user.uid}`]: true,
       updatedAt: serverTimestamp(),
     })
+
+    return Promise.resolve()
   })
 }
 

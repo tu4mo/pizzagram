@@ -13,11 +13,11 @@
     }
   }
 
-  function onClick() {
+  async function onClick() {
     fileStore.file = null
 
     if (router.currentRoute.value.name !== 'upload') {
-      router.push({ name: 'upload' })
+      await router.push({ name: 'upload' })
     }
   }
 </script>

@@ -20,7 +20,7 @@
 
     if (confirm('Are you sure you want to delete your account?')) {
       await deleteAccount()
-      router.push({ name: 'home' })
+      await router.push({ name: 'home' })
     }
 
     isLoading.value = false

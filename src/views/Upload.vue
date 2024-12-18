@@ -82,7 +82,7 @@
       fileStore.file = null
       isLoading.value = false
 
-      router.push({ name: 'home' })
+      await router.push({ name: 'home' })
     } catch (error) {
       console.error(error)
 
