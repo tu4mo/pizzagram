@@ -20,12 +20,7 @@
 <template>
   <DefaultLayout max-width>
     <div class="home">
-      <Post
-        v-for="post in posts"
-        :key="post.id"
-        :image-to="{ name: 'post', params: { postId: post.id } }"
-        :post="post"
-      />
+      <Post v-for="post in posts" :key="post.id" :post="post" />
       <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
       <IntersectionObserver
         :enabled="!postsStore.isLoading"

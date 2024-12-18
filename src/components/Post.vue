@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
-  import type { RouterLinkProps } from 'vue-router'
 
   import Button from './Button.vue'
   import Icon from './Icon.vue'
@@ -15,12 +14,7 @@
   import { fetchUser } from '@/api/user'
   import { authStore } from '@/store/auth'
 
-  const {
-    imageTo = undefined,
-    isRemovable = false,
-    post,
-  } = defineProps<{
-    imageTo?: RouterLinkProps['to']
+  const { isRemovable = false, post } = defineProps<{
     isRemovable?: boolean
     post: Post
   }>()
@@ -67,12 +61,7 @@
       <PostHeader :created-at="post.createdAt" :user="user" />
     </div>
     <div class="post__image">
-      <PostImage
-        :alt="post.caption"
-        :image-url="post.imageUrl"
-        :to="imageTo"
-        rounded
-      />
+      <PostImage :alt="post.caption" :image-url="post.imageUrl" rounded />
       <div v-if="post.caption" class="post__caption">
         {{ post.caption }}
       </div>
