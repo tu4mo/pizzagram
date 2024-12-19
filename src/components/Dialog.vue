@@ -9,8 +9,8 @@
   const dialogContent = ref<HTMLDivElement | null>(null)
 
   watch(
-    () => isOpen && dialog.value,
-    (isOpen) => {
+    [() => isOpen, () => dialog.value],
+    ([isOpen]) => {
       if (!dialog.value) {
         return
       }
@@ -59,13 +59,12 @@
     background-color: transparent;
     border: 0;
     grid-template-columns: 100%;
-    height: 100%;
+    height: 100vh;
     justify-items: center;
     max-height: none;
     max-width: none;
     outline: none;
     padding-top: 64px;
-    position: relative;
     width: 100%;
   }
 
@@ -101,10 +100,6 @@
     width: 100%;
   }
 
-  .dialog[open] .dialog__content {
-    animation: slide-up var(--transition-fast);
-  }
-
   @media (min-width: 640px) {
     .dialog {
       align-items: center;
@@ -114,18 +109,6 @@
     .dialog__content {
       border-radius: var(--radius-lg);
       padding-top: 0;
-    }
-  }
-
-  @keyframes slide-up {
-    from {
-      display: none;
-      transform: translateY(100%);
-    }
-
-    to {
-      display: block;
-      transform: translateY(0);
     }
   }
 </style>
