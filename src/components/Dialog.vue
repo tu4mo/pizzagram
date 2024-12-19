@@ -1,24 +1,28 @@
 <script setup lang="ts">
-  import { ref, watchEffect } from 'vue'
+  import { ref, watch } from 'vue'
 
-  const { isOpen } = defineProps<{
-    isOpen: boolean
-  }>()
+  const { isOpen } = defineProps<{ isOpen: boolean }>()
 
-  const emit = defineEmits<{
-    close: []
-  }>()
+  const emit = defineEmits<{ close: [] }>()
 
   const dialog = ref<HTMLDialogElement | null>(null)
   const dialogContent = ref<HTMLDivElement | null>(null)
 
-  watchEffect(() => {
-    if (isOpen) {
-      dialog.value?.showModal()
-    } else {
-      dialog.value?.close()
-    }
-  })
+  watch(
+    () => isOpen && dialog.value,
+    (isOpen) => {
+      if (!dialog.value) {
+        return
+      }
+
+      if (isOpen) {
+        dialog.value.showModal()
+      } else {
+        dialog.value.close()
+      }
+    },
+    { immediate: true },
+  )
 
   function onDialogClick(event: MouseEvent) {
     const rect = dialogContent.value?.getBoundingClientRect()
@@ -30,7 +34,7 @@
         rect.top > event.clientY ||
         rect.bottom < event.clientY)
     ) {
-      emit('close')
+      dialog.value?.close()
     }
   }
 </script>
@@ -54,15 +58,19 @@
     align-items: end;
     background-color: transparent;
     border: 0;
-    display: grid;
     grid-template-columns: 100%;
+    height: 100%;
     justify-items: center;
     max-height: none;
     max-width: none;
-    height: 100%;
-    padding-top: 64px;
     outline: none;
+    padding-top: 64px;
+    position: relative;
     width: 100%;
+  }
+
+  .dialog[open] {
+    display: grid;
   }
 
   .dialog::backdrop {
@@ -93,6 +101,10 @@
     width: 100%;
   }
 
+  .dialog[open] .dialog__content {
+    animation: slide-up var(--transition-fast);
+  }
+
   @media (min-width: 640px) {
     .dialog {
       align-items: center;
@@ -102,6 +114,18 @@
     .dialog__content {
       border-radius: var(--radius-lg);
       padding-top: 0;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      display: none;
+      transform: translateY(100%);
+    }
+
+    to {
+      display: block;
+      transform: translateY(0);
     }
   }
 </style>

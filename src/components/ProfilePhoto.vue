@@ -2,6 +2,7 @@
   import { computed } from 'vue'
 
   import type { User } from '@/api/user'
+  import { EMPTY_IMAGE } from '@/consts'
 
   const {
     asLink,
@@ -20,7 +21,7 @@
   const profileUrl = computed(() =>
     user?.gravatar
       ? `https://www.gravatar.com/avatar/${user.gravatar}?d=identicon&s=256`
-      : undefined,
+      : EMPTY_IMAGE,
   )
 </script>
 
@@ -36,10 +37,12 @@
 
 <style scoped>
   .profile-photo {
+    background-color: var(--color-light);
     border-radius: 50%;
     display: block;
     object-fit: cover;
   }
+
   .profile-photo--small {
     height: 2rem;
     width: 2rem;

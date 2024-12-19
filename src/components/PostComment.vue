@@ -4,7 +4,7 @@
 
   import type { Post } from '@/api/posts'
 
-  defineProps<{ post: Post }>()
+  defineProps<{ post: Post | undefined }>()
 
   const emit = defineEmits<{ (event: 'click'): void }>()
 </script>
@@ -15,7 +15,7 @@
       <Icon name="messageCircle" />
       <div class="comment__label">
         {{
-          post.commentsCount > 0
+          post?.commentsCount && post.commentsCount > 0
             ? `${post.commentsCount} comment${
                 post.commentsCount !== 1 ? 's' : ''
               }`

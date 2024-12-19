@@ -21,16 +21,19 @@
   } = defineProps<{
     isElevated?: boolean
     isRemovable?: boolean
-    post: Post
+    post: Post | undefined
   }>()
 
   const emit = defineEmits<{ (event: 'remove-click'): void }>()
 
   const user = ref<User | undefined>(undefined)
+
   watch(
     () => post,
     async () => {
-      user.value = await fetchUser(post.userId)
+      if (post?.userId) {
+        user.value = await fetchUser(post.userId)
+      }
     },
     { immediate: true },
   )
@@ -44,6 +47,10 @@
   }
 
   async function onShareClick() {
+    if (!post) {
+      return
+    }
+
     if (!navigator.share) {
       alert("Sorry, your browser doesn't seem to support Web Share.")
     }
@@ -63,11 +70,11 @@
 <template>
   <article :class="['post', { 'post--elevated': isElevated }]">
     <div class="post__header">
-      <PostHeader :created-at="post.createdAt" :user="user" />
+      <PostHeader :created-at="post?.createdAt" :user="user" />
     </div>
     <div class="post__image">
-      <PostImage :alt="post.caption" :image-url="post.imageUrl" rounded />
-      <div v-if="post.caption" class="post__caption">
+      <PostImage :alt="post?.caption" :image-url="post?.imageUrl" rounded />
+      <div v-if="post?.caption" class="post__caption">
         {{ post.caption }}
       </div>
     </div>
@@ -92,7 +99,7 @@
           </Button>
         </div>
       </div>
-      <PostComments v-if="showComments" :post-id="post.id" />
+      <PostComments v-if="showComments && post" :post-id="post.id" />
     </footer>
   </article>
 </template>

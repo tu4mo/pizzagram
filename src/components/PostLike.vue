@@ -8,27 +8,31 @@
   import { authStore } from '@/store/auth'
   import { toggleLike } from '@/store/posts'
 
-  const { post } = defineProps<{ post: Post }>()
+  const { post } = defineProps<{ post: Post | undefined }>()
 
   const isLikeClicked = ref(false)
 
   async function onLikeClick() {
+    if (!post) {
+      return
+    }
+
     isLikeClicked.value = true
     await toggleLike(post.id)
     isLikeClicked.value = false
   }
 
-  const hasLiked = computed(() => !!post.likes[authStore.userId])
+  const hasLiked = computed(() => !!post?.likes[authStore.userId])
 
   const likes = computed(() =>
-    post.likes ? Object.keys(post.likes).length : 0,
+    post?.likes ? Object.keys(post.likes).length : 0,
   )
 </script>
 
 <template>
   <div class="like">
     <Button
-      :disabled="isLikeClicked"
+      :disabled="!post || isLikeClicked"
       :secondary="!hasLiked"
       :aria-label="hasLiked ? 'Unlike' : 'Like'"
       @click="onLikeClick"

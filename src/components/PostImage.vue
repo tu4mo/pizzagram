@@ -1,15 +1,17 @@
 <script setup lang="ts">
   import type { RouteLocationRaw } from 'vue-router'
 
+  import { EMPTY_IMAGE } from '@/consts'
+
   const {
     alt = '',
-    imageUrl,
+    imageUrl = EMPTY_IMAGE,
     rounded,
     thumbnail,
     to = undefined,
   } = defineProps<{
     alt?: string
-    imageUrl: string
+    imageUrl?: string
     rounded?: boolean
     thumbnail?: boolean
     to?: RouteLocationRaw

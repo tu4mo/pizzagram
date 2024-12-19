@@ -1,8 +1,9 @@
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
   import { fetchUserByUsername, type User } from '@/api/user'
+  import Dialog from '@/components/Dialog.vue'
   import PostImage from '@/components/PostImage.vue'
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import Spinner from '@/components/Spinner.vue'
@@ -11,6 +12,7 @@
   import { setTitle } from '@/title'
 
   const route = useRoute()
+  const router = useRouter()
   const user = ref<User | undefined>()
 
   async function fetchFeed() {
@@ -39,6 +41,13 @@
   const feed = computed(() =>
     user.value?.id ? (feedsStore[user.value.id] ?? []) : [],
   )
+
+  async function onClose() {
+    await router.replace({
+      name: 'profile',
+      params: { username: user.value?.username },
+    })
+  }
 </script>
 
 <template>
@@ -70,8 +79,10 @@
         </li>
       </ul>
     </div>
+    <Dialog :is-open="!!route.params.postId" @close="onClose">
+      <RouterView />
+    </Dialog>
   </DefaultLayout>
-  <RouterView />
 </template>
 
 <style scoped>

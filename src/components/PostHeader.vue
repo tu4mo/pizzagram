@@ -6,11 +6,13 @@
   import type { User } from '@/api/user'
 
   const { createdAt, user = null } = defineProps<{
-    createdAt: Date
+    createdAt: Date | undefined
     user?: User | null
   }>()
 
-  const createdDate = computed(() => createdAt.toLocaleDateString())
+  const createdDate = computed(() =>
+    createdAt ? createdAt.toLocaleDateString() : '',
+  )
 
   const isUserLoaded = computed(() => user && Object.keys(user).length > 0)
 </script>

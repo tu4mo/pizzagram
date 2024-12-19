@@ -4,9 +4,7 @@
 
   import type { User } from '@/api/user'
   import { fetchUser } from '@/api/user'
-  import Dialog from '@/components/Dialog.vue'
   import Post from '@/components/Post.vue'
-  import Spinner from '@/components/Spinner.vue'
   import { getIsMe } from '@/store/auth'
   import { optimisticallyRemovePostFromFeed } from '@/store/feeds'
   import { postsStore, getPost, removePost } from '@/store/posts'
@@ -43,23 +41,8 @@
       router.go(-1)
     }
   }
-
-  async function onClose() {
-    await router.replace({
-      name: 'profile',
-      params: { username: user.value?.username },
-    })
-  }
 </script>
 
 <template>
-  <Dialog :is-open="!!post" @close="onClose">
-    <Spinner v-if="!post" inline />
-    <Post
-      v-else
-      :is-removable="isMe"
-      :post="post"
-      @remove-click="onRemoveClick"
-    />
-  </Dialog>
+  <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
 </template>
