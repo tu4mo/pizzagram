@@ -44,9 +44,16 @@ export const router = createRouter({
       path: '/account',
     },
     {
+      children: [
+        {
+          component: Post,
+          name: 'post',
+          path: ':postId',
+        },
+      ],
       component: Profile,
       name: 'profile',
-      path: '/profile/:username?',
+      path: '/profile/:username',
     },
     {
       beforeEnter: disallowLoggedUser,
@@ -59,11 +66,6 @@ export const router = createRouter({
       component: Notifications,
       name: 'notifications',
       path: '/notifications',
-    },
-    {
-      component: Post,
-      name: 'post',
-      path: '/post/:postId',
     },
     {
       component: ResetPassword,
@@ -83,10 +85,14 @@ export const router = createRouter({
       path: '/upload/:id?',
     },
   ],
-  scrollBehavior(_to, _from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
+    const skipScrollToTop =
+      (to.name === 'profile' && from.name === 'post') ||
+      (to.name === 'post' && from.name === 'profile')
+
     if (savedPosition) {
       return savedPosition
-    } else {
+    } else if (!skipScrollToTop) {
       return { left: 0, top: 0 }
     }
   },

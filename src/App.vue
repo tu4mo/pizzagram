@@ -70,6 +70,10 @@
     line-height: 1.5;
   }
 
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   @media (display-mode: standalone) {
     html {
       -webkit-touch-callout: none;

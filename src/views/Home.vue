@@ -22,7 +22,7 @@
 <template>
   <DefaultLayout max-width>
     <div class="home">
-      <Post v-for="post in posts" :key="post.id" :post="post" />
+      <Post v-for="post in posts" :key="post.id" :post="post" is-elevated />
       <Spinner v-if="postsStore.isLoading" :inline="posts.length > 0" />
       <IntersectionObserver
         :enabled="!postsStore.isLoading"

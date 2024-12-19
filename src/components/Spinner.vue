@@ -36,6 +36,7 @@
 
   .spinner--inline {
     position: relative;
+    margin: 1rem 0;
   }
 
   .spinner__rotate {

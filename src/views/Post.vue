@@ -4,13 +4,12 @@
 
   import type { User } from '@/api/user'
   import { fetchUser } from '@/api/user'
+  import Dialog from '@/components/Dialog.vue'
   import Post from '@/components/Post.vue'
   import Spinner from '@/components/Spinner.vue'
-  import DefaultLayout from '@/layouts/Default.vue'
   import { getIsMe } from '@/store/auth'
   import { optimisticallyRemovePostFromFeed } from '@/store/feeds'
   import { postsStore, getPost, removePost } from '@/store/posts'
-  import { setTitle } from '@/title'
 
   const route = useRoute()
   const router = useRouter()
@@ -28,7 +27,6 @@
     async (postId) => {
       if (typeof postId === 'string') {
         const post = await getPost(postId)
-        setTitle(post?.caption, true)
 
         if (post?.userId) {
           user.value = await fetchUser(post.userId)
@@ -45,27 +43,23 @@
       router.go(-1)
     }
   }
+
+  async function onClose() {
+    await router.replace({
+      name: 'profile',
+      params: { username: user.value?.username },
+    })
+  }
 </script>
 
 <template>
-  <Spinner v-if="!post" />
-  <DefaultLayout v-else :title="user?.username">
-    <div class="post-view">
-      <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
-    </div>
-  </DefaultLayout>
+  <Dialog :is-open="!!post" @close="onClose">
+    <Spinner v-if="!post" inline />
+    <Post
+      v-else
+      :is-removable="isMe"
+      :post="post"
+      @remove-click="onRemoveClick"
+    />
+  </Dialog>
 </template>
-
-<style scoped>
-  .post-view {
-    margin: 0 auto;
-    max-width: var(--content-width);
-    padding: 1rem 0;
-  }
-
-  @media (min-width: 640px) {
-    .post-view {
-      padding: 2rem;
-    }
-  }
-</style>

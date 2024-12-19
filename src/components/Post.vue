@@ -14,7 +14,12 @@
   import { fetchUser } from '@/api/user'
   import { authStore } from '@/store/auth'
 
-  const { isRemovable = false, post } = defineProps<{
+  const {
+    isElevated = false,
+    isRemovable = false,
+    post,
+  } = defineProps<{
+    isElevated?: boolean
     isRemovable?: boolean
     post: Post
   }>()
@@ -56,7 +61,7 @@
 </script>
 
 <template>
-  <article class="post">
+  <article :class="['post', { 'post--elevated': isElevated }]">
     <div class="post__header">
       <PostHeader :created-at="post.createdAt" :user="user" />
     </div>
@@ -95,8 +100,11 @@
 <style scoped>
   .post {
     background-color: var(--color-background);
-    box-shadow: var(--shadow-lg);
     display: grid;
+  }
+
+  .post--elevated {
+    box-shadow: var(--shadow-lg);
   }
 
   .post__header {

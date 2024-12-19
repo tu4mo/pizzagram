@@ -59,7 +59,11 @@
           <PostImage
             :alt="post.caption"
             :image-url="post.imageUrl"
-            :to="{ name: 'post', params: { postId: post.id } }"
+            :to="{
+              name: 'post',
+              params: { username: user.username, postId: post.id },
+              replace: true,
+            }"
             rounded
             thumbnail
           />
@@ -67,6 +71,7 @@
       </ul>
     </div>
   </DefaultLayout>
+  <RouterView />
 </template>
 
 <style scoped>
