@@ -94,6 +94,7 @@
 
 <style scoped>
   .post {
+    background-color: var(--color-background);
     box-shadow: var(--shadow-lg);
     display: grid;
   }

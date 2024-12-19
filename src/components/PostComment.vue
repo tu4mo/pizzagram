@@ -19,7 +19,7 @@
             ? `${post.commentsCount} comment${
                 post.commentsCount !== 1 ? 's' : ''
               }`
-            : 'Add a comment'
+            : 'Add comment'
         }}
       </div>
     </div>
