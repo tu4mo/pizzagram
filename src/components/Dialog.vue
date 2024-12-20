@@ -65,11 +65,14 @@
     max-width: none;
     outline: none;
     padding-top: 64px;
+    transition:
+      display var(--transition-fast) allow-discrete,
+      overlay var(--transition-fast) allow-discrete;
     width: 100%;
-  }
 
-  .dialog[open] {
-    display: grid;
+    &[open] {
+      display: grid;
+    }
   }
 
   .dialog::backdrop {
