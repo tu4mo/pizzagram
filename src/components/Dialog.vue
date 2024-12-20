@@ -63,6 +63,7 @@
     max-height: none;
     max-width: none;
     outline: none;
+    overscroll-behavior: contain;
     padding-top: 64px;
     transition:
       display var(--transition-fast) allow-discrete,
