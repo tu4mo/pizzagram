@@ -54,7 +54,6 @@
 
 <style scoped>
   .dialog {
-    -webkit-overflow-scrolling: touch;
     align-items: end;
     background-color: transparent;
     border: 0;
