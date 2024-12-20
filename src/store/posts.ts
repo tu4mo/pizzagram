@@ -7,9 +7,11 @@ import * as api from '@/api/posts'
 
 export const postsStore = reactive<{
   isLoading: boolean
+  lastHomePost: api.Post | null
   posts: { [key: string]: api.Post }
 }>({
   isLoading: false,
+  lastHomePost: null,
   posts: {},
 })
 
@@ -43,8 +45,8 @@ export function getPostsForHome() {
 export async function fetchPostsForHome() {
   postsStore.isLoading = true
 
-  const lastPostInHome = getPostsForHome().at(-1)?.doc ?? undefined
-  const posts = await api.fetchPosts(lastPostInHome)
+  const posts = await api.fetchPosts(postsStore.lastHomePost?.doc)
+  postsStore.lastHomePost = posts.at(-1) ?? null
 
   posts.forEach((post) => {
     postsStore.posts[post.id] = post
