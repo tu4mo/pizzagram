@@ -59,7 +59,7 @@
     background-color: transparent;
     border: 0;
     grid-template-columns: 100%;
-    height: 100vh;
+    height: 100dvh;
     justify-items: center;
     max-height: none;
     max-width: none;
