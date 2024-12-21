@@ -60,10 +60,15 @@
       <li
         v-for="{ id, isMe, username, comment } in comments"
         :key="id"
-        class="comments__item"
+        class="comment"
       >
         <div>
-          <strong>{{ username }}</strong>
+          <RouterLink
+            :to="{ name: 'profile', params: { username } }"
+            class="comment__name"
+          >
+            {{ username }}
+          </RouterLink>
           &nbsp; {{ comment }}
         </div>
         <div v-if="isMe">
@@ -121,8 +126,15 @@
     }
   }
 
-  .comments__item {
+  .comment {
+    color: var(--color-secondary);
     display: flex;
     justify-content: space-between;
+  }
+
+  .comment__name {
+    color: var(--color-secondary);
+    font-weight: bold;
+    text-decoration: none;
   }
 </style>
