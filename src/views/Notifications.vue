@@ -72,7 +72,13 @@
             </Link>
             {{ getNotificationVerb(notification.type) }} your
             <Link
-              :to="{ name: 'post', params: { postId: notification.postId } }"
+              :to="{
+                name: 'post',
+                params: {
+                  username: notification.to.username,
+                  postId: notification.postId,
+                },
+              }"
             >
               photo
             </Link>
@@ -81,7 +87,13 @@
             v-if="notification.imageUrl"
             class="notification__image"
             :image-url="notification.imageUrl"
-            :to="{ name: 'post', params: { postId: notification.postId } }"
+            :to="{
+              name: 'post',
+              params: {
+                username: notification.to.username,
+                postId: notification.postId,
+              },
+            }"
             thumbnail
           />
         </li>

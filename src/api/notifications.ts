@@ -27,6 +27,7 @@ export type Notification = {
   imageUrl: string
   postId: string
   read: boolean
+  to: User
   type: NotificationType
   userId: string
 }
@@ -55,8 +56,9 @@ export async function subscribeToNotifications(
     for (const doc of querySnapshot.docs) {
       const data = doc.data()
       const from = await fetchUser(data.fromUserId)
+      const to = await fetchUser(data.userId)
 
-      if (!from) {
+      if (!from || !to) {
         continue
       }
 
@@ -68,6 +70,7 @@ export async function subscribeToNotifications(
         imageUrl: data.imageUrl ?? '',
         postId: data.postId ?? '',
         read: data.read ?? false,
+        to,
         type: data.type,
         userId: data.userId ?? '',
       })
