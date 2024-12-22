@@ -48,7 +48,7 @@
     >
       <Icon name="menu" />
     </Button>
-    <div v-if="isOpen" ref="menu" class="menu">
+    <div ref="menu" :class="['menu', { 'menu--open': isOpen }]">
       <template v-if="authStore.isAuthenticated">
         <RouterLink class="menu__item" to="/account">Account</RouterLink>
         <hr />
@@ -70,27 +70,30 @@
     padding: 1rem;
   }
 
-  @keyframes show {
-    0% {
-      opacity: 0;
-      transform: translateY(-0.5rem) scale(0.8);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
   .menu {
     animation: show var(--transition-fast);
     background-color: var(--color-background);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
+    display: none;
+    opacity: 0;
     padding: 0.5rem;
     position: absolute;
     right: 0.5rem;
     transform-origin: top right;
+    transform: translateY(-0.5rem) scale(0.9);
+    transition: all var(--transition-fast) allow-discrete;
+  }
+
+  .menu--open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(-0.5rem) scale(0.9);
+    }
   }
 
   .menu__item {
