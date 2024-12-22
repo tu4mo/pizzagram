@@ -71,7 +71,6 @@
   }
 
   .menu {
-    animation: show var(--transition-fast);
     background-color: var(--color-background);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
