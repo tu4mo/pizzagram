@@ -16,7 +16,7 @@
   "dependencies": {
     "@tensorflow-models/coco-ssd": "2.2.3",
     "@tensorflow/tfjs-node": "4.22.0",
-    "firebase-admin": "13.0.1",
+    "firebase-admin": "13.0.2",
     "firebase-functions": "6.1.2",
     "sharp": "0.33.5"
   },
