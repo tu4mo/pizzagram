@@ -37,7 +37,7 @@
 <style scoped>
   .post-image {
     display: block;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-fast);
   }
 
   .post-image__image {
