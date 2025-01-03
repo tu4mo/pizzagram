@@ -6,7 +6,7 @@ import {
 } from 'firebase/auth'
 import { httpsCallable } from 'firebase/functions'
 
-import { auth, functions } from '.'
+import { auth, functions } from './firebase'
 
 export function sendPasswordResetEmail(email: string) {
   return firebaseSendPasswordResetEmail(auth, email)
