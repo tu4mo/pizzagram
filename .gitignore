@@ -2,12 +2,12 @@
 .eslintcache
 /.firebase
 /dist
+/e2e/playwright-report
+/e2e/test-results
 /functions/lib
 /functions/node_modules
 /functions/shell/serviceAccountKey.json
 /functions/ui-debug.log
 /node_modules
-/playwright-report
-/test-results
 analice.html
 firebase-debug.log

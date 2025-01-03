@@ -27,7 +27,7 @@ export default defineConfig({
   ],
   reporter: 'html',
   retries: process.env.CI ? 2 : 0,
-  testDir: './e2e',
+  testDir: './',
   use: {
     baseURL: 'https://pizzagram.cc',
     trace: 'on-first-retry',
