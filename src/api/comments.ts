@@ -11,8 +11,7 @@ import {
 } from 'firebase/firestore'
 
 import { getCurrentUser } from './auth'
-
-import { firestore } from '.'
+import { firestore } from './firebase'
 
 const commentsCollection = collection(firestore, 'comments')
 

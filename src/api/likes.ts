@@ -7,9 +7,8 @@ import {
 } from 'firebase/firestore'
 
 import { getCurrentUser } from './auth'
+import { firestore } from './firebase'
 import { postsCollection } from './posts'
-
-import { firestore } from '.'
 
 const likesCollection = collection(firestore, 'likes')
 

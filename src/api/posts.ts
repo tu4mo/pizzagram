@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore'
 import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
 
-import { firestore, functions } from '.'
+import { firestore, functions } from './firebase'
 
 export const postsCollection = collection(firestore, 'posts')
 

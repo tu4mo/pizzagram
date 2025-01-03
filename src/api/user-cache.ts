@@ -1,6 +1,6 @@
 import type { User } from './user'
 
-function userCache() {
+function createUserCache() {
   const cache: { [key: string]: User } = {}
 
   return {
@@ -13,4 +13,4 @@ function userCache() {
   }
 }
 
-export default userCache()
+export const userCache = createUserCache()

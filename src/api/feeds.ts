@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore'
 
-import { firestore } from '.'
+import { firestore } from './firebase'
 
 export type Feed = {
   caption: string
