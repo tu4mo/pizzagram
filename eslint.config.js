@@ -1,9 +1,9 @@
 import eslint from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'
+import importPlugin from 'eslint-plugin-import'
 import eslintPluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
-import typescriptEslint from 'typescript-eslint'
-import importPlugin from 'eslint-plugin-import'
+import * as typescriptEslint from 'typescript-eslint'
 
 export default typescriptEslint.config(
   {
@@ -15,18 +15,14 @@ export default typescriptEslint.config(
       '**/playwright-report',
     ],
   },
+  eslint.configs.recommended,
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
+  ...typescriptEslint.configs.recommendedTypeChecked,
+  ...eslintPluginVue.configs['flat/recommended'],
   {
-    extends: [
-      eslint.configs.recommended,
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.typescript,
-      ...typescriptEslint.configs.recommendedTypeChecked,
-      ...eslintPluginVue.configs['flat/recommended'],
-    ],
-    files: ['**/*.{ts,vue}'],
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'module',
       globals: globals.browser,
       parserOptions: {
         extraFileExtensions: ['.vue'],
@@ -34,14 +30,10 @@ export default typescriptEslint.config(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+      sourceType: 'module',
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-      },
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
@@ -79,10 +71,15 @@ export default typescriptEslint.config(
       ],
       'vue/padding-line-between-blocks': 'error',
     },
+    settings: {
+      'import/resolver': {
+        typescript: true,
+      },
+    },
   },
   {
-    files: ['**/*.js'],
     extends: [typescriptEslint.configs.disableTypeChecked],
+    files: ['**/*.js'],
   },
   eslintConfigPrettier,
 )

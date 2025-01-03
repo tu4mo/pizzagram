@@ -6,6 +6,7 @@ export default {
   singleQuote: true,
   vueIndentScriptAndStyle: true,
 
+  // eslint-disable-next-line sort-keys
   overrides: [
     {
       files: ['index.html'],
