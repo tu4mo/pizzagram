@@ -99,6 +99,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     height: calc-size(auto, size);
     overflow: hidden;
     transition: height var(--transition-fast);
@@ -112,6 +113,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     height: calc-size(auto, size);
     list-style: none;
     overflow: hidden;
