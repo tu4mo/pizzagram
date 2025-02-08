@@ -66,8 +66,8 @@
     overscroll-behavior: contain;
     padding-top: 64px;
     transition:
-      display var(--transition-fast) allow-discrete,
-      overlay var(--transition-fast) allow-discrete;
+      display var(--transition-slow) allow-discrete,
+      overlay var(--transition-slow) allow-discrete;
     width: 100%;
 
     &[open] {
@@ -78,9 +78,9 @@
   .dialog::backdrop {
     background-color: rgba(0, 0, 0, 0);
     transition:
-      display var(--transition-fast) allow-discrete,
-      overlay var(--transition-fast) allow-discrete,
-      background-color var(--transition-fast);
+      display var(--transition-slow) allow-discrete,
+      overlay var(--transition-slow) allow-discrete,
+      background-color var(--transition-slow);
   }
 
   .dialog[open]::backdrop {
@@ -110,8 +110,21 @@
     }
 
     .dialog__content {
+      animation: slideUp var(--transition-slow);
       border-radius: var(--radius-lg);
       padding-top: 0;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

@@ -36,13 +36,15 @@
 
 <style scoped>
   .post-image {
+    background-color: var(--color-light);
+    border-radius: var(--radius-md);
     display: block;
+    overflow: hidden;
     transition: transform var(--transition-fast);
   }
 
   .post-image__image {
     aspect-ratio: 1 / 1;
-    background-color: var(--color-light);
     display: block;
     object-fit: cover;
     width: 100%;
@@ -55,10 +57,6 @@
   @media (min-width: 640px) {
     .post-image--thumbnail:hover {
       transform: scale(1.04);
-    }
-
-    .post-image--rounded .post-image__image {
-      border-radius: var(--radius-md);
     }
   }
 </style>

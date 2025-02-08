@@ -39,6 +39,7 @@
     --shadow-lg: 0 1rem 3rem rgba(0 0 0 / 0.1);
 
     --transition-fast: 150ms ease;
+    --transition-slow: 250ms ease-in-out;
 
     --z-header: 1;
     --z-navigation: 2;
