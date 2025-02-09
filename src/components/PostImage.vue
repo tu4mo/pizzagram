@@ -37,7 +37,6 @@
 <style scoped>
   .post-image {
     background-color: var(--color-light);
-    border-radius: var(--radius-md);
     display: block;
     overflow: hidden;
     transition: transform var(--transition-fast);
@@ -55,6 +54,10 @@
   }
 
   @media (min-width: 640px) {
+    .post-image {
+      border-radius: var(--radius-md);
+    }
+
     .post-image--thumbnail:hover {
       transform: scale(1.04);
     }
