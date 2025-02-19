@@ -125,9 +125,9 @@
     display: grid;
     gap: 1px;
     grid-template-columns: repeat(3, 1fr);
+    list-style: none;
     margin: 0 auto;
     margin-top: 2rem;
-    list-style: none;
   }
 
   @media (min-width: 640px) {

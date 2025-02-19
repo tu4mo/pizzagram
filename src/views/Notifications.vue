@@ -118,9 +118,9 @@
 
   .notification__date {
     align-items: center;
+    color: var(--color-gray);
     display: flex;
     gap: 0.5rem;
-    color: var(--color-gray);
   }
 
   .notification__unread {
@@ -133,9 +133,9 @@
   .notification__image {
     border-radius: var(--radius-xs);
     flex: 0 0 auto;
+    height: 4rem;
     margin-left: auto;
     overflow: hidden;
     width: 4rem;
-    height: 4rem;
   }
 </style>
