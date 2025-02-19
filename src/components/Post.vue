@@ -171,9 +171,9 @@
 
   .post__actions {
     display: grid;
-    grid-auto-flow: column;
-    gap: 1.5rem;
     flex: 0 0 auto;
+    gap: 1.5rem;
+    grid-auto-flow: column;
   }
 
   @media (min-width: 640px) {

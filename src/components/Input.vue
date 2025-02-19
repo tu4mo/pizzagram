@@ -24,8 +24,8 @@
   .input {
     appearance: none;
     background-color: var(--color-background);
-    border-radius: var(--radius-sm);
     border: 1px solid var(--color-light);
+    border-radius: var(--radius-sm);
     display: block;
     font-size: var(--font-size-md);
     line-height: 1;

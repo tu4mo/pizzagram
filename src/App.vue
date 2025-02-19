@@ -58,11 +58,11 @@
   html {
     box-sizing: border-box;
     font-family: 'DM Sans', Helvetica, Arial, sans-serif;
-    touch-action: manipulation;
-    user-select: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
   }
 
   body {

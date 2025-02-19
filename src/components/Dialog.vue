@@ -98,8 +98,8 @@
     border-top-left-radius: var(--radius-md);
     border-top-right-radius: var(--radius-md);
     max-width: var(--content-width);
-    padding-top: var(--radius-md);
     padding-bottom: env(safe-area-inset-bottom);
+    padding-top: var(--radius-md);
     width: 100%;
   }
 

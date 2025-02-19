@@ -35,16 +35,16 @@
   }
 
   .spinner--inline {
-    position: relative;
     margin: 1rem 0;
+    position: relative;
   }
 
   .spinner__rotate {
     animation: animation-rotate 1s infinite linear;
-    width: 40px;
     height: 40px;
     position: relative;
     text-align: center;
+    width: 40px;
   }
 
   .spinner__pepperoni-1,

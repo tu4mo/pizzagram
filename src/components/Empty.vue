@@ -8,8 +8,8 @@
   .empty {
     align-items: center;
     display: flex;
-    justify-content: center;
     inset: 0;
+    justify-content: center;
     padding: 2rem;
     position: absolute;
   }

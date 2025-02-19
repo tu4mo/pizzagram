@@ -79,8 +79,8 @@
     padding: 0.5rem;
     position: absolute;
     right: 0.5rem;
-    transform-origin: top right;
     transform: translateY(-0.5rem) scale(0.9);
+    transform-origin: top right;
     transition: all var(--transition-fast) allow-discrete;
   }
 

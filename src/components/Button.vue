@@ -22,15 +22,15 @@
     border-radius: var(--radius-sm);
     color: var(--color-primary);
     cursor: pointer;
+    display: block;
     font-size: var(--font-size-md);
     font-weight: bold;
-    display: block;
     line-height: 3rem;
+    -webkit-tap-highlight-color: transparent;
     text-align: center;
     text-decoration: none;
     transition: transform var(--transition-fast);
     width: 100%;
-    -webkit-tap-highlight-color: transparent;
   }
 
   .button:disabled {

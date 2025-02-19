@@ -13,8 +13,8 @@
   .welcome-layout {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     inset: 0;
+    justify-content: center;
     padding: 2rem;
     position: absolute;
   }
