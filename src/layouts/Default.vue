@@ -45,7 +45,7 @@
     <div
       :class="[
         'default-layout__top',
-        { 'default-layout__top--border': hasScrolled },
+        { 'default-layout__top--scrolled': hasScrolled },
       ]"
     >
       <div v-if="canGoBack" class="default-layout__back">
@@ -89,18 +89,21 @@
     padding-top: env(safe-area-inset-top);
     position: fixed;
     right: 0;
-    transition: background-color 0.4s;
+    transition: background-color var(--transition-slow);
     top: 0;
     z-index: var(--z-header);
   }
 
   @media (min-width: 640px) {
     .default-layout__top {
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      margin: 1rem;
       justify-content: space-between;
     }
   }
 
-  .default-layout__top--border {
+  .default-layout__top--scrolled {
     background-color: rgba(var(--color-background-rgb) / 0.8);
     backdrop-filter: var(--blur);
     border-color: var(--color-light);
@@ -185,8 +188,8 @@
       left: auto;
       padding-bottom: 0;
       position: fixed;
-      right: 5.5rem;
-      top: 0.25rem;
+      right: 6.5rem;
+      top: 1.25rem;
     }
   }
 </style>
