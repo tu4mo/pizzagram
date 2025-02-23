@@ -31,7 +31,7 @@
     "eslint-import-resolver-typescript": "3.8.2",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "9.32.0",
-    "firebase-tools": "13.31.1",
+    "firebase-tools": "13.31.2",
     "globals": "15.15.0",
     "postcss-html": "1.8.0",
     "prettier": "3.5.1",
