@@ -42,7 +42,7 @@
 
 <template>
   <div class="default-layout">
-    <div
+    <header
       :class="[
         'default-layout__top',
         { 'default-layout__top--scrolled': hasScrolled },
@@ -57,7 +57,7 @@
       <div class="default-layout__menu">
         <Menu />
       </div>
-    </div>
+    </header>
     <div v-if="authStore.isAuthenticated" class="default-layout__navigation">
       <Navigation />
     </div>

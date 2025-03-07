@@ -9,10 +9,10 @@
 </script>
 
 <template>
-  <header class="header">
-    <Logo class="header__logo" />
+  <h1 class="header">
+    <Logo :aria-hidden="!!title" class="header__logo" />
     <div v-if="title" class="header__title">{{ title }}</div>
-  </header>
+  </h1>
 </template>
 
 <style scoped>
