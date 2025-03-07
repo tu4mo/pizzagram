@@ -29,4 +29,6 @@ test('Sign Up', async ({ page }) => {
 
   page.on('dialog', (dialog) => dialog.accept())
   await page.getByRole('button', { name: 'Delete Account' }).click()
+
+  await page.waitForURL('/')
 })
