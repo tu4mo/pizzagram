@@ -42,4 +42,26 @@ jobs:
         run: npx firebase deploy --force --token ${{ secrets.FIREBASE_TOKEN }}
 
   test:
-    uses: ./.github/workflows/playwright.yml
+    name: E2E tests
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js and dependencies
+        uses: ./.github/actions/install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npm test --workspace e2e
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: e2e/playwright-report/
+          retention-days: 30
