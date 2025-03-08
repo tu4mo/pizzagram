@@ -22,8 +22,6 @@ let unsubscribeToNotifications: Unsubscribe | undefined = () => undefined
 export function initializeAuth() {
   setOnAuthStateChangedCallback(async (user) => {
     if (user) {
-      authStore.isAuthenticated = true
-
       try {
         const userData = await fetchUser(user.uid)
 
@@ -32,9 +30,9 @@ export function initializeAuth() {
           return
         }
 
-        authStore.isInitialized = true
-        authStore.username = userData.username
+        authStore.isAuthenticated = true
         authStore.userId = user.uid
+        authStore.username = userData.username
 
         unsubscribeToNotifications = await subscribeToNotifications(
           (notifications) => {
@@ -49,9 +47,10 @@ export function initializeAuth() {
       unsubscribeToNotifications?.()
 
       authStore.isAuthenticated = false
-      authStore.isInitialized = true
-      authStore.username = ''
       authStore.userId = ''
+      authStore.username = ''
     }
+
+    authStore.isInitialized = true
   })
 }
