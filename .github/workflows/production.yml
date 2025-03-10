@@ -59,6 +59,8 @@ jobs:
 
       - name: Run Playwright tests
         run: npm test --workspace e2e
+        env:
+          PLAYWRIGHT_FIREBASE_APPCHECK_DEBUG_TOKEN: ${{ secrets.PLAYWRIGHT_FIREBASE_APPCHECK_DEBUG_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
