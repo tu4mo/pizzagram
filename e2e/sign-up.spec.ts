@@ -1,12 +1,20 @@
-import * as crypto from 'node:crypto'
+import crypto from 'node:crypto'
+import path from 'node:path'
 
 import { expect, test } from '@playwright/test'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') })
 
 const username = crypto.randomBytes(6).toString('hex')
 const email = `${username}@pizzagram.cc`
 const password = 'password'
 
 test('Sign Up', async ({ page }) => {
+  await page.addInitScript((token) => {
+    ;(window as any).FIREBASE_APPCHECK_DEBUG_TOKEN = token
+  }, process.env.PLAYWRIGHT_FIREBASE_APPCHECK_DEBUG_TOKEN)
+
   await page.goto('/')
 
   await page.getByRole('button', { name: 'Menu' }).click()
