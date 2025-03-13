@@ -1,5 +1,12 @@
 <script setup lang="ts">
-  import { reactive, ref, watch, onMounted, onUnmounted } from 'vue'
+  import {
+    reactive,
+    ref,
+    watch,
+    onMounted,
+    onUnmounted,
+    useTemplateRef,
+  } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { cropImage, sharePost } from '@/api/posts'
@@ -20,7 +27,7 @@
   const form = reactive({ caption: '' })
   const imageUrl = ref('')
   const isLoading = ref(false)
-  const imageContainer = ref<HTMLDivElement>()
+  const imageContainer = useTemplateRef('imageContainer')
   const fileReader = new FileReader()
 
   async function onFileLoad() {

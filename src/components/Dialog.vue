@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { useTemplateRef, watch } from 'vue'
 
   const { isOpen } = defineProps<{ isOpen: boolean }>()
 
   const emit = defineEmits<{ close: [] }>()
 
-  const dialog = ref<HTMLDialogElement | null>(null)
-  const dialogContent = ref<HTMLDivElement | null>(null)
+  const dialog = useTemplateRef('dialog')
+  const dialogContent = useTemplateRef('dialogContent')
 
   watch(
     [() => isOpen, () => dialog.value],

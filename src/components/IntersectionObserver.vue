@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { onMounted, onUnmounted, ref } from 'vue'
+  import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
 
   const { enabled } = defineProps<{ enabled: boolean }>()
 
   const emit = defineEmits<{ (event: 'is-intersecting'): void }>()
 
-  const div = ref<HTMLDivElement | null>(null)
+  const div = useTemplateRef('div')
   const observer = ref<IntersectionObserver>()
 
   onMounted(() => {

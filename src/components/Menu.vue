@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, onUnmounted, ref } from 'vue'
+  import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { signOut } from '@/api/auth'
@@ -8,7 +8,7 @@
   import { authStore } from '@/store/auth'
 
   const isOpen = ref(false)
-  const container = ref<HTMLDivElement | null>(null)
+  const container = useTemplateRef('container')
   const router = useRouter()
 
   function closeMenu(event: MouseEvent) {
@@ -48,7 +48,7 @@
     >
       <Icon name="menu" />
     </Button>
-    <div ref="menu" :class="['menu', { 'menu--open': isOpen }]">
+    <div :class="['menu', { 'menu--open': isOpen }]">
       <template v-if="authStore.isAuthenticated">
         <RouterLink class="menu__item" to="/account">Account</RouterLink>
         <hr />
