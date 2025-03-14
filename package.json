@@ -28,7 +28,7 @@
     "@vue/runtime-dom": "3.5.13",
     "eslint": "9.22.0",
     "eslint-config-prettier": "10.1.1",
-    "eslint-import-resolver-typescript": "3.8.6",
+    "eslint-import-resolver-typescript": "3.8.7",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "10.0.0",
     "firebase-tools": "13.34.0",
@@ -40,7 +40,7 @@
     "stylelint-config-recommended-vue": "1.6.0",
     "typescript": "5.8.2",
     "typescript-eslint": "8.26.1",
-    "vite": "6.2.1",
+    "vite": "6.2.2",
     "vue-tsc": "2.2.8"
   },
   "browserslist": [
