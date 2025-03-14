@@ -1,7 +1,7 @@
 import type {
   FirestoreEvent,
   QueryDocumentSnapshot,
-} from 'firebase-functions/v2/firestore'
+} from 'firebase-functions/firestore'
 
 import { notifications, posts } from './db'
 

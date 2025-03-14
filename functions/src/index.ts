@@ -1,5 +1,5 @@
-import * as functionsV1 from 'firebase-functions/v1'
-import * as functionsV2 from 'firebase-functions/v2'
+import { firestore, https } from 'firebase-functions'
+import { auth } from 'firebase-functions/v1'
 
 import { addNotification, NotificationType } from './add-notification'
 import { deletePost } from './delete-post'
@@ -8,12 +8,9 @@ import { registerUser } from './register-user'
 import { sharePost } from './share-post'
 import { updateCommentsCount } from './update-comments-count'
 
-exports.deletePost = functionsV2.firestore.onDocumentDeleted(
-  'posts/{postId}',
-  deletePost,
-)
+exports.deletePost = firestore.onDocumentDeleted('posts/{postId}', deletePost)
 
-exports.createComment = functionsV2.firestore.onDocumentCreated(
+exports.createComment = firestore.onDocumentCreated(
   'comments/{commentId}',
   async (event) => {
     const { postId } = event.data?.data() ?? {}
@@ -24,7 +21,7 @@ exports.createComment = functionsV2.firestore.onDocumentCreated(
   },
 )
 
-exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
+exports.deleteComment = firestore.onDocumentDeleted(
   'comments/{commentId}',
   async (event) => {
     const { postId } = event.data?.data() ?? {}
@@ -34,19 +31,15 @@ exports.deleteComment = functionsV2.firestore.onDocumentDeleted(
   },
 )
 
-exports.createLike = functionsV2.firestore.onDocumentCreated(
-  'likes/{likeId}',
-  (event) => addNotification(event, NotificationType.Like),
+exports.createLike = firestore.onDocumentCreated('likes/{likeId}', (event) =>
+  addNotification(event, NotificationType.Like),
 )
 
-exports.registerUser = functionsV2.https.onCall(
-  { enforceAppCheck: true },
-  registerUser,
-)
+exports.registerUser = https.onCall({ enforceAppCheck: true }, registerUser)
 
-exports.deleteUser = functionsV1.auth.user().onDelete(deleteUser)
+exports.deleteUser = auth.user().onDelete(deleteUser)
 
-exports.sharePost = functionsV2.https.onCall(
+exports.sharePost = https.onCall(
   { enforceAppCheck: true, memory: '1GiB' },
   sharePost,
 )

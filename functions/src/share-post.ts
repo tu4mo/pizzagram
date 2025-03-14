@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs-node'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { FieldValue } from 'firebase-admin/firestore'
 import { getDownloadURL } from 'firebase-admin/storage'
-import type { CallableRequest } from 'firebase-functions/v2/https'
+import type { CallableRequest } from 'firebase-functions/https'
 import sharp from 'sharp'
 
 import { posts } from './db'
