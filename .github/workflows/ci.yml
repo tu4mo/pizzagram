@@ -17,14 +17,8 @@ jobs:
       - name: Install Node.js and dependencies
         uses: ./.github/actions/install
 
-      - name: Check types
-        run: npm run type-check
-
-      - name: Lint
-        run: |
-          npm run lint
-          npm run lint:format
-          npm run lint:style
+      - name: Type-check and lint
+        uses: ./.github/actions/verify
 
       - name: Build
         run: |
