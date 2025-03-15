@@ -43,9 +43,6 @@
     "vite": "6.2.2",
     "vue-tsc": "2.2.8"
   },
-  "browserslist": [
-    "defaults"
-  ],
   "workspaces": [
     "e2e",
     "functions"
