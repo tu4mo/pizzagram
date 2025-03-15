@@ -8,9 +8,14 @@ runs:
       shell: bash
       run: npm run type-check
 
-    - name: Lint
+    - name: ESLint
       shell: bash
-      run: |
-        npm run lint
-        npm run lint:format
-        npm run lint:style
+      run: npm run lint
+
+    - name: Prettier
+      shell: bash
+      run: npm run lint:format
+
+    - name: Stylelint
+      shell: bash
+      run: npm run lint:style
