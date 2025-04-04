@@ -49,7 +49,7 @@ jobs:
         uses: ./.github/actions/install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps webkit
 
       - name: Run Playwright tests
         run: npm test --workspace e2e
