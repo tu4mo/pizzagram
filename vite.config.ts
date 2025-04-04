@@ -7,11 +7,11 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     sourcemap: true,
+    target: 'esnext',
   },
   define: {
     // https://docs.sentry.io/platforms/javascript/configuration/tree-shaking/
     __SENTRY_DEBUG__: JSON.stringify(false),
-    __SENTRY_TRACING__: JSON.stringify(false),
   },
   esbuild: { legalComments: 'none' },
   plugins: [vue()],
