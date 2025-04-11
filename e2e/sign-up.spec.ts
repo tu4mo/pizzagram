@@ -1,10 +1,6 @@
 import crypto from 'node:crypto'
-import path from 'node:path'
 
 import { expect, test } from '@playwright/test'
-import dotenv from 'dotenv'
-
-dotenv.config({ path: path.resolve(__dirname, '..', '.env') })
 
 const username = crypto.randomBytes(6).toString('hex')
 const email = `${username}@pizzagram.cc`
