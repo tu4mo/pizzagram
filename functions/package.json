@@ -20,8 +20,5 @@
     "firebase-functions": "6.3.2",
     "sharp": "0.33.5"
   },
-  "devDependencies": {
-    "@types/md5": "2.3.5"
-  },
   "private": true
 }
