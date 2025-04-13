@@ -1,7 +1,7 @@
 import { firestore, https } from 'firebase-functions'
 import { auth } from 'firebase-functions/v1'
 
-import { addNotification, NotificationType } from './add-notification'
+import { addNotification } from './add-notification'
 import { deletePost } from './delete-post'
 import { deleteUser } from './delete-user'
 import { registerUser } from './register-user'
@@ -16,7 +16,7 @@ exports.createComment = firestore.onDocumentCreated(
     const { postId } = event.data?.data() ?? {}
     await Promise.all([
       updateCommentsCount(postId),
-      addNotification(event, NotificationType.Comment),
+      addNotification(event, 'COMMENT'),
     ])
   },
 )
@@ -32,7 +32,7 @@ exports.deleteComment = firestore.onDocumentDeleted(
 )
 
 exports.createLike = firestore.onDocumentCreated('likes/{likeId}', (event) =>
-  addNotification(event, NotificationType.Like),
+  addNotification(event, 'LIKE'),
 )
 
 exports.registerUser = https.onCall({ enforceAppCheck: true }, registerUser)
