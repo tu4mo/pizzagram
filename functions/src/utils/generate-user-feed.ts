@@ -1,6 +1,6 @@
-import { feeds, posts as postsCollection } from '../db'
+import { feeds, posts as postsCollection } from '../db.js'
 
-import { verifyUserExists } from './verify-user-exists'
+import { verifyUserExists } from './verify-user-exists.js'
 
 export async function generateUserFeed(userId: string) {
   const userExists = await verifyUserExists(userId)

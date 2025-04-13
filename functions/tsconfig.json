@@ -2,7 +2,8 @@
   "compilerOptions": {
     "erasableSyntaxOnly": true,
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "node16",
+    "moduleResolution": "node16",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",

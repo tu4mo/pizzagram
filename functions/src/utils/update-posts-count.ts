@@ -1,6 +1,6 @@
-import { posts, users } from '../db'
+import { posts, users } from '../db.js'
 
-import { verifyUserExists } from './verify-user-exists'
+import { verifyUserExists } from './verify-user-exists.js'
 
 export async function updatePostsCount(userId: string) {
   const userExists = await verifyUserExists(userId)

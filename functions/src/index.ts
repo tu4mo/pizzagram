@@ -1,16 +1,19 @@
 import { firestore, https } from 'firebase-functions'
 import { auth } from 'firebase-functions/v1'
 
-import { addNotification } from './add-notification'
-import { deletePost } from './delete-post'
-import { deleteUser } from './delete-user'
-import { registerUser } from './register-user'
-import { sharePost } from './share-post'
-import { updateCommentsCount } from './update-comments-count'
+import { addNotification } from './add-notification.js'
+import { deletePost } from './delete-post.js'
+import { deleteUser } from './delete-user.js'
+import { registerUser } from './register-user.js'
+import { sharePost } from './share-post.js'
+import { updateCommentsCount } from './update-comments-count.js'
 
-exports.deletePost = firestore.onDocumentDeleted('posts/{postId}', deletePost)
+export const onPostDeleted = firestore.onDocumentDeleted(
+  'posts/{postId}',
+  deletePost,
+)
 
-exports.createComment = firestore.onDocumentCreated(
+export const onCommentCreated = firestore.onDocumentCreated(
   'comments/{commentId}',
   async (event) => {
     const { postId } = event.data?.data() ?? {}
@@ -21,7 +24,7 @@ exports.createComment = firestore.onDocumentCreated(
   },
 )
 
-exports.deleteComment = firestore.onDocumentDeleted(
+export const onCommentDeleted = firestore.onDocumentDeleted(
   'comments/{commentId}',
   async (event) => {
     const { postId } = event.data?.data() ?? {}
@@ -31,15 +34,19 @@ exports.deleteComment = firestore.onDocumentDeleted(
   },
 )
 
-exports.createLike = firestore.onDocumentCreated('likes/{likeId}', (event) =>
-  addNotification(event, 'LIKE'),
+export const onLikeCreated = firestore.onDocumentCreated(
+  'likes/{likeId}',
+  (event) => addNotification(event, 'LIKE'),
 )
 
-exports.registerUser = https.onCall({ enforceAppCheck: true }, registerUser)
+export const onRegisterUserCall = https.onCall(
+  { enforceAppCheck: true },
+  registerUser,
+)
 
-exports.deleteUser = auth.user().onDelete(deleteUser)
+export const onDeleteUser = auth.user().onDelete(deleteUser)
 
-exports.sharePost = https.onCall(
+export const onSahrePostCall = https.onCall(
   { enforceAppCheck: true, memory: '1GiB' },
   sharePost,
 )

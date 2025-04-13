@@ -2,7 +2,15 @@ import * as admin from 'firebase-admin'
 import { Filter } from 'firebase-admin/firestore'
 import type * as functionsV1 from 'firebase-functions/v1'
 
-import { comments, db, feeds, likes, notifications, posts, users } from './db'
+import {
+  comments,
+  db,
+  feeds,
+  likes,
+  notifications,
+  posts,
+  users,
+} from './db.js'
 
 export async function deleteUser(user: functionsV1.auth.UserRecord) {
   const { uid, email } = user

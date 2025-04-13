@@ -1,6 +1,6 @@
 import { FieldValue } from 'firebase-admin/firestore'
 
-import { comments, posts } from './db'
+import { comments, posts } from './db.js'
 
 export async function updateCommentsCount(postId: string) {
   const postDoc = posts.doc(postId)

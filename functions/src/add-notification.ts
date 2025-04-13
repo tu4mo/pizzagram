@@ -3,7 +3,7 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/firestore'
 
-import { notifications, posts } from './db'
+import { notifications, posts } from './db.js'
 
 export type NotificationType = 'COMMENT' | 'LIKE'
 

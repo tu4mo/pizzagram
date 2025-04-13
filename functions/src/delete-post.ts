@@ -3,10 +3,10 @@ import type {
   QueryDocumentSnapshot,
 } from 'firebase-functions/firestore'
 
-import { comments, db, likes, notifications } from './db'
-import { bucket } from './storage'
-import { generateUserFeed } from './utils/generate-user-feed'
-import { updatePostsCount } from './utils/update-posts-count'
+import { comments, db, likes, notifications } from './db.js'
+import { bucket } from './storage.js'
+import { generateUserFeed } from './utils/generate-user-feed.js'
+import { updatePostsCount } from './utils/update-posts-count.js'
 
 export async function deletePost(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
