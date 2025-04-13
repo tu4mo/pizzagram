@@ -46,7 +46,7 @@ export const onRegisterUserCall = https.onCall(
 
 export const onDeleteUser = auth.user().onDelete(deleteUser)
 
-export const onSahrePostCall = https.onCall(
+export const onSharePostCall = https.onCall(
   { enforceAppCheck: true, memory: '1GiB' },
   sharePost,
 )

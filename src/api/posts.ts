@@ -109,7 +109,7 @@ export async function removePost(id: string) {
 export async function sharePost(image: string, caption: string) {
   const sharePost = httpsCallable<{ caption: string; image: string }, boolean>(
     functions,
-    'sharePost',
+    'onSharePostCall',
   )
   const result = await sharePost({ caption, image })
   return result
