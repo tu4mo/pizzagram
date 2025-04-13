@@ -3,7 +3,8 @@ import { posts, users } from '../db'
 import { verifyUserExists } from './verify-user-exists'
 
 export async function updatePostsCount(userId: string) {
-  if (!verifyUserExists(userId)) {
+  const userExists = await verifyUserExists(userId)
+  if (!userExists) {
     return
   }
 

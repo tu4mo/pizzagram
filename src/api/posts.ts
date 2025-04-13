@@ -156,7 +156,10 @@ export async function cropImage(
       resolve(croppedImage)
     }
 
-    image.onerror = (err) => reject(err)
+    image.onerror = (err) => {
+      reject(err)
+    }
+
     image.src = fileResult
   })
 }

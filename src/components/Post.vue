@@ -51,10 +51,6 @@
       return
     }
 
-    if (!navigator.share) {
-      alert("Sorry, your browser doesn't seem to support Web Share.")
-    }
-
     try {
       await navigator.share({
         text: post.caption,
@@ -62,7 +58,7 @@
         url: `${window.location.origin}/post/${post.id}`,
       })
     } catch {
-      //
+      alert("Sorry, your browser doesn't seem to support Web Share.")
     }
   }
 </script>

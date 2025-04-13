@@ -42,9 +42,7 @@ export async function fetchUser(id: string) {
       const docRef = await getDoc(doc(usersCollection, id))
       const user = createUserObject(docRef)
 
-      if (user) {
-        userCache.set(user.username, user)
-      }
+      userCache.set(user.username, user)
     } catch (error) {
       console.error(`Unable to get user ${id}`, error)
     }
@@ -69,9 +67,8 @@ export async function fetchUserByUsername(username: string) {
   if (docRef) {
     const user = createUserObject(docRef)
 
-    if (user) {
-      userCache.set(user.username, user)
-      return user
-    }
+    userCache.set(user.username, user)
+
+    return user
   }
 }

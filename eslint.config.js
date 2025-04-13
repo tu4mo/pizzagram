@@ -18,7 +18,7 @@ export default typescriptEslint.config(
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
-  ...typescriptEslint.configs.recommendedTypeChecked,
+  typescriptEslint.configs.strictTypeChecked,
   ...eslintPluginVue.configs['flat/recommended'],
   {
     languageOptions: {

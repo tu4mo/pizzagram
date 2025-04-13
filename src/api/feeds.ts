@@ -15,7 +15,11 @@ function parseFeedData(data: unknown = '[]'): Feed {
     return []
   }
 
-  const json: Feed = JSON.parse(data)
+  const json = JSON.parse(data)
+
+  if (!Array.isArray(json)) {
+    return []
+  }
 
   return json.map((item) => ({
     caption: item.caption ?? '',
