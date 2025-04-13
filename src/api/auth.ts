@@ -20,7 +20,7 @@ export async function getCurrentUser() {
 const registerUser = httpsCallable<
   { email: string; username: string; password: string },
   { user: User; error: null } | { user: null; error: string }
->(functions, 'registerUser')
+>(functions, 'onRegisterUserCall')
 
 export function setOnAuthStateChangedCallback(
   callback: (user: User | null) => Promise<void>,
