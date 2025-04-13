@@ -27,7 +27,7 @@
     "@vitejs/plugin-vue": "5.2.3",
     "@vue/runtime-dom": "3.5.13",
     "eslint": "9.24.0",
-    "eslint-config-prettier": "10.1.1",
+    "eslint-config-prettier": "10.1.2",
     "eslint-import-resolver-typescript": "4.3.2",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "10.0.0",
