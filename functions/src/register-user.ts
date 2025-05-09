@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto'
 
-import type { UserRecord } from 'firebase-admin/auth'
-import { getAuth } from 'firebase-admin/auth'
+import { type UserRecord, getAuth } from 'firebase-admin/auth'
 import type { CallableRequest } from 'firebase-functions/https'
 
 import { users } from './db.js'

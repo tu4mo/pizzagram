@@ -5,8 +5,12 @@
   import Icon from './Icon.vue'
   import Input from './Input.vue'
 
-  import type { Comment } from '@/api/comments'
-  import { addComment, deleteComment, fetchComments } from '@/api/comments'
+  import {
+    type Comment,
+    addComment,
+    deleteComment,
+    fetchComments,
+  } from '@/api/comments'
   import { authStore } from '@/store/auth'
   import { postsStore } from '@/store/posts'
 

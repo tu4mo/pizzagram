@@ -1,5 +1,8 @@
-import type { NavigationGuard } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  type NavigationGuard,
+  createRouter,
+  createWebHistory,
+} from 'vue-router'
 
 const Account = () => import('./views/Account.vue')
 const Home = () => import('./views/Home.vue')

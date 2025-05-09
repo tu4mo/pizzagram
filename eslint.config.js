@@ -36,7 +36,10 @@ export default typescriptEslint.config(
       reportUnusedDisableDirectives: true,
     },
     rules: {
-      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { fixStyle: 'inline-type-imports' },
+      ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
@@ -46,6 +49,7 @@ export default typescriptEslint.config(
       '@typescript-eslint/prefer-optional-chain': 'error',
       '@typescript-eslint/prefer-promise-reject-errors': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
+      'import/no-duplicates': ['error', { 'prefer-inline': true }],
       'import/order': [
         'error',
         {

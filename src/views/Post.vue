@@ -2,8 +2,7 @@
   import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
-  import type { User } from '@/api/user'
-  import { fetchUser } from '@/api/user'
+  import { type User, fetchUser } from '@/api/user'
   import Post from '@/components/Post.vue'
   import { getIsMe } from '@/store/auth'
   import { optimisticallyRemovePostFromFeed } from '@/store/feeds'

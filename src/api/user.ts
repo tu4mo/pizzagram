@@ -1,5 +1,5 @@
-import type { QueryDocumentSnapshot } from 'firebase/firestore'
 import {
+  type QueryDocumentSnapshot,
   collection,
   doc,
   getDoc,

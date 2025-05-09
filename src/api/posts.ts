@@ -1,5 +1,6 @@
-import type { DocumentData, DocumentSnapshot } from 'firebase/firestore'
 import {
+  type DocumentData,
+  type DocumentSnapshot,
   collection,
   deleteDoc,
   doc,

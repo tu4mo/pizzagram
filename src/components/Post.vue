@@ -10,8 +10,7 @@
   import PostLike from './PostLike.vue'
 
   import type { Post } from '@/api/posts'
-  import type { User } from '@/api/user'
-  import { fetchUser } from '@/api/user'
+  import { type User, fetchUser } from '@/api/user'
   import { authStore } from '@/store/auth'
 
   const {
