@@ -10,7 +10,9 @@ import {
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
   startAfter,
+  updateDoc,
   where,
 } from 'firebase/firestore'
 import { connectFunctionsEmulator, httpsCallable } from 'firebase/functions'
@@ -104,7 +106,7 @@ function createPostObject(doc: DocumentSnapshot<any>): Post {
 }
 
 export async function removePost(id: string) {
-  await deleteDoc(doc(postsCollection, id))
+  return deleteDoc(doc(postsCollection, id))
 }
 
 export async function sharePost(image: string, caption: string) {
@@ -114,6 +116,13 @@ export async function sharePost(image: string, caption: string) {
   )
   const result = await sharePost({ caption, image })
   return result
+}
+
+export async function updateCaption(id: string, caption: string) {
+  return updateDoc(doc(postsCollection, id), {
+    caption,
+    updatedAt: serverTimestamp(),
+  })
 }
 
 export async function cropImage(
