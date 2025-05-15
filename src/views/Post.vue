@@ -2,6 +2,7 @@
   import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
+  import { updateCaption } from '@/api/posts'
   import { type User, fetchUser } from '@/api/user'
   import Post from '@/components/Post.vue'
   import { getIsMe } from '@/store/auth'
@@ -33,6 +34,12 @@
     { immediate: true },
   )
 
+  async function onCaptionChange(caption: string) {
+    if (typeof postId.value === 'string') {
+      await updateCaption(postId.value, caption)
+    }
+  }
+
   async function onRemoveClick() {
     if (typeof postId.value === 'string') {
       await removePost(postId.value)
@@ -43,5 +50,10 @@
 </script>
 
 <template>
-  <Post :is-removable="isMe" :post="post" @remove-click="onRemoveClick" />
+  <Post
+    :is-editable="isMe"
+    :post="post"
+    @caption-change="onCaptionChange"
+    @remove-click="onRemoveClick"
+  />
 </template>

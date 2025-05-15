@@ -47,13 +47,23 @@ service cloud.firestore {
         || request.auth.uid == resource.data.userId;
 
       allow update:
-        if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'updatedAt'])
-        && (
-          !('likes' in resource.data)
-          || request.resource.data.likes.diff(resource.data.likes).affectedKeys().hasOnly([request.auth.uid])
-        )
-        && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes))
-        && request.resource.data.updatedAt == request.time;
+        if (
+          (
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'updatedAt'])
+            && (
+              !('likes' in resource.data)
+              || request.resource.data.likes.diff(resource.data.likes).affectedKeys().hasOnly([request.auth.uid])
+            )
+            && (request.resource.data.likes[request.auth.uid] == true || !(request.auth.uid in request.resource.data.likes))
+            && request.resource.data.updatedAt == request.time
+          )
+          || (
+            request.auth.uid == resource.data.userId
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['caption', 'updatedAt'])
+            && request.resource.data.caption.size() <= 100
+            && request.resource.data.updatedAt == request.time
+          )
+        );
 
       allow delete:
         if request.auth.uid == resource.data.userId;
