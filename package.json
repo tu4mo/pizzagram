@@ -18,14 +18,14 @@
   "dependencies": {
     "@sentry/vue": "9.19.0",
     "feather-icons": "4.29.2",
-    "firebase": "11.7.1",
-    "vue": "3.5.13",
+    "firebase": "11.7.3",
+    "vue": "3.5.14",
     "vue-router": "4.5.1"
   },
   "devDependencies": {
     "@types/node": "22.15.18",
     "@vitejs/plugin-vue": "5.2.4",
-    "@vue/runtime-dom": "3.5.13",
+    "@vue/runtime-dom": "3.5.14",
     "eslint": "9.26.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-import-resolver-typescript": "4.3.4",
