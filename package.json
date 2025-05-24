@@ -16,7 +16,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@sentry/vue": "9.19.0",
+    "@sentry/vue": "9.22.0",
     "feather-icons": "4.29.2",
     "firebase": "11.7.3",
     "vue": "3.5.14",
