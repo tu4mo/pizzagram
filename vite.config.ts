@@ -14,7 +14,13 @@ export default defineConfig({
     __SENTRY_DEBUG__: JSON.stringify(false),
   },
   esbuild: { legalComments: 'none' },
-  plugins: [vue()],
+  plugins: [
+    vue({
+      features: {
+        optionsAPI: false,
+      },
+    }),
+  ],
   resolve: {
     alias: [
       {
