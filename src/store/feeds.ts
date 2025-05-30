@@ -3,9 +3,7 @@ import { reactive } from 'vue'
 import type { Feed } from '@/api/feeds'
 import * as api from '@/api/feeds'
 
-export const feedsStore = reactive<{
-  [userId: string]: Feed
-}>({})
+export const feedsStore = reactive<Record<string, Feed>>({})
 
 let subscribedUserId: string | undefined
 let unsubscribe: VoidFunction | undefined

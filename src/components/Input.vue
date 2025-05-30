@@ -4,7 +4,7 @@
     modelValue: string
   }>()
 
-  defineEmits<{ (event: 'update:modelValue', value: string): void }>()
+  defineEmits<(event: 'update:modelValue', value: string) => void>()
 
   defineOptions({ inheritAttrs: false })
 </script>

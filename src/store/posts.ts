@@ -10,7 +10,7 @@ import * as api from '@/api/posts'
 export const postsStore = reactive<{
   isLoading: boolean
   lastHomePost: api.Post | null
-  posts: { [key: string]: api.Post }
+  posts: Record<string, api.Post>
 }>({
   isLoading: false,
   lastHomePost: null,

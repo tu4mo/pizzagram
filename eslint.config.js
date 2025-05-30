@@ -19,6 +19,7 @@ export default typescriptEslint.config(
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   typescriptEslint.configs.strictTypeChecked,
+  typescriptEslint.configs.stylisticTypeChecked,
   ...eslintPluginVue.configs['flat/recommended'],
   {
     languageOptions: {
@@ -36,6 +37,7 @@ export default typescriptEslint.config(
       reportUnusedDisableDirectives: true,
     },
     rules: {
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { fixStyle: 'inline-type-imports' },

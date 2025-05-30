@@ -9,7 +9,7 @@
     value: string
   }>()
 
-  const emit = defineEmits<{ (event: 'change', value: string): void }>()
+  const emit = defineEmits<(event: 'change', value: string) => void>()
 
   const customItem = ref('')
 

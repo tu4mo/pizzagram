@@ -4,7 +4,7 @@
 
   const { modelValue = 0 } = defineProps<{ modelValue?: number }>()
 
-  defineEmits<{ (event: 'update:modelValue', value: number): void }>()
+  defineEmits<(event: 'update:modelValue', value: number) => void>()
 </script>
 
 <template>

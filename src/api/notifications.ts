@@ -61,7 +61,7 @@ export async function subscribeToNotifications(
       }
 
       notifications.push({
-        createdAt: data.createdAt?.toDate() || new Date(),
+        createdAt: data.createdAt?.toDate() ?? new Date(),
         from,
         fromUserId: data.fromUserId ?? '',
         id: doc.id,

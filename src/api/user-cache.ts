@@ -1,7 +1,7 @@
 import type { User } from './user'
 
 function createUserCache() {
-  const cache: { [key: string]: User } = {}
+  const cache: Record<string, User> = {}
 
   return {
     getAll() {

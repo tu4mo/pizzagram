@@ -34,7 +34,7 @@ export type Post = {
   doc: DocumentSnapshot<any>
   id: string
   imageUrl: string
-  likes: { [key: string]: boolean }
+  likes: Record<string, boolean>
   published: boolean
   thumbnailUrl: string
   updatedAt: Date

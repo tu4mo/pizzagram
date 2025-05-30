@@ -6,7 +6,7 @@
 
   defineProps<{ post: Post | undefined }>()
 
-  const emit = defineEmits<{ (event: 'click'): void }>()
+  const emit = defineEmits<(event: 'click') => void>()
 </script>
 
 <template>

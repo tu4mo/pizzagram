@@ -3,7 +3,7 @@
 
   const { enabled } = defineProps<{ enabled: boolean }>()
 
-  const emit = defineEmits<{ (event: 'is-intersecting'): void }>()
+  const emit = defineEmits<(event: 'is-intersecting') => void>()
 
   const div = useTemplateRef('div')
   const observer = ref<IntersectionObserver>()
