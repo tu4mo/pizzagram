@@ -29,8 +29,8 @@ jobs:
       - name: Delete callable functions
         continue-on-error: true
         run: |
-          npx firebase functions:delete sharePost --force --token ${{ secrets.FIREBASE_TOKEN }}
-          npx firebase functions:delete registerUser --force --token ${{ secrets.FIREBASE_TOKEN }}
+          npx firebase functions:delete onSharePostCall --force --token ${{ secrets.FIREBASE_TOKEN }}
+          npx firebase functions:delete onRegisterUserCall --force --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Deploy
         if: success() || failure()
