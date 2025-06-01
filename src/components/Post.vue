@@ -7,6 +7,7 @@
   import PostComments from './PostComments.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
+  import PostLabel from './PostLabel.vue'
   import PostLike from './PostLike.vue'
 
   import type { Post } from '@/api/posts'
@@ -42,17 +43,6 @@
 
   const showComments = ref(false)
 
-  function onCaptionChange() {
-    if (!post) {
-      return
-    }
-
-    const newCaption = prompt('Caption', post.caption)
-    if (newCaption !== null && newCaption !== post.caption) {
-      emit('caption-change', newCaption)
-    }
-  }
-
   function onRemoveClick() {
     if (confirm('Are you sure you want to remove this post?')) {
       emit('remove-click')
@@ -83,14 +73,11 @@
     </div>
     <div class="post__image">
       <PostImage :alt="post?.caption" :image-url="post?.imageUrl" rounded />
-      <button
-        v-if="post?.caption || isEditable"
-        class="post__caption"
-        :disabled="!isEditable"
-        @click="onCaptionChange"
-      >
-        {{ post?.caption || 'Add caption' }}
-      </button>
+      <PostLabel
+        :caption="post?.caption"
+        :is-editable="isEditable"
+        @change="emit('caption-change', $event)"
+      />
     </div>
     <footer class="post__footer">
       <div class="post__details">
@@ -134,33 +121,6 @@
 
   .post__image {
     position: relative;
-  }
-
-  .post__caption {
-    backdrop-filter: var(--blur);
-    background-color: rgba(var(--color-background-rgb) / 0.8);
-    border: none;
-    border-radius: var(--radius-sm);
-    bottom: 0;
-    color: var(--color-secondary);
-    cursor: pointer;
-    font-size: var(--font-size-sm);
-    left: 0;
-    margin: 1rem;
-    max-width: calc(100% - 2rem);
-    overflow: hidden;
-    padding: 0.25rem 0.5rem;
-    position: absolute;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .post__caption:disabled {
-    cursor: default;
-  }
-
-  .post__caption:not(:disabled):hover {
-    background-color: var(--color-background);
   }
 
   .post__footer {
