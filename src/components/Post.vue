@@ -3,11 +3,11 @@
 
   import Button from './Button.vue'
   import Icon from './Icon.vue'
+  import PostCaption from './PostCaption.vue'
   import PostComment from './PostComment.vue'
   import PostComments from './PostComments.vue'
   import PostHeader from './PostHeader.vue'
   import PostImage from './PostImage.vue'
-  import PostLabel from './PostLabel.vue'
   import PostLike from './PostLike.vue'
 
   import type { Post } from '@/api/posts'
@@ -73,7 +73,7 @@
     </div>
     <div class="post__image">
       <PostImage :alt="post?.caption" :image-url="post?.imageUrl" rounded />
-      <PostLabel
+      <PostCaption
         :caption="post?.caption"
         :is-editable="isEditable"
         @change="emit('caption-change', $event)"
