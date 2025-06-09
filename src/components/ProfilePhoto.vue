@@ -30,9 +30,15 @@
     v-if="asLink"
     :to="{ name: 'profile', params: { username: username } }"
   >
-    <img :alt="username" :class="classes" :src="profileUrl" />
+    <img :alt="username" :class="classes" :src="profileUrl" loading="lazy" />
   </RouterLink>
-  <img v-else :alt="username" :class="classes" :src="profileUrl" />
+  <img
+    v-else
+    :alt="username"
+    :class="classes"
+    :src="profileUrl"
+    loading="lazy"
+  />
 </template>
 
 <style scoped>
