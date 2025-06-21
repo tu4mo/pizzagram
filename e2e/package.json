@@ -4,7 +4,7 @@
     "test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "1.53.0",
+    "@playwright/test": "1.53.1",
     "dotenv": "16.5.0"
   },
   "private": true
