@@ -23,7 +23,7 @@
     "vue-router": "4.5.1"
   },
   "devDependencies": {
-    "@types/node": "22.15.32",
+    "@types/node": "22.15.33",
     "@vitejs/plugin-vue": "6.0.0",
     "@vue/runtime-dom": "3.5.17",
     "eslint": "9.29.0",
