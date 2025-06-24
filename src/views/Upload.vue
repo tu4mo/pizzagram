@@ -2,7 +2,7 @@
   import { reactive, ref, watch, onMounted, onUnmounted } from 'vue'
   import { useRouter } from 'vue-router'
 
-  import { cropImage, sharePost } from '@/api/posts'
+  import { sharePost } from '@/api/posts'
   import Button from '@/components/Button.vue'
   import Empty from '@/components/Empty.vue'
   import Field from '@/components/Field.vue'
@@ -13,6 +13,7 @@
   import DefaultLayout from '@/layouts/Default.vue'
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
+  import { crop } from '@/utils/image'
 
   setTitle('Upload')
 
@@ -29,7 +30,7 @@
       return
     }
 
-    imageUrl.value = await cropImage(result, 1024)
+    imageUrl.value = await crop(result, 1024)
   }
 
   onMounted(() => {
