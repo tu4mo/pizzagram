@@ -1,12 +1,5 @@
 <script setup lang="ts">
-  import {
-    reactive,
-    ref,
-    watch,
-    onMounted,
-    onUnmounted,
-    useTemplateRef,
-  } from 'vue'
+  import { reactive, ref, watch, onMounted, onUnmounted } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { cropImage, sharePost } from '@/api/posts'
@@ -27,7 +20,6 @@
   const form = reactive({ caption: '' })
   const imageUrl = ref('')
   const isLoading = ref(false)
-  const imageContainer = useTemplateRef('imageContainer')
   const fileReader = new FileReader()
 
   async function onFileLoad() {
@@ -108,7 +100,7 @@
         Use the Camera icon to upload a photo
       </Empty>
       <template v-else>
-        <div ref="imageContainer" class="upload__image">
+        <div class="upload__image">
           <PostImage :image-url="imageUrl" rounded />
         </div>
         <div class="upload__form">
