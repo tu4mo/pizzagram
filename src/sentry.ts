@@ -1,8 +1,10 @@
 import * as Sentry from '@sentry/vue'
-import type { Vue } from '@sentry/vue/build/types/types'
 import type { Router } from 'vue-router'
 
-export function initializeSentry(app: Vue, router: Router) {
+export function initializeSentry(
+  app: Sentry.VueIntegrationOptions['app'],
+  router: Router,
+) {
   if (process.env.NODE_ENV !== 'development') {
     Sentry.init({
       app,
