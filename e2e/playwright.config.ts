@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const use = devices['iPhone 15']
+
 export default defineConfig({
   forbidOnly: !!process.env.CI,
   fullyParallel: true,
@@ -7,11 +9,12 @@ export default defineConfig({
     {
       name: 'Setup',
       testMatch: /global\.setup\.ts/,
+      use,
     },
     {
       dependencies: ['Setup'],
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 15'] },
+      use,
     },
   ],
   reporter: 'html',
