@@ -20,19 +20,16 @@ export async function sharePost(request: CallableRequest<Data>) {
   const imageBuffer = Buffer.from(imageAsString, 'base64')
 
   const jpeg = await sharp(imageBuffer)
-    .rotate()
     .resize(1024, 1024)
     .jpeg({ quality: 80 })
     .toBuffer()
 
   const image = await sharp(imageBuffer)
-    .rotate()
     .resize(1024, 1024)
     .webp({ quality: 80 })
     .toBuffer()
 
   const thumbnail = await sharp(imageBuffer)
-    .rotate()
     .resize(256, 256)
     .webp({ quality: 80 })
     .toBuffer()
