@@ -3,9 +3,13 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
   forbidOnly: !!process.env.CI,
   fullyParallel: true,
-  globalSetup: './global-setup',
   projects: [
     {
+      name: 'Setup',
+      testMatch: /global\.setup\.ts/,
+    },
+    {
+      dependencies: ['Setup'],
       name: 'Mobile Safari',
       use: { ...devices['iPhone 15'] },
     },
