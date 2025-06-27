@@ -20,6 +20,7 @@
 
     --color-background: #fff;
     --color-background-rgb: 255 255 255;
+    --color-background-inverted: 0 0 0;
     --color-gray: #aaa;
     --color-light: #eee;
     --color-primary: #df0054;

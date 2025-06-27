@@ -7,6 +7,7 @@
   import mapPin from 'feather-icons/dist/icons/map-pin.svg?raw'
   import menu from 'feather-icons/dist/icons/menu.svg?raw'
   import messageCircle from 'feather-icons/dist/icons/message-circle.svg?raw'
+  import rotateCw from 'feather-icons/dist/icons/rotate-cw.svg?raw'
   import share from 'feather-icons/dist/icons/share.svg?raw'
   import star from 'feather-icons/dist/icons/star.svg?raw'
   import trash2 from 'feather-icons/dist/icons/trash-2.svg?raw'
@@ -28,6 +29,7 @@
     mapPin,
     menu,
     messageCircle,
+    rotateCw,
     share,
     star,
     trash2,

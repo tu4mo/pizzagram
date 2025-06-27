@@ -6,6 +6,7 @@
   import Button from '@/components/Button.vue'
   import Empty from '@/components/Empty.vue'
   import Field from '@/components/Field.vue'
+  import Icon from '@/components/Icon.vue'
   import Input from '@/components/Input.vue'
   import PostImage from '@/components/PostImage.vue'
   import Spacer from '@/components/Spacer.vue'
@@ -13,7 +14,7 @@
   import DefaultLayout from '@/layouts/Default.vue'
   import { fileStore } from '@/store/file'
   import { setTitle } from '@/title'
-  import { crop } from '@/utils/image'
+  import { crop, rotate } from '@/utils/image'
 
   setTitle('Upload')
 
@@ -92,6 +93,10 @@
       isLoading.value = false
     }
   }
+
+  async function onRotateClick() {
+    imageUrl.value = await rotate(imageUrl.value, 90)
+  }
 </script>
 
 <template>
@@ -103,6 +108,9 @@
       <template v-else>
         <div class="upload__image">
           <PostImage :image-url="imageUrl" rounded />
+          <button class="upload__rotate-button" @click="onRotateClick">
+            <Icon name="rotateCw" />
+          </button>
         </div>
         <div class="upload__form">
           <Spacer gap="2">
@@ -125,6 +133,31 @@
 
   .upload__form {
     padding: 1rem;
+  }
+
+  .upload__image {
+    position: relative;
+  }
+
+  .upload__rotate-button {
+    align-items: center;
+    background-color: rgba(var(--color-background-inverted) / 0.8);
+    border: none;
+    border-radius: var(--radius-sm);
+    bottom: 1rem;
+    color: var(--color-light);
+    cursor: pointer;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    position: absolute;
+    right: 1rem;
+    transition: transform var(--transition-fast);
+    width: 3rem;
+
+    &:active {
+      transform: var(--button-scale);
+    }
   }
 
   @media (min-width: 640px) {
