@@ -15,24 +15,21 @@ type Data = {
   image: string
 }
 
+async function prepareImages(imageBuffer: Buffer) {
+  const [jpeg, webp, thumbnail] = await Promise.all([
+    sharp(imageBuffer).resize(1024, 1024).jpeg({ quality: 80 }).toBuffer(),
+    sharp(imageBuffer).resize(1024, 1024).webp({ quality: 80 }).toBuffer(),
+    sharp(imageBuffer).resize(256, 256).webp({ quality: 80 }).toBuffer(),
+  ])
+
+  return { jpeg, thumbnail, webp }
+}
+
 export async function sharePost(request: CallableRequest<Data>) {
   const { image: imageAsString, caption } = request.data
   const imageBuffer = Buffer.from(imageAsString, 'base64')
 
-  const jpeg = await sharp(imageBuffer)
-    .resize(1024, 1024)
-    .jpeg({ quality: 80 })
-    .toBuffer()
-
-  const image = await sharp(imageBuffer)
-    .resize(1024, 1024)
-    .webp({ quality: 80 })
-    .toBuffer()
-
-  const thumbnail = await sharp(imageBuffer)
-    .resize(256, 256)
-    .webp({ quality: 80 })
-    .toBuffer()
+  const { jpeg, thumbnail, webp } = await prepareImages(imageBuffer)
 
   const imgTensor = tf.node.decodeJpeg(new Uint8Array(jpeg), 3)
 
@@ -66,7 +63,7 @@ export async function sharePost(request: CallableRequest<Data>) {
     console.log('Saving image')
 
     const file = bucket.file(`posts/${newPost.id}.webp`)
-    await file.save(image)
+    await file.save(webp)
 
     const thumbnailFile = bucket.file(`posts/${newPost.id}_t.webp`)
     await thumbnailFile.save(thumbnail)
