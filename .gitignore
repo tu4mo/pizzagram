@@ -10,5 +10,6 @@
 /functions/shell/serviceAccountKey.json
 /functions/ui-debug.log
 /node_modules
+/test-results
 analice.html
 firebase-debug.log
