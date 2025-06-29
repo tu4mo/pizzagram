@@ -36,6 +36,7 @@
     --radius-sm: 8px;
     --radius-md: 16px;
     --radius-lg: 32px;
+    --radius-max: 999px;
 
     --shadow-lg: 0 1rem 3rem rgba(0 0 0 / 0.1);
 

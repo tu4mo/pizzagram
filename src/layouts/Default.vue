@@ -97,7 +97,7 @@
   @media (min-width: 640px) {
     .default-layout__top {
       border: 1px solid transparent;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-max);
       justify-content: space-between;
       margin: 1rem;
     }
