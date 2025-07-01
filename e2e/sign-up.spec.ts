@@ -7,6 +7,10 @@ const email = `${username}@pizzagram.cc`
 const password = 'password'
 
 test('Sign Up', async ({ page }) => {
+  await page.addInitScript((token) => {
+    ;(window as any).FIREBASE_APPCHECK_DEBUG_TOKEN = token
+  }, process.env.PLAYWRIGHT_FIREBASE_APPCHECK_DEBUG_TOKEN)
+
   await page.goto('/')
 
   await page.getByRole('button', { name: 'Menu' }).click()
