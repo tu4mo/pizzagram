@@ -48,6 +48,16 @@ jobs:
       - name: Install Node.js and dependencies
         uses: ./.github/actions/install
 
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(node -p \"require('./e2e/package.json').devDependencies['@playwright/test']\")" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/playwright
+          key: playwright-browsers-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps webkit
 
