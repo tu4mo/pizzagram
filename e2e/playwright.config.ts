@@ -1,20 +1,13 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const use = devices['iPhone 15']
-
 export default defineConfig({
   forbidOnly: !!process.env.CI,
   fullyParallel: true,
+  globalSetup: './global-setup',
   projects: [
     {
-      name: 'Setup',
-      testMatch: /global\.setup\.ts/,
-      use,
-    },
-    {
-      dependencies: ['Setup'],
       name: 'Mobile Safari',
-      use,
+      use: devices['iPhone 15'],
     },
   ],
   reporter: 'html',
