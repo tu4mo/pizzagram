@@ -1,5 +1,5 @@
 name: Verify
-description: Type-check and lint
+description: Type-check, lint and test
 
 runs:
   using: composite
@@ -19,3 +19,7 @@ runs:
     - name: Stylelint
       shell: bash
       run: npm run lint:style
+
+    - name: Vitest
+      shell: bash
+      run: npm test

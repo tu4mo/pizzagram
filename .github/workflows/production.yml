@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js and dependencies
         uses: ./.github/actions/install
 
-      - name: Type-check and lint
+      - name: Verify
         uses: ./.github/actions/verify
 
       - name: Build
