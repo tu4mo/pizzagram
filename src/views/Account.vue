@@ -18,9 +18,15 @@
   async function onDeleteAccountClick() {
     isLoading.value = true
 
-    if (confirm('Are you sure you want to delete your account?')) {
-      await deleteAccount()
-      await router.push({ name: 'home' })
+    try {
+      if (confirm('Are you sure you want to delete your account?')) {
+        await deleteAccount()
+        await router.push({ name: 'home' })
+      }
+    } catch {
+      alert(
+        'An error occurred while deleting your account. Please try again later.',
+      )
     }
 
     isLoading.value = false
