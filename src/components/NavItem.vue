@@ -4,7 +4,7 @@
   import Icon from './Icon.vue'
 
   defineProps<{
-    badge?: number | string
+    badge?: number
     custom?: boolean
     exact?: boolean
     icon: InstanceType<typeof Icon>['$props']['name']

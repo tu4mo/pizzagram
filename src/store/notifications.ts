@@ -1,15 +1,16 @@
-import { reactive } from 'vue'
+import { computed, ref } from 'vue'
 
 import type { Notification } from '@/api/notifications'
 
-export const notificationsStore = reactive<{
+export const notificationsStore = ref<{
   notifications: Notification[]
 }>({
   notifications: [],
 })
 
-export function getUnreadNotificationsCount() {
-  return notificationsStore.notifications.filter(
-    (notification) => !notification.read,
-  ).length
-}
+export const unreadNotificationsCount = computed(
+  () =>
+    notificationsStore.value.notifications.filter(
+      (notification) => !notification.read,
+    ).length,
+)

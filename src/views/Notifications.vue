@@ -11,7 +11,7 @@
   import ProfilePhoto from '@/components/ProfilePhoto.vue'
   import DefaultLayout from '@/layouts/Default.vue'
   import {
-    getUnreadNotificationsCount,
+    unreadNotificationsCount,
     notificationsStore,
   } from '@/store/notifications'
   import { setTitle } from '@/title'
@@ -19,7 +19,7 @@
   setTitle('Notifications')
 
   onDeactivated(async () => {
-    if (getUnreadNotificationsCount() > 0) {
+    if (unreadNotificationsCount.value > 0) {
       await markNotificationsAsRead()
     }
   })

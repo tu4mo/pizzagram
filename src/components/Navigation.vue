@@ -1,16 +1,9 @@
 <script setup lang="ts">
-  import { computed } from 'vue'
-
   import Camera from './Camera.vue'
   import NavItem from './NavItem.vue'
 
   import { authStore } from '@/store/auth'
-  import { getUnreadNotificationsCount } from '@/store/notifications'
-
-  const notifications = computed(() => {
-    const unreadNotificationsCount = getUnreadNotificationsCount()
-    return unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined
-  })
+  import { unreadNotificationsCount } from '@/store/notifications'
 </script>
 
 <template>
@@ -26,7 +19,7 @@
       <Camera class="navigation__item" />
     </NavItem>
     <NavItem
-      :badge="notifications"
+      :badge="unreadNotificationsCount"
       :to="{ name: 'notifications' }"
       class="navigation__item"
       exact

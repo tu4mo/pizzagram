@@ -36,7 +36,7 @@ export function initializeAuth() {
 
         unsubscribeToNotifications = await subscribeToNotifications(
           (notifications) => {
-            notificationsStore.notifications = notifications
+            notificationsStore.value.notifications = notifications
           },
         )
       } catch {
