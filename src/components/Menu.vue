@@ -41,7 +41,7 @@
   <div ref="container" class="container">
     <Button
       aria-controls="menu"
-      :aria-pressed="isOpen"
+      :aria-expanded="isOpen"
       :secondary="!isOpen"
       aria-label="Menu"
       class="button"
