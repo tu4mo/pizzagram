@@ -8,7 +8,7 @@
 <template>
   <p class="field">
     <component :is="as">
-      <div class="field__label">{{ label }}</div>
+      <span class="field__label">{{ label }}</span>
       <slot />
     </component>
   </p>
