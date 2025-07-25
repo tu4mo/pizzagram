@@ -40,6 +40,7 @@
 <template>
   <div ref="container" class="container">
     <Button
+      aria-controls="menu"
       :aria-pressed="isOpen"
       :secondary="!isOpen"
       aria-label="Menu"
@@ -48,7 +49,7 @@
     >
       <Icon name="menu" />
     </Button>
-    <div :class="['menu', { 'menu--open': isOpen }]">
+    <div id="menu" :class="['menu', { 'menu--open': isOpen }]">
       <template v-if="authStore.isAuthenticated">
         <RouterLink class="menu__item" to="/account">Account</RouterLink>
         <hr />
