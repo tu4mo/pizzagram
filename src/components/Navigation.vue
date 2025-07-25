@@ -3,7 +3,10 @@
   import NavItem from './NavItem.vue'
 
   import { authStore } from '@/store/auth'
-  import { unreadNotificationsCount } from '@/store/notifications'
+
+  defineProps<{
+    unreadNotificationsCount: number
+  }>()
 </script>
 
 <template>

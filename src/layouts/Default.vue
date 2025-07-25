@@ -8,6 +8,7 @@
   import Menu from '@/components/Menu.vue'
   import Navigation from '@/components/Navigation.vue'
   import { authStore } from '@/store/auth'
+  import { unreadNotificationsCount } from '@/store/notifications'
 
   const {
     fromTop = false,
@@ -59,7 +60,7 @@
       </div>
     </header>
     <div v-if="authStore.isAuthenticated" class="default-layout__navigation">
-      <Navigation />
+      <Navigation :unread-notifications-count="unreadNotificationsCount" />
     </div>
     <main
       :class="[
