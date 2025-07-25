@@ -19,6 +19,8 @@ jobs:
 
       - name: Verify
         uses: ./.github/actions/verify
+        with:
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build
         run: |
