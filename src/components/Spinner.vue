@@ -10,7 +10,7 @@
 </script>
 
 <template>
-  <div :class="classes">
+  <div :class="classes" role="alert" aria-busy="true">
     <div class="spinner__rotate">
       <div class="spinner__pepperoni-1" />
       <div class="spinner__pepperoni-2" />
