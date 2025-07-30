@@ -7,8 +7,8 @@ describe('Spacer', () => {
   it('applies gap style based on prop', () => {
     const wrapper = mount(Spacer, {
       props: {
-        gap: '2'
-      }
+        gap: '2',
+      },
     })
 
     expect(wrapper.attributes('style')).toBe('gap: 2rem;')
@@ -17,11 +17,11 @@ describe('Spacer', () => {
   it('renders slot content', () => {
     const wrapper = mount(Spacer, {
       props: {
-        gap: '1'
+        gap: '1',
       },
       slots: {
-        default: '<div>Content</div>'
-      }
+        default: '<div>Content</div>',
+      },
     })
 
     expect(wrapper.html()).toContain('<div>Content</div>')
