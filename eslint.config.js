@@ -70,7 +70,6 @@ export default typescriptEslint.config(
       'vue/define-macros-order': 'error',
       'vue/define-props-declaration': 'error',
       'vue/multi-word-component-names': 'off',
-      'vue/no-required-prop-with-default': 'error',
       'vue/no-undef-components': [
         'error',
         { ignorePatterns: ['RouterLink', 'RouterView'] },
