@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
 
+  import PostCreated from './PostCreated.vue'
   import ProfilePhoto from './ProfilePhoto.vue'
 
   import type { User } from '@/api/user'
@@ -9,10 +10,6 @@
     createdAt: Date | undefined
     user?: User | null
   }>()
-
-  const createdDate = computed(() =>
-    createdAt ? createdAt.toLocaleDateString() : '',
-  )
 
   const isUserLoaded = computed(() => user && Object.keys(user).length > 0)
 </script>
@@ -33,7 +30,7 @@
       </div>
       <div class="post-header__username">{{ user ? user.username : null }}</div>
     </component>
-    <div class="post-header__created-date">{{ createdDate }}</div>
+    <PostCreated :created-at="createdAt" />
   </header>
 </template>
 
@@ -54,10 +51,6 @@
 
   .post-header__profile {
     margin-right: 0.5rem;
-  }
-
-  .post-header__created-date {
-    color: var(--color-gray);
   }
 
   @media (min-width: 640px) {
