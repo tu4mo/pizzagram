@@ -30,7 +30,7 @@
       </div>
       <div class="post-header__username">{{ user ? user.username : null }}</div>
     </component>
-    <PostCreated :created-at="createdAt" />
+    <PostCreated v-if="createdAt" :created-at="createdAt" />
   </header>
 </template>
 

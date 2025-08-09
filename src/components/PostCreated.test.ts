@@ -12,16 +12,6 @@ describe('PostCreated', () => {
     vi.useRealTimers()
   })
 
-  it('shows empty string when no date is provided', () => {
-    const wrapper = mount(PostCreated, {
-      props: {
-        createdAt: undefined,
-      },
-    })
-
-    expect(wrapper.text()).toBe('')
-  })
-
   it('shows relative time in minutes when less than an hour old', () => {
     const now = new Date('2025-08-09T12:00:00')
     vi.setSystemTime(now)

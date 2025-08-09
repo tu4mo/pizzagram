@@ -2,12 +2,10 @@
   import { computed } from 'vue'
 
   const { createdAt } = defineProps<{
-    createdAt: Date | undefined
+    createdAt: Date
   }>()
 
   const createdDate = computed(() => {
-    if (!createdAt) return ''
-
     const now = new Date()
     const diffInDays =
       (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
