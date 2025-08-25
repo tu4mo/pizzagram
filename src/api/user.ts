@@ -22,7 +22,7 @@ export type User = {
 
 const usersCollection = collection(firestore, 'users_2')
 
-export function createUserObject(doc: QueryDocumentSnapshot<any>) {
+function createUserObject(doc: QueryDocumentSnapshot<any>) {
   const data = doc.data() ?? {}
 
   const user: User = {

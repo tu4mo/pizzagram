@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot } from 'firebase/firestore'
 
 import { firestore } from './firebase'
 
@@ -26,11 +26,6 @@ function parseFeedData(data: unknown = '[]'): Feed {
     id: item.id,
     imageUrl: item.imageUrl ?? '',
   }))
-}
-
-export async function fetchFeed(userId: string) {
-  const docRef = await getDoc(doc(feedsCollection, userId))
-  return parseFeedData(docRef.data()?.json)
 }
 
 export function subscribeToFeed(

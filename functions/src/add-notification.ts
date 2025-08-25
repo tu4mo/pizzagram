@@ -5,7 +5,7 @@ import type {
 
 import { notifications, posts } from './db.js'
 
-export type NotificationType = 'COMMENT' | 'LIKE'
+type NotificationType = 'COMMENT' | 'LIKE'
 
 export async function addNotification(
   event: FirestoreEvent<QueryDocumentSnapshot | undefined>,
