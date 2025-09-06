@@ -1,6 +1,12 @@
 name: Install
 description: Install Node.js and dependencies
 
+inputs:
+  workspace:
+    default: ''
+    description: 'Workspace to run npm ci in'
+    required: false
+
 runs:
   using: composite
   steps:
@@ -12,4 +18,4 @@ runs:
 
     - name: Install
       shell: bash
-      run: npm ci
+      run: npm ci ${{ inputs.workspace != '' && format('--workspace={0}', inputs.workspace) || '' }}
