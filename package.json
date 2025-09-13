@@ -42,7 +42,7 @@
     "knip": "5.63.1",
     "postcss-html": "1.8.0",
     "prettier": "3.6.2",
-    "stylelint": "16.23.1",
+    "stylelint": "16.24.0",
     "stylelint-config-alphabetical-order": "1.0.0",
     "stylelint-config-recommended-vue": "1.6.1",
     "typescript": "5.9.2",
